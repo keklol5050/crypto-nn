@@ -1,6 +1,5 @@
 package com.crypto.analysis.main.data;
 
-import com.crypto.analysis.main.vo.DataObject;
 import lombok.Getter;
 import lombok.Setter;
 
