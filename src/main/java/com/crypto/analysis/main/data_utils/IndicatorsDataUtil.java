@@ -1,5 +1,7 @@
-package com.crypto.analysis.main.data;
+package com.crypto.analysis.main.data_utils;
 
+import com.crypto.analysis.main.vo.CandleObject;
+import com.crypto.analysis.main.vo.IndicatorsTransferObject;
 import org.ta4j.core.*;
 import org.ta4j.core.indicators.*;
 import org.ta4j.core.indicators.adx.ADXIndicator;

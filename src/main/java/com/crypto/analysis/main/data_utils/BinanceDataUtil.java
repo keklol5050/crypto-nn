@@ -1,7 +1,10 @@
-package com.crypto.analysis.main.data;
+package com.crypto.analysis.main.data_utils;
 
 import com.binance.connector.futures.client.impl.UMFuturesClientImpl;
+import com.crypto.analysis.main.vo.CandleObject;
 import com.crypto.analysis.main.vo.DataObject;
+import com.crypto.analysis.main.vo.Ticker24Object;
+import com.crypto.analysis.main.vo.TickerBookObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,8 +26,8 @@ public class BinanceDataUtil {
     private int capacity; // кількість свічок
 
     public static void main(String[] args) {
-        BinanceDataUtil bdu = new BinanceDataUtil("BTCUSDT", "5m", 4);
-        DataObject obj = bdu.getInstance("BTCUSDT");
+        BinanceDataUtil bdu = new BinanceDataUtil("BTCUSDT", "15m", 4);
+        DataObject obj = bdu.getInstance();
         System.out.println(obj);
     }
 
@@ -35,10 +38,12 @@ public class BinanceDataUtil {
         this.capacity = capacity;
     }
 
-    public DataObject getInstance(String symbol) {
+    public DataObject getInstance() {
         DataObject obj = new DataObject(symbol);
         obj.setCandles(getCandles());
         setFuturesData(obj);
+        IndicatorsDataUtil indicatorsDataUtil = new IndicatorsDataUtil(symbol, interval);
+        obj.setCurrentIndicators(indicatorsDataUtil.getLatestIndicatorsInfo());
         return obj;
     }
 
@@ -57,11 +62,13 @@ public class BinanceDataUtil {
             }
             assert candlestickList != null;
             for (List<Object> candlestick : candlestickList) {
-                CandleObject candleObject = new CandleObject(new Date((Long) candlestick.get(0)),
-                        candlestick.get(1).toString(), candlestick.get(2).toString(), candlestick.get(3).toString(),
-                        candlestick.get(4).toString(), candlestick.get(5).toString(), new Date((long)candlestick.get(6)),
-                        candlestick.get(7).toString(), (int) candlestick.get(8), candlestick.get(9).toString(),
-                        candlestick.get(10).toString());
+                CandleObject candleObject = new CandleObject(
+                        new Date((Long) candlestick.get(0)),
+                        Double.parseDouble(candlestick.get(1).toString()), Double.parseDouble(candlestick.get(2).toString()),
+                        Double.parseDouble(candlestick.get(3).toString()), Double.parseDouble(candlestick.get(4).toString()),
+                        Double.parseDouble(candlestick.get(5).toString()), new Date((long)candlestick.get(6)),
+                        Double.parseDouble(candlestick.get(7).toString()), (int) candlestick.get(8),  Double.parseDouble(candlestick.get(9).toString()),
+                        Double.parseDouble(candlestick.get(10).toString()));
                 result.add(candleObject);
             }
             return result;

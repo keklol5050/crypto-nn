@@ -1,4 +1,4 @@
-package com.crypto.analysis.main.data;
+package com.crypto.analysis.main.vo;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -9,30 +9,32 @@ import java.util.Date;
 @Getter
 public class CandleObject { // формат свічки графіку
     private final Date openTime;
-    private final String open;
-    private final String high;
-    private final String low;
-    private final String close;
-    private final String volume;
+    private final double open;
+    private final double high;
+    private final double low;
+    private final double close;
+    private final double volume;
     private final Date closeTime;
-    private final String quoteAssetVolume;
+    private final double quoteAssetVolume;
     private final int numberOfTrades;
-    private final String takerBuyBaseAssetVolume;
-    private final String takerBuyQuoteAssetVolume;
+    private final double takerBuyBaseAssetVolume;
+    private final double takerBuyQuoteAssetVolume;
+
+    private final Date createTime;
 
     @JsonCreator
     public CandleObject(
             @JsonProperty("0") Date openTime,
-            @JsonProperty("1") String open,
-            @JsonProperty("2") String high,
-            @JsonProperty("3") String low,
-            @JsonProperty("4") String close,
-            @JsonProperty("5") String volume,
+            @JsonProperty("1") double open,
+            @JsonProperty("2") double high,
+            @JsonProperty("3") double low,
+            @JsonProperty("4") double close,
+            @JsonProperty("5") double volume,
             @JsonProperty("6") Date closeTime,
-            @JsonProperty("7") String quoteAssetVolume,
+            @JsonProperty("7") double quoteAssetVolume,
             @JsonProperty("8") int numberOfTrades,
-            @JsonProperty("9") String takerBuyBaseAssetVolume,
-            @JsonProperty("10") String takerBuyQuoteAssetVolume) {
+            @JsonProperty("9") double takerBuyBaseAssetVolume,
+            @JsonProperty("10") double takerBuyQuoteAssetVolume) {
         this.openTime = openTime;
         this.open = open;
         this.high = high;
@@ -44,12 +46,14 @@ public class CandleObject { // формат свічки графіку
         this.numberOfTrades = numberOfTrades;
         this.takerBuyBaseAssetVolume = takerBuyBaseAssetVolume;
         this.takerBuyQuoteAssetVolume = takerBuyQuoteAssetVolume;
+
+        this.createTime = new Date();
     }
 
     @Override
     public String toString() {
         return "CandleObject{" +
-                "openTime=" + openTime +
+                "\nopenTime=" + openTime +
                 ",\n open='" + open + '\'' +
                 ",\n high='" + high + '\'' +
                 ",\n low='" + low + '\'' +
@@ -60,6 +64,7 @@ public class CandleObject { // формат свічки графіку
                 ",\n numberOfTrades=" + numberOfTrades +
                 ",\n takerBuyBaseAssetVolume='" + takerBuyBaseAssetVolume + '\'' +
                 ",\n takerBuyQuoteAssetVolume='" + takerBuyQuoteAssetVolume + '\'' +
-                '}';
+                ",\n createTime=" + createTime +
+                "\n";
     }
 }

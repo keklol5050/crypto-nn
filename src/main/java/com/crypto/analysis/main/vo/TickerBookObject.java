@@ -1,4 +1,4 @@
-package com.crypto.analysis.main.data;
+package com.crypto.analysis.main.vo;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -18,6 +18,8 @@ public class TickerBookObject {
     private final Date time;
     private final long lastUpdateId;
 
+    private final Date createTime;
+
     @JsonCreator
     public TickerBookObject(@JsonProperty("0") String symbol,
                             @JsonProperty("1") double bidPrice,
@@ -33,18 +35,21 @@ public class TickerBookObject {
         this.askQty = askQty;
         this.time = new Date(time);
         this.lastUpdateId = lastUpdateId;
+
+        this.createTime = new Date();
     }
 
     @Override
     public String toString() {
         return "TickerBookObject{" +
-                "symbol='" + symbol + '\'' +
-                ", bidPrice=" + bidPrice +
-                ", bidQty=" + bidQty +
-                ", askPrice=" + askPrice +
-                ", askQty=" + askQty +
-                ", time=" + time +
-                ", lastUpdateId=" + lastUpdateId +
-                '}';
+                "\nsymbol='" + symbol + '\'' +
+                ",\n bidPrice=" + bidPrice +
+                ",\n bidQty=" + bidQty +
+                ",\n askPrice=" + askPrice +
+                ",\n askQty=" + askQty +
+                ",\n time=" + time +
+                ",\n lastUpdateId=" + lastUpdateId +
+                ",\n createTime=" + createTime +
+                "\n}";
     }
 }

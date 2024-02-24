@@ -1,4 +1,4 @@
-package com.crypto.analysis.main.data;
+package com.crypto.analysis.main.vo;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,16 +20,17 @@ public class IndicatorsTransferObject {
     private double AROONUP;
     private double AROONDOWN;
     private double RELATIVEVOLUME;
-    private Date time;
+
+    private final Date createTime;
 
     public IndicatorsTransferObject() {
-        time=new Date();
+        createTime=new Date();
     }
 
     @Override
     public String toString() {
         return "IndicatorsTransferObject{" +
-                "RSI=" + RSI +
+                "\nRSI=" + RSI +
                 ",\n MACD=" + MACD +
                 ",\n STOCHK=" + STOCHK +
                 ",\n STOCHD=" + STOCHD +
@@ -41,7 +42,7 @@ public class IndicatorsTransferObject {
                 ",\n AROONUP=" + AROONUP +
                 ",\n AROONDOWN=" + AROONDOWN +
                 ",\n RELATIVEVOLUME=" + RELATIVEVOLUME +
-                ",\n time=" + time +
+                ",\n createTime=" + createTime +
                 '}';
     }
 }

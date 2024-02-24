@@ -1,8 +1,5 @@
 package com.crypto.analysis.main.vo;
 
-import com.crypto.analysis.main.data.CandleObject;
-import com.crypto.analysis.main.data.Ticker24Object;
-import com.crypto.analysis.main.data.TickerBookObject;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.Date;
@@ -20,18 +17,20 @@ public class DataObject {
     private String currentBuySellRatioAndVolumes; // формат buySellRatio=buyVol-sellVol
     private TickerBookObject tickerBookObject;
     private Ticker24Object ticker24Object;
-    private Date date;
+    private IndicatorsTransferObject currentIndicators; // індикатори
+
+    private Date createTime;
 
     public DataObject(String symbol) {
         this.symbol = symbol;
-        date = new Date();
+        createTime = new Date();
     }
 
     @Override
     public String toString() {
         return "DataObject{" +
-                "symbol='" + symbol + '\'' +
-                ",\n candles=" + candles +
+                "\nsymbol='" + symbol + '\'' +
+                ",\n\t candles=" + candles +
                 ",\n currentOpenInterest=" + currentOpenInterest +
                 ",\n currentLongShortRatio='" + currentLongShortRatio + '\'' +
                 ",\n currentTopTradersLongShortRatio='" + currentTopTradersLongShortRatio + '\'' +
@@ -39,7 +38,8 @@ public class DataObject {
                 ",\n currentBuySellRatioAndVolumes='" + currentBuySellRatioAndVolumes + '\'' +
                 ",\n tickerBookObject=" + tickerBookObject +
                 ",\n ticker24Object=" + ticker24Object +
-                ",\n date=" + date +
-                '}';
+                ",\n\t currentIndicators=" + currentIndicators +
+                ",\n createTime=" + createTime +
+                "\n}";
     }
 }

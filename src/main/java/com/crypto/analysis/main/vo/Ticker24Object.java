@@ -1,4 +1,4 @@
-package com.crypto.analysis.main.data;
+package com.crypto.analysis.main.vo;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -26,6 +26,8 @@ public class Ticker24Object {
     private final long firstId;
     private final long lastId;
     private final int count;
+
+    private final Date createTime;
 
     @JsonCreator
     public Ticker24Object(@JsonProperty("symbol") String symbol,
@@ -60,27 +62,30 @@ public class Ticker24Object {
         this.firstId = firstId;
         this.lastId = lastId;
         this.count = count;
+
+        this.createTime = new Date();
     }
 
     @Override
     public String toString() {
         return "SymbolData{" +
-                "symbol='" + symbol + '\'' +
-                ", priceChange='" + priceChange + '\'' +
-                ", priceChangePercent='" + priceChangePercent + '\'' +
-                ", weightedAvgPrice='" + weightedAvgPrice + '\'' +
-                ", lastPrice='" + lastPrice + '\'' +
-                ", lastQty='" + lastQty + '\'' +
-                ", openPrice='" + openPrice + '\'' +
-                ", highPrice='" + highPrice + '\'' +
-                ", lowPrice='" + lowPrice + '\'' +
-                ", volume='" + volume + '\'' +
-                ", quoteVolume='" + quoteVolume + '\'' +
-                ", openTime=" + openTime +
-                ", closeTime=" + closeTime +
-                ", firstId=" + firstId +
-                ", lastId=" + lastId +
-                ", count=" + count +
-                '}';
+                "\nsymbol='" + symbol + '\'' +
+                ",\n priceChange='" + priceChange + '\'' +
+                ",\n priceChangePercent='" + priceChangePercent + '\'' +
+                ",\n weightedAvgPrice='" + weightedAvgPrice + '\'' +
+                ",\n lastPrice='" + lastPrice + '\'' +
+                ",\n lastQty='" + lastQty + '\'' +
+                ",\n openPrice='" + openPrice + '\'' +
+                ",\n highPrice='" + highPrice + '\'' +
+                ",\n lowPrice='" + lowPrice + '\'' +
+                ",\n volume='" + volume + '\'' +
+                ",\n quoteVolume='" + quoteVolume + '\'' +
+                ",\n openTime=" + openTime +
+                ",\n closeTime=" + closeTime +
+                ",\n firstId=" + firstId +
+                ",\n lastId=" + lastId +
+                ",\n count=" + count +
+                ",\n createTime=" + createTime +
+                "\n}";
     }
 }
