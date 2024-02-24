@@ -65,7 +65,7 @@ public class IndicatorsDataUtil {
     }
 
     private TimeSeries getTimeSeries() {
-        BinanceDataUtil binanceDataUtil = new BinanceDataUtil(symbol, interval, 1000);
+        BinanceDataUtil binanceDataUtil = new BinanceDataUtil(symbol, interval, 1500);
         List<CandleObject> candleObjects = binanceDataUtil.getCandles();
         TimeSeries series = new BaseTimeSeries();
         for (CandleObject candle : candleObjects) {
