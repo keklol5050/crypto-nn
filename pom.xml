@@ -15,6 +15,7 @@
 	<name>main</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
+		<dl4j-master.version>1.0.0-M2.1</dl4j-master.version>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
@@ -81,33 +82,51 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.nd4j</groupId>
+			<artifactId>nd4j-native</artifactId>
+			<version>${dl4j-master.version}</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.datavec</groupId>
+			<artifactId>datavec-api</artifactId>
+			<version>${dl4j-master.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.datavec</groupId>
+			<artifactId>datavec-data-image</artifactId>
+			<version>${dl4j-master.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.datavec</groupId>
+			<artifactId>datavec-local</artifactId>
+			<version>${dl4j-master.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.deeplearning4j</groupId>
-			<artifactId>deeplearning4j-nn</artifactId>
-			<version>1.0.0-alpha</version>
+			<artifactId>deeplearning4j-datasets</artifactId>
+			<version>${dl4j-master.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.deeplearning4j</groupId>
 			<artifactId>deeplearning4j-core</artifactId>
-			<version>1.0.0-alpha</version>
-		</dependency>
-		<dependency>
-			<groupId>org.nd4j</groupId>
-			<artifactId>nd4j-native-platform</artifactId>
-			<version>1.0.0-alpha</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.deeplearning4j/rl4j-api -->
-		<dependency>
-			<groupId>org.deeplearning4j</groupId>
-			<artifactId>rl4j-api</artifactId>
-			<version>1.0.0-alpha</version>
+			<version>${dl4j-master.version}</version>
 		</dependency>
 
 		<dependency>
-			<groupId>org.nd4j</groupId>
-			<artifactId>nd4j-native</artifactId>
-			<version>1.0.0-alpha</version>
+			<groupId>org.deeplearning4j</groupId>
+			<artifactId>resources</artifactId>
+			<version>${dl4j-master.version}</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/commons-net/commons-net -->
+
+
+		<dependency>
+			<groupId>org.nd4j</groupId>
+			<artifactId>nd4j-api</artifactId>
+			<version>${dl4j-master.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>commons-net</groupId>
 			<artifactId>commons-net</artifactId>
