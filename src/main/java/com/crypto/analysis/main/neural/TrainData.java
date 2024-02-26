@@ -2,6 +2,7 @@ package com.crypto.analysis.main.neural;
 
 import com.crypto.analysis.main.data_utils.BinanceDataMultipleInstance;
 import com.crypto.analysis.main.data_utils.BinanceDataUtil;
+import com.crypto.analysis.main.data_utils.ClosestDateFinder;
 import com.crypto.analysis.main.data_utils.IndicatorsDataUtil;
 import com.crypto.analysis.main.enumerations.Periods;
 import com.crypto.analysis.main.vo.CandleObject;
@@ -54,17 +55,19 @@ public class TrainData {
            parameters.put("period", interval.getTimeFrame());
            parameters.put("limit", capacity);
 
-           List<LinkedList<Double>> params = BinanceDataMultipleInstance.setParameters(parameters, interval);
+           List<LinkedList<Double>> params = BinanceDataMultipleInstance.setParameters(parameters);
+           TreeMap<Date, Double> fundingMap = BinanceDataMultipleInstance.getFundingMap(parameters);
 
            int count = Math.min(params.get(0).size(), params.get(1).size());
            for (int i = 0; i < count; i++) {
                DataObject obj = new DataObject(symbol, interval);
                obj.setCurrentIndicators(IndicatorsDataUtil.getIndicators(candles,candles.size()-1));
-               obj.setCandle(candles.removeFirst());
+               CandleObject candle = candles.removeFirst();
+               obj.setCandle(candle);
                obj.setCurrentOpenInterest(params.get(0).removeFirst());
                obj.setLongRatio(params.get(1).removeFirst());
                obj.setShortRatio(params.get(2).removeFirst());
-               obj.setCurrentFundingRate(params.get(3).removeFirst());
+               obj.setCurrentFundingRate(ClosestDateFinder.findClosestValue(fundingMap,candle.getCloseTime()));
                trainData.add(obj);
            }
            System.out.println(params.get(0).size());
@@ -78,25 +81,9 @@ public class TrainData {
 
 
     public static void main(String[] args) throws JsonProcessingException {
-        LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
-        parameters.put("symbol", "BTCUSDT");
-        parameters.put("period", "4h");
-        parameters.put("limit", 500);
-
-        ObjectMapper mapper = new ObjectMapper();
-
-        JsonNode   rootNode = mapper.readTree(client.market().longShortRatio(parameters));
-        LinkedList<Double> longRatio = new LinkedList<>();
-        LinkedList<Double> shortRatio = new LinkedList<>();
-        for (JsonNode node : rootNode) {
-            double lRatio = node.get("longAccount").asDouble();
-            double sRatio = node.get("shortAccount").asDouble();
-            longRatio.add(lRatio);
-            shortRatio.add(sRatio);
-        }
-
-        longRatio.forEach(System.out::println);
-        System.out.println(longRatio.size());
+        TrainData t = new TrainData("BTCUSDT", Periods.ONE_HOUR);
+        System.out.println(t.getTrainData());
+        System.out.println(t.getTrainResult());
     }
 
     public void updateInterval(Periods interval) {

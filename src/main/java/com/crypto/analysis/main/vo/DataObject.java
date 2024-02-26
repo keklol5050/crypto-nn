@@ -43,7 +43,7 @@ public class DataObject {
 
     public double[] getParamArray() {
         double[] candleValues = Arrays.stream(candle.getValuesArr()).map(e->e/1000).toArray();
-        double[] indicators = Arrays.stream(currentIndicators.getValuesArr()).map(e->e/10).toArray();
+        double[] indicators = Arrays.stream(currentIndicators.getValuesArr()).map(e->e/1000).toArray();
         double[] fundingAndOI = {interval.ordinal()+1, currentFundingRate*1000, currentOpenInterest/10000, longRatio, shortRatio};
         double[] result = new double[candleValues.length + fundingAndOI.length + indicators.length];
         System.arraycopy(candleValues, 0, result, 0, candleValues.length);
