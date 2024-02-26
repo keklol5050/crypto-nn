@@ -12933,3 +12933,54 @@ HAVE_OPENBLAS
 2024-02-25 19:49:49.880[1708883389880] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9970 is 4.240207839757204E-5
 2024-02-25 19:49:49.900[1708883389900] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9980 is 4.0913843549788E-5
 2024-02-25 19:49:49.984[1708883389984] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9990 is 3.878745948895812E-5
+2024-02-26 02:36:46.378[1708907806378] | ERROR | AI_binTrade_bot Telegram Executor | o.t.t.u.DefaultBotSession            - Cannot invoke "String.isEmpty()" because "this.chatId" is null
+java.lang.NullPointerException: Cannot invoke "String.isEmpty()" because "this.chatId" is null
+	at org.telegram.telegrambots.meta.api.methods.send.SendMessage.validate(SendMessage.java:127)
+	at org.telegram.telegrambots.bots.DefaultAbsSender.sendMethodRequest(DefaultAbsSender.java:1070)
+	at org.telegram.telegrambots.bots.DefaultAbsSender.sendApiMethod(DefaultAbsSender.java:1044)
+	at org.telegram.telegrambots.meta.bots.AbsSender.execute(AbsSender.java:64)
+	at com.crypto.analysis.main.TelegramBot.onUpdateReceived(TelegramBot.java:27)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.telegram.telegrambots.meta.generics.LongPollingBot.onUpdatesReceived(LongPollingBot.java:27)
+	at org.telegram.telegrambots.updatesreceivers.DefaultBotSession$HandlerThread.run(DefaultBotSession.java:317)
+2024-02-26 02:36:48.883[1708907808883] | ERROR | AI_binTrade_bot Telegram Executor | o.t.t.u.DefaultBotSession            - Cannot invoke "String.isEmpty()" because "this.chatId" is null
+java.lang.NullPointerException: Cannot invoke "String.isEmpty()" because "this.chatId" is null
+	at org.telegram.telegrambots.meta.api.methods.send.SendMessage.validate(SendMessage.java:127)
+	at org.telegram.telegrambots.bots.DefaultAbsSender.sendMethodRequest(DefaultAbsSender.java:1070)
+	at org.telegram.telegrambots.bots.DefaultAbsSender.sendApiMethod(DefaultAbsSender.java:1044)
+	at org.telegram.telegrambots.meta.bots.AbsSender.execute(AbsSender.java:64)
+	at com.crypto.analysis.main.TelegramBot.onUpdateReceived(TelegramBot.java:27)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.telegram.telegrambots.meta.generics.LongPollingBot.onUpdatesReceived(LongPollingBot.java:27)
+	at org.telegram.telegrambots.updatesreceivers.DefaultBotSession$HandlerThread.run(DefaultBotSession.java:317)
+2024-02-26 02:37:16.717[1708907836717] | ERROR | AI_binTrade_bot Telegram Executor | o.t.t.u.DefaultBotSession            - Cannot invoke "String.isEmpty()" because "this.chatId" is null
+java.lang.NullPointerException: Cannot invoke "String.isEmpty()" because "this.chatId" is null
+	at org.telegram.telegrambots.meta.api.methods.send.SendMessage.validate(SendMessage.java:127)
+	at org.telegram.telegrambots.bots.DefaultAbsSender.sendMethodRequest(DefaultAbsSender.java:1070)
+	at org.telegram.telegrambots.bots.DefaultAbsSender.sendApiMethod(DefaultAbsSender.java:1044)
+	at org.telegram.telegrambots.meta.bots.AbsSender.execute(AbsSender.java:64)
+	at com.crypto.analysis.main.TelegramBot.onUpdateReceived(TelegramBot.java:27)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.telegram.telegrambots.meta.generics.LongPollingBot.onUpdatesReceived(LongPollingBot.java:27)
+	at org.telegram.telegrambots.updatesreceivers.DefaultBotSession$HandlerThread.run(DefaultBotSession.java:317)
+2024-02-26 02:37:19.553[1708907839553] | ERROR | AI_binTrade_bot Telegram Executor | o.t.t.u.DefaultBotSession            - Cannot invoke "String.isEmpty()" because "this.chatId" is null
+java.lang.NullPointerException: Cannot invoke "String.isEmpty()" because "this.chatId" is null
+	at org.telegram.telegrambots.meta.api.methods.send.SendMessage.validate(SendMessage.java:127)
+	at org.telegram.telegrambots.bots.DefaultAbsSender.sendMethodRequest(DefaultAbsSender.java:1070)
+	at org.telegram.telegrambots.bots.DefaultAbsSender.sendApiMethod(DefaultAbsSender.java:1044)
+	at org.telegram.telegrambots.meta.bots.AbsSender.execute(AbsSender.java:64)
+	at com.crypto.analysis.main.TelegramBot.onUpdateReceived(TelegramBot.java:27)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.telegram.telegrambots.meta.generics.LongPollingBot.onUpdatesReceived(LongPollingBot.java:27)
+	at org.telegram.telegrambots.updatesreceivers.DefaultBotSession$HandlerThread.run(DefaultBotSession.java:317)
+2024-02-26 02:37:20.961[1708907840961] | ERROR | AI_binTrade_bot Telegram Executor | o.t.t.u.DefaultBotSession            - Cannot invoke "String.isEmpty()" because "this.chatId" is null
+java.lang.NullPointerException: Cannot invoke "String.isEmpty()" because "this.chatId" is null
+	at org.telegram.telegrambots.meta.api.methods.send.SendMessage.validate(SendMessage.java:127)
+	at org.telegram.telegrambots.bots.DefaultAbsSender.sendMethodRequest(DefaultAbsSender.java:1070)
+	at org.telegram.telegrambots.bots.DefaultAbsSender.sendApiMethod(DefaultAbsSender.java:1044)
+	at org.telegram.telegrambots.meta.bots.AbsSender.execute(AbsSender.java:64)
+	at com.crypto.analysis.main.TelegramBot.onUpdateReceived(TelegramBot.java:27)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.telegram.telegrambots.meta.generics.LongPollingBot.onUpdatesReceived(LongPollingBot.java:27)
+	at org.telegram.telegrambots.updatesreceivers.DefaultBotSession$HandlerThread.run(DefaultBotSession.java:317)
+2024-02-26 03:10:31.683[1708909831683] | WARN  | AI_binTrade_bot Telegram Connection | o.t.t.u.DefaultBotSession            - {"ok":false,"error_code":502,"description":"Bad Gateway"}
