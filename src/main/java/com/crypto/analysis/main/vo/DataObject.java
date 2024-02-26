@@ -2,21 +2,22 @@ package com.crypto.analysis.main.vo;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
+import java.util.LinkedList;
 
 @Setter
 @Getter
 public class DataObject {
     private String symbol;
-    private List<CandleObject> candles; // графік, парсинг у класі BinanceDataUtil
+    private LinkedList<CandleObject> candles; // графік, парсинг у класі BinanceDataUtil
     private double currentOpenInterest;
-    private String currentLongShortRatio; // формат long=short
+    private double longRatio;
+    private double shortRatio;
     private String currentTopTradersLongShortRatio; // формат long=short
     private double currentFundingRate;
     private String currentBuySellRatioAndVolumes; // формат buySellRatio=buyVol-sellVol
-    private TickerBookObject tickerBookObject;
-    private Ticker24Object ticker24Object;
     private IndicatorsTransferObject currentIndicators; // індикатори
 
     private Date createTime;
@@ -26,20 +27,45 @@ public class DataObject {
         createTime = new Date();
     }
 
+
+    private double[][] getCandlesValues() {
+        double[][] candlesValues = new double[candles.size()][5];
+        for (int i = 0; i < candles.size(); i++) {
+            candlesValues[i] = candles.get(i).getValuesArr();
+        }
+        return candlesValues;
+    }
+
     @Override
     public String toString() {
-        return "DataObject{" +
+        return "\nDataObject{" +
                 "\nsymbol='" + symbol + '\'' +
-                ",\n\t candles=" + candles +
+                ",\n candles=" + candles +
                 ",\n currentOpenInterest=" + currentOpenInterest +
-                ",\n currentLongShortRatio='" + currentLongShortRatio + '\'' +
+                ",\n longRatio=" + longRatio +
+                ",\n shortRatio=" + shortRatio +
                 ",\n currentTopTradersLongShortRatio='" + currentTopTradersLongShortRatio + '\'' +
                 ",\n currentFundingRate=" + currentFundingRate +
                 ",\n currentBuySellRatioAndVolumes='" + currentBuySellRatioAndVolumes + '\'' +
-                ",\n tickerBookObject=" + tickerBookObject +
-                ",\n ticker24Object=" + ticker24Object +
-                ",\n\t currentIndicators=" + currentIndicators +
+                ",\n currentIndicators=" + currentIndicators +
                 ",\n createTime=" + createTime +
-                "\n}";
+                '}';
+    }
+
+    public double[] getParamArray() {
+        double[] candlesValues =Arrays.stream( getCandlesValues())
+                .flatMapToDouble(Arrays::stream)
+                .toArray();
+        double[] indicators = currentIndicators.getValuesArr();
+        double[] fundingAndOI = {currentOpenInterest, currentFundingRate, longRatio, shortRatio};
+        double[] result = new double[candlesValues.length + fundingAndOI.length + indicators.length];
+        System.arraycopy(fundingAndOI, 0, result, 0, fundingAndOI.length);
+        System.arraycopy(indicators, 0, result, fundingAndOI.length, indicators.length);
+        System.arraycopy(candlesValues, 0, result, fundingAndOI.length + indicators.length, candlesValues.length);
+        return Arrays.stream(candlesValues).map(e->e/1000).toArray();
+    }
+
+    public double getResultCandleCloseValue() {
+        return candles.getLast().getClose();
     }
 }

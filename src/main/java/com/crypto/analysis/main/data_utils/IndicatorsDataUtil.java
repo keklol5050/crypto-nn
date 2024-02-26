@@ -22,7 +22,7 @@ public class IndicatorsDataUtil {
         this.symbol = symbol;
         this.interval = interval;
     }
-    public IndicatorsTransferObject getLatestIndicatorsInfo() {
+    public IndicatorsTransferObject getIndicatorsInfo() {
         IndicatorsTransferObject result = new IndicatorsTransferObject();
 
         TimeSeries series = getTimeSeries();
@@ -67,6 +67,10 @@ public class IndicatorsDataUtil {
     private TimeSeries getTimeSeries() {
         BinanceDataUtil binanceDataUtil = new BinanceDataUtil(symbol, interval, 1500);
         List<CandleObject> candleObjects = binanceDataUtil.getCandles();
+        return getTimeSeries(candleObjects);
+    }
+
+    public static TimeSeries getTimeSeries(List<CandleObject> candleObjects) {
         TimeSeries series = new BaseTimeSeries();
         for (CandleObject candle : candleObjects) {
             ZonedDateTime timestamp = candle.getCloseTime().toInstant().atZone(ZoneId.systemDefault());
@@ -75,5 +79,4 @@ public class IndicatorsDataUtil {
         }
         return series;
     }
-
 }

@@ -1,6 +1,10 @@
-package com.crypto.analysis.main.data_utils;
+package com.crypto.analysis.main;
 
+import com.crypto.analysis.main.data_utils.BinanceDataUtil;
+import com.crypto.analysis.main.data_utils.TrainData;
 import com.crypto.analysis.main.vo.CandleObject;
+import com.crypto.analysis.main.vo.DataObject;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.deeplearning4j.datasets.iterator.utilty.SingletonDataSetIterator;
 import org.deeplearning4j.nn.api.OptimizationAlgorithm;
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
@@ -24,35 +28,19 @@ import java.util.List;
 
 public class BitcoinPricePrediction {
 
-    public static void main(String[] args) {
-        int numInput = 5;
+    public static void main(String[] args) throws JsonProcessingException {
+        int numInput = 12;
 
         int numOutput = 1;
         int numEpochs = 10000;
 
         List<double[]> inputList = new ArrayList<>();
-        List<Double> outputList = new ArrayList<>();
+        TrainData train = new TrainData("BTCUSDT", "5m");
+        for (DataObject dO : train.getTrainData())
+            inputList.add(dO.getParamArray());
 
+        List<Double> outputList = train.getTrainResult();
 
-        BinanceDataUtil bdu = new BinanceDataUtil("BTCUSDT", "15m", 102);
-        List<CandleObject> candles = bdu.getCandles();
-        CandleObject res = candles.remove(candles.size()-1);
-
-        for (int i = 0; i < candles.size()-1; i++) {
-            double[] input = new double[numInput];
-            CandleObject obj = candles.get(i);
-
-            input[0] = obj.getOpen()/10000;
-            input[1] = obj.getLow()/10000;
-            input[2] = obj.getHigh()/10000;
-            input[3] = obj.getClose()/10000;
-            input[4] = obj.getVolume()/10000;
-
-            double output = candles.get(i+1).getClose()/10000;
-
-            inputList.add(input);
-            outputList.add(output);
-        }
 
         int dataSize = inputList.size();
         INDArray inputArray = Nd4j.create(new double[dataSize][numInput]);
@@ -100,14 +88,10 @@ public class BitcoinPricePrediction {
         }
 
 
-        double[] newInputArray = new double[5];
-        newInputArray[0] = res.getOpen()/10000;
-        newInputArray[1] = res.getLow()/10000;
-        newInputArray[2] = res.getHigh()/10000;
-        newInputArray[3] = res.getClose()/10000;
-        newInputArray[4] = res.getVolume()/10000;
-        INDArray newInput = Nd4j.create(new double[][]{newInputArray});
+        CandleObject obj = new BinanceDataUtil("BTCUSDT", "5m", 1).getCandles().get(0);
+
+        INDArray newInput = Nd4j.create(obj.getValuesArr());
         INDArray predictedOutput = model.output(newInput, false);
-        System.out.println("Predicted Bitcoin Price: " + predictedOutput.getDouble(0)*10000);
+        System.out.println("Predicted Bitcoin Price: " + predictedOutput.getDouble(0));
     }
 }

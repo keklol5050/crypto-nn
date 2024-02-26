@@ -21,12 +21,6 @@ public class IndicatorsTransferObject {
     private double AROONDOWN;
     private double RELATIVEVOLUME;
 
-    private final Date createTime;
-
-    public IndicatorsTransferObject() {
-        createTime=new Date();
-    }
-
     @Override
     public String toString() {
         return "IndicatorsTransferObject{" +
@@ -42,7 +36,10 @@ public class IndicatorsTransferObject {
                 ",\n AROONUP=" + AROONUP +
                 ",\n AROONDOWN=" + AROONDOWN +
                 ",\n RELATIVEVOLUME=" + RELATIVEVOLUME +
-                ",\n createTime=" + createTime +
                 '}';
+    }
+
+    public double[] getValuesArr(){
+        return new double[]{RSI,MACD,STOCHK,STOCHD,OBV,SMA,EMA,WMA,ADX,AROONUP,AROONDOWN,RELATIVEVOLUME};
     }
 }

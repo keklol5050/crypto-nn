@@ -20,8 +20,6 @@ public class CandleObject { // формат свічки графіку
     private final double takerBuyBaseAssetVolume;
     private final double takerBuyQuoteAssetVolume;
 
-    private final Date createTime;
-
     @JsonCreator
     public CandleObject(
             @JsonProperty("0") Date openTime,
@@ -46,8 +44,6 @@ public class CandleObject { // формат свічки графіку
         this.numberOfTrades = numberOfTrades;
         this.takerBuyBaseAssetVolume = takerBuyBaseAssetVolume;
         this.takerBuyQuoteAssetVolume = takerBuyQuoteAssetVolume;
-
-        this.createTime = new Date();
     }
 
     @Override
@@ -64,7 +60,10 @@ public class CandleObject { // формат свічки графіку
                 ",\n numberOfTrades=" + numberOfTrades +
                 ",\n takerBuyBaseAssetVolume='" + takerBuyBaseAssetVolume + '\'' +
                 ",\n takerBuyQuoteAssetVolume='" + takerBuyQuoteAssetVolume + '\'' +
-                ",\n createTime=" + createTime +
                 "\n";
+    }
+
+    public double[] getValuesArr() {
+        return new double[]{open, high, low, close};
     }
 }
