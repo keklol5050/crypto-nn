@@ -61,22 +61,22 @@ public class BitcoinPricePrediction {
                 .optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
                 .updater(new Adam(0.01))
                 .list()
-                .layer(0, new DenseLayer.Builder().nIn(numInput).nOut(20)
+                .layer(0, new DenseLayer.Builder().nIn(numInput).nOut(64) // Увеличьте количество нейронов
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.RELU)
                         .build())
-                .layer(1, new DenseLayer.Builder().nIn(20).nOut(15)
+                .layer(1, new DenseLayer.Builder().nIn(64).nOut(32) // Увеличьте количество нейронов
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.RELU)
                         .build())
-                .layer(2, new DenseLayer.Builder().nIn(15).nOut(10)
+                .layer(2, new DenseLayer.Builder().nIn(32).nOut(16) // Увеличьте количество нейронов
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.RELU)
                         .build())
                 .layer(3, new OutputLayer.Builder(LossFunctions.LossFunction.MSE)
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.IDENTITY)
-                        .nIn(10).nOut(numOutput).build())
+                        .nIn(16).nOut(numOutput).build())
                 .build();
 
         MultiLayerNetwork model = new MultiLayerNetwork(config);

@@ -116,11 +116,7 @@ public class BinanceDataUtil {
 
         object.setCurrentBuySellRatioAndVolumes(String.format("%f=%f-%f", buySellRatio,buyVol, sellVol));
     }
-    public static double getCurrentPrice(String symbol) {
-        LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
-        parameters.put("symbol", symbol);
-        return Double.parseDouble(new UMFuturesClientImpl().market().markPrice(parameters));
-    }
+
     public static double getCurrentPrice(String symbol) {
         LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
         parameters.put("symbol", symbol);
