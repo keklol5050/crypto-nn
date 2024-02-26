@@ -12984,3 +12984,47 @@ java.lang.NullPointerException: Cannot invoke "String.isEmpty()" because "this.c
 	at org.telegram.telegrambots.meta.generics.LongPollingBot.onUpdatesReceived(LongPollingBot.java:27)
 	at org.telegram.telegrambots.updatesreceivers.DefaultBotSession$HandlerThread.run(DefaultBotSession.java:317)
 2024-02-26 03:10:31.683[1708909831683] | WARN  | AI_binTrade_bot Telegram Connection | o.t.t.u.DefaultBotSession            - {"ok":false,"error_code":502,"description":"Bad Gateway"}
+2024-02-26 03:40:07.968[1708911607968] | INFO  | AI_binTrade_bot Telegram Executor | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/premiumIndex?symbol=BTCUSDT
+2024-02-26 03:40:10.116[1708911610116] | ERROR | AI_binTrade_bot Telegram Executor | o.t.t.u.DefaultBotSession            - For input string: "{"symbol":"BTCUSDT","markPrice":"51545.90000000","indexPrice":"51511.14227273","estimatedSettlePrice":"51622.90730404","lastFundingRate":"0.00024981","interestRate":"0.00010000","nextFundingTime":1708934400000,"time":1708911610000}"
+java.lang.NumberFormatException: For input string: "{"symbol":"BTCUSDT","markPrice":"51545.90000000","indexPrice":"51511.14227273","estimatedSettlePrice":"51622.90730404","lastFundingRate":"0.00024981","interestRate":"0.00010000","nextFundingTime":1708934400000,"time":1708911610000}"
+	at java.base/jdk.internal.math.FloatingDecimal.readJavaFormatString(FloatingDecimal.java:2054)
+	at java.base/jdk.internal.math.FloatingDecimal.parseDouble(FloatingDecimal.java:110)
+	at java.base/java.lang.Double.parseDouble(Double.java:792)
+	at com.crypto.analysis.main.data_utils.BinanceDataUtil.getCurrentPrice(BinanceDataUtil.java:147)
+	at com.crypto.analysis.main.TelegramBot.onUpdateReceived(TelegramBot.java:35)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.telegram.telegrambots.meta.generics.LongPollingBot.onUpdatesReceived(LongPollingBot.java:27)
+	at org.telegram.telegrambots.updatesreceivers.DefaultBotSession$HandlerThread.run(DefaultBotSession.java:317)
+2024-02-26 03:41:09.004[1708911669004] | INFO  | AI_binTrade_bot Telegram Executor | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/premiumIndex?symbol=BTCUSDT
+2024-02-26 03:41:09.293[1708911669293] | ERROR | AI_binTrade_bot Telegram Executor | o.t.t.u.DefaultBotSession            - For input string: "{"symbol":"BTCUSDT","markPrice":"51551.60000000","indexPrice":"51516.97750000","estimatedSettlePrice":"51619.03176591","lastFundingRate":"0.00024946","interestRate":"0.00010000","nextFundingTime":1708934400000,"time":1708911669000}"
+java.lang.NumberFormatException: For input string: "{"symbol":"BTCUSDT","markPrice":"51551.60000000","indexPrice":"51516.97750000","estimatedSettlePrice":"51619.03176591","lastFundingRate":"0.00024946","interestRate":"0.00010000","nextFundingTime":1708934400000,"time":1708911669000}"
+	at java.base/jdk.internal.math.FloatingDecimal.readJavaFormatString(FloatingDecimal.java:2054)
+	at java.base/jdk.internal.math.FloatingDecimal.parseDouble(FloatingDecimal.java:110)
+	at java.base/java.lang.Double.parseDouble(Double.java:792)
+	at com.crypto.analysis.main.data_utils.BinanceDataUtil.getCurrentPrice(BinanceDataUtil.java:147)
+	at com.crypto.analysis.main.TelegramBot.onUpdateReceived(TelegramBot.java:35)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.telegram.telegrambots.meta.generics.LongPollingBot.onUpdatesReceived(LongPollingBot.java:27)
+	at org.telegram.telegrambots.updatesreceivers.DefaultBotSession$HandlerThread.run(DefaultBotSession.java:317)
+2024-02-26 03:41:11.241[1708911671241] | INFO  | AI_binTrade_bot Telegram Executor | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/premiumIndex?symbol=BTCUSDT
+2024-02-26 03:41:11.527[1708911671527] | ERROR | AI_binTrade_bot Telegram Executor | o.t.t.u.DefaultBotSession            - For input string: "{"symbol":"BTCUSDT","markPrice":"51552.88082576","indexPrice":"51516.74568182","estimatedSettlePrice":"51618.90740676","lastFundingRate":"0.00024946","interestRate":"0.00010000","nextFundingTime":1708934400000,"time":1708911671000}"
+java.lang.NumberFormatException: For input string: "{"symbol":"BTCUSDT","markPrice":"51552.88082576","indexPrice":"51516.74568182","estimatedSettlePrice":"51618.90740676","lastFundingRate":"0.00024946","interestRate":"0.00010000","nextFundingTime":1708934400000,"time":1708911671000}"
+	at java.base/jdk.internal.math.FloatingDecimal.readJavaFormatString(FloatingDecimal.java:2054)
+	at java.base/jdk.internal.math.FloatingDecimal.parseDouble(FloatingDecimal.java:110)
+	at java.base/java.lang.Double.parseDouble(Double.java:792)
+	at com.crypto.analysis.main.data_utils.BinanceDataUtil.getCurrentPrice(BinanceDataUtil.java:147)
+	at com.crypto.analysis.main.TelegramBot.onUpdateReceived(TelegramBot.java:35)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.telegram.telegrambots.meta.generics.LongPollingBot.onUpdatesReceived(LongPollingBot.java:27)
+	at org.telegram.telegrambots.updatesreceivers.DefaultBotSession$HandlerThread.run(DefaultBotSession.java:317)
+2024-02-26 03:54:08.455[1708912448455] | INFO  | AI_binTrade_bot Telegram Executor | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/premiumIndex?symbol=BTCUSDT
+2024-02-26 03:54:08.963[1708912448963] | ERROR | AI_binTrade_bot Telegram Executor | o.t.t.u.DefaultBotSession            - For input string: "{"symbol":"BTCUSDT","markPrice":"51541.13478409","indexPrice":"51506.47863636","estimatedSettlePrice":"51577.32582513","lastFundingRate":"0.00024715","interestRate":"0.00010000","nextFundingTime":1708934400000,"time":1708912449000}"
+java.lang.NumberFormatException: For input string: "{"symbol":"BTCUSDT","markPrice":"51541.13478409","indexPrice":"51506.47863636","estimatedSettlePrice":"51577.32582513","lastFundingRate":"0.00024715","interestRate":"0.00010000","nextFundingTime":1708934400000,"time":1708912449000}"
+	at java.base/jdk.internal.math.FloatingDecimal.readJavaFormatString(FloatingDecimal.java:2054)
+	at java.base/jdk.internal.math.FloatingDecimal.parseDouble(FloatingDecimal.java:110)
+	at java.base/java.lang.Double.parseDouble(Double.java:792)
+	at com.crypto.analysis.main.data_utils.BinanceDataUtil.getCurrentPrice(BinanceDataUtil.java:147)
+	at com.crypto.analysis.main.TelegramBot.onUpdateReceived(TelegramBot.java:35)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.telegram.telegrambots.meta.generics.LongPollingBot.onUpdatesReceived(LongPollingBot.java:27)
+	at org.telegram.telegrambots.updatesreceivers.DefaultBotSession$HandlerThread.run(DefaultBotSession.java:317)
