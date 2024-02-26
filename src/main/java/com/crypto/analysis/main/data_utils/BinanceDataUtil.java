@@ -121,4 +121,9 @@ public class BinanceDataUtil {
         parameters.put("symbol", symbol);
         return Double.parseDouble(new UMFuturesClientImpl().market().markPrice(parameters));
     }
+    public static double getCurrentPrice(String symbol) {
+        LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
+        parameters.put("symbol", symbol);
+        return Double.parseDouble(new UMFuturesClientImpl().market().markPrice(parameters));
+    }
 }
