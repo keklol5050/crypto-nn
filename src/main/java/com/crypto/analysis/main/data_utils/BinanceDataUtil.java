@@ -1,6 +1,7 @@
 package com.crypto.analysis.main.data_utils;
 
 import com.binance.connector.futures.client.impl.UMFuturesClientImpl;
+import com.crypto.analysis.main.enumerations.Periods;
 import com.crypto.analysis.main.vo.CandleObject;
 import com.crypto.analysis.main.vo.DataObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -14,39 +15,39 @@ import java.util.*;
 @Getter
 @Setter
 public class BinanceDataUtil {
-    private static final UMFuturesClientImpl client = new UMFuturesClientImpl();
+    public static final UMFuturesClientImpl client = new UMFuturesClientImpl();
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private String symbol; // наприклад "BTCUSDT"
-    private String interval; // 1m 3m 5m 15m 30m 1h 2h 4h 6h 8h 12h 1d 3d 1w 1M
-    private int capacity; // кількість свічок
+    private Periods interval; // 1m 3m 5m 15m 30m 1h 2h 4h 6h 8h 12h 1d 3d 1w 1M
 
     public static void main(String[] args) {
-        BinanceDataUtil bdu = new BinanceDataUtil("BTCUSDT", "15m", 4);
-        DataObject obj = bdu.getInstance();
+        BinanceDataUtil bdu = new BinanceDataUtil("BTCUSDT", Periods.FIVE_MINUTES);
+        DataObject obj = bdu.getSingleInstance();
+        System.out.println(Arrays.toString(obj.getParamArray()));
+        System.out.println(obj.getParamArray().length);
         System.out.println(obj);
     }
 
 
-    public BinanceDataUtil(String symbol, String interval, int capacity) { // !! формат типу "BTCUSDT" "15m" 4
+    public BinanceDataUtil(String symbol, Periods interval) { // !! формат типу "BTCUSDT" "15m" 4
         this.symbol = symbol;
         this.interval = interval;
-        this.capacity = capacity;
     }
 
-    public DataObject getInstance() {
-        DataObject obj = new DataObject(symbol);
-        obj.setCandles(getCandles());
+    public DataObject getSingleInstance() {
+        DataObject obj = new DataObject(symbol, interval);
+        obj.setCandle(getCandles(symbol, interval, 1).get(0));
         setFuturesData(obj);
         IndicatorsDataUtil indicatorsDataUtil = new IndicatorsDataUtil(symbol, interval);
         obj.setCurrentIndicators(indicatorsDataUtil.getIndicatorsInfo());
         return obj;
     }
 
-    public LinkedList<CandleObject> getCandles() {
+    public static LinkedList<CandleObject> getCandles(String symbol, Periods interval, int capacity) {
         LinkedList<CandleObject> result = new LinkedList<>();
         LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
         parameters.put("symbol", symbol);
-        parameters.put("interval", interval);
+        parameters.put("interval", interval.getTimeFrame());
         parameters.put("limit", capacity);
         String candles = client.market().klines(parameters);
         List<List<Object>> candlestickList = null;
@@ -72,8 +73,7 @@ public class BinanceDataUtil {
     public void setFuturesData(DataObject object) {
         LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
         parameters.put("symbol", symbol);
-        parameters.put("period", interval);
-        parameters.put("limit", capacity);
+        parameters.put("period", interval.getTimeFrame());
         try {
             setLongShortRatio(object, parameters);
             setFundingAndOpenInterest(object, parameters);

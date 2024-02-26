@@ -1,5 +1,6 @@
 package com.crypto.analysis.main.data_utils;
 
+import com.crypto.analysis.main.enumerations.Periods;
 import com.crypto.analysis.main.vo.CandleObject;
 import com.crypto.analysis.main.vo.IndicatorsTransferObject;
 import org.ta4j.core.*;
@@ -16,9 +17,9 @@ import java.util.List;
 
 public class IndicatorsDataUtil {
     private final String symbol;
-    private final String interval;
+    private final Periods interval;
 
-    public IndicatorsDataUtil(String symbol, String interval) {
+    public IndicatorsDataUtil(String symbol, Periods interval) {
         this.symbol = symbol;
         this.interval = interval;
     }
@@ -65,8 +66,7 @@ public class IndicatorsDataUtil {
     }
 
     private TimeSeries getTimeSeries() {
-        BinanceDataUtil binanceDataUtil = new BinanceDataUtil(symbol, interval, 1500);
-        List<CandleObject> candleObjects = binanceDataUtil.getCandles();
+        List<CandleObject> candleObjects = BinanceDataUtil.getCandles(symbol, interval, 1500);
         return getTimeSeries(candleObjects);
     }
 
@@ -78,5 +78,47 @@ public class IndicatorsDataUtil {
             series.addBar(bar);
         }
         return series;
+    }
+
+    public static IndicatorsTransferObject getIndicators(List<CandleObject> candles, int countBar) {
+        TimeSeries series = IndicatorsDataUtil.getTimeSeries(candles);
+
+        IndicatorsTransferObject result = new IndicatorsTransferObject();
+
+        RSIIndicator rsiIndicator = new RSIIndicator(new ClosePriceIndicator(series), 14);
+        result.setRSI(rsiIndicator.getValue(countBar).doubleValue());
+
+        MACDIndicator macd = new MACDIndicator(new ClosePriceIndicator(series), 12, 26);
+        result.setMACD(macd.getValue(countBar).doubleValue());
+
+        StochasticOscillatorKIndicator stochasticK = new StochasticOscillatorKIndicator(series, 14);
+        StochasticOscillatorDIndicator stochasticD = new StochasticOscillatorDIndicator(stochasticK);
+        result.setSTOCHK(stochasticK.getValue(countBar).doubleValue());
+        result.setSTOCHD(stochasticD.getValue(countBar).doubleValue());
+
+        OnBalanceVolumeIndicator obv = new OnBalanceVolumeIndicator(series);
+        result.setOBV(obv.getValue(countBar).doubleValue());
+
+        SMAIndicator smaIndicator = new SMAIndicator(new ClosePriceIndicator(series), 14);
+        result.setSMA(smaIndicator.getValue(countBar).doubleValue());
+
+        EMAIndicator emaIndicator = new EMAIndicator(new ClosePriceIndicator(series), 14);
+        result.setEMA(emaIndicator.getValue(countBar).doubleValue());
+
+        WMAIndicator wmaIndicator = new WMAIndicator(new ClosePriceIndicator(series), 14);
+        result.setWMA(wmaIndicator.getValue(countBar).doubleValue());
+
+        ADXIndicator adxIndicator = new ADXIndicator(series, 14);
+        result.setADX(adxIndicator.getValue(countBar).doubleValue());
+
+        AroonUpIndicator up = new AroonUpIndicator(series, 14);
+        AroonDownIndicator down = new AroonDownIndicator(series, 14);
+        result.setAROONUP(up.getValue(countBar).doubleValue());
+        result.setAROONDOWN(down.getValue(countBar).doubleValue());
+
+        VolumeIndicator relativeVolume = new VolumeIndicator(series, 10);
+        result.setRELATIVEVOLUME(relativeVolume.getValue(countBar).doubleValue());
+
+        return result;
     }
 }

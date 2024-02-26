@@ -1,4 +1,4 @@
-package com.crypto.analysis.main.vo;
+package com.crypto.analysis.main.enumerations;
 
 public enum Coins {
     BTCUSDT,

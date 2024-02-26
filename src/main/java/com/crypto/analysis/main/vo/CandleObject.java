@@ -54,12 +54,6 @@ public class CandleObject { // формат свічки графіку
                 ",\n high='" + high + '\'' +
                 ",\n low='" + low + '\'' +
                 ",\n close='" + close + '\'' +
-                ",\n volume='" + volume + '\'' +
-                ",\n closeTime=" + closeTime +
-                ",\n quoteAssetVolume='" + quoteAssetVolume + '\'' +
-                ",\n numberOfTrades=" + numberOfTrades +
-                ",\n takerBuyBaseAssetVolume='" + takerBuyBaseAssetVolume + '\'' +
-                ",\n takerBuyQuoteAssetVolume='" + takerBuyQuoteAssetVolume + '\'' +
                 "\n";
     }
 

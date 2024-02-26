@@ -1,8 +1,7 @@
-package com.crypto.analysis.main;
+package com.crypto.analysis.main.neural;
 
 import com.crypto.analysis.main.data_utils.BinanceDataUtil;
-import com.crypto.analysis.main.data_utils.TrainData;
-import com.crypto.analysis.main.vo.CandleObject;
+import com.crypto.analysis.main.enumerations.Periods;
 import com.crypto.analysis.main.vo.DataObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.deeplearning4j.datasets.iterator.utilty.SingletonDataSetIterator;
@@ -29,13 +28,13 @@ import java.util.List;
 public class BitcoinPricePrediction {
 
     public static void main(String[] args) throws JsonProcessingException {
-        int numInput = 12;
+        int numInput = 20;
 
         int numOutput = 1;
-        int numEpochs = 10000;
+        int numEpochs = 1000;
 
         List<double[]> inputList = new ArrayList<>();
-        TrainData train = new TrainData("BTCUSDT", "5m");
+        TrainData train = new TrainData("BTCUSDT", Periods.FIVE_MINUTES);
         for (DataObject dO : train.getTrainData())
             inputList.add(dO.getParamArray());
 
@@ -61,15 +60,15 @@ public class BitcoinPricePrediction {
                 .optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
                 .updater(new Adam(0.01))
                 .list()
-                .layer(0, new DenseLayer.Builder().nIn(numInput).nOut(64) // Увеличьте количество нейронов
+                .layer(0, new DenseLayer.Builder().nIn(numInput).nOut(64)
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.RELU)
                         .build())
-                .layer(1, new DenseLayer.Builder().nIn(64).nOut(32) // Увеличьте количество нейронов
+                .layer(1, new DenseLayer.Builder().nIn(64).nOut(32)
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.RELU)
                         .build())
-                .layer(2, new DenseLayer.Builder().nIn(32).nOut(16) // Увеличьте количество нейронов
+                .layer(2, new DenseLayer.Builder().nIn(32).nOut(16)
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.RELU)
                         .build())
@@ -88,10 +87,10 @@ public class BitcoinPricePrediction {
         }
 
 
-        CandleObject obj = new BinanceDataUtil("BTCUSDT", "5m", 1).getCandles().get(0);
+        DataObject obj = new BinanceDataUtil("BTCUSDT", Periods.FIVE_MINUTES).getSingleInstance();
 
-        INDArray newInput = Nd4j.create(obj.getValuesArr());
+        INDArray newInput = Nd4j.create(new double[][]{obj.getParamArray()});
         INDArray predictedOutput = model.output(newInput, false);
-        System.out.println("Predicted Bitcoin Price: " + predictedOutput.getDouble(0));
+        System.out.println("Predicted Bitcoin Price: " + predictedOutput.getDouble(0)*1000);
     }
 }
