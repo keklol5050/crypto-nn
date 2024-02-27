@@ -58,6 +58,11 @@ public class CandleObject { // формат свічки графіку
     }
 
     public double[] getValuesArr() {
-        return new double[]{open, high, low, close};
+        return new double[]{
+                open/10000,
+                high/10000,
+                low/10000,
+                close/10000
+        };
     }
 }

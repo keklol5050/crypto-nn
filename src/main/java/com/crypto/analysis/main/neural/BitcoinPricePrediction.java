@@ -18,6 +18,8 @@ import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.factory.Nd4j;
+import org.nd4j.linalg.indexing.INDArrayIndex;
+import org.nd4j.linalg.indexing.NDArrayIndex;
 import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
@@ -26,13 +28,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static com.crypto.analysis.main.neural.TrainDataSet.getDataArr;
+
 public class BitcoinPricePrediction {
 
     public static void main(String[] args) throws JsonProcessingException {
-        int numInput = 210;
+        int numInput = 170;
 
         int numOutput = 1;
-        int numEpochs = 10000;
+        int numEpochs = 20000;
         TrainDataSet trainSet = new TrainDataSet("BTCUSDT");
         trainSet.prepareTrainSet();
 
@@ -85,26 +89,21 @@ public class BitcoinPricePrediction {
             model.fit(iterator);
         }
 
+        while(true) {
+            for (int i = 0; i < Periods.values().length; i++) {
+                DataObject[] input = BinanceDataMultipleInstance.getLatestInstances("BTCUSDT", Periods.values()[i]);
+                LinkedList<DataObject> trainData = new LinkedList<>(Arrays.asList(input));
 
-       while(true) {
-           DataObject[] input = BinanceDataMultipleInstance.getLatestInstances("BTCUSDT", Periods.FIFTEEN_MINUTES);
-           LinkedList<DataObject> trainData = new LinkedList<>(Arrays.asList(input));
-           int index = 0;
-           double[] inputDataArray = new double[210];
-           for (int j = 0; j < 10; j++) {
-               DataObject obj = trainData.removeLast();
-               double[] params = obj.getParamArray();
-               System.arraycopy(params, 0, inputDataArray, inputDataArray.length - params.length - index, params.length);
-               index += params.length;
-           }
-           INDArray newInput = Nd4j.create(new double[][]{inputDataArray});
-           INDArray predictedOutput = model.output(newInput, false);
-           System.out.println("Predicted Bitcoin Price: " + predictedOutput.getDouble(0) * 10000);
-           try {
-               TimeUnit.MINUTES.sleep(5);
-           } catch (InterruptedException e) {
-               throw new RuntimeException(e);
-           }
-       }
+                INDArray newInput = Nd4j.create(new double[][]{getDataArr(trainData)});
+                INDArray predictedOutput = model.output(newInput, false);
+                System.out.println("Predicted Bitcoin Price: " + predictedOutput.getDouble(0) * 10000);
+            }
+            try {
+                TimeUnit.MINUTES.sleep(5);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
+
 }

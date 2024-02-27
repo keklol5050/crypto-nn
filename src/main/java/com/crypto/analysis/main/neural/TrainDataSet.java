@@ -46,19 +46,23 @@ public class TrainDataSet {
     private void makeTrainSet() {
         int count = trainData.size()/10;
         for (int i = 0; i < count; i++) {
-            int index = 0;
-            double[] inputDataArray = new double[210];
-            for (int j = 0; j < 10; j++) {
-                DataObject obj = trainData.removeLast();
-                double[] params = obj.getParamArray();
-                System.arraycopy(params, 0, inputDataArray, inputDataArray.length-params.length-index, params.length);
-                index += params.length;
-            }
-            finalTrainSet.add(0,inputDataArray);
+            finalTrainSet.add(0,getDataArr(trainData));
         }
         for (int i = 9; i < trainResult.size(); i+=10) {
             finalTrainResult.add(trainResult.get(i));
         }
+    }
+
+    public static double[] getDataArr(LinkedList<DataObject> trainData) {
+        int index = 0;
+        double[] inputDataArray = new double[170];
+        for (int j = 0; j < 10; j++) {
+            DataObject obj = trainData.removeLast();
+            double[] params = obj.getParamArray();
+            System.arraycopy(params, 0, inputDataArray, inputDataArray.length - params.length - index, params.length);
+            index += params.length;
+        }
+        return inputDataArray;
     }
 
     public static void main(String[] args) {
