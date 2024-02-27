@@ -13,8 +13,8 @@ import static com.crypto.analysis.main.data_utils.BinanceDataUtil.client;
 
 public class BinanceDataMultipleInstance {
     public static DataObject[] getLatestInstances(String symbol, Periods interval) throws JsonProcessingException {
-        DataObject[] instances = new DataObject[10];
-        LinkedList<CandleObject> candles = BinanceDataUtil.getCandles(symbol, interval, 10);
+        DataObject[] instances = new DataObject[30];
+        LinkedList<CandleObject> candles = BinanceDataUtil.getCandles(symbol, interval, 30);
 
         IndicatorsDataUtil util = new IndicatorsDataUtil(symbol, interval);
 

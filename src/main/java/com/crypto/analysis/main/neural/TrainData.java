@@ -29,7 +29,12 @@ public class TrainData {
 
     private void init() {
        try {
-           candles = BinanceDataUtil.getCandles(symbol, interval, 1201);
+           candles = BinanceDataUtil.getCandles(symbol, interval, 601);
+           if (candles.size()<601) {
+               while ((candles.size()-1)%30!=0) {
+                   candles.removeFirst();
+               }
+           }
            for (int i = 1; i<candles.size(); i++) {
                trainResult.add(candles.get(i).getClose()/10000);
            }
@@ -56,7 +61,7 @@ public class TrainData {
         init();
     }
     public static void main(String[] args) throws JsonProcessingException {
-        TrainData t = new TrainData("BTCUSDT", Periods.ONE_HOUR);
+        TrainData t = new TrainData("BTCUSDT", Periods.ONE_DAY);
         System.out.println(t.getTrainData());
         System.out.println(t.getTrainResult());
     }

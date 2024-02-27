@@ -3,6 +3,8 @@ package com.crypto.analysis.main.data_utils;
 import com.crypto.analysis.main.enumerations.Periods;
 import com.crypto.analysis.main.vo.CandleObject;
 import com.crypto.analysis.main.vo.IndicatorsTransferObject;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.*;
 import org.ta4j.core.indicators.adx.ADXIndicator;
@@ -10,7 +12,14 @@ import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.indicators.helpers.VolumeIndicator;
 import org.ta4j.core.indicators.volume.OnBalanceVolumeIndicator;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 public class IndicatorsDataUtil {
     private final LinkedList<CandleObject> candles;

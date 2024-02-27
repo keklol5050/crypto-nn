@@ -33,7 +33,7 @@ import static com.crypto.analysis.main.neural.TrainDataSet.getDataArr;
 public class BitcoinPricePrediction {
 
     public static void main(String[] args) throws JsonProcessingException {
-        int numInput = 170;
+        int numInput = 510;
 
         int numOutput = 1;
         int numEpochs = 20000;
@@ -63,19 +63,27 @@ public class BitcoinPricePrediction {
                 .optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
                 .updater(new Adam(0.001))
                 .list()
-                .layer(0, new DenseLayer.Builder().nIn(numInput).nOut(96)
+                .layer(0, new DenseLayer.Builder().nIn(numInput).nOut(256)
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.RELU)
                         .build())
-                .layer(1, new DenseLayer.Builder().nIn(64).nOut(32)
+                .layer(1, new DenseLayer.Builder().nIn(256).nOut(128)
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.RELU)
                         .build())
-                .layer(2, new DenseLayer.Builder().nIn(32).nOut(16)
+                .layer(2, new DenseLayer.Builder().nIn(128).nOut(64)
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.RELU)
                         .build())
-                .layer(3, new OutputLayer.Builder(LossFunctions.LossFunction.MSE)
+                .layer(3, new DenseLayer.Builder().nIn(64).nOut(32)
+                        .weightInit(WeightInit.XAVIER)
+                        .activation(Activation.RELU)
+                        .build())
+                .layer(4, new DenseLayer.Builder().nIn(32).nOut(16)
+                        .weightInit(WeightInit.XAVIER)
+                        .activation(Activation.RELU)
+                        .build())
+                .layer(5, new OutputLayer.Builder(LossFunctions.LossFunction.MSE)
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.IDENTITY)
                         .nIn(16).nOut(numOutput).build())
@@ -90,7 +98,7 @@ public class BitcoinPricePrediction {
         }
 
         while(true) {
-            for (int i = 0; i < Periods.values().length; i++) {
+            for (int i = 0; i < Periods.values().length-2; i++) {
                 DataObject[] input = BinanceDataMultipleInstance.getLatestInstances("BTCUSDT", Periods.values()[i]);
                 LinkedList<DataObject> trainData = new LinkedList<>(Arrays.asList(input));
 
