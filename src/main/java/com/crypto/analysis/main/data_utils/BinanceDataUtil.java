@@ -21,7 +21,7 @@ public class BinanceDataUtil {
     private Periods interval; // 1m 3m 5m 15m 30m 1h 2h 4h 6h 8h 12h 1d 3d 1w 1M
 
     public static void main(String[] args) {
-        BinanceDataUtil bdu = new BinanceDataUtil("BTCUSDT", Periods.FIVE_MINUTES);
+        BinanceDataUtil bdu = new BinanceDataUtil("BTCUSDT", Periods.ONE_HOUR);
         DataObject obj = bdu.getSingleInstance();
         System.out.println(Arrays.toString(obj.getParamArray()));
         System.out.println(obj.getParamArray().length);
@@ -36,10 +36,10 @@ public class BinanceDataUtil {
 
     public DataObject getSingleInstance() {
         DataObject obj = new DataObject(symbol, interval);
-        obj.setCandle(getCandles(symbol, interval, 1).get(0));
         setFuturesData(obj);
-        IndicatorsDataUtil indicatorsDataUtil = new IndicatorsDataUtil(symbol, interval);
-        obj.setCurrentIndicators(indicatorsDataUtil.getIndicatorsInfo());
+        IndicatorSingleDataUtil indicatorSingleDataUtil = new IndicatorSingleDataUtil(symbol, interval);
+        obj.setCurrentIndicators(indicatorSingleDataUtil.getIndicatorsInfo());
+        obj.setCandle(indicatorSingleDataUtil.getLastCandle());
         return obj;
     }
 

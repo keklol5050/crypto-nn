@@ -1,21 +1,14 @@
 package com.crypto.analysis.main.neural;
 
-import com.crypto.analysis.main.data_utils.BinanceDataMultipleInstance;
-import com.crypto.analysis.main.data_utils.BinanceDataUtil;
-import com.crypto.analysis.main.data_utils.ClosestDateFinder;
-import com.crypto.analysis.main.data_utils.IndicatorsDataUtil;
+import com.crypto.analysis.main.data_utils.*;
 import com.crypto.analysis.main.enumerations.Periods;
 import com.crypto.analysis.main.vo.CandleObject;
 import com.crypto.analysis.main.vo.DataObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 
-
 import java.util.*;
-
-import static com.crypto.analysis.main.data_utils.BinanceDataUtil.client;
 
 @Getter
 public class TrainData {
@@ -47,7 +40,7 @@ public class TrainData {
            };
            candles = BinanceDataUtil.getCandles(symbol, interval, capacity+1);
            for (int i = 1; i<candles.size(); i++) {
-               trainResult.add(candles.get(i).getClose()/1000);
+               trainResult.add(candles.get(i).getClose()/10000);
            }
            candles.removeLast();
            LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
@@ -59,9 +52,10 @@ public class TrainData {
            TreeMap<Date, Double> fundingMap = BinanceDataMultipleInstance.getFundingMap(parameters);
 
            int count = Math.min(params.get(0).size(), params.get(1).size());
+           IndicatorsDataUtil util = new IndicatorsDataUtil(symbol, interval);
            for (int i = 0; i < count; i++) {
                DataObject obj = new DataObject(symbol, interval);
-               obj.setCurrentIndicators(IndicatorsDataUtil.getIndicators(candles,candles.size()-1));
+               obj.setCurrentIndicators(util.getIndicators(candles.size()-1));
                CandleObject candle = candles.removeFirst();
                obj.setCandle(candle);
                obj.setCurrentOpenInterest(params.get(0).removeFirst());
@@ -70,9 +64,10 @@ public class TrainData {
                obj.setCurrentFundingRate(ClosestDateFinder.findClosestValue(fundingMap,candle.getCloseTime()));
                trainData.add(obj);
            }
-           System.out.println(params.get(0).size());
-           System.out.println(params.get(1).size());
-           System.out.println(params.get(2).size());
+           if (params.get(0).isEmpty() && params.get(1).isEmpty() && params.get(2).isEmpty()) {
+               System.out.println("no errors");
+           } else
+               System.out.println("were errors");
        } catch (Exception e) {
            throw new RuntimeException(e);
        }

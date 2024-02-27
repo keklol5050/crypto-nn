@@ -23,11 +23,12 @@ public class BinanceDataMultipleInstance {
 
         List<LinkedList<Double>> params = BinanceDataMultipleInstance.setParameters(parameters);
         TreeMap<Date, Double> fundingMap = getFundingMap(parameters);
+        IndicatorsDataUtil util = new IndicatorsDataUtil(symbol, interval);
 
         int count = candles.size();
         for (int i = 0; i < count; i++) {
             DataObject obj = new DataObject(symbol, interval);
-            obj.setCurrentIndicators(IndicatorsDataUtil.getIndicators(candles, candles.size() - 1));
+            obj.setCurrentIndicators(util.getIndicators(candles.size() - 1));
             CandleObject candle = candles.removeFirst();
             obj.setCandle(candle);
             obj.setShortRatio(params.get(2).removeFirst());
@@ -78,6 +79,6 @@ public class BinanceDataMultipleInstance {
 
     public static void main(String[] args) throws JsonProcessingException {
         System.out.println(
-                Arrays.toString(BinanceDataMultipleInstance.getLatestInstances("BTCUSDT", Periods.ONE_DAY)));
+                Arrays.toString(BinanceDataMultipleInstance.getLatestInstances("BTCUSDT", Periods.ONE_HOUR)));
     }
 }

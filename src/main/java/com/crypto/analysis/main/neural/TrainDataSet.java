@@ -4,9 +4,10 @@ import com.crypto.analysis.main.enumerations.Periods;
 import com.crypto.analysis.main.vo.DataObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.Getter;
-import org.hibernate.sql.ast.tree.expression.Collation;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 @Getter
 public class TrainDataSet {
@@ -46,7 +47,7 @@ public class TrainDataSet {
         int count = trainData.size()/10;
         for (int i = 0; i < count; i++) {
             int index = 0;
-            double[] inputDataArray = new double[220];
+            double[] inputDataArray = new double[210];
             for (int j = 0; j < 10; j++) {
                 DataObject obj = trainData.removeLast();
                 double[] params = obj.getParamArray();

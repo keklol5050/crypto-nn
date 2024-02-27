@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import java.util.Arrays;
 import java.util.Date;
-import java.util.LinkedList;
 
 @Setter
 @Getter
@@ -30,19 +29,25 @@ public class DataObject {
         createTime = new Date();
     }
 
-
     @Override
     public String toString() {
         return "\nDataObject{" +
+                "\nsymbol='" + symbol + '\'' +
+                ",\n interval=" + interval +
                 ",\n candle=" + candle +
                 ",\n currentOpenInterest=" + currentOpenInterest +
                 ",\n longRatio=" + longRatio +
                 ",\n shortRatio=" + shortRatio +
-                ",\n currentFundingRate=" + currentFundingRate + '}';
+                ",\n currentTopTradersLongShortRatio='" + currentTopTradersLongShortRatio + '\'' +
+                ",\n currentFundingRate=" + currentFundingRate +
+                ",\n currentBuySellRatioAndVolumes='" + currentBuySellRatioAndVolumes + '\'' +
+                ",\n currentIndicators=" + currentIndicators +
+                ",\n createTime=" + createTime +
+                '}';
     }
 
     public double[] getParamArray() {
-        double[] candleValues = Arrays.stream(candle.getValuesArr()).map(e->e/1000).toArray();
+        double[] candleValues = Arrays.stream(candle.getValuesArr()).map(e->e/10000).toArray();
         double[] indicators = Arrays.stream(currentIndicators.getValuesArr()).map(e->e/1000).toArray();
         double[] fundingAndOI = {interval.ordinal()+1, currentFundingRate*1000, currentOpenInterest/10000, longRatio, shortRatio};
         double[] result = new double[candleValues.length + fundingAndOI.length + indicators.length];
