@@ -37,20 +37,20 @@ public class IndicatorsTransferObject {
                 '}';
     }
 
-    public double[] getValuesArr(){
+    public double[] getValuesArr() {
         return new double[]{
-                RSI/100,
-                MACD/1000,
-                STOCHK/100,
-                STOCHD/100,
-                OBV/100000,
-                SMA/10000,
-                EMA/10000,
-                WMA/10000,
-                ADX/100,
-                AROONUP/100,
-                AROONDOWN/100,
-                RELATIVEVOLUME/100000
+                RSI / 100,
+                MACD / 1000,
+                STOCHK / 100,
+                STOCHD / 100,
+                OBV / 100000,
+                SMA / 10000,
+                EMA / 10000,
+                WMA / 10000,
+                ADX / 100,
+                AROONUP / 100,
+                AROONDOWN / 100,
+                RELATIVEVOLUME / 100000
         };
     }
 }

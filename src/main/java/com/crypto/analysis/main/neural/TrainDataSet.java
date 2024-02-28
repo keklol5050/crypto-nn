@@ -56,7 +56,7 @@ public class TrainDataSet {
         for (int i = 0; i < count; i++) {
             finalTrainSet.add(0,getDataArr(trainData));
         }
-        for (int i = 9; i < trainResult.size(); i+=30) {
+        for (int i = 29; i < trainResult.size(); i+=30) {
             finalTrainResult.add(trainResult.get(i));
         }
     }

@@ -12,7 +12,7 @@ import java.util.*;
 import static com.crypto.analysis.main.data_utils.BinanceDataUtil.client;
 
 public class BinanceDataMultipleInstance {
-    public static DataObject[] getLatestInstances(String symbol, Periods interval) throws JsonProcessingException {
+    public static DataObject[] getLatestInstances(String symbol, Periods interval) {
         DataObject[] instances = new DataObject[30];
         LinkedList<CandleObject> candles = BinanceDataUtil.getCandles(symbol, interval, 30);
 
@@ -29,7 +29,7 @@ public class BinanceDataMultipleInstance {
         return instances;
     }
 
-    public static void main(String[] args) throws JsonProcessingException {
+    public static void main(String[] args) {
         System.out.println(
                 Arrays.toString(BinanceDataMultipleInstance.getLatestInstances("BTCUSDT", Periods.ONE_HOUR)));
     }

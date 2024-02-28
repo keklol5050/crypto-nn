@@ -61,7 +61,7 @@ public class TrainData {
         init();
     }
     public static void main(String[] args) throws JsonProcessingException {
-        TrainData t = new TrainData("BTCUSDT", Periods.ONE_DAY);
+        TrainData t = new TrainData("BTCUSDT", Periods.ONE_WEEK);
         System.out.println(t.getTrainData());
         System.out.println(t.getTrainResult());
     }
