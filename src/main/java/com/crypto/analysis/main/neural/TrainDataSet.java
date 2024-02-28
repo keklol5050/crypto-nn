@@ -15,14 +15,19 @@ public class TrainDataSet {
     private final LinkedList<DataObject> trainData= new LinkedList<>();
     private final LinkedList<Double> trainResult = new LinkedList<>();
 
+    private final LinkedList<DataObject> testData = new LinkedList<>();
+    private final LinkedList<Double> testResult = new LinkedList<>();
+
     private final LinkedList<double[]> finalTrainSet = new LinkedList<>();
     private final LinkedList<Double> finalTrainResult = new LinkedList<>();
+
+    private final LinkedList<double[]> finalTestSet = new LinkedList<>();
+    private final LinkedList<Double> finalTestResult = new LinkedList<>();
 
     public TrainDataSet(String symbol) {
         this.symbol = symbol;
     }
     public void prepareTrainSet() {
-        try {
             if (!trainResult.isEmpty() || !trainData.isEmpty()) throw new IllegalArgumentException();
 
             TrainData train = new TrainData(symbol, Periods.ONE_MINUTE);
@@ -41,14 +46,13 @@ public class TrainDataSet {
             train.updateInterval(Periods.ONE_WEEK);
             train.updateInterval(Periods.ONE_MONTH);
 
-
             trainData.addAll(train.getTrainData());
             trainResult.addAll(train.getTrainResult());
 
+            testData.addAll(train.getTestData());
+            testResult.addAll(train.getTestResult());
+
             makeTrainSet();
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private void makeTrainSet() {
@@ -58,6 +62,14 @@ public class TrainDataSet {
         }
         for (int i = 29; i < trainResult.size(); i+=30) {
             finalTrainResult.add(trainResult.get(i));
+        }
+
+        count = testData.size()/30;
+        for (int i = 0; i < count; i++) {
+            finalTestSet.add(0,getDataArr(testData));
+        }
+        for (int i = 29; i < testResult.size(); i+=30) {
+            finalTestResult.add(testResult.get(i));
         }
     }
 
@@ -86,5 +98,12 @@ public class TrainDataSet {
         System.out.println(data.size());
         System.out.println(t.getFinalTrainSet().size());
         System.out.println(t.getFinalTrainSet().size());
+
+        List<double[]> test = t.getFinalTrainSet();
+        List<Double> testResult = t.getFinalTrainResult();
+        for (int i = 0; i < data.size(); i++) {
+            System.out.println(Arrays.toString(test.get(i)));
+            System.out.println(testResult.get(i));
+        }
     }
 }

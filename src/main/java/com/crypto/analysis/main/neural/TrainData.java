@@ -17,11 +17,13 @@ public class TrainData {
     private Periods interval;
     private LinkedList<CandleObject> candles;
 
-    private final List<DataObject> trainData = new ArrayList<>();
-    private final List<Double> trainResult = new ArrayList<>();
+    private final LinkedList<DataObject> trainData = new LinkedList<>();
+    private final LinkedList<Double> trainResult = new LinkedList<>();
 
+    private final LinkedList<DataObject> testData = new LinkedList<>();
+    private final LinkedList<Double> testResult = new LinkedList<>();
 
-    public TrainData(String symbol, Periods interval) throws JsonProcessingException {
+    public TrainData(String symbol, Periods interval){
         this.symbol = symbol;
         this.interval = interval;
         init();
@@ -29,28 +31,46 @@ public class TrainData {
 
     private void init() {
        try {
-           candles = BinanceDataUtil.getCandles(symbol, interval, 601);
+           candles = BinanceDataUtil.getCandles(symbol, interval, 1440);
            if (candles.size()<601) {
-               while ((candles.size()-1)%30!=0) {
+               while ((candles.size()-1)%30!=0 || (((candles.size()-1)/3)%30!=0)) {
                    candles.removeFirst();
                }
            }
+           int countMax = candles.size()-1;
+           int countMain = countMax - countMax/6;
+
+
+           LinkedList<DataObject> localTrainData = new LinkedList<>();
+           LinkedList<Double> localTrainResult = new LinkedList<>();
+
+           LinkedList<DataObject> localTestData = new LinkedList<>();
+           LinkedList<Double> localTestResult = new LinkedList<>();
+
            for (int i = 1; i<candles.size(); i++) {
-               trainResult.add(candles.get(i).getClose()/10000);
+               if (i < countMain+1) {
+                   localTrainResult.add(candles.get(i).getClose()/10000);
+               } else localTestResult.add(candles.get(i).getClose()/10000);
            }
            candles.removeLast();
 
            IndicatorsDataUtil util = new IndicatorsDataUtil(symbol, interval);
 
-           int count = candles.size();
-
-           for (int i = 0; i < count; i++) {
+           for (int i = 0; i < countMax; i++) {
                DataObject obj = new DataObject(symbol, interval);
                obj.setCurrentIndicators(util.getIndicators(candles.size()-1));
                CandleObject candle = candles.removeFirst();
                obj.setCandle(candle);
-               trainData.add(obj);
+              if (i < countMain) {
+                  localTrainData.add(obj);
+              } else localTestData.add(obj);
            }
+
+           trainData.addAll(localTrainData);
+           trainResult.addAll(localTrainResult);
+
+           testData.addAll(localTestData);
+           testResult.addAll(localTestResult);
        } catch (Exception e) {
            throw new RuntimeException(e);
        }
@@ -60,9 +80,11 @@ public class TrainData {
         this.interval = interval;
         init();
     }
-    public static void main(String[] args) throws JsonProcessingException {
-        TrainData t = new TrainData("BTCUSDT", Periods.ONE_WEEK);
-        System.out.println(t.getTrainData());
-        System.out.println(t.getTrainResult());
+    public static void main(String[] args) {
+        TrainData train = new TrainData("BTCUSDT", Periods.ONE_MONTH);
+        System.out.println(train.getTrainData());
+        System.out.println(train.getTrainResult());
+        System.out.println(train.getTestData());
+        System.out.println(train.getTestResult());
     }
 }

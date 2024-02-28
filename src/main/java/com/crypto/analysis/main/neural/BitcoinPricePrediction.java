@@ -1,8 +1,5 @@
 package com.crypto.analysis.main.neural;
 
-import com.crypto.analysis.main.data_utils.BinanceDataMultipleInstance;
-import com.crypto.analysis.main.enumerations.Periods;
-import com.crypto.analysis.main.vo.DataObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.deeplearning4j.datasets.iterator.utilty.SingletonDataSetIterator;
 import org.deeplearning4j.nn.api.OptimizationAlgorithm;
@@ -18,17 +15,10 @@ import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.factory.Nd4j;
-import org.nd4j.linalg.indexing.INDArrayIndex;
-import org.nd4j.linalg.indexing.NDArrayIndex;
 import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import static com.crypto.analysis.main.neural.TrainDataSet.getDataArr;
 
 public class BitcoinPricePrediction {
 
@@ -97,21 +87,23 @@ public class BitcoinPricePrediction {
             model.fit(iterator);
         }
 
-        while(true) {
-            for (int i = 0; i < Periods.values().length-2; i++) {
-                DataObject[] input = BinanceDataMultipleInstance.getLatestInstances("BTCUSDT", Periods.values()[i]);
-                LinkedList<DataObject> trainData = new LinkedList<>(Arrays.asList(input));
+        List<double[]> testSet = trainSet.getFinalTestSet();
+        List<Double> testResult = trainSet.getFinalTestResult();
+        int countRight = 0;
 
-                INDArray newInput = Nd4j.create(new double[][]{getDataArr(trainData)});
-                INDArray predictedOutput = model.output(newInput, false);
-                System.out.println("Predicted Bitcoin Price: " + predictedOutput.getDouble(0) * 10000);
-            }
-            try {
-                TimeUnit.MINUTES.sleep(5);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+        for (int i = 0; i < testSet.size(); i++) {
+            INDArray newInput = Nd4j.create(new double[][]{testSet.get(i)});
+            INDArray predictedOutput = model.output(newInput, false);
+            double prediction = predictedOutput.getDouble(0) * 10000;
+            double real = testResult.get(i) * 10000;
+            boolean isRight = Math.abs(prediction - real) < 100;
+            if (isRight) countRight++;
+            System.out.printf("Predicted: %f, Real: %f, is right (100) :%s ", prediction, real, isRight);
+            System.out.println();
         }
+        System.out.println("Right: "+countRight + " from " + testSet.size());
+        System.out.println("Percentage: " + ((double) countRight/(double) testSet.size()) * 100 + '%');
+
     }
 
 }
