@@ -10,9 +10,9 @@ import java.util.Date;
 public class CandleObject { // формат свічки графіку
     private final Date openTime;
     private final double open;
+    private final double close;
     private final double high;
     private final double low;
-    private final double close;
     private final double volume;
     private final Date closeTime;
     private final double quoteAssetVolume;
@@ -35,9 +35,9 @@ public class CandleObject { // формат свічки графіку
             @JsonProperty("10") double takerBuyQuoteAssetVolume) {
         this.openTime = openTime;
         this.open = open;
+        this.close = close;
         this.high = high;
         this.low = low;
-        this.close = close;
         this.volume = volume;
         this.closeTime = closeTime;
         this.quoteAssetVolume = quoteAssetVolume;
@@ -51,18 +51,18 @@ public class CandleObject { // формат свічки графіку
         return "CandleObject{" +
                 "\nopenTime=" + openTime +
                 ",\n open='" + open + '\'' +
+                ",\n close='" + close + '\'' +
                 ",\n high='" + high + '\'' +
                 ",\n low='" + low + '\'' +
-                ",\n close='" + close + '\'' +
                 "\n";
     }
 
     public double[] getValuesArr() {
         return new double[]{
                 open/10000,
-                high/10000,
+                close/10000,
                 low/10000,
-                close/10000
+                high/10000
         };
     }
 }
