@@ -31,14 +31,14 @@ public class TrainData {
 
     private void init() {
        try {
-           candles = BinanceDataUtil.getCandles(symbol, interval, 1440);
-           if (candles.size()<601) {
-               while ((candles.size()-1)%30!=0 || (((candles.size()-1)/3)%30!=0)) {
+           candles = BinanceDataUtil.getCandles(symbol, interval, 1361);
+           if (candles.size()<1361) {
+               while ((candles.size()-1)%20!=0 || (((candles.size()-1)/4)%20!=0)) {
                    candles.removeFirst();
                }
            }
            int countMax = candles.size()-1;
-           int countMain = countMax - countMax/6;
+           int countMain = countMax - countMax/4;
 
 
            LinkedList<DataObject> localTrainData = new LinkedList<>();

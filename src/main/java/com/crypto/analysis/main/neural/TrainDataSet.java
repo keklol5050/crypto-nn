@@ -42,9 +42,6 @@ public class TrainDataSet {
             train.updateInterval(Periods.EIGHT_HOURS);
             train.updateInterval(Periods.TWELVE_HOURS);
             train.updateInterval(Periods.ONE_DAY);
-            train.updateInterval(Periods.THREE_DAYS);
-            train.updateInterval(Periods.ONE_WEEK);
-            train.updateInterval(Periods.ONE_MONTH);
 
             trainData.addAll(train.getTrainData());
             trainResult.addAll(train.getTrainResult());
@@ -56,27 +53,27 @@ public class TrainDataSet {
     }
 
     private void makeTrainSet() {
-        int count = trainData.size()/30;
+        int count = trainData.size()/20;
         for (int i = 0; i < count; i++) {
             finalTrainSet.add(0,getDataArr(trainData));
         }
-        for (int i = 29; i < trainResult.size(); i+=30) {
+        for (int i = 19; i < trainResult.size(); i+=20) {
             finalTrainResult.add(trainResult.get(i));
         }
 
-        count = testData.size()/30;
+        count = testData.size()/20;
         for (int i = 0; i < count; i++) {
             finalTestSet.add(0,getDataArr(testData));
         }
-        for (int i = 29; i < testResult.size(); i+=30) {
+        for (int i = 19; i < testResult.size(); i+=20) {
             finalTestResult.add(testResult.get(i));
         }
     }
 
     public static double[] getDataArr(LinkedList<DataObject> trainData) {
         int index = 0;
-        double[] inputDataArray = new double[510];
-        for (int j = 0; j < 30; j++) {
+        double[] inputDataArray = new double[80];
+        for (int j = 0; j < 20; j++) {
             DataObject obj = trainData.removeLast();
             double[] params = obj.getParamArray();
             System.arraycopy(params, 0, inputDataArray, inputDataArray.length - params.length - index, params.length);
