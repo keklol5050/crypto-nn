@@ -22,22 +22,30 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class IndicatorsDataUtil {
-    private final LinkedList<CandleObject> candles;
+    private final List<CandleObject> candles;
     private RSIIndicator rsiIndicator;
     private MACDIndicator macd;
     private StochasticOscillatorKIndicator stochasticK;
     private StochasticOscillatorDIndicator stochasticD;
-    private OnBalanceVolumeIndicator obv;
     private SMAIndicator smaIndicator;
     private EMAIndicator emaIndicator;
     private WMAIndicator wmaIndicator;
     private ADXIndicator adxIndicator;
     private AroonUpIndicator up;
     private AroonDownIndicator down;
-    private VolumeIndicator relativeVolume;
+    private MMAIndicator mma;
+    private CCIIndicator cci;
+    private final boolean revert;
 
     public IndicatorsDataUtil(String symbol, Periods interval) {
         candles = BinanceDataUtil.getCandles(symbol, interval, 1500);
+        revert = true;
+        init();
+    }
+
+    public IndicatorsDataUtil(List<CandleObject> candles){
+        this.candles=candles;
+        revert = false;
         init();
     }
 
@@ -47,31 +55,32 @@ public class IndicatorsDataUtil {
         macd = new MACDIndicator(new ClosePriceIndicator(series), 12, 26);
         stochasticK = new StochasticOscillatorKIndicator(series, 14);
         stochasticD = new StochasticOscillatorDIndicator(stochasticK);
-        obv = new OnBalanceVolumeIndicator(series);
         smaIndicator = new SMAIndicator(new ClosePriceIndicator(series), 14);
         emaIndicator = new EMAIndicator(new ClosePriceIndicator(series), 14);
         wmaIndicator = new WMAIndicator(new ClosePriceIndicator(series), 14);
+        mma = new MMAIndicator(new ClosePriceIndicator(series), 14);
+        cci = new CCIIndicator(series, 14);
         adxIndicator = new ADXIndicator(series, 14);
         up = new AroonUpIndicator(series, 14);
         down = new AroonDownIndicator(series, 14);
-        relativeVolume = new VolumeIndicator(series, 10);
-
     }
     public IndicatorsTransferObject getIndicators(int countBar) {
-        countBar = candles.size()-1-countBar;
+        if (revert) {
+            countBar = candles.size()-1-countBar;
+        }
         IndicatorsTransferObject result = new IndicatorsTransferObject();
         result.setRSI(rsiIndicator.getValue(countBar).doubleValue());
         result.setMACD(macd.getValue(countBar).doubleValue());
         result.setSTOCHK(stochasticK.getValue(countBar).doubleValue());
         result.setSTOCHD(stochasticD.getValue(countBar).doubleValue());
-        result.setOBV(obv.getValue(countBar).doubleValue());
         result.setSMA(smaIndicator.getValue(countBar).doubleValue());
         result.setEMA(emaIndicator.getValue(countBar).doubleValue());
         result.setWMA(wmaIndicator.getValue(countBar).doubleValue());
         result.setADX(adxIndicator.getValue(countBar).doubleValue());
         result.setAROONUP(up.getValue(countBar).doubleValue());
         result.setAROONDOWN(down.getValue(countBar).doubleValue());
-        result.setRELATIVEVOLUME(relativeVolume.getValue(countBar).doubleValue());
+        result.setMMA(mma.getValue(countBar).doubleValue());
+        result.setCCI(cci.getValue(countBar).doubleValue());
         return result;
     }
 }

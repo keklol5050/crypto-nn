@@ -15,7 +15,7 @@
 	<name>main</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<dl4j-master.version>1.0.0-M2.1</dl4j-master.version>
+		<dl4j-master.version>1.0.0-M1.1</dl4j-master.version>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
@@ -93,6 +93,13 @@
 			<artifactId>datavec-api</artifactId>
 			<version>${dl4j-master.version}</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.15.1</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.datavec</groupId>
 			<artifactId>datavec-data-image</artifactId>
@@ -113,13 +120,12 @@
 			<artifactId>deeplearning4j-core</artifactId>
 			<version>${dl4j-master.version}</version>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/org.deeplearning4j/resources -->
 		<dependency>
 			<groupId>org.deeplearning4j</groupId>
 			<artifactId>resources</artifactId>
-			<version>${dl4j-master.version}</version>
+			<version>1.0.0-M2.1</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>org.nd4j</groupId>
@@ -179,11 +185,29 @@
 			<artifactId>telegrambots</artifactId>
 			<version>6.7.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.bytedeco</groupId>
+			<artifactId>cuda</artifactId>
+			<version>11.2-8.1-1.5.5</version>
+		</dependency>
 
 		<dependency>
-			<groupId>org.nd4j</groupId>
-			<artifactId>nd4j-cuda-11.4</artifactId>
-			<version>1.0.0-M2.1</version>
+			<groupId>org.bytedeco</groupId>
+			<artifactId>cuda-platform-redist</artifactId>
+			<version>11.2-8.1-1.5.5</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.bytedeco/javacpp -->
+		<dependency>
+			<groupId>org.bytedeco</groupId>
+			<artifactId>javacpp</artifactId>
+			<version>1.5.5</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.deeplearning4j/deeplearning4j-cuda-11.2 -->
+		<dependency>
+			<groupId>org.deeplearning4j</groupId>
+			<artifactId>deeplearning4j-cuda-11.2</artifactId>
+			<version>${dl4j-master.version}</version>
 		</dependency>
 
 	</dependencies>

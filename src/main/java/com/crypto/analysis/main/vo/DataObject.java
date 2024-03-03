@@ -36,9 +36,11 @@ public class DataObject {
 
     public double[] getParamArray() {
         double[] candleValues = candle.getValuesArr();
-        double[] result = new double[candleValues.length];
+        double[] indicators = currentIndicators.getValuesArr();
+        double[] result = new double[candleValues.length+indicators.length];
         System.arraycopy(candleValues, 0, result, 0, candleValues.length);
-        return candleValues;
+        System.arraycopy(indicators, 0, result, candleValues.length, indicators.length);
+        return result;
     }
 
 }

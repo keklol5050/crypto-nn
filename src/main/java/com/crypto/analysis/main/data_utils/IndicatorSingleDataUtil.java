@@ -45,9 +45,6 @@ public class IndicatorSingleDataUtil {
         result.setSTOCHK(stochasticK.getValue(series.getEndIndex()).doubleValue());
         result.setSTOCHD(stochasticD.getValue(series.getEndIndex()).doubleValue());
 
-        OnBalanceVolumeIndicator obv = new OnBalanceVolumeIndicator(series);
-        result.setOBV(obv.getValue(series.getEndIndex()).doubleValue());
-
         SMAIndicator smaIndicator = new SMAIndicator(new ClosePriceIndicator(series), 14);
         result.setSMA(smaIndicator.getValue(series.getEndIndex()).doubleValue());
 
@@ -65,9 +62,11 @@ public class IndicatorSingleDataUtil {
         result.setAROONUP(up.getValue(series.getEndIndex()).doubleValue());
         result.setAROONDOWN(down.getValue(series.getEndIndex()).doubleValue());
 
-        VolumeIndicator relativeVolume = new VolumeIndicator(series, 10);
-        result.setRELATIVEVOLUME(relativeVolume.getValue(series.getEndIndex()).doubleValue());
+        MMAIndicator mma = new MMAIndicator(new ClosePriceIndicator(series), 14);
+        result.setMMA(mma.getValue(series.getEndIndex()).doubleValue());
 
+        CCIIndicator cci = new CCIIndicator(series, 14);
+        result.setCCI(cci.getValue(series.getEndIndex()).doubleValue());
         return result;
     }
 
