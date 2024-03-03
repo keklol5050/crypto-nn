@@ -8,10 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.TimeZone;
+import java.util.*;
 
 public class CSVHourAndDayTF {
     private static final Path sourceHour = new File(CSVHourAndDayTF.class.getClassLoader().getResource("static/bitcoin_1h.txt").getFile()).toPath();

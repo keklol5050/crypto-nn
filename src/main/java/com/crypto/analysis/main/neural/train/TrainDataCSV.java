@@ -55,22 +55,19 @@ public class TrainDataCSV {
             int count = candles.size() - countValues;
 
             for (int i = 0; i < count; i++) {
-                double[][] values = new double[countValues][];
+
+                DataObject[] values = new DataObject[countValues+1];
                 int index = 0;
 
-                for (int j = i; j < i + countValues; j++) {
+                for (int j = i; j <= i + countValues; j++) {
                     DataObject obj = new DataObject(symbol, interval);
-                    obj.setCurrentIndicators(util.getIndicators(j));
+                    obj.setCurrentIndicators(util.getIndicators(candles.size() - 1 - j));
                     CandleObject candle = candles.get(j);
                     obj.setCandle(candle);
-                    values[index++] = obj.getParamArray();
+                    values[index++] = obj;
                 }
-                DataObject nextObj = new DataObject(symbol, interval);
-                nextObj.setCurrentIndicators(util.getIndicators(i + countValues));
-                nextObj.setCandle(candles.get(i + countValues));
-                double[] result = nextObj.getParamArray();
 
-                DataTransformer transformer = new DataTransformer(values, result);
+                DataTransformer transformer = new DataTransformer(values);
                 double[][] transformedValues = transformer.transformInput();
                 double[] transformedResult = transformer.transformOutput();
 

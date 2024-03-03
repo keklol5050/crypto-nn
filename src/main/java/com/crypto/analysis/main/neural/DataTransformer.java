@@ -7,18 +7,64 @@ import com.crypto.analysis.main.vo.DataObject;
 import java.util.Arrays;
 
 public class DataTransformer {
-    private final double[][] input;
-    private final double[] output;
+    private final DataObject[] data;
+    private final int countParams;
 
-    public DataTransformer(double[][] input, double[] output) {
-        this.input = input;
-        this.output = output;
+    private double[][] input;
+    private double[] output;
+
+    public DataTransformer(DataObject[] data) {
+        this.data = data;
+        this.countParams = data[0].getParamArray().length;
+        init();
     }
 
-    public DataTransformer(double[][] input) {
-        this.input = input;
-        this.output = null;
+
+    public void init() {
+        double[][] values = new double[data.length][];
+
+        double[] firstValues = new double[4];
+        double[] lastValues = new double[countParams];
+
+        double[] first = data[0].getParamArray();
+        System.arraycopy(first, 0, firstValues, 0, 4);
+        System.arraycopy(first, 0, lastValues, 0, lastValues.length);
+        values[0] = new double[countParams+4];
+
+        for (int i = 1; i < data.length; i++) {
+            double[] currentParams = data[i].getParamArray();
+            double[] result = new double[countParams+4];
+            for (int j = 0; j < countParams; j++) {
+                result[j] = calculateChange(lastValues[j], currentParams[j]);
+            }
+            for (int j = countParams; j < result.length; j++) {
+                int index = j - countParams;
+                result[j] = calculateChange(firstValues[index], currentParams[index]);
+            }
+            System.arraycopy(currentParams, 0, lastValues, 0, countParams);
+            values[i] = result;
+        }
+
+        input = new double[values.length-1][];
+        System.arraycopy(values, 0, input, 0, input.length);
+
+        output = values[values.length-1];
     }
+
+    public double[][] transformInput() {
+        return input;
+    }
+
+    public double[] transformOutput() {
+        return output;
+    }
+
+    private double calculateChange(double oldValue, double newValue){
+        if (oldValue==0) return newValue;
+        if (newValue==0) return oldValue;
+        return ((newValue - oldValue) / Math.abs(oldValue)) * 100;
+    }
+
 
     public static void main(String[] args) {
         DataObject[] pr = BinanceDataMultipleInstance.getLatestInstances("BTCUSDT", TimeFrame.ONE_HOUR);
@@ -29,74 +75,27 @@ public class DataTransformer {
         }
         double[] outputData = pr[inputData.length].getParamArray();
 
-        DataTransformer normalizer = new DataTransformer(inputData, outputData);
-        double[][] normalizedData = normalizer.transformInput();
-
         for (double[] row : inputData) {
             System.out.println(Arrays.toString(row));
         }
         System.out.println(Arrays.toString(outputData));
         System.out.println();
+        System.out.println("=============================================================================================");
+        System.out.println("=============================================================================================");
+        System.out.println();
+        DataTransformer normalizer = new DataTransformer(pr);
+        double[][] normalizedData = normalizer.transformInput();
+
         for (double[] row : normalizedData) {
             System.out.println(Arrays.toString(row));
         }
+
         double[] normalizedOutput = normalizer.transformOutput();
         System.out.println(Arrays.toString(normalizedOutput));
 
+        System.out.println(normalizedData.length);
+        System.out.println(normalizedOutput.length);
+
     }
 
-    public double[][] transformInput() {
-        double[][] output = new double[input.length][];
-
-        double firstOpen = 0;
-        double firstHigh = 0;
-        double firstLow = 0;
-        double firstClose = 0;
-
-        double lastOpen = 0;
-        double lastHigh = 0;
-        double lastLow = 0;
-        double lastClose = 0;
-
-        for (int i = 0; i < input.length; i++) {
-            double[] in = input[i];
-            double[] out = new double[input[i].length + 4];
-            if (i != 0) {
-                out[0] = in[0] - firstOpen;
-                out[1] = in[1] - firstHigh;
-                out[2] = in[2] - firstLow;
-                out[3] = in[3] - firstClose;
-
-                out[4] = in[0] - lastOpen;
-                out[5] = in[1] - lastHigh;
-                out[6] = in[2] - lastLow;
-                out[7] = in[3] - lastClose;
-            } else {
-                firstOpen = in[0];
-                firstHigh = in[1];
-                firstLow = in[2];
-                firstClose = in[3];
-            }
-            if (input[i].length - 4 >= 0) System.arraycopy(in, 4, out, 8, input[i].length - 4);
-            lastOpen = in[0];
-            lastHigh = in[1];
-            lastLow = in[2];
-            lastClose = in[3];
-            output[i] = out;
-        }
-        return output;
-    }
-
-    public double[] transformOutput() {
-        if (output == null) throw new UnsupportedOperationException();
-        double[] out = new double[output.length + 4];
-        for (int i = 0; i < 4; i++) {
-            out[i] = output[i] - input[0][i];
-        }
-        for (int i = 0; i < 4; i++) {
-            out[i + 4] = output[i] - input[input.length - 1][i];
-        }
-        if (output.length - 4 >= 0) System.arraycopy(output, 4, out, 8, output.length - 4);
-        return out;
-    }
 }

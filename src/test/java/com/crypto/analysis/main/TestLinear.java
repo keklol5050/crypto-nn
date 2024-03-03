@@ -28,11 +28,11 @@ public class TestLinear {
         LinkedList<double[]> inputList = new LinkedList<>();
         LinkedList<Double> outputList = new LinkedList<>();
 
-        for (int i = 0; i<in.size(); i++) {
+        for (int i = 10000; i<in.size(); i++) {
             double[][] inArr = in.get(i);
-            inputList.add(Arrays.stream(inArr).flatMapToDouble(Arrays::stream).toArray());
+            inputList.add(Arrays.stream(inArr).flatMapToDouble(Arrays::stream).map(e->e/10000).toArray());
 
-            outputList.add(out.get(i)[3]);
+            outputList.add(out.get(i)[3]/10000);
         }
 
         int countRight = 0;
@@ -42,9 +42,10 @@ public class TestLinear {
             INDArray predictedOutput = model.output(newInput, false);
             double prediction = predictedOutput.getDouble(0)*10000;
             double real = outputList.get(i)*10000;
-            boolean isRight = Math.abs(prediction - real) < 150;
+            double delta = real*0.01;
+            boolean isRight = Math.abs(prediction - real) < delta;
             if (isRight) countRight++;
-            System.out.printf("Predicted: %f, Real: %f, is right (150) :%s ", prediction, real, isRight);
+            System.out.printf("Predicted: %f, Real: %f, is right (<1%%) :%s ", prediction, real, isRight);
             System.out.println();
         }
 
