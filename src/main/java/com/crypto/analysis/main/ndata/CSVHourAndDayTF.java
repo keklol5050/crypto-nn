@@ -1,47 +1,38 @@
-package com.crypto.analysis.main.data_utils.ndata;
+package com.crypto.analysis.main.ndata;
 
 import com.crypto.analysis.main.vo.CandleObject;
 
-import java.io.*;
-import java.net.URL;
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.TimeZone;
 
 public class CSVHourAndDayTF {
-    private static final Path sourceHour =  new File(CSVHourAndDayTF.class.getClassLoader().getResource("static/bitcoin_1h.txt").getFile()).toPath();
+    private static final Path sourceHour = new File(CSVHourAndDayTF.class.getClassLoader().getResource("static/bitcoin_1h.txt").getFile()).toPath();
     private static final Path sourceDay = new File(CSVHourAndDayTF.class.getClassLoader().getResource("static/bitcoin_1d.txt").getFile()).toPath();
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
     static {
         sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
     }
 
-    private static HashSet<String> dates;
-    private static String last;
-
     private static LinkedList<CandleObject> readCandles(List<String> lines) {
-        dates = new HashSet<>();
         LinkedList<CandleObject> result = new LinkedList<CandleObject>();
         for (String line : lines) {
             CandleObject candle = getCandleObject(line);
             result.add(candle);
         }
-        dates = null;
         return result;
     }
 
     private static CandleObject getCandleObject(String line) {
         String[] tokens = line.split(",");
-
-        String date = tokens[0].split(" ")[0] + " " + tokens[0].split(" ")[1].split(":")[0];
-        if (dates.contains(date)) {
-            System.out.println(line);
-            throw new IllegalArgumentException();
-        } else {
-            dates.add(date);
-        }
 
         Date openTime = null;
         Date closeTime = null;

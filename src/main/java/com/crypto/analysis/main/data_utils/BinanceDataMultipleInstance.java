@@ -1,20 +1,16 @@
 package com.crypto.analysis.main.data_utils;
 
-import com.crypto.analysis.main.enumerations.Periods;
+import com.crypto.analysis.main.enumerations.TimeFrame;
 import com.crypto.analysis.main.vo.CandleObject;
 import com.crypto.analysis.main.vo.DataObject;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.*;
-
-import static com.crypto.analysis.main.data_utils.BinanceDataUtil.client;
+import java.util.Arrays;
+import java.util.LinkedList;
 
 public class BinanceDataMultipleInstance {
-    public static DataObject[] getLatestInstances(String symbol, Periods interval) {
-        DataObject[] instances = new DataObject[30];
-        LinkedList<CandleObject> candles = BinanceDataUtil.getCandles(symbol, interval, 30);
+    public static DataObject[] getLatestInstances(String symbol, TimeFrame interval) {
+        DataObject[] instances = new DataObject[20];
+        LinkedList<CandleObject> candles = BinanceDataUtil.getCandles(symbol, interval, 20);
 
         IndicatorsDataUtil util = new IndicatorsDataUtil(symbol, interval);
 
@@ -31,6 +27,6 @@ public class BinanceDataMultipleInstance {
 
     public static void main(String[] args) {
         System.out.println(
-                Arrays.toString(BinanceDataMultipleInstance.getLatestInstances("BTCUSDT", Periods.ONE_HOUR)));
+                Arrays.toString(BinanceDataMultipleInstance.getLatestInstances("BTCUSDT", TimeFrame.ONE_DAY)));
     }
 }

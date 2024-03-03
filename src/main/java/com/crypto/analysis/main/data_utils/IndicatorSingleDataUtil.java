@@ -1,6 +1,6 @@
 package com.crypto.analysis.main.data_utils;
 
-import com.crypto.analysis.main.enumerations.Periods;
+import com.crypto.analysis.main.enumerations.TimeFrame;
 import com.crypto.analysis.main.vo.CandleObject;
 import com.crypto.analysis.main.vo.IndicatorsTransferObject;
 import lombok.Getter;
@@ -11,8 +11,6 @@ import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.*;
 import org.ta4j.core.indicators.adx.ADXIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
-import org.ta4j.core.indicators.helpers.VolumeIndicator;
-import org.ta4j.core.indicators.volume.OnBalanceVolumeIndicator;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -22,13 +20,24 @@ import java.util.List;
 @Getter
 public class IndicatorSingleDataUtil {
     private final String symbol;
-    private final Periods interval;
+    private final TimeFrame interval;
     private CandleObject lastCandle;
 
-    public IndicatorSingleDataUtil(String symbol, Periods interval) {
+    public IndicatorSingleDataUtil(String symbol, TimeFrame interval) {
         this.symbol = symbol;
         this.interval = interval;
     }
+
+    public static TimeSeries getTimeSeries(List<CandleObject> candleObjects) {
+        TimeSeries series = new BaseTimeSeries();
+        for (CandleObject candle : candleObjects) {
+            ZonedDateTime timestamp = candle.getCloseTime().toInstant().atZone(ZoneId.systemDefault());
+            Bar bar = new BaseBar(timestamp, candle.getOpen(), candle.getHigh(), candle.getLow(), candle.getClose(), candle.getVolume());
+            series.addBar(bar);
+        }
+        return series;
+    }
+
     public IndicatorsTransferObject getIndicatorsInfo() {
         IndicatorsTransferObject result = new IndicatorsTransferObject();
 
@@ -74,15 +83,5 @@ public class IndicatorSingleDataUtil {
         LinkedList<CandleObject> candleObjects = BinanceDataUtil.getCandles(symbol, interval, 1500);
         lastCandle = candleObjects.getLast();
         return getTimeSeries(candleObjects);
-    }
-
-    public static TimeSeries getTimeSeries(List<CandleObject> candleObjects) {
-        TimeSeries series = new BaseTimeSeries();
-        for (CandleObject candle : candleObjects) {
-            ZonedDateTime timestamp = candle.getCloseTime().toInstant().atZone(ZoneId.systemDefault());
-            Bar bar = new BaseBar(timestamp, candle.getOpen(), candle.getHigh(), candle.getLow(), candle.getClose(), candle.getVolume());
-            series.addBar(bar);
-        }
-        return series;
     }
 }

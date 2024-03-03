@@ -1,7 +1,7 @@
 package com.crypto.analysis.main.neural.train;
 
 
-import com.crypto.analysis.main.enumerations.Periods;
+import com.crypto.analysis.main.enumerations.TimeFrame;
 import lombok.Getter;
 
 import java.util.LinkedList;
@@ -24,12 +24,12 @@ public class TrainDataSet {
         if (!trainResult.isEmpty() || !trainData.isEmpty()) throw new IllegalArgumentException();
         System.out.println("Preparing train set..");
 
-        TrainDataCSV trainDataCSV = new TrainDataCSV(symbol, Periods.ONE_DAY);
+        TrainDataCSV trainDataCSV = new TrainDataCSV(symbol, TimeFrame.ONE_DAY);
 
         trainData.addAll(trainDataCSV.getTrainData());
         trainResult.addAll(trainDataCSV.getTrainResult());
 
-        TrainDataBinance train = new TrainDataBinance(symbol, Periods.ONE_DAY);
+        TrainDataBinance train = new TrainDataBinance(symbol, TimeFrame.ONE_DAY);
 
         testData.addAll(train.getTrainData());
         testResult.addAll(train.getTrainResult());

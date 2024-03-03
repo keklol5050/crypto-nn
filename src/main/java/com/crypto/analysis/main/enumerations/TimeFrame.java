@@ -1,8 +1,9 @@
 package com.crypto.analysis.main.enumerations;
 
 import lombok.Getter;
+
 @Getter
-public enum Periods {
+public enum TimeFrame {
     ONE_MINUTE("1m"),
     THREE_MINUTES("3m"),
     FIVE_MINUTES("5m"),
@@ -19,7 +20,8 @@ public enum Periods {
     ONE_WEEK("1w"),
     ONE_MONTH("1M");
     private final String timeFrame;
-    Periods(String timeFrame) {
+
+    TimeFrame(String timeFrame) {
         this.timeFrame = timeFrame;
     }
 }

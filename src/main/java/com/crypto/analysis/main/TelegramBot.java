@@ -26,11 +26,11 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     public void onUpdateReceived(Update update) {
         String ChId = update.getMessage().getChatId().toString();
-        String Text = update.getMessage().getText().toString();
+        String Text = update.getMessage().getText();
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(ChId);
         sendMessage.setText(Text);
-        byte price =0;
+        byte price = 0;
         String down = "the coin is falling";
         char attention = '⚠';
         if (price > 0) {

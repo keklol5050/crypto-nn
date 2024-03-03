@@ -1,12 +1,11 @@
 package com.crypto.analysis.main;
 
-import com.crypto.analysis.main.data_utils.ndata.CSVHourAndDayTF;
+import com.crypto.analysis.main.ndata.CSVHourAndDayTF;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 

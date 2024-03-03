@@ -1,28 +1,18 @@
 package com.crypto.analysis.main.data_utils;
 
-import com.crypto.analysis.main.enumerations.Periods;
+import com.crypto.analysis.main.enumerations.TimeFrame;
 import com.crypto.analysis.main.vo.CandleObject;
 import com.crypto.analysis.main.vo.IndicatorsTransferObject;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.ta4j.core.TimeSeries;
 import org.ta4j.core.indicators.*;
 import org.ta4j.core.indicators.adx.ADXIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
-import org.ta4j.core.indicators.helpers.VolumeIndicator;
-import org.ta4j.core.indicators.volume.OnBalanceVolumeIndicator;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 public class IndicatorsDataUtil {
     private final List<CandleObject> candles;
+    private final boolean revert;
     private RSIIndicator rsiIndicator;
     private MACDIndicator macd;
     private StochasticOscillatorKIndicator stochasticK;
@@ -35,22 +25,22 @@ public class IndicatorsDataUtil {
     private AroonDownIndicator down;
     private MMAIndicator mma;
     private CCIIndicator cci;
-    private final boolean revert;
 
-    public IndicatorsDataUtil(String symbol, Periods interval) {
+    public IndicatorsDataUtil(String symbol, TimeFrame interval) {
         candles = BinanceDataUtil.getCandles(symbol, interval, 1500);
         revert = true;
         init();
     }
 
-    public IndicatorsDataUtil(List<CandleObject> candles){
-        this.candles=candles;
+    public IndicatorsDataUtil(List<CandleObject> candles) {
+        this.candles = candles;
         revert = false;
         init();
     }
 
     private void init() {
         TimeSeries series = IndicatorSingleDataUtil.getTimeSeries(candles);
+
         rsiIndicator = new RSIIndicator(new ClosePriceIndicator(series), 14);
         macd = new MACDIndicator(new ClosePriceIndicator(series), 12, 26);
         stochasticK = new StochasticOscillatorKIndicator(series, 14);
@@ -64,11 +54,13 @@ public class IndicatorsDataUtil {
         up = new AroonUpIndicator(series, 14);
         down = new AroonDownIndicator(series, 14);
     }
+
     public IndicatorsTransferObject getIndicators(int countBar) {
         if (revert) {
-            countBar = candles.size()-1-countBar;
+            countBar = candles.size() - 1 - countBar;
         }
         IndicatorsTransferObject result = new IndicatorsTransferObject();
+
         result.setRSI(rsiIndicator.getValue(countBar).doubleValue());
         result.setMACD(macd.getValue(countBar).doubleValue());
         result.setSTOCHK(stochasticK.getValue(countBar).doubleValue());
@@ -81,6 +73,7 @@ public class IndicatorsDataUtil {
         result.setAROONDOWN(down.getValue(countBar).doubleValue());
         result.setMMA(mma.getValue(countBar).doubleValue());
         result.setCCI(cci.getValue(countBar).doubleValue());
+
         return result;
     }
 }
