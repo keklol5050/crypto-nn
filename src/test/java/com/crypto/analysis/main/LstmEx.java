@@ -87,7 +87,7 @@ public class LstmEx {
         List<DataSet> sets = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
             INDArray input = Nd4j.rand(new int[]{batchSize, numInputs, sequenceLength});
-            INDArray labels = Nd4j.rand(new int[]{batchSize, numOutputs, 1});
+            INDArray labels = Nd4j.rand(new int[]{batchSize, numOutputs, sequenceLength});
             DataSet trainingData = new DataSet(input, labels);
             sets.add(trainingData);
         }

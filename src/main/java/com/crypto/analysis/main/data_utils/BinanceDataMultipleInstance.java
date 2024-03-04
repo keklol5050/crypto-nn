@@ -9,8 +9,8 @@ import java.util.LinkedList;
 
 public class BinanceDataMultipleInstance {
     public static DataObject[] getLatestInstances(String symbol, TimeFrame interval) {
-        DataObject[] instances = new DataObject[31];
-        LinkedList<CandleObject> candles = BinanceDataUtil.getCandles(symbol, interval, 31);
+        DataObject[] instances = new DataObject[30];
+        LinkedList<CandleObject> candles = BinanceDataUtil.getCandles(symbol, interval, 30);
 
         IndicatorsDataUtil util = new IndicatorsDataUtil(symbol, interval);
 

@@ -83,13 +83,16 @@ public class TrainDataBinance {
                 DataTransformer transformer = new DataTransformer(values);
                 double[][] transformedValues = transformer.transformInput();
                 double[] transformedResult = transformer.transformOutput();
-
+                double[] finalResult = new double[3];
+                finalResult[0] = transformedResult[17];
+                finalResult[1] = transformedResult[18];
+                finalResult[2] = transformedResult[19];
                 if (i < countMax) {
                     trainData.add(transformedValues);
-                    trainResult.add(transformedResult);
+                    trainResult.add(finalResult);
                 } else {
                     testData.add(transformedValues);
-                    testResult.add(transformedResult);
+                    testResult.add(finalResult);
                 }
             }
         } catch (Exception e) {

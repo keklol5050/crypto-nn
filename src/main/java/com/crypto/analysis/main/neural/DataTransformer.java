@@ -60,14 +60,14 @@ public class DataTransformer {
     }
 
     private double calculateChange(double oldValue, double newValue){
-        if (oldValue==0) return newValue;
-        if (newValue==0) return oldValue;
+        if (oldValue==0) oldValue=1;
+        if (newValue==0) newValue=1;
         return ((newValue - oldValue) / Math.abs(oldValue)) * 100;
     }
 
 
     public static void main(String[] args) {
-        DataObject[] pr = BinanceDataMultipleInstance.getLatestInstances("BTCUSDT", TimeFrame.ONE_HOUR);
+        DataObject[] pr = BinanceDataMultipleInstance.getLatestInstances("BTCUSDT", TimeFrame.ONE_MONTH);
 
         double[][] inputData = new double[pr.length - 1][];
         for (int i = 0; i < pr.length - 1; i++) {

@@ -20,6 +20,8 @@ import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.learning.config.Nesterovs;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.LinkedList;
 
@@ -30,10 +32,9 @@ public class Model {
     private final int numEpochs;
     private final String pathToModel;
     private MultiLayerNetwork model;
-    private DataSet dataSet;
     private DataSetIterator iterator;
     private NormalizerStandardize normalizer;
-    private static final double LEARNING_RATE = 0.001;
+    private static final double LEARNING_RATE = 0.01;
 
     public Model(TrainDataSet trainSet, int numInputs, int numOutputs, int numEpochs, String pathToModel) {
         this.trainSet = trainSet;
@@ -44,21 +45,37 @@ public class Model {
         init();
     }
 
+    public Model(TrainDataSet trainSet, int numInputs, int numOutputs, int numEpochs) {
+        this.trainSet = trainSet;
+        this.numInputs = numInputs;
+        this.numOutputs = numOutputs;
+        this.numEpochs = numEpochs;
+        this.pathToModel = null;
+        init();
+    }
+
 
     public static void main(String[] args) {
-        Model model = new Model(new TrainDataSet("BTCUSDT"), 30*20, 20, 10000, "D:\\model.zip");
+        Model model = new Model(new TrainDataSet("BTCUSDT"), 30*20, 3, 10000, "D:\\model.zip");
         model.start();
     }
 
     private void init() {
-        model = createModel();
+        if (pathToModel!=null) {
+            if (Files.exists(Path.of(pathToModel))) {
+                model = ModelLoader.loadModel(pathToModel);
+            } else {
+                model = createModel();
+            }
+        } else model = createModel();
+
         iterator = getDataSetIterator();
 
         normalizer = new NormalizerStandardize();
         normalizer.fitLabel(true);
 
-        normalizer.fit(dataSet);
-        normalizer.transform(dataSet);
+        normalizer.fit(iterator);
+        iterator.setPreProcessor(normalizer);
     }
 
 
@@ -87,13 +104,13 @@ public class Model {
             normalizer.transform(newInput);
             INDArray predictedOutput = model.output(newInput, false);
             normalizer.revertLabels(predictedOutput);
-            double predictionHigh = predictedOutput.getDouble(17);
-            double predictionLow = predictedOutput.getDouble(18);
-            double realLow = testResult.get(i)[17];
-            double realHigh = testResult.get(i)[18];
-            boolean isRight = (Math.abs(predictionLow - realLow) < 200) && (Math.abs(predictionHigh - realHigh) < 200);
+            double predictionHigh = predictedOutput.getDouble(0);
+            double predictionLow = predictedOutput.getDouble(1);
+            double realLow = testResult.get(i)[0];
+            double realHigh = testResult.get(i)[1];
+            boolean isRight = (Math.abs(predictionLow - realLow) < 2) && (Math.abs(predictionHigh - realHigh) < 2);
             if (isRight) countRight++;
-            System.out.printf("Predicted low: %f, real: %f, predicted high: %f, real: %f; is right (daily, 200) :%s ",
+            System.out.printf("Predicted low: %f, real: %f, predicted high: %f, real: %f; is right (daily, 2%%) :%s ",
                     predictionLow, realLow, predictionHigh, realHigh, isRight);
             System.out.println();
         }
@@ -131,7 +148,6 @@ public class Model {
         }
 
         DataSet dataSet = new DataSet(inputArray, outputArray);
-        this.dataSet = dataSet;
         return new SingletonDataSetIterator(dataSet);
     }
 
@@ -148,35 +164,24 @@ public class Model {
                 .seed(123)
                 .optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
                 .updater(new Adam(LEARNING_RATE))
+                .weightInit(WeightInit.XAVIER)
+                .activation(Activation.TANH)
                 .list()
-                .layer(0, new DenseLayer.Builder().nIn(numInputs).nOut(800)
-                        .weightInit(WeightInit.XAVIER)
-                        .activation(Activation.TANH)
-                        .build())
-                .layer(1, new DenseLayer.Builder().nIn(800).nOut(800)
-                        .weightInit(WeightInit.XAVIER)
-                        .activation(Activation.TANH)
-                        .build())
-                .layer(2, new DenseLayer.Builder().nIn(800).nOut(400)
-                        .weightInit(WeightInit.XAVIER)
-                        .activation(Activation.TANH)
-                        .build())
-                .layer(3, new DenseLayer.Builder().nIn(400).nOut(200)
-                        .weightInit(WeightInit.XAVIER)
-                        .activation(Activation.TANH)
-                        .build())
-                .layer(4, new DenseLayer.Builder().nIn(200).nOut(100)
-                        .weightInit(WeightInit.XAVIER)
-                        .activation(Activation.TANH)
-                        .build())
-                .layer(5, new DenseLayer.Builder().nIn(100).nOut(64)
-                        .weightInit(WeightInit.XAVIER)
-                        .activation(Activation.TANH)
-                        .build())
-                .layer(6, new OutputLayer.Builder(LossFunctions.LossFunction.MSE)
-                        .weightInit(WeightInit.XAVIER)
+                .layer(0, new DenseLayer.Builder().nIn(numInputs).nOut(6400).build())
+                .layer(1, new DenseLayer.Builder().nIn(6400).nOut(6400).build())
+                .layer(2, new DenseLayer.Builder().nIn(6400).nOut(3200).build())
+                .layer(3, new DenseLayer.Builder().nIn(3200).nOut(1600).build())
+                .layer(4, new DenseLayer.Builder().nIn(1600).nOut(800).build())
+                .layer(5, new DenseLayer.Builder().nIn(800).nOut(400).build())
+                .layer(6, new DenseLayer.Builder().nIn(400).nOut(200).build())
+                .layer(7, new DenseLayer.Builder().nIn(200).nOut(128).build())
+                .layer(8, new DenseLayer.Builder().nIn(128).nOut(64).build())
+                .layer(9, new DenseLayer.Builder().nIn(64).nOut(32).build())
+                .layer(10, new DenseLayer.Builder().nIn(32).nOut(16).build())
+                .layer(11, new DenseLayer.Builder().nIn(16).nOut(8).build())
+                .layer(12, new OutputLayer.Builder(LossFunctions.LossFunction.MSE)
                         .activation(Activation.IDENTITY)
-                        .nIn(64).nOut(numOutputs)
+                        .nIn(8).nOut(numOutputs)
                         .build())
                 .build();
     }
