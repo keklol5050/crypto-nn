@@ -42,4 +42,36 @@ public class DataObject {
         return result;
     }
 
+    public double getMAValues() {
+        return currentIndicators.getMAValues();
+    }
+
+    public double getMAValuesAverage() {
+        return currentIndicators.getMAValuesAverage();
+    }
+    public double getUpIndicatorValues() {
+        return currentIndicators.getUpIndicatorValues();
+    }
+
+    public double getUpIndicatorValuesAverage() {
+        return currentIndicators.getUpIndicatorValuesAverage();
+    }
+
+    public double getDownIndicatorValues() {
+        return currentIndicators.getDownIndicatorValues();
+    }
+
+    public double getDownIndicatorValuesAverage() {
+        return currentIndicators.getDownIndicatorValuesAverage();
+    }
+
+    public double[] getPreparedParamArray() {
+        double[] result = new double[5];
+        result[0] = candle.getLow();
+        result[1] = candle.getHigh();
+        result[2] = candle.getClose();
+        result[3] = getMAValuesAverage();
+        result[4] = getUpIndicatorValues();
+        return result;
+    }
 }

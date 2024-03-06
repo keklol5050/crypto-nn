@@ -1,16 +1,9 @@
 package com.crypto.analysis.main;
 
-import com.crypto.analysis.main.neural.ModelLoader;
-import com.crypto.analysis.main.neural.train.TrainDataSet;
-import org.deeplearning4j.nn.api.OptimizationAlgorithm;
-import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
-import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
-import org.deeplearning4j.nn.conf.layers.DenseLayer;
-import org.deeplearning4j.nn.conf.layers.OutputLayer;
+import com.crypto.analysis.main.model.ModelLoader;
+import com.crypto.analysis.main.data.train.TrainDataSet;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
-import org.deeplearning4j.nn.weights.WeightInit;
 import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
-import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.adapter.SingletonDataSetIterator;
@@ -18,8 +11,6 @@ import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.dataset.api.preprocessor.DataNormalization;
 import org.nd4j.linalg.dataset.api.preprocessor.NormalizerMinMaxScaler;
 import org.nd4j.linalg.factory.Nd4j;
-import org.nd4j.linalg.learning.config.Nesterovs;
-import org.nd4j.linalg.lossfunctions.LossFunctions;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -27,7 +18,7 @@ import java.util.LinkedList;
 public class TrainModel {
 
     public static void main(String[] args)  {
-        long start = System.currentTimeMillis();
+        /*long start = System.currentTimeMillis();
 
         int numInputs = 320;
         int numOutputs = 3;
@@ -72,7 +63,7 @@ public class TrainModel {
 
         iterator.setPreProcessor(normalizer);
 
-        MultiLayerNetwork model = ModelLoader.loadModel("D:\\model.zip" );
+        MultiLayerNetwork model = ModelLoader.loadModel("D:\\data.zip" );
 
         model.init();
         model.setListeners(new ScoreIterationListener(10));
@@ -83,7 +74,7 @@ public class TrainModel {
             model.fit(iterator);
         }
 
-        ModelLoader.saveModel(model, "D:\\model.zip" );
+        ModelLoader.saveModel(model, "D:\\data.zip" );
 
         LinkedList<double[][]> testSet = trainSet.getTestData();
         LinkedList<double[]> testResult = trainSet.getTestResult();
@@ -108,5 +99,7 @@ public class TrainModel {
         System.out.println("Right: "+countRight + " from " + testSet.size());
         System.out.println("Percentage: " + ((double) countRight/(double) testSet.size()) * 100 + '%');
         System.out.println("Time taken: " + ((System.currentTimeMillis()-start)/1000)/60 + " minutes");
+
+         */
     }
 }

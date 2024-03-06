@@ -1,7 +1,7 @@
 package com.crypto.analysis.main;
 
-import com.crypto.analysis.main.neural.ModelLoader;
-import com.crypto.analysis.main.neural.train.TrainDataSet;
+import com.crypto.analysis.main.model.ModelLoader;
+import com.crypto.analysis.main.data.train.TrainDataSet;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
 import org.nd4j.linalg.api.ndarray.INDArray;
@@ -12,7 +12,7 @@ import java.util.LinkedList;
 
 public class TestLinear {
     public static void main(String[] args) {
-
+/*
         int numInputs = 80;
 
         MultiLayerNetwork model = ModelLoader.loadModel("D:\\models\\model_linear_50%.zip");
@@ -51,5 +51,8 @@ public class TestLinear {
 
         System.out.println("Right: "+countRight + " from " + inputList.size());
         System.out.println("Percentage: " + ((double) countRight/(double) inputList.size()) * 100 + '%');
+
+ */
     }
+
 }
