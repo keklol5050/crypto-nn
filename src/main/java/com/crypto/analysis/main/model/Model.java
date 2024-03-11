@@ -8,6 +8,8 @@ import org.deeplearning4j.nn.api.OptimizationAlgorithm;
 import org.deeplearning4j.nn.conf.ComputationGraphConfiguration;
 import org.deeplearning4j.nn.conf.GradientNormalization;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
+import org.deeplearning4j.nn.conf.RNNFormat;
+import org.deeplearning4j.nn.conf.inputs.InputType;
 import org.deeplearning4j.nn.conf.layers.LSTM;
 import org.deeplearning4j.nn.conf.layers.RnnOutputLayer;
 import org.deeplearning4j.nn.graph.ComputationGraph;
@@ -16,62 +18,61 @@ import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
-import org.nd4j.linalg.dataset.api.MultiDataSet;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
-import org.nd4j.linalg.dataset.api.preprocessor.MultiNormalizerMinMaxScaler;
-import org.nd4j.linalg.dataset.api.preprocessor.NormalizerMinMaxScaler;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Model {
     private final String symbol;
     private final int numEpochs;
     private final String pathToModel;
+    private final String pathToNormalizer;
     private ComputationGraph model;
     private JointMultiDataSetIterator iterator;
-    private MultiNormalizerMinMaxScaler normalizer;
     private final List<TrainDataSet> trainList = new ArrayList<>();
+    private RelativeDataIteratorNormalizer normalizer;
     private static final double LEARNING_RATE = 0.01;
     private final int batchSize;
     private final int sequenceLength;
 
-    public Model(String symbol, int numEpochs, int batchSize, int sequenceLength, String pathToModel) {
+    public Model(String symbol, int numEpochs, int batchSize, int sequenceLength, String pathToModel, String pathToNormalizer) throws Exception {
         this.symbol = symbol;
         this.numEpochs = numEpochs;
         this.batchSize = batchSize;
         this.sequenceLength = sequenceLength;
 
         this.pathToModel = pathToModel;
+        this.pathToNormalizer = pathToNormalizer;
         init();
     }
 
-    public Model(String symbol, int numEpochs, int batchSize, int sequenceLength) {
+    public Model(String symbol, int numEpochs, int batchSize, int sequenceLength) throws Exception {
         this.symbol = symbol;
         this.numEpochs = numEpochs;
         this.batchSize = batchSize;
         this.sequenceLength = sequenceLength;
 
         this.pathToModel = null;
+        this.pathToNormalizer = null;
         init();
     }
 
 
-    public static void main(String[] args) {
-        Model model = new Model("BTCUSDT", 10, 1, 5, "D:\\model.zip");
+    public static void main(String[] args) throws Exception {
+        Model model = new Model("BTCUSDT", 1000, 1, 4);
         model.start();
     }
 
-    private void init() {
-        if (pathToModel != null) {
-            if (Files.exists(Path.of(pathToModel))) {
+    private void init() throws Exception {
+        if (pathToModel != null && pathToNormalizer != null) {
+            if (Files.exists(Path.of(pathToModel)) && Files.exists(Path.of(pathToNormalizer))) {
                 model = ModelLoader.loadModel(pathToModel);
+                normalizer = RelativeDataIteratorNormalizer.loadNormalizer(pathToNormalizer);
             } else {
                 model = createModel();
             }
@@ -80,25 +81,25 @@ public class Model {
         model.setListeners(new ScoreIterationListener(10));
 
         iterator = getDataSetIterator();
-
-        normalizer = new MultiNormalizerMinMaxScaler();
-        normalizer.fitLabel(true);
-        normalizer.fit(iterator);
-
-        iterator.reset();
-        iterator.setPreProcessor(normalizer);
     }
 
 
-    public void start() {
+    public void start() throws Exception {
         long start = System.currentTimeMillis();
 
         System.out.println(model.summary());
         for (int i = 0; i < numEpochs; i++) {
             model.fit(iterator);
+            if (i > 0 && i%1000==0 && pathToModel != null) {
+                ModelLoader.saveModel(model, pathToModel);
+                normalizer.saveNormalizer(pathToNormalizer);
+            }
         }
 
-        if (pathToModel != null) ModelLoader.saveModel(model, pathToModel);
+        if (pathToModel != null) {
+            ModelLoader.saveModel(model, pathToModel);
+            normalizer.saveNormalizer(pathToNormalizer);
+        }
 
         testModel();
 
@@ -141,7 +142,14 @@ public class Model {
                 }
             }
             INDArray[] newInput = new INDArray[]{newInput30, newInput70, newInput100};
+            for (INDArray ind : newInput) {
+                normalizer.transform(ind);
+            }
+
             INDArray[] predictions = model.output(newInput);
+            for (INDArray ind : predictions) {
+                normalizer.revertResult(ind);
+            }
 
             boolean is30True = false;
             boolean is70True = false;
@@ -156,8 +164,8 @@ public class Model {
             for (int j = 0; j < firstResult30.length; j++) {
                 double da = firstPred30.getDouble(j);
                 double ra = firstResult30[j];
-                double dlt = Math.abs((da * 100) - (ra * 100));
-                if (dlt > 2) break;
+                double dlt = Math.abs(da - ra);
+                if (dlt > 200) break;
                 else if (j == firstResult30.length - 1) {
                     pred30acc++;
                     is30True = true;
@@ -172,8 +180,8 @@ public class Model {
             for (int j = 0; j < firstResult70.length; j++) {
                 double da = firstPred70.getDouble(j);
                 double ra = firstResult70[j];
-                double dlt = Math.abs((da * 100) - (ra * 100));
-                if (dlt > 2) break;
+                double dlt = Math.abs(da - ra);
+                if (dlt > 200) break;
                 else if (j == firstResult70.length - 1) {
                     pred70acc++;
                     is70True = true;
@@ -188,8 +196,8 @@ public class Model {
             for (int j = 0; j < firstResult100.length; j++) {
                 double da = firstPred100.getDouble(j);
                 double ra = firstResult100[j];
-                double dlt = Math.abs((da * 100) - (ra * 100));
-                if (dlt > 2) break;
+                double dlt = Math.abs(da - ra);
+                if (dlt > 200) break;
                 else if (j == firstResult100.length - 1) {
                     pred100acc++;
                     is100True = true;
@@ -197,6 +205,13 @@ public class Model {
             }
 
             System.out.printf("30 candles: %s, 70 candles: %s, 100 candles: %s\n", is30True, is70True, is100True);
+            System.out.println("Predicted 30: " + prediction30);
+            System.out.println("Real 30: " + Arrays.deepToString(result30));
+            System.out.println("Predicted 70: " + prediction70);
+            System.out.println("Real 70: " + Arrays.deepToString(result70));
+            System.out.println("Predicted 100: " + prediction100);
+            System.out.println("Real 100: " + Arrays.deepToString(result100));
+            System.out.println();
         }
         System.out.printf("Total result for candles: 30 candles: %d, 70 candles: %d, 100 candles: %d\n", pred30acc, pred70acc, pred100acc);
         System.out.println("30 candles percentage: " + ((double) pred30acc / (double) d30values.size()) * 100 + '%');
@@ -242,6 +257,8 @@ public class Model {
             trainList.add(trainSet);
         }
 
+        normalizer = new RelativeDataIteratorNormalizer(iterators.toArray(new DataSetIterator[0]));
+
         return new JointMultiDataSetIterator(iterators.toArray(new DataSetIterator[0]));
     }
 
@@ -259,106 +276,85 @@ public class Model {
                 .optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
                 .gradientNormalization(GradientNormalization.ClipElementWiseAbsoluteValue)
                 .weightInit(WeightInit.XAVIER)
-                .activation(Activation.TANH)
+                .activation(Activation.LEAKYRELU)
                 .updater(new Adam(LEARNING_RATE))
                 .graphBuilder()
+                .setInputTypes(InputType.recurrent(30, sequenceLength, RNNFormat.NCW),
+                        InputType.recurrent(70, sequenceLength, RNNFormat.NCW),
+                        InputType.recurrent(100, sequenceLength, RNNFormat.NCW))
                 .addInputs("input_30", "input_70", "input_100")
 
                 // Layer 1
                 .addLayer("lstm1_30", new LSTM.Builder()
                         .nIn(30)
-                        .nOut(384)
+                        .nOut(256)
                         .build(), "input_30")
                 .addLayer("lstm2_30", new LSTM.Builder()
-                        .nIn(384)
-                        .nOut(384)
+                        .nIn(256)
+                        .nOut(256)
                         .build(), "lstm1_30")
                 .addLayer("lstm3_30", new LSTM.Builder()
-                        .nIn(384)
-                        .nOut(128)
+                        .nIn(256)
+                        .nOut(32)
                         .build(), "lstm2_30")
                 .addLayer("lstm4_30", new LSTM.Builder()
-                        .nIn(128)
-                        .nOut(64)
-                        .build(), "lstm3_30")
-                .addLayer("lstm5_30", new LSTM.Builder()
-                        .nIn(64)
-                        .nOut(32)
-                        .build(), "lstm4_30")
-                .addLayer("lstm6_30", new LSTM.Builder()
                         .nIn(32)
-                        .nOut(5)
-                        .build(), "lstm5_30")
+                        .nOut(32)
+                        .build(), "lstm3_30")
                 .addLayer("output_30", new RnnOutputLayer.Builder()
-                        .nIn(5)
-                        .nOut(5)
+                        .nIn(32)
+                        .nOut(3)
                         .activation(Activation.IDENTITY)
                         .lossFunction(LossFunctions.LossFunction.MSE)
-                        .build(), "lstm6_30")
+                        .build(), "lstm4_30")
 
                 // Layer 2
                 .addLayer("lstm1_70", new LSTM.Builder()
                         .nIn(70)
-                        .nOut(512)
+                        .nOut(256)
                         .build(), "input_70")
                 .addLayer("lstm2_70", new LSTM.Builder()
-                        .nIn(512)
-                        .nOut(512)
+                        .nIn(256)
+                        .nOut(256)
                         .build(), "lstm1_70")
                 .addLayer("lstm3_70", new LSTM.Builder()
-                        .nIn(512)
-                        .nOut(384)
+                        .nIn(256)
+                        .nOut(32)
                         .build(), "lstm2_70")
                 .addLayer("lstm4_70", new LSTM.Builder()
-                        .nIn(384)
-                        .nOut(128)
+                        .nIn(32)
+                        .nOut(32)
                         .build(), "lstm3_70")
-                .addLayer("lstm5_70", new LSTM.Builder()
-                        .nIn(128)
-                        .nOut(64)
-                        .build(), "lstm4_70")
-                .addLayer("lstm6_70", new LSTM.Builder()
-                        .nIn(64)
-                        .nOut(10)
-                        .build(), "lstm5_70")
                 .addLayer("output_70", new RnnOutputLayer.Builder()
-                        .nIn(10)
-                        .nOut(10)
+                        .nIn(32)
+                        .nOut(7)
                         .activation(Activation.IDENTITY)
                         .lossFunction(LossFunctions.LossFunction.MSE)
-                        .build(), "lstm6_70")
+                        .build(), "lstm4_70")
 
                 // Layer 3
                 .addLayer("lstm1_100", new LSTM.Builder()
                         .nIn(100)
-                        .nOut(768)
+                        .nOut(256)
                         .build(), "input_100")
                 .addLayer("lstm2_100", new LSTM.Builder()
-                        .nIn(768)
-                        .nOut(768)
+                        .nIn(256)
+                        .nOut(256)
                         .build(), "lstm1_100")
                 .addLayer("lstm3_100", new LSTM.Builder()
-                        .nIn(768)
-                        .nOut(384)
+                        .nIn(256)
+                        .nOut(64)
                         .build(), "lstm2_100")
                 .addLayer("lstm4_100", new LSTM.Builder()
-                        .nIn(384)
-                        .nOut(128)
-                        .build(), "lstm3_100")
-                .addLayer("lstm5_100", new LSTM.Builder()
-                        .nIn(128)
-                        .nOut(64)
-                        .build(), "lstm4_100")
-                .addLayer("lstm6_100", new LSTM.Builder()
                         .nIn(64)
-                        .nOut(15)
-                        .build(), "lstm5_100")
+                        .nOut(32)
+                        .build(), "lstm3_100")
                 .addLayer("output_100", new RnnOutputLayer.Builder()
-                        .nIn(15)
-                        .nOut(15)
+                        .nIn(32)
+                        .nOut(10)
                         .activation(Activation.IDENTITY)
                         .lossFunction(LossFunctions.LossFunction.MSE)
-                        .build(), "lstm6_100")
+                        .build(), "lstm4_100")
 
                 .setOutputs("output_30", "output_70", "output_100")
                 .build();

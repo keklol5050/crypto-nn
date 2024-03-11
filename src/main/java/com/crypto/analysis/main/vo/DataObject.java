@@ -66,12 +66,11 @@ public class DataObject {
     }
 
     public double[] getPreparedParamArray() {
-        double[] result = new double[5];
-        result[0] = candle.getLow();
+        double[] result = new double[4];
+        result[0] = candle.getOpen();
         result[1] = candle.getHigh();
-        result[2] = candle.getClose();
-        result[3] = getMAValuesAverage();
-        result[4] = getUpIndicatorValues();
+        result[2] = candle.getLow();
+        result[3] = candle.getClose();
         return result;
     }
 }

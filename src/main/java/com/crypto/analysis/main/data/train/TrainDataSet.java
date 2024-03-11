@@ -1,7 +1,10 @@
 package com.crypto.analysis.main.data.train;
 
+import com.crypto.analysis.main.data.DataNormalizer;
+import com.crypto.analysis.main.data.DataTransformer;
 import com.crypto.analysis.main.enumerations.DataLength;
 import com.crypto.analysis.main.enumerations.TimeFrame;
+import com.crypto.analysis.main.vo.DataObject;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,48 +20,49 @@ public class TrainDataSet {
 
     private LinkedList<double[][]> testData = new LinkedList<>();
     private LinkedList<double[][]> testResult = new LinkedList<>();
+    private DataNormalizer normalizer;
 
 
-    public TrainDataSet(String symbol, DataLength dl) {
+    private TrainDataSet(String symbol, DataLength dl) {
         this.symbol = symbol;
         this.dl = dl;
     }
+
 
     public static TrainDataSet prepareTrainSet(String symbol, DataLength dl) {
         System.out.println("Preparing train set..");
         TrainDataSet trainDataSet = new TrainDataSet(symbol, dl);
 
-        LinkedList<double[][]> lTrainData = new LinkedList<>();
-        LinkedList<double[][]> lTrainResult = new LinkedList<>();
+        //TrainDataCSV trainDataCSV = new TrainDataCSV(symbol, TimeFrame.ONE_DAY, dl);
+        TrainDataBinance trainDataBinance = new TrainDataBinance(symbol, TimeFrame.ONE_DAY, dl);
 
-        LinkedList<double[][]> lTestData = new LinkedList<>();
-        LinkedList<double[][]> lTestResult = new LinkedList<>();
+        LinkedList<DataObject[]> data = new LinkedList<>();
+      //  data.addAll(trainDataCSV.getData());
+        data.addAll(trainDataBinance.getData());
 
-        /*
-        TrainDataCSV trainDataCSV = new TrainDataCSV(symbol, TimeFrame.ONE_DAY, 20, 1);
+        DataTransformer transformer = new DataTransformer(data, dl);
+        transformer.transform();
+        LinkedList<double[][]> trainData = transformer.getTrainData();
+        LinkedList<double[][]> trainResult = transformer.getTrainResult();
 
-        trainData.addAll(trainDataCSV.getTrainData());
-        trainResult.addAll(trainDataCSV.getTrainResult());
-        */
-        TrainDataBinance train = new TrainDataBinance(symbol, TimeFrame.ONE_HOUR, dl);
+        LinkedList<double[][]> testData = new LinkedList<>();
+        LinkedList<double[][]> testResult = new LinkedList<>();
+        int count = trainData.size();
+        for (int i = count - trainData.size()/6; i < trainData.size(); i++) {
+            testData.add(trainData.remove(i));
+            testResult.add(trainResult.remove(i));
+        }
 
-        lTrainData.addAll(train.getTrainData());
-        lTrainResult.addAll(train.getTrainResult());
+        trainDataSet.setTrainData(trainData);
+        trainDataSet.setTrainResult(trainResult);
+        trainDataSet.setTestData(testData);
+        trainDataSet.setTestResult(testResult);
+        trainDataSet.setNormalizer(transformer.getNormalizer());
 
-        lTestData.addAll(train.getTestData());
-        lTestResult.addAll(train.getTestResult());
-
-        trainDataSet.setTrainData(lTrainData);
-        trainDataSet.setTrainResult(lTrainResult);
-
-        trainDataSet.setTestData(lTestData);
-        trainDataSet.setTestResult(lTestResult);
-
-        System.out.println("Train set size: " + lTrainData.size());
-        System.out.println("Test set size: " + lTrainResult.size());
-        System.out.println("Train set result size: " + lTestData.size());
-        System.out.println("Test set result size: " + lTestResult.size());
-
+        System.out.println("Train data set size: " + trainData.size());
+        System.out.println("Train data set result size: " + trainResult.size());
+        System.out.println("Test data set size: " + testData.size());
+        System.out.println("Test data set result size: " + testResult.size());
         return trainDataSet;
     }
 

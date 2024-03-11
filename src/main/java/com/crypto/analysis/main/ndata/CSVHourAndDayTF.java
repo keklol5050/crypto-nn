@@ -59,7 +59,7 @@ public class CSVHourAndDayTF {
 
     private static List<String> getHourLines() {
         try {
-            return Files.readAllLines(Path.of(String.valueOf(sourceHour)));
+            return Files.readAllLines(sourceHour);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -67,10 +67,14 @@ public class CSVHourAndDayTF {
 
     private static List<String> getDayLines() {
         try {
-            return Files.readAllLines(Path.of(String.valueOf(sourceDay)));
+            return Files.readAllLines(sourceDay);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+    public static void main(String[] args) {
+        List<CandleObject> c = CSVHourAndDayTF.getDayCandles();
+        c.forEach(System.out::println);
+    }
 }

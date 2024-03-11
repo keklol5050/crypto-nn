@@ -1,109 +1,79 @@
 package com.crypto.analysis.main.data;
 
 import com.crypto.analysis.main.data_utils.BinanceDataMultipleInstance;
+import com.crypto.analysis.main.enumerations.DataLength;
 import com.crypto.analysis.main.enumerations.TimeFrame;
 import com.crypto.analysis.main.vo.DataObject;
+import lombok.Getter;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 
+@Getter
 public class DataTransformer {
-    private final DataObject[] data;
-    private final int countParams;
-
-    private double[][] input;
-    private double[][] output;
     private final int countInput;
     private final int countOutput;
 
-    public DataTransformer(DataObject[] data, int countInput, int countOutput) {
-        this.data = data;
-        this.countInput = countInput;
-        this.countOutput = countOutput;
-        this.countParams = data[0].getPreparedParamArray().length;
-        init();
+    private LinkedList<double[][]> data;
+    private LinkedList<double[][]> trainData;
+    private LinkedList<double[][]> trainResult;
+
+    private DataNormalizer normalizer;
+    public DataTransformer(LinkedList<DataObject[]> data, DataLength dl) {
+        this.countInput = dl.getCountInput();
+        this.countOutput = dl.getCountOutput();
+
+        revert (data);
     }
 
-
-    public void init() {
-        if (countInput+countOutput!=data.length) throw new ArithmeticException();
-        if (countOutput==0 || countInput==0) throw new IllegalArgumentException();
-
-        double[][] values = new double[data.length][];
-        values[0] = new double[countParams];
-
-        double[] lastValues = new double[countParams];
-        System.arraycopy(data[0].getPreparedParamArray(), 0, lastValues, 0, lastValues.length);
-
-        for (int i = 1; i < data.length; i++) {
-            double[] currentParams = data[i].getPreparedParamArray();
-            double[] result = new double[countParams];
-            for (int j = 0; j < countParams; j++) {
-                result[j] = calculateChange(lastValues[j], currentParams[j]);
+    private void revert(LinkedList<DataObject[]> data) {
+        this.data = new LinkedList<>();
+        for (DataObject[] datum : data) {
+            double[][] doArray = new double[datum.length][];
+            for (int j = 0; j < datum.length; j++) {
+                doArray[j] = datum[j].getParamArray();
             }
-            System.arraycopy(currentParams, 0, lastValues, 0, lastValues.length);
-            values[i] = result;
+            this.data.add(doArray);
         }
-
-        input = new double[countInput][];
-        System.arraycopy(values, 0, input, 0, input.length);
-
-        output = new double[countOutput][];
-        System.arraycopy(values,countInput, output, 0, output.length);
     }
 
-    public double[][] transformInput() {
-        return input;
+    public void transform() {
+        normalizer = new DataNormalizer();
+        normalizer.fit(data);
+        normalizer.transform(data);
+        prepareData();
     }
 
-    public double[][] transformOutput() {
-        return output;
+    private void prepareData() {
+        trainData = new LinkedList<>();
+        trainResult = new LinkedList<>();
+        for (double[][] datum : data) {
+            DataRefactor transformer = new DataRefactor(datum, countInput, countOutput);
+            trainData.add(transformer.transformInput());
+            trainResult.add(transformer.transformOutput());
+        }
     }
-
-    private double calculateChange(double oldValue, double newValue){
-        if (oldValue==0) oldValue=1;
-        if (newValue==0) newValue=1;
-        return ((newValue - oldValue) / Math.abs(oldValue))*100;
-    }
-
-    private double calculateChangeInds(double oldValue, double newValue){
-        return (newValue - oldValue)/100;
-    }
-
 
     public static void main(String[] args) {
-        DataObject[] pr = BinanceDataMultipleInstance.getLatestInstances("BTCUSDT", TimeFrame.ONE_HOUR);
-
-        double[][] inputData = new double[pr.length - 1][];
-        for (int i = 0; i < pr.length - 1; i++) {
-            inputData[i] = pr[i].getParamArray();
+        DataObject[] objs = BinanceDataMultipleInstance.getLatestInstances("BTCUSDT", TimeFrame.ONE_HOUR);
+        LinkedList<DataObject[]> list = new LinkedList<DataObject[]>();
+        list.add(objs);
+        DataTransformer transformer = new DataTransformer(list, DataLength.S50_3);
+        for (DataObject o : objs) {
+            System.out.println(Arrays.toString(o.getParamArray()));
         }
-        double[] outputData = pr[inputData.length].getParamArray();
-
-        for (double[] row : inputData) {
-            System.out.println(Arrays.toString(row));
+        transformer.transform();
+        LinkedList<double[][]> data = transformer.getTrainData();
+        for (double[][] datum : data) {
+           for (int i = 0; i < datum.length; i++) {
+               System.out.println(Arrays.toString(datum[i]));
+           }
         }
-        System.out.println(Arrays.toString(outputData));
-        System.out.println();
-        System.out.println("=============================================================================================");
-        System.out.println("=============================================================================================");
-        System.out.println();
-        DataTransformer normalizer = new DataTransformer(pr, 25, 5);
-        double[][] normalizedData = normalizer.transformInput();
-
-        for (double[] row : normalizedData) {
-            System.out.println(Arrays.toString(row));
+        LinkedList<double[][]> res = transformer.getTrainResult();
+        for (double[][] datum : res) {
+            for (int i = 0; i < datum.length; i++) {
+                System.out.println(Arrays.toString(datum[i]));
+            }
         }
-        System.out.println();
-        System.out.println();
-        double[][] normalizedOutput = normalizer.transformOutput();
-
-        for (double[] row : normalizedOutput) {
-            System.out.println(Arrays.toString(row));
-        }
-
-        System.out.println(normalizedData.length);
-        System.out.println(normalizedOutput.length);
-
     }
-
 }

@@ -9,12 +9,12 @@ import java.util.LinkedList;
 
 public class BinanceDataMultipleInstance {
     public static DataObject[] getLatestInstances(String symbol, TimeFrame interval) {
-        DataObject[] instances = new DataObject[30];
-        LinkedList<CandleObject> candles = BinanceDataUtil.getCandles(symbol, interval, 30);
+        int count = 30;
+        DataObject[] instances = new DataObject[count];
+        LinkedList<CandleObject> candles = BinanceDataUtil.getCandles(symbol, interval, count);
 
         IndicatorsDataUtil util = new IndicatorsDataUtil(symbol, interval);
 
-        int count = candles.size();
         for (int i = 0; i < count; i++) {
             DataObject obj = new DataObject(symbol, interval);
             obj.setCurrentIndicators(util.getIndicators(candles.size() - 1));

@@ -59,14 +59,14 @@ public class IndicatorsTransferObject {
     }
 
     double getMAValuesAverage() {
-        return (SMA+EMA+WMA+MMA)/4;
+        return getMAValues()/4;
     }
     double getUpIndicatorValues() {
-        return RSI+STOCHD+STOCHK+CCI+ADX+AROONUP; // TODO
+        return RSI+STOCHD+STOCHK+CCI+ADX+AROONUP;
     }
 
     double getUpIndicatorValuesAverage() {
-        return (RSI+STOCHD+STOCHK+CCI+ADX+AROONUP)/6; // TODO
+        return getUpIndicatorValues()/6;
     }
 
     double getDownIndicatorValues() {
@@ -74,7 +74,7 @@ public class IndicatorsTransferObject {
     }
 
     double getDownIndicatorValuesAverage() {
-        return (AROONDOWN)/1;  // TODO
+        return getDownIndicatorValues()/1;
     }
 
 }
