@@ -1,7 +1,9 @@
 package com.crypto.analysis.main.data.train;
 
+import com.crypto.analysis.main.data_utils.BinanceDataMultipleInstance;
 import com.crypto.analysis.main.data_utils.BinanceDataUtil;
 import com.crypto.analysis.main.data_utils.IndicatorsDataUtil;
+import com.crypto.analysis.main.enumerations.Coin;
 import com.crypto.analysis.main.enumerations.DataLength;
 import com.crypto.analysis.main.enumerations.TimeFrame;
 import com.crypto.analysis.main.vo.CandleObject;
@@ -17,7 +19,7 @@ import java.util.LinkedList;
 public class TrainDataBinance {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    private final String symbol;
+    private final Coin coin;
     private final TimeFrame interval;
 
     private final LinkedList<DataObject[]> data = new LinkedList<>();
@@ -25,11 +27,10 @@ public class TrainDataBinance {
     private final int countInput;
     private final int countOutput;
 
-    private LinkedList<CandleObject> candles;
-    private final int capacity = 600;
+    private final int capacity = 450;
 
-    public TrainDataBinance(String symbol, TimeFrame interval, DataLength  dl) {
-        this.symbol = symbol;
+    public TrainDataBinance(Coin coin, TimeFrame interval, DataLength  dl) {
+        this.coin = coin;
         this.interval = interval;
         this.countInput = dl.getCountInput();
         this.countOutput = dl.getCountOutput();
@@ -39,22 +40,16 @@ public class TrainDataBinance {
 
     private void init() {
         try {
-            candles = BinanceDataUtil.getCandles(symbol, interval, capacity);
+            DataObject[] objects = BinanceDataMultipleInstance.getLatestInstances(coin, interval, capacity);
 
-            IndicatorsDataUtil util = new IndicatorsDataUtil(symbol, interval);
-
-            int count = candles.size()-DataLength.MAX_OUTPUT_LENGTH;
+            int count = capacity-DataLength.MAX_OUTPUT_LENGTH;
 
             for (int i = DataLength.MAX_INPUT_LENGTH; i < count; i++) {
                 DataObject[] values = new DataObject[countInput+countOutput];
                 int index = 0;
 
                 for (int j = i-countInput; j < i+countOutput; j++) {
-                    DataObject obj = new DataObject(symbol, interval);
-                    obj.setCurrentIndicators(util.getIndicators(candles.size() - 1 - j));
-                    CandleObject candle = candles.get(j);
-                    obj.setCandle(candle);
-                    values[index++] = obj;
+                    values[index++] = objects[j];
                 }
                 data.add(values);
             }
@@ -62,6 +57,14 @@ public class TrainDataBinance {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void main(String[] args) {
+        TrainDataBinance trainDataBinance = new TrainDataBinance(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES, DataLength.S30_3);
+        for (DataObject[] objArr : trainDataBinance.getData()) {
+            System.out.println(Arrays.toString(objArr));
+        }
+
     }
 
 }

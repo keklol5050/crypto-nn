@@ -1,5 +1,6 @@
 package com.crypto.analysis.main.data_utils;
 
+import com.crypto.analysis.main.enumerations.Coin;
 import com.crypto.analysis.main.enumerations.TimeFrame;
 import com.crypto.analysis.main.vo.CandleObject;
 import com.crypto.analysis.main.vo.IndicatorsTransferObject;
@@ -19,12 +20,12 @@ import java.util.List;
 
 @Getter
 public class IndicatorSingleDataUtil {
-    private final String symbol;
+    private final Coin coin;
     private final TimeFrame interval;
     private CandleObject lastCandle;
 
-    public IndicatorSingleDataUtil(String symbol, TimeFrame interval) {
-        this.symbol = symbol;
+    public IndicatorSingleDataUtil(Coin coin, TimeFrame interval) {
+        this.coin = coin;
         this.interval = interval;
     }
 
@@ -80,7 +81,7 @@ public class IndicatorSingleDataUtil {
     }
 
     private TimeSeries getTimeSeries() {
-        LinkedList<CandleObject> candleObjects = BinanceDataUtil.getCandles(symbol, interval, 1500);
+        LinkedList<CandleObject> candleObjects = BinanceDataUtil.getCandles(coin, interval, 1500);
         lastCandle = candleObjects.getLast();
         return getTimeSeries(candleObjects);
     }

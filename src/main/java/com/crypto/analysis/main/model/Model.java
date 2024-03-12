@@ -1,6 +1,7 @@
 package com.crypto.analysis.main.model;
 
 import com.crypto.analysis.main.data.train.TrainDataSet;
+import com.crypto.analysis.main.enumerations.Coin;
 import com.crypto.analysis.main.enumerations.DataLength;
 import org.deeplearning4j.datasets.iterator.JointMultiDataSetIterator;
 import org.deeplearning4j.datasets.iterator.impl.ListDataSetIterator;
@@ -28,7 +29,7 @@ import java.nio.file.Path;
 import java.util.*;
 
 public class Model {
-    private final String symbol;
+    private final Coin coin;
     private final int numEpochs;
     private final String pathToModel;
     private final String pathToNormalizer;
@@ -40,8 +41,8 @@ public class Model {
     private final int batchSize;
     private final int sequenceLength;
 
-    public Model(String symbol, int numEpochs, int batchSize, int sequenceLength, String pathToModel, String pathToNormalizer) throws Exception {
-        this.symbol = symbol;
+    public Model(Coin coin, int numEpochs, int batchSize, int sequenceLength, String pathToModel, String pathToNormalizer) throws Exception {
+        this.coin = coin;
         this.numEpochs = numEpochs;
         this.batchSize = batchSize;
         this.sequenceLength = sequenceLength;
@@ -51,8 +52,8 @@ public class Model {
         init();
     }
 
-    public Model(String symbol, int numEpochs, int batchSize, int sequenceLength) throws Exception {
-        this.symbol = symbol;
+    public Model(Coin coin, int numEpochs, int batchSize, int sequenceLength) throws Exception {
+        this.coin = coin;
         this.numEpochs = numEpochs;
         this.batchSize = batchSize;
         this.sequenceLength = sequenceLength;
@@ -64,7 +65,7 @@ public class Model {
 
 
     public static void main(String[] args) throws Exception {
-        Model model = new Model("BTCUSDT", 1000, 1, 4);
+        Model model = new Model(Coin.BTCUSDT, 1000, 1, 4);
         model.start();
     }
 
@@ -225,7 +226,7 @@ public class Model {
         List<DataSetIterator> iterators = new ArrayList<DataSetIterator>();
 
         for (DataLength dl : DataLength.values()) {
-            TrainDataSet trainSet = TrainDataSet.prepareTrainSet(symbol, dl);
+            TrainDataSet trainSet = TrainDataSet.prepareTrainSet(coin, dl);
             int countInput = dl.getCountInput();
             int countOutput = dl.getCountOutput();
 

@@ -1,6 +1,7 @@
 package com.crypto.analysis.main.data;
 
 import com.crypto.analysis.main.data_utils.BinanceDataMultipleInstance;
+import com.crypto.analysis.main.enumerations.Coin;
 import com.crypto.analysis.main.enumerations.TimeFrame;
 import com.crypto.analysis.main.vo.DataObject;
 
@@ -95,7 +96,7 @@ public class DataNormalizer {
     }
 
     public static void main(String[] args) {
-        DataObject[] objs = BinanceDataMultipleInstance.getLatestInstances("BTCUSDT", TimeFrame.ONE_HOUR);
+        DataObject[] objs = BinanceDataMultipleInstance.getLatestInstances(Coin.BTCUSDT, TimeFrame.ONE_HOUR,40);
         double[][] m = new double[objs.length][];
         double[][] first = new double[objs.length/2][];
         double[][] second = new double[objs.length/2][];

@@ -1,5 +1,6 @@
 package com.crypto.analysis.main.data_utils;
 
+import com.crypto.analysis.main.enumerations.Coin;
 import com.crypto.analysis.main.enumerations.TimeFrame;
 import com.crypto.analysis.main.vo.CandleObject;
 import com.crypto.analysis.main.vo.IndicatorsTransferObject;
@@ -26,8 +27,8 @@ public class IndicatorsDataUtil {
     private MMAIndicator mma;
     private CCIIndicator cci;
 
-    public IndicatorsDataUtil(String symbol, TimeFrame interval) {
-        candles = BinanceDataUtil.getCandles(symbol, interval, 1500);
+    public IndicatorsDataUtil(Coin coin, TimeFrame interval) {
+        candles = BinanceDataUtil.getCandles(coin, interval, 1500);
         revert = true;
         init();
     }

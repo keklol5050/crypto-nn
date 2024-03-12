@@ -4,8 +4,6 @@ import lombok.Getter;
 
 @Getter
 public enum TimeFrame {
-    ONE_MINUTE("1m"),
-    THREE_MINUTES("3m"),
     FIVE_MINUTES("5m"),
     FIFTEEN_MINUTES("15m"),
     THIRTY_MINUTES("30m"),
@@ -16,11 +14,9 @@ public enum TimeFrame {
     EIGHT_HOURS("8h"),
     TWELVE_HOURS("12h"),
     ONE_DAY("1d"),
-    THREE_DAYS("3d"),
-    ONE_WEEK("1w"),
-    ONE_MONTH("1M");
-    private final String timeFrame;
+    THREE_DAYS("3d");
 
+    private final String timeFrame;
     TimeFrame(String timeFrame) {
         this.timeFrame = timeFrame;
     }

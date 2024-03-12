@@ -1,5 +1,6 @@
 package com.crypto.analysis.main.vo;
 
+import com.crypto.analysis.main.enumerations.Coin;
 import com.crypto.analysis.main.enumerations.TimeFrame;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,15 +10,18 @@ import java.util.Date;
 @Setter
 @Getter
 public class DataObject {
-    private final String symbol;
+    private final Coin coin;
     private final TimeFrame interval;
     private CandleObject candle;
     private IndicatorsTransferObject currentIndicators; // індикатори
-
+    private double currentFundingRate;
+    private double currentOpenInterest;
+    private double longShortRatio;
+    private double buySellRatio;
     private Date createTime;
 
-    public DataObject(String symbol, TimeFrame interval) {
-        this.symbol = symbol;
+    public DataObject(Coin coin, TimeFrame interval) {
+        this.coin = coin;
         this.interval = interval;
         createTime = new Date();
     }
@@ -25,8 +29,12 @@ public class DataObject {
     @Override
     public String toString() {
         return "\nDataObject{" +
-                "\nsymbol='" + symbol + '\'' +
+                "\ncoin='" + coin + '\'' +
                 ",\n interval=" + interval +
+                ",\n currentFundingRate=" + currentFundingRate +
+                ",\n currentOpenInterest=" + currentOpenInterest +
+                ",\n longShortRatio=" + longShortRatio +
+                ",\n buySellRatio=" + buySellRatio +
                 ",\n candle=" + candle +
                 ",\n currentIndicators=" + currentIndicators +
                 ",\n createTime=" + createTime +

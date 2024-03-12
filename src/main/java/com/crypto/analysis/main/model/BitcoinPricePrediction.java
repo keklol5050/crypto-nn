@@ -2,6 +2,7 @@ package com.crypto.analysis.main.model;
 
 import com.crypto.analysis.main.data.DataNormalizer;
 import com.crypto.analysis.main.data.train.TrainDataSet;
+import com.crypto.analysis.main.enumerations.Coin;
 import com.crypto.analysis.main.enumerations.DataLength;
 import org.deeplearning4j.datasets.iterator.impl.ListDataSetIterator;
 import org.deeplearning4j.nn.api.OptimizationAlgorithm;
@@ -15,14 +16,10 @@ import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
-import org.nd4j.linalg.dataset.api.preprocessor.DataNormalization;
-import org.nd4j.linalg.dataset.api.preprocessor.NormalizerMinMaxScaler;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 public class BitcoinPricePrediction {
@@ -36,7 +33,7 @@ public class BitcoinPricePrediction {
         int batchSize = 1;
         int numEpochs = 500;
 
-        TrainDataSet trainSet = TrainDataSet.prepareTrainSet("BTCUSDT", DataLength.S50_3);
+        TrainDataSet trainSet = TrainDataSet.prepareTrainSet(Coin.BTCUSDT, DataLength.S30_3);
         DataNormalizer normalizer = trainSet.getNormalizer();
         LinkedList<double[][]> inputList = trainSet.getTrainData();
         LinkedList<double[][]> outputList = trainSet.getTrainResult();

@@ -1,6 +1,7 @@
 package com.crypto.analysis.main.data;
 
 import com.crypto.analysis.main.data_utils.BinanceDataMultipleInstance;
+import com.crypto.analysis.main.enumerations.Coin;
 import com.crypto.analysis.main.enumerations.TimeFrame;
 import com.crypto.analysis.main.vo.DataObject;
 
@@ -64,7 +65,7 @@ public class DataRefactor {
     }
 
     public static void main(String[] args) {
-        DataObject[] pr = BinanceDataMultipleInstance.getLatestInstances("BTCUSDT", TimeFrame.ONE_HOUR);
+        DataObject[] pr = BinanceDataMultipleInstance.getLatestInstances(Coin.BTCUSDT, TimeFrame.ONE_HOUR, 30);
         double[][] in = new double[pr.length][];
         for (int i = 0; i < pr.length; i++) {
             in[i] = pr[i].getParamArray();
