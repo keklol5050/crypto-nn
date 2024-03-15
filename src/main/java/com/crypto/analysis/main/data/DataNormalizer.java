@@ -5,11 +5,12 @@ import com.crypto.analysis.main.enumerations.Coin;
 import com.crypto.analysis.main.enumerations.TimeFrame;
 import com.crypto.analysis.main.vo.DataObject;
 
+import java.io.*;
 import java.util.Arrays;
 import java.util.LinkedList;
 
 
-public class DataNormalizer {
+public class DataNormalizer implements Serializable {
     private final LinkedList<double[][]> data = new LinkedList<>();
     private double[] min;
     private double[] max;
@@ -77,8 +78,7 @@ public class DataNormalizer {
 
         for (int i = 0; i < in[0].length; i++) {
             for (int j = 0; j < in.length; j++) {
-                int count = i < 4 ? 100 : 10;
-                in[j][i] = ((in[j][i] - min[i]) / (max[i] - min[i]))*count;
+                in[j][i] = ((in[j][i] - min[i]) / (max[i] - min[i]));
             }
         }
     }
@@ -89,10 +89,23 @@ public class DataNormalizer {
 
         for (int i = 0; i < input[0].length; i++) {
             for (int j = 0; j < input.length; j++) {//X=Xstd⋅(Xmax−Xmin)+Xmin
-                int count = i < 4 ? 100 : 10;
-                input[j][i] = (input[j][i]/count) * (max[i] - min[i]) + min[i];
+
+                input[j][i] = (input[j][i]) * (max[i] - min[i]) + min[i];
             }
         }
+    }
+
+    public void saveNormalizer(String basePath) throws Exception {
+        if (basePath==null || basePath.isEmpty()) throw new NullPointerException();
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(basePath));
+        out.writeObject(this);
+        System.out.println("Normalizer saved on the path: " + basePath);
+    }
+
+    public static DataNormalizer loadNormalizer(String basePath) throws Exception {
+        if (basePath==null || basePath.isEmpty()) throw new NullPointerException();
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream(basePath));
+        return (DataNormalizer) in.readObject();
     }
 
     public static void main(String[] args) {

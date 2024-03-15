@@ -4,9 +4,12 @@ import com.crypto.analysis.main.data.DataNormalizer;
 import com.crypto.analysis.main.data.train.TrainDataSet;
 import com.crypto.analysis.main.enumerations.Coin;
 import com.crypto.analysis.main.enumerations.DataLength;
+import com.crypto.analysis.main.enumerations.TimeFrame;
+import com.crypto.analysis.main.ndata.CSVCoinDataSet;
 import org.deeplearning4j.datasets.iterator.impl.ListDataSetIterator;
 import org.deeplearning4j.nn.api.OptimizationAlgorithm;
 import org.deeplearning4j.nn.conf.*;
+import org.deeplearning4j.nn.conf.layers.DropoutLayer;
 import org.deeplearning4j.nn.conf.layers.LSTM;
 import org.deeplearning4j.nn.conf.layers.RnnOutputLayer;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
@@ -27,14 +30,16 @@ public class BitcoinPricePrediction {
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
 
-        int numInputs = 50;
+        int numInputs = 30;
         int numOutputs = 3;
-        int sequenceLength = 16;
+        int sequenceLength = 4;
         int batchSize = 1;
-        int numEpochs = 500;
-
+        int numEpochs = 200;
+        CSVCoinDataSet setD = new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES);
+        setD.load();
         TrainDataSet trainSet = TrainDataSet.prepareTrainSet(Coin.BTCUSDT, DataLength.S30_3);
         DataNormalizer normalizer = trainSet.getNormalizer();
+
         LinkedList<double[][]> inputList = trainSet.getTrainData();
         LinkedList<double[][]> outputList = trainSet.getTrainResult();
 
@@ -57,6 +62,7 @@ public class BitcoinPricePrediction {
             DataSet set = new DataSet(input, labels);
             sets.add(set);
         }
+
         Collections.shuffle(sets);
         DataSetIterator iterator = new ListDataSetIterator<>(sets, sets.size());
 
@@ -64,36 +70,21 @@ public class BitcoinPricePrediction {
                 .seed(123)
                 .optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
                 .gradientNormalization(GradientNormalization.ClipElementWiseAbsoluteValue)
-                .updater(new Adam(0.05))
+                .updater(new Adam(0.01))
                 .list()
-                .layer(0, new LSTM.Builder().nIn(numInputs).nOut(1024)
+                .layer(0, new LSTM.Builder().nIn(numInputs).nOut(100)
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.LEAKYRELU)
                         .build())
-                .layer(1, new LSTM.Builder().nIn(1024).nOut(1024)
+                .layer(1, new DropoutLayer.Builder(0.25).nIn(100).nOut(80).build())
+                .layer(2, new LSTM.Builder().nIn(80).nOut(80)
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.LEAKYRELU)
                         .build())
-                .layer(2, new LSTM.Builder().nIn(1024).nOut(200)
-                        .weightInit(WeightInit.XAVIER)
-                        .activation(Activation.LEAKYRELU)
-                        .build())
-                .layer(3, new LSTM.Builder().nIn(200).nOut(64)
-                        .weightInit(WeightInit.XAVIER)
-                        .activation(Activation.LEAKYRELU)
-                        .build())
-                .layer(4, new LSTM.Builder().nIn(64).nOut(32)
-                        .weightInit(WeightInit.XAVIER)
-                        .activation(Activation.LEAKYRELU)
-                        .build())
-                .layer(5, new LSTM.Builder().nIn(32).nOut(8)
-                        .weightInit(WeightInit.XAVIER)
-                        .activation(Activation.LEAKYRELU)
-                        .build())
-                .layer(6, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
+                .layer(3, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
                         .weightInit(WeightInit.XAVIER)
                         .activation(Activation.IDENTITY)
-                        .nIn(8).nOut(numOutputs)
+                        .nIn(80).nOut(numOutputs)
                         .build())
                 .build();
 
@@ -104,7 +95,7 @@ public class BitcoinPricePrediction {
 
         model.setListeners(new ScoreIterationListener(10));
 
-        for (int i = 0; i < numEpochs; i++) {
+            for (int i = 0; i < numEpochs; i++) {
             model.fit(iterator);
         }
 

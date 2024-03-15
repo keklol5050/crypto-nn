@@ -3,23 +3,24 @@ package com.crypto.analysis.main.data.train;
 import com.crypto.analysis.main.enumerations.Coin;
 import com.crypto.analysis.main.enumerations.DataLength;
 import com.crypto.analysis.main.enumerations.TimeFrame;
-import com.crypto.analysis.main.ndata.CSVDataSet;
+import com.crypto.analysis.main.ndata.CSVCoinDataSet;
 import com.crypto.analysis.main.vo.DataObject;
 import lombok.Getter;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 @Getter
 public class TrainDataCSV {
     private final Coin coin;
-    private final CSVDataSet set;
+    private final CSVCoinDataSet set;
     private final LinkedList<DataObject[]> data = new LinkedList<>();
 
     private final TimeFrame interval;
     private final int countInput;
     private final int countOutput;
 
-    public TrainDataCSV(Coin coin, TimeFrame interval, DataLength dl, CSVDataSet set) {
+    public TrainDataCSV(Coin coin, TimeFrame interval, DataLength dl, CSVCoinDataSet set) {
         this.coin = coin;
         this.interval = interval;
         this.set = set;
@@ -46,6 +47,15 @@ public class TrainDataCSV {
 
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public static void main(String[] args) {
+        CSVCoinDataSet csv = new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES);
+        csv.load();
+        TrainDataCSV trainDataCSV = new TrainDataCSV(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES, DataLength.S30_3, csv);
+        for (DataObject[] objects : trainDataCSV.getData()) {
+            System.out.println(Arrays.toString(objects));
         }
     }
 

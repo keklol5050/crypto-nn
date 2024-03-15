@@ -5,12 +5,14 @@ import com.crypto.analysis.main.data.DataTransformer;
 import com.crypto.analysis.main.enumerations.Coin;
 import com.crypto.analysis.main.enumerations.DataLength;
 import com.crypto.analysis.main.enumerations.TimeFrame;
-import com.crypto.analysis.main.ndata.CSVDataSet;
+import com.crypto.analysis.main.ndata.CSVCoinDataSet;
 import com.crypto.analysis.main.vo.DataObject;
+import com.crypto.analysis.main.vo.TrainSetElement;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
 import java.util.LinkedList;
 
 @Getter
@@ -32,7 +34,7 @@ public class TrainDataSet {
     }
 
 
-    public static TrainDataSet prepareTrainSet(Coin coin, DataLength dl, CSVDataSet set) {
+    public static TrainDataSet prepareTrainSet(Coin coin, DataLength dl, CSVCoinDataSet set) {
         System.out.println("Preparing train set..");
         TrainDataSet trainDataSet = new TrainDataSet(coin, dl);
 
@@ -60,16 +62,26 @@ public class TrainDataSet {
     public static TrainDataSet getTrainDataSet(DataLength dl, TrainDataSet trainDataSet, LinkedList<DataObject[]> data) {
         DataTransformer transformer = new DataTransformer(data, dl);
         transformer.transform();
-        LinkedList<double[][]> trainData = transformer.getTrainData();
-        LinkedList<double[][]> trainResult = transformer.getTrainResult();
+
+        LinkedList<TrainSetElement> dataSet = transformer.getTrainData();
+        Collections.shuffle(dataSet);
+
+        LinkedList<double[][]> trainData =  new LinkedList<>();
+        LinkedList<double[][]> trainResult =  new LinkedList<>();
 
         LinkedList<double[][]> testData = new LinkedList<>();
         LinkedList<double[][]> testResult = new LinkedList<>();
-        int count = trainData.size();
-        int splitCount = data.size() > 500 ? 12 : 6;
-        for (int i = count - trainData.size()/splitCount; i < trainData.size(); i++) {
-            testData.add(trainData.remove(i));
-            testResult.add(trainResult.remove(i));
+        int count = dataSet.size();
+        int max = data.size() > 500 ? count-count/12 : count-count/6;
+
+        for (int i = 0; i < count; i++) {
+            if (i < max) {
+                trainData.add(dataSet.get(i).getDataMatrix());
+                trainResult.add(dataSet.get(i).getResultMatrix());
+            } else {
+                testData.add(dataSet.get(i).getDataMatrix());
+                testResult.add(dataSet.get(i).getResultMatrix());
+            }
         }
 
         trainDataSet.setTrainData(trainData);

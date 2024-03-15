@@ -16,8 +16,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Getter
-public class CSVDataSet {
-    private static final Path pathToFifteenDataSet = new File(CSVDataSet.class.getClassLoader().getResource("static/bitcoin_15m.csv").getFile()).toPath();
+public class CSVCoinDataSet {
+    private static final Path pathToFifteenDataSet = new File(CSVCoinDataSet.class.getClassLoader().getResource("static/bitcoin_15m.csv").getFile()).toPath();
 
     private final Path path;
     private final Coin coin;
@@ -25,7 +25,7 @@ public class CSVDataSet {
     private final LinkedList<DataObject> data;
 
     private boolean isInitialized = false;
-    public CSVDataSet(Coin coin, TimeFrame interval) {
+    public CSVCoinDataSet(Coin coin, TimeFrame interval) {
         this.coin = coin;
         this.interval = interval;
         this.path = switch (interval) {
@@ -84,7 +84,7 @@ public class CSVDataSet {
     }
 
     public static void main(String[] args) {
-        CSVDataSet dataSet = new CSVDataSet(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES);
+        CSVCoinDataSet dataSet = new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES);
         dataSet.load();
         System.out.println(dataSet.data);
     }

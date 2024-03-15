@@ -1,5 +1,6 @@
 package com.crypto.analysis.main;
 
+import com.crypto.analysis.main.funding.FundingHistoryObject;
 import com.crypto.analysis.main.vo.*;
 
 import java.io.IOException;
@@ -9,7 +10,6 @@ import java.nio.file.Path;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class DataSetCreator {
     public static void main(String[] args) throws IOException, ParseException {
@@ -61,7 +61,7 @@ public class DataSetCreator {
         sdf.setTimeZone(TimeZone.getTimeZone("UTC+0"));
 
         for (CandleObject candle : candles) {
-            Date current = candle.getOpenTime();
+            Date current = candle.getCloseTime();
             String date = sdf.format(current);
             double fund = funding.getValueForNearestDate(current);
             double oi = oiMap.get(date);

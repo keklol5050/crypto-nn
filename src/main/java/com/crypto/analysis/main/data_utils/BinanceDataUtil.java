@@ -3,6 +3,7 @@ package com.crypto.analysis.main.data_utils;
 import com.binance.connector.futures.client.impl.UMFuturesClientImpl;
 import com.crypto.analysis.main.enumerations.Coin;
 import com.crypto.analysis.main.enumerations.TimeFrame;
+import com.crypto.analysis.main.funding.FundingHistoryObject;
 import com.crypto.analysis.main.vo.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -62,7 +63,7 @@ public class BinanceDataUtil {
 
         for (JsonNode node : jsonNode) {
             long fundingTime = node.get("fundingTime").asLong();
-            double fundingRate = node.get("fundingRate").asDouble();
+            double fundingRate = node.get("fundingRate").asDouble()*100;
             Date date = new Date(fundingTime);
             resultMap.put(date, fundingRate);
         }

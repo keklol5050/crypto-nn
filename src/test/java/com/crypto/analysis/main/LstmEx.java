@@ -1,105 +1,142 @@
 package com.crypto.analysis.main;
 
+import com.crypto.analysis.main.enumerations.Coin;
+import com.crypto.analysis.main.funding.FundingTrainSet;
+import com.crypto.analysis.main.funding.FundingTrainSetFactory;
+import com.crypto.analysis.main.funding.csv_datasets.CSVRegressionClassificationFundingDataSet;
+import com.crypto.analysis.main.funding.csv_datasets.CSVRegressionFundingDataSet;
+import com.crypto.analysis.main.funding.csv_datasets.CSVSingleClassificationFundingDataSet;
+import com.crypto.analysis.main.model.ModelLoader;
+import com.crypto.analysis.main.vo.TrainSetElement;
 import org.deeplearning4j.datasets.iterator.impl.ListDataSetIterator;
 import org.deeplearning4j.nn.api.OptimizationAlgorithm;
+import org.deeplearning4j.nn.conf.GradientNormalization;
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
-import org.deeplearning4j.nn.conf.layers.LSTM;
-import org.deeplearning4j.nn.conf.layers.RnnOutputLayer;
+import org.deeplearning4j.nn.conf.layers.*;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
+import org.deeplearning4j.nn.weights.WeightInit;
 import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
+import org.nd4j.linalg.dataset.adapter.SingletonDataSetIterator;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
+import org.nd4j.linalg.dataset.api.preprocessor.NormalizerMinMaxScaler;
 import org.nd4j.linalg.factory.Nd4j;
+import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.learning.config.Nesterovs;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
+import java.util.LinkedList;
 
 public class LstmEx {
 
     public static void main(String[] args) {
+        int numEpochs = 300;
+        CSVRegressionFundingDataSet regression = new CSVRegressionFundingDataSet(Coin.BTCUSDT, 10);
+        regression.load();
+        LinkedList<TrainSetElement> elements = regression.getData();
+        Collections.shuffle(elements);
 
-        int numInputs = 5;
-        int numOutputs = 1;
-        int sequenceLength = 4;
-        int batchSize = 4;
-        int numEpochs = 20;
+        LinkedList<double[][]> regressionTrainData =  new LinkedList<>();
+        LinkedList<double[][]> regressionTrainResult = new LinkedList<>();
+
+        LinkedList<double[][]> regressionTestData = new LinkedList<>();
+        LinkedList<double[][]> regressionTestResult = new LinkedList<>();
+
+        int count = elements.size();
+        int max = count-count/6;
+
+        for (int i = 0; i < count; i++) {
+            if (i < max) {
+                regressionTrainData.add(elements.get(i).getDataMatrix());
+                regressionTrainResult.add(elements.get(i).getResultMatrix());
+            } else {
+                regressionTestData.add(elements.get(i).getDataMatrix());
+                regressionTestResult.add(elements.get(i).getResultMatrix());
+            }
+        }
+
+        LinkedList<DataSet> regressionSets = new LinkedList<>();
+
+        int sequenceLengthRegression = regressionTrainResult.get(0)[0].length;
+        int inputCount = regressionTrainData.get(0).length;
+        int outputCount = regressionTrainResult.get(0).length;
+
+        INDArray labelsMask = Nd4j.zeros(outputCount, sequenceLengthRegression);
+        labelsMask.putScalar(new int[]{0, 0}, 1.0);
+
+        for (int i = 0; i < regressionTrainData.size(); i++) {
+            double[][] inputData = regressionTrainData.get(i);
+            double[][] outputData = regressionTrainResult.get(i);
+
+            INDArray input = Nd4j.createFromArray(new double[][][]{inputData});
+            INDArray labels = Nd4j.createFromArray(new double[][][]{outputData});
+
+            DataSet set = new DataSet(input, labels, null, labelsMask);
+            regressionSets.add(set);
+        }
+        DataSetIterator iterator = new ListDataSetIterator<>(regressionSets, regressionSets.size());
+
+        NormalizerMinMaxScaler normalizer = new NormalizerMinMaxScaler();
+        normalizer.fitLabel(true);
+
+        normalizer.fit(iterator);
+        iterator.reset();
+        iterator.setPreProcessor(normalizer);
 
         MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
                 .seed(123)
                 .optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
-                .updater(new Nesterovs(0.0001, 0.9))
+                .gradientNormalization(GradientNormalization.ClipElementWiseAbsoluteValue)
+                .updater(new Adam(0.01))
                 .list()
-                .layer(0,new LSTM.Builder()
-                        .nIn(numInputs).nOut(200)
+                .layer(new LSTM.Builder().nIn(inputCount).nOut(16)
+                        .weightInit(WeightInit.XAVIER)
                         .activation(Activation.TANH)
                         .build())
-                .layer(1,new LSTM.Builder()
-                        .nIn(200).nOut(400)
+                .layer(new LSTM.Builder().nIn(16).nOut(16)
+                        .weightInit(WeightInit.XAVIER)
                         .activation(Activation.TANH)
                         .build())
-                .layer(2,new LSTM.Builder()
-                        .nIn(400).nOut(200)
-                        .activation(Activation.TANH)
-                        .build())
-                .layer(3, new LSTM.Builder()
-                        .nIn(200).nOut(128)
-                        .activation(Activation.LEAKYRELU)
-                        .build())
-                .layer(4, new LSTM.Builder()
-                        .nIn(128).nOut(96)
-                        .activation(Activation.RELU)
-                        .build())
-                .layer(5, new LSTM.Builder()
-                        .nIn(96).nOut(64)
-                        .activation(Activation.TANH)
-                        .build())
-                .layer(6, new LSTM.Builder()
-                        .nIn(64).nOut(32)
-                        .activation(Activation.LEAKYRELU)
-                        .build())
-                .layer(7, new LSTM.Builder()
-                        .nIn(32).nOut(16)
-                        .activation(Activation.RELU)
-                        .build())
-                .layer(8, new LSTM.Builder()
-                        .nIn(16).nOut(8)
-                        .activation(Activation.TANH)
-                        .build())
-                .layer(9, new LSTM.Builder()
-                        .nIn(8).nOut(4)
-                        .activation(Activation.LEAKYRELU)
-                        .build())
-                .layer(10, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
-                        .activation(Activation.TANH)
-                        .nIn(4).nOut(numOutputs)
+                .layer(new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
+                        .weightInit(WeightInit.XAVIER)
+                        .activation(Activation.IDENTITY)
+                        .nIn(16).nOut(outputCount)
                         .build())
                 .build();
 
-        MultiLayerNetwork net = new MultiLayerNetwork(conf);
-        net.init();
-        net.setListeners(new ScoreIterationListener(1));
-
-        List<DataSet> sets = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            INDArray input = Nd4j.rand(new int[]{batchSize, numInputs, sequenceLength});
-            INDArray labels = Nd4j.rand(new int[]{batchSize, numOutputs, sequenceLength});
-            DataSet trainingData = new DataSet(input, labels);
-            sets.add(trainingData);
-        }
-        DataSetIterator iterator = new ListDataSetIterator<>(sets, sets.size());
+        MultiLayerNetwork model = new MultiLayerNetwork(conf);
+        model.init();
+        model.setListeners(new ScoreIterationListener(10));
 
         for (int i = 0; i < numEpochs; i++) {
-            net.fit(iterator);
+            model.fit(iterator);
+            iterator.reset();
         }
 
-        INDArray newInput = Nd4j.rand(new int[]{1, numInputs, sequenceLength});
-        INDArray predictedOutput = net.output(newInput);
+        int countRight = 0;
 
-        System.out.println("Predicted Output: " + predictedOutput);
+        for (int i = 0; i < regressionTestData.size(); i++) {
+            INDArray input = Nd4j.createFromArray(new double[][][]{regressionTestData.get(i)});
+            normalizer.transform(input);
+            INDArray output = model.output(input, false, null, labelsMask);
+            normalizer.revertLabels(output);
+            double[][] result = regressionTestResult.get(i);
+            double indexR = result[0][0];
+            double indexP = output.getDouble(0);
+            double diff = Math.abs(indexP - indexR);
+            double percentDiff =  Math.abs((diff / indexR) * 100); // Разница в процентах
+
+            System.out.printf("real: %s, predicted:%s, percent difference: %.2f%%\n", indexR, indexP, percentDiff);
+
+            if (percentDiff < 5) {
+                countRight++;
+            }
+        }
+        System.out.println("Percentage: " + ((double) countRight/(double) regressionTestData.size()) * 100 + '%');
+
     }
 }

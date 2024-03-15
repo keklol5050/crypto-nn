@@ -42,12 +42,14 @@ public class DataObject {
     }
 
     public double[] getParamArray() {
-        double[] candleValues = candle.getValuesArr();
-        double[] indicators = currentIndicators.getValuesArr();
-        double[] result = new double[candleValues.length + indicators.length];
+        double[] candleValues = candle.getValuesArr(); // 5
+        double[] indicators = currentIndicators.getValuesArr(); // 12
+        double[] fundValues = {currentFundingRate, currentOpenInterest, longShortRatio, buySellRatio}; // 4
+        double[] result = new double[candleValues.length + indicators.length + fundValues.length]; // 4 + 5 + 12 = 21
         System.arraycopy(candleValues, 0, result, 0, candleValues.length);
         System.arraycopy(indicators, 0, result, candleValues.length, indicators.length);
-        return result;
+        System.arraycopy(fundValues, 0, result, candleValues.length + indicators.length, fundValues.length);
+        return candleValues;
     }
 
     public double getMAValues() {

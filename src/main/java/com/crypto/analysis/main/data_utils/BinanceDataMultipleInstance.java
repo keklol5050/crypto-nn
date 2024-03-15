@@ -2,6 +2,7 @@ package com.crypto.analysis.main.data_utils;
 
 import com.crypto.analysis.main.enumerations.Coin;
 import com.crypto.analysis.main.enumerations.TimeFrame;
+import com.crypto.analysis.main.funding.FundingHistoryObject;
 import com.crypto.analysis.main.vo.*;
 
 import java.util.Arrays;

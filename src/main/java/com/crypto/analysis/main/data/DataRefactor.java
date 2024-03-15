@@ -4,17 +4,16 @@ import com.crypto.analysis.main.data_utils.BinanceDataMultipleInstance;
 import com.crypto.analysis.main.enumerations.Coin;
 import com.crypto.analysis.main.enumerations.TimeFrame;
 import com.crypto.analysis.main.vo.DataObject;
+import com.crypto.analysis.main.vo.TrainSetElement;
 
 import java.util.Arrays;
 
 public class DataRefactor {
     private final double[][] data;
     private final int countParams;
-
-    private double[][] input;
-    private double[][] output;
     private final int countInput;
     private final int countOutput;
+    private TrainSetElement element;
 
     public DataRefactor(double[][] data, int countInput, int countOutput) {
         this.data = data;
@@ -45,19 +44,17 @@ public class DataRefactor {
             values[i] = result;
         }
 
-        input = new double[countInput][];
+        double[][] input = new double[countInput][];
         System.arraycopy(values, 0, input, 0, input.length);
 
-        output = new double[countOutput][];
+        double[][] output = new double[countOutput][];
         System.arraycopy(values,countInput, output, 0, output.length);
+
+        element = new TrainSetElement(input, output);
     }
 
-    public double[][] transformInput() {
-        return input;
-    }
-
-    public double[][] transformOutput() {
-        return output;
+    public TrainSetElement transform() {
+        return element;
     }
 
     private double calculateChange(double oldValue, double newValue){
@@ -78,14 +75,15 @@ public class DataRefactor {
         System.out.println("=============================================================================================");
         System.out.println();
         DataRefactor normalizer = new DataRefactor(in, 25, 5);
-        double[][] normalizedData = normalizer.transformInput();
+        TrainSetElement element = normalizer.transform();
+        double[][] normalizedData = element.getDataMatrix();
 
         for (double[] row : normalizedData) {
             System.out.println(Arrays.toString(row));
         }
         System.out.println();
         System.out.println();
-        double[][] normalizedOutput = normalizer.transformOutput();
+        double[][] normalizedOutput = element.getResultMatrix();
 
         for (double[] row : normalizedOutput) {
             System.out.println(Arrays.toString(row));

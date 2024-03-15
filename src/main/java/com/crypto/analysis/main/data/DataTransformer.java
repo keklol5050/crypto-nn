@@ -5,6 +5,7 @@ import com.crypto.analysis.main.enumerations.Coin;
 import com.crypto.analysis.main.enumerations.DataLength;
 import com.crypto.analysis.main.enumerations.TimeFrame;
 import com.crypto.analysis.main.vo.DataObject;
+import com.crypto.analysis.main.vo.TrainSetElement;
 import lombok.Getter;
 
 import java.util.Arrays;
@@ -16,8 +17,8 @@ public class DataTransformer {
     private final int countOutput;
 
     private LinkedList<double[][]> data;
-    private LinkedList<double[][]> trainData;
-    private LinkedList<double[][]> trainResult;
+    private LinkedList<TrainSetElement> trainData;
+
 
     private DataNormalizer normalizer;
     public DataTransformer(LinkedList<DataObject[]> data, DataLength dl) {
@@ -47,11 +48,9 @@ public class DataTransformer {
 
     private void prepareData() {
         trainData = new LinkedList<>();
-        trainResult = new LinkedList<>();
         for (double[][] datum : data) {
             DataRefactor transformer = new DataRefactor(datum, countInput, countOutput);
-            trainData.add(transformer.transformInput());
-            trainResult.add(transformer.transformOutput());
+            trainData.add(transformer.transform());
         }
     }
 
@@ -64,17 +63,9 @@ public class DataTransformer {
             System.out.println(Arrays.toString(o.getParamArray()));
         }
         transformer.transform();
-        LinkedList<double[][]> data = transformer.getTrainData();
-        for (double[][] datum : data) {
-           for (int i = 0; i < datum.length; i++) {
-               System.out.println(Arrays.toString(datum[i]));
-           }
-        }
-        LinkedList<double[][]> res = transformer.getTrainResult();
-        for (double[][] datum : res) {
-            for (int i = 0; i < datum.length; i++) {
-                System.out.println(Arrays.toString(datum[i]));
-            }
-        }
+
+        LinkedList<TrainSetElement> data = transformer.getTrainData();
+        data.forEach(System.out::println);
+
     }
 }
