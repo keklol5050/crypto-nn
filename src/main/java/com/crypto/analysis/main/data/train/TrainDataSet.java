@@ -1,7 +1,7 @@
 package com.crypto.analysis.main.data.train;
 
-import com.crypto.analysis.main.data.DataNormalizer;
 import com.crypto.analysis.main.data.DataTransformer;
+import com.crypto.analysis.main.data_utils.normalizers.BatchNormalizer;
 import com.crypto.analysis.main.enumerations.Coin;
 import com.crypto.analysis.main.enumerations.DataLength;
 import com.crypto.analysis.main.enumerations.TimeFrame;
@@ -25,7 +25,7 @@ public class TrainDataSet {
 
     private LinkedList<double[][]> testData = new LinkedList<>();
     private LinkedList<double[][]> testResult = new LinkedList<>();
-    private DataNormalizer normalizer;
+    private BatchNormalizer normalizer;
 
 
     private TrainDataSet(Coin coin, DataLength dl) {
@@ -65,6 +65,7 @@ public class TrainDataSet {
 
         LinkedList<TrainSetElement> dataSet = transformer.getTrainData();
         Collections.shuffle(dataSet);
+        Collections.shuffle(dataSet);
 
         LinkedList<double[][]> trainData =  new LinkedList<>();
         LinkedList<double[][]> trainResult =  new LinkedList<>();
@@ -72,7 +73,7 @@ public class TrainDataSet {
         LinkedList<double[][]> testData = new LinkedList<>();
         LinkedList<double[][]> testResult = new LinkedList<>();
         int count = dataSet.size();
-        int max = data.size() > 500 ? count-count/12 : count-count/6;
+        int max = data.size() > 5000 ? count-600 : count-250;
 
         for (int i = 0; i < count; i++) {
             if (i < max) {

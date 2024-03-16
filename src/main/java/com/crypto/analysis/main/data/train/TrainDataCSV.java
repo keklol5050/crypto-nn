@@ -35,7 +35,7 @@ public class TrainDataCSV {
             LinkedList<DataObject> objects = set.getData();
             int count = objects.size()-DataLength.MAX_OUTPUT_LENGTH;
 
-            for (int i = DataLength.MAX_INPUT_LENGTH; i < count; i++) {
+            for (int i = 1000; i < count; i++) {
                 DataObject[] values = new DataObject[countInput+countOutput];
                 int index = 0;
 

@@ -42,7 +42,8 @@ public class CandleObject { // формат свічки графіку
                 open,
                 high,
                 low,
-                close
+                close,
+                volume
         };
     }
 }

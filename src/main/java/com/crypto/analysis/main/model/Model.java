@@ -72,7 +72,7 @@ public class Model {
     private void init() throws Exception {
         if (pathToModel != null && pathToNormalizer != null) {
             if (Files.exists(Path.of(pathToModel)) && Files.exists(Path.of(pathToNormalizer))) {
-                model = ModelLoader.loadModel(pathToModel);
+                model = ModelLoader.loadGraph(pathToModel);
                 normalizer = RelativeDataIteratorNormalizer.loadNormalizer(pathToNormalizer);
             } else {
                 model = createModel();

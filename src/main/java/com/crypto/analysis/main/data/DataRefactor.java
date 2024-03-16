@@ -1,60 +1,68 @@
 package com.crypto.analysis.main.data;
 
 import com.crypto.analysis.main.data_utils.BinanceDataMultipleInstance;
+import com.crypto.analysis.main.data_utils.normalizers.BatchNormalizer;
 import com.crypto.analysis.main.enumerations.Coin;
 import com.crypto.analysis.main.enumerations.TimeFrame;
 import com.crypto.analysis.main.vo.DataObject;
 import com.crypto.analysis.main.vo.TrainSetElement;
+import lombok.Getter;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class DataRefactor {
-    private final double[][] data;
-    private final int countParams;
+    public static final int[] MASK_OUTPUT = new int[] {1,2,3}; // HLC
+    private final LinkedList<double[][]> data;
     private final int countInput;
     private final int countOutput;
-    private TrainSetElement element;
+    private LinkedList<TrainSetElement> elements;
 
-    public DataRefactor(double[][] data, int countInput, int countOutput) {
+    @Getter
+    private BatchNormalizer normalizer;
+
+    public DataRefactor(LinkedList<double[][]> data, int countInput, int countOutput) {
         this.data = data;
         this.countInput = countInput;
         this.countOutput = countOutput;
-        this.countParams = data[0].length;
         init();
     }
 
     public void init() {
-        if (countInput+countOutput!=data.length) throw new ArithmeticException("Parameters count are not equals");
-        if (countOutput<1 || countInput<1) throw new IllegalArgumentException("Parameters cannot be zero or negative");
+        elements = new LinkedList<>();
 
-        double[][] values = new double[data.length][];
-        values[0] = new double[countParams];
-        for (int i=0; i<countParams; i++) {
-            values[0][i] = 1;
-        }
-        double[] firstValues = new double[countParams];
-        System.arraycopy(data[0], 0, firstValues, 0, firstValues.length);
+        normalizer = new BatchNormalizer(MASK_OUTPUT, countOutput);
+        normalizer.fitHorizontal(data);
+        normalizer.transformHorizontal(data);
 
-        for (int i = 1; i < data.length; i++) {
-            double[] currentParams = data[i];
-            double[] result = new double[countParams];
-            for (int j = 0; j < countParams; j++) {
-                result[j] = calculateChange(firstValues[j], currentParams[j]);
+        for (double[][] in : data) {
+            if (countInput+countOutput!=in.length) throw new ArithmeticException("Parameters count are not equals");
+            if (countOutput<1 || countInput<1) throw new IllegalArgumentException("Parameters cannot be zero or negative");
+
+            double[][] input = new double[countInput][];
+            System.arraycopy(in, 0, input, 0, input.length);
+
+            double[][] output = new double[countOutput][];
+            System.arraycopy(in,countInput, output, 0, output.length);
+
+            double[][] finalOutput = new double[countOutput][];
+            for (int i = 0; i < finalOutput.length; i++) {
+                finalOutput[i] = new double[MASK_OUTPUT.length];
+                for (int j = 0; j < finalOutput[i].length; j++) {
+                    finalOutput[i][j] = output[i][MASK_OUTPUT[j]];
+                }
             }
-            values[i] = result;
+            input = Transposer.transpose(input);
+            finalOutput = Transposer.transpose(finalOutput, input[0].length);
+
+            normalizer.changeBinding(in, input);
+
+            elements.add(new TrainSetElement(input, finalOutput));
         }
-
-        double[][] input = new double[countInput][];
-        System.arraycopy(values, 0, input, 0, input.length);
-
-        double[][] output = new double[countOutput][];
-        System.arraycopy(values,countInput, output, 0, output.length);
-
-        element = new TrainSetElement(input, output);
     }
 
-    public TrainSetElement transform() {
-        return element;
+    public LinkedList<TrainSetElement> transform() {
+        return elements;
     }
 
     private double calculateChange(double oldValue, double newValue){
@@ -74,16 +82,18 @@ public class DataRefactor {
         System.out.println("=============================================================================================");
         System.out.println("=============================================================================================");
         System.out.println();
-        DataRefactor normalizer = new DataRefactor(in, 25, 5);
-        TrainSetElement element = normalizer.transform();
-        double[][] normalizedData = element.getDataMatrix();
+        LinkedList<double[][]> inl = new LinkedList<double[][]>();
+        inl.add(in);
+        DataRefactor normalizer = new DataRefactor(inl, 25, 5);
+        LinkedList<TrainSetElement> element = normalizer.transform();
+        double[][] normalizedData = element.get(0).getDataMatrix();
 
         for (double[] row : normalizedData) {
             System.out.println(Arrays.toString(row));
         }
         System.out.println();
         System.out.println();
-        double[][] normalizedOutput = element.getResultMatrix();
+        double[][] normalizedOutput =  element.get(0).getResultMatrix();
 
         for (double[] row : normalizedOutput) {
             System.out.println(Arrays.toString(row));

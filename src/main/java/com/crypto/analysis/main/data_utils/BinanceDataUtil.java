@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.time.Period;
 import java.util.*;
 
 public class BinanceDataUtil {
@@ -165,12 +166,9 @@ public class BinanceDataUtil {
 
         LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
         parameters.put("symbol", Coin.BTCUSDT.getName());
-        parameters.put("period", TimeFrame.FIVE_MINUTES.getTimeFrame());
-        parameters.put("limit", 30);
-        String buySellVol = client.market().openInterest(parameters);
-        System.out.println(buySellVol);
-        System.out.println(BinanceDataUtil.getOpenInterest(Coin.BTCUSDT, TimeFrame.FIVE_MINUTES));
-        System.out.println(BinanceDataUtil.getBuySellRatio(Coin.BTCUSDT, TimeFrame.FIVE_MINUTES));
-        System.out.println(BinanceDataUtil.getLongShortRatio(Coin.BTCUSDT, TimeFrame.FIVE_MINUTES));
+        parameters.put("period", TimeFrame.FIFTEEN_MINUTES.getTimeFrame());
+        parameters.put("limit", 2);
+        String buySellVolume = client.market().takerBuySellVol(parameters);
+        System.out.println(buySellVolume);
     }
 }

@@ -17,7 +17,7 @@ import java.util.*;
 
 @Getter
 public class CSVCoinDataSet {
-    private static final Path pathToFifteenDataSet = new File(CSVCoinDataSet.class.getClassLoader().getResource("static/bitcoin_15m.csv").getFile()).toPath();
+    private static final Path pathToFifteenDataSet = new File(Objects.requireNonNull(CSVCoinDataSet.class.getClassLoader().getResource("static/bitcoin_15m.csv")).getFile()).toPath();
 
     private final Path path;
     private final Coin coin;

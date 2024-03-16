@@ -1,4 +1,4 @@
-package com.crypto.analysis.main.data;
+package com.crypto.analysis.main.data_utils.normalizers;
 
 import com.crypto.analysis.main.data_utils.BinanceDataMultipleInstance;
 import com.crypto.analysis.main.enumerations.Coin;
@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 
-public class DataNormalizer implements Serializable {
+public class VerticalNormalizer implements Serializable {
     private final LinkedList<double[][]> data = new LinkedList<>();
     private double[] min;
     private double[] max;
@@ -88,8 +88,7 @@ public class DataNormalizer implements Serializable {
         if (input[0].length!=min.length) throw new IllegalArgumentException("Input array parameters are not right");
 
         for (int i = 0; i < input[0].length; i++) {
-            for (int j = 0; j < input.length; j++) {//X=Xstd⋅(Xmax−Xmin)+Xmin
-
+            for (int j = 0; j < input.length; j++) { //X=Xstd⋅(Xmax−Xmin)+Xmin
                 input[j][i] = (input[j][i]) * (max[i] - min[i]) + min[i];
             }
         }
@@ -102,10 +101,10 @@ public class DataNormalizer implements Serializable {
         System.out.println("Normalizer saved on the path: " + basePath);
     }
 
-    public static DataNormalizer loadNormalizer(String basePath) throws Exception {
+    public static VerticalNormalizer loadNormalizer(String basePath) throws Exception {
         if (basePath==null || basePath.isEmpty()) throw new NullPointerException();
         ObjectInputStream in = new ObjectInputStream(new FileInputStream(basePath));
-        return (DataNormalizer) in.readObject();
+        return (VerticalNormalizer) in.readObject();
     }
 
     public static void main(String[] args) {
@@ -123,7 +122,7 @@ public class DataNormalizer implements Serializable {
         LinkedList<double[][]> list = new LinkedList<double[][]>();
         list.add(first);
         list.add(second);
-        DataNormalizer normalizer = new DataNormalizer();
+        VerticalNormalizer normalizer = new VerticalNormalizer();
         normalizer.fit(list);
         System.out.println(Arrays.toString(normalizer.max));
         System.out.println(Arrays.toString(normalizer.min));

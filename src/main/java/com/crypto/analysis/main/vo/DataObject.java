@@ -49,7 +49,7 @@ public class DataObject {
         System.arraycopy(candleValues, 0, result, 0, candleValues.length);
         System.arraycopy(indicators, 0, result, candleValues.length, indicators.length);
         System.arraycopy(fundValues, 0, result, candleValues.length + indicators.length, fundValues.length);
-        return candleValues;
+        return result;
     }
 
     public double getMAValues() {

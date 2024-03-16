@@ -82,7 +82,7 @@ public class FundingModel {
 
         if (pathToModel != null && pathToNormalizer != null) {
             if (Files.exists(Path.of(pathToModel)) && Files.exists(Path.of(pathToNormalizer))) {
-                model = ModelLoader.loadModel(pathToModel);
+                model = ModelLoader.loadGraph(pathToModel);
             } else {
                 model = createModel();
             }

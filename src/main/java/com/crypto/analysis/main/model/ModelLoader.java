@@ -18,9 +18,18 @@ public class ModelLoader {
         }
     }
 
-    public static ComputationGraph loadModel(String filePath) {
+    public static ComputationGraph loadGraph(String filePath) {
         try {
             return ModelSerializer.restoreComputationGraph(new File(filePath), true);
+        } catch (IOException e) {
+            e.printStackTrace(System.out);
+            return null;
+        }
+    }
+
+    public static MultiLayerNetwork loadNetwork(String filePath) {
+        try {
+            return ModelSerializer.restoreMultiLayerNetwork(new File(filePath), true);
         } catch (IOException e) {
             e.printStackTrace(System.out);
             return null;

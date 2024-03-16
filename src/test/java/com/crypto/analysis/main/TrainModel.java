@@ -53,15 +53,15 @@ public class TrainModel {
 
         DataSet dataSet = new DataSet(inputArray, outputArray);
 
-        DataNormalization normalizer = new NormalizerMinMaxScaler();
-        normalizer.fitLabel(true);
+        DataNormalization normalizers = new NormalizerMinMaxScaler();
+        normalizers.fitLabel(true);
 
         DataSetIterator iterator = new SingletonDataSetIterator(dataSet);
 
-        normalizer.fit(iterator);
+        normalizers.fit(iterator);
         iterator.reset();
 
-        iterator.setPreProcessor(normalizer);
+        iterator.setPreProcessor(normalizers);
 
         MultiLayerNetwork model = ModelLoader.loadModel("D:\\data.zip" );
 
@@ -82,9 +82,9 @@ public class TrainModel {
 
         for (int i = 0; i < testSet.size(); i++) {
             INDArray newInput = Nd4j.create(new double[][]{Arrays.stream(testSet.get(i)).flatMapToDouble(Arrays::stream).toArray()});
-            normalizer.transform(newInput);
+            normalizers.transform(newInput);
             INDArray predictedOutput = model.output(newInput, false);
-            normalizer.revertLabels(predictedOutput);
+            normalizers.revertLabels(predictedOutput);
             double predictionHigh = predictedOutput.getDouble(0);
             double predictionLow = predictedOutput.getDouble(1);
             double realLow = testResult.get(i)[1];

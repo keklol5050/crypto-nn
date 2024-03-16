@@ -1,6 +1,7 @@
 package com.crypto.analysis.main.data;
 
 import com.crypto.analysis.main.data_utils.BinanceDataMultipleInstance;
+import com.crypto.analysis.main.data_utils.normalizers.BatchNormalizer;
 import com.crypto.analysis.main.enumerations.Coin;
 import com.crypto.analysis.main.enumerations.DataLength;
 import com.crypto.analysis.main.enumerations.TimeFrame;
@@ -19,13 +20,13 @@ public class DataTransformer {
     private LinkedList<double[][]> data;
     private LinkedList<TrainSetElement> trainData;
 
+    private BatchNormalizer normalizer;
 
-    private DataNormalizer normalizer;
     public DataTransformer(LinkedList<DataObject[]> data, DataLength dl) {
         this.countInput = dl.getCountInput();
         this.countOutput = dl.getCountOutput();
 
-        revert (data);
+        revert(data);
     }
 
     private void revert(LinkedList<DataObject[]> data) {
@@ -38,24 +39,15 @@ public class DataTransformer {
             this.data.add(doArray);
         }
     }
-
     public void transform() {
-        normalizer = new DataNormalizer();
-        normalizer.fit(data);
-        normalizer.transform(data);
-        prepareData();
-    }
-
-    private void prepareData() {
         trainData = new LinkedList<>();
-        for (double[][] datum : data) {
-            DataRefactor transformer = new DataRefactor(datum, countInput, countOutput);
-            trainData.add(transformer.transform());
-        }
+        DataRefactor refactor = new DataRefactor(data, countInput, countOutput);
+        trainData.addAll(refactor.transform());
+        normalizer = refactor.getNormalizer();
     }
 
     public static void main(String[] args) {
-        DataObject[] objs = BinanceDataMultipleInstance.getLatestInstances(Coin.BTCUSDT, TimeFrame.ONE_HOUR,33);
+        DataObject[] objs = BinanceDataMultipleInstance.getLatestInstances(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES, 25);
         LinkedList<DataObject[]> list = new LinkedList<DataObject[]>();
         list.add(objs);
         DataTransformer transformer = new DataTransformer(list, DataLength.S30_3);
@@ -63,9 +55,23 @@ public class DataTransformer {
             System.out.println(Arrays.toString(o.getParamArray()));
         }
         transformer.transform();
-
+        System.out.println();
         LinkedList<TrainSetElement> data = transformer.getTrainData();
         data.forEach(System.out::println);
+        System.out.println();
+        double[][] tData = data.getFirst().getDataMatrix();
+        double[][] tResult = data.getFirst().getResultMatrix();
+        for (double[] t : tData) {
+            System.out.println(Arrays.toString(t));
+        }
+        System.out.println(Arrays.deepToString(tResult));
+        System.out.println();
+        transformer.normalizer.revertFeaturesVertical(tData);
+        transformer.normalizer.revertLabelsVertical(tData, tResult);
+        for (double[] t : tData) {
+            System.out.println(Arrays.toString(t));
+        }
+        System.out.println(Arrays.deepToString(tResult));
 
     }
 }

@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum DataLength {
-    S30_3(30, 3),
+    S30_3(24, 1),
     L70_7(70, 7),
     X100_10(100, 10);
 

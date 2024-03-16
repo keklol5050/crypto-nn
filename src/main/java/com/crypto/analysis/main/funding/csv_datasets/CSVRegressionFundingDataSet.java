@@ -46,8 +46,10 @@ public class CSVRegressionFundingDataSet {
                     String[] tokens = line.split(",");
 
                     double value = Double.parseDouble(tokens[1])*100;
+                    double price = Double.parseDouble(tokens[2]);
+                    double volume = Double.parseDouble(tokens[3]);
 
-                    double[] data = {value};
+                    double[] data = {value, price, volume};
                     values[index++] = data;
                 }
 
