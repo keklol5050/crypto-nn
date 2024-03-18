@@ -1,6 +1,6 @@
 package com.crypto.analysis.main.funding;
 
-import com.crypto.analysis.main.enumerations.Coin;
+import com.crypto.analysis.main.data_utils.enumerations.Coin;
 import lombok.Getter;
 import org.deeplearning4j.datasets.iterator.JointMultiDataSetIterator;
 import org.deeplearning4j.datasets.iterator.impl.ListDataSetIterator;

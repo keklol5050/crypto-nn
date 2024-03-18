@@ -2,9 +2,9 @@ package com.crypto.analysis.main.data;
 
 import com.crypto.analysis.main.data_utils.BinanceDataMultipleInstance;
 import com.crypto.analysis.main.data_utils.normalizers.BatchNormalizer;
-import com.crypto.analysis.main.enumerations.Coin;
-import com.crypto.analysis.main.enumerations.DataLength;
-import com.crypto.analysis.main.enumerations.TimeFrame;
+import com.crypto.analysis.main.data_utils.enumerations.Coin;
+import com.crypto.analysis.main.data_utils.enumerations.DataLength;
+import com.crypto.analysis.main.data_utils.enumerations.TimeFrame;
 import com.crypto.analysis.main.vo.DataObject;
 import com.crypto.analysis.main.vo.TrainSetElement;
 import lombok.Getter;
@@ -50,7 +50,7 @@ public class DataTransformer {
         DataObject[] objs = BinanceDataMultipleInstance.getLatestInstances(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES, 25);
         LinkedList<DataObject[]> list = new LinkedList<DataObject[]>();
         list.add(objs);
-        DataTransformer transformer = new DataTransformer(list, DataLength.S30_3);
+        DataTransformer transformer = new DataTransformer(list, DataLength.S50_3);
         for (DataObject o : objs) {
             System.out.println(Arrays.toString(o.getParamArray()));
         }

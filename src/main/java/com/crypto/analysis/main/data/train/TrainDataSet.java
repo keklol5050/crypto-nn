@@ -2,9 +2,9 @@ package com.crypto.analysis.main.data.train;
 
 import com.crypto.analysis.main.data.DataTransformer;
 import com.crypto.analysis.main.data_utils.normalizers.BatchNormalizer;
-import com.crypto.analysis.main.enumerations.Coin;
-import com.crypto.analysis.main.enumerations.DataLength;
-import com.crypto.analysis.main.enumerations.TimeFrame;
+import com.crypto.analysis.main.data_utils.enumerations.Coin;
+import com.crypto.analysis.main.data_utils.enumerations.DataLength;
+import com.crypto.analysis.main.data_utils.enumerations.TimeFrame;
 import com.crypto.analysis.main.ndata.CSVCoinDataSet;
 import com.crypto.analysis.main.vo.DataObject;
 import com.crypto.analysis.main.vo.TrainSetElement;
@@ -73,7 +73,7 @@ public class TrainDataSet {
         LinkedList<double[][]> testData = new LinkedList<>();
         LinkedList<double[][]> testResult = new LinkedList<>();
         int count = dataSet.size();
-        int max = data.size() > 5000 ? count-600 : count-250;
+        int max = data.size() > 5000 ? count-700 : count-70;
 
         for (int i = 0; i < count; i++) {
             if (i < max) {

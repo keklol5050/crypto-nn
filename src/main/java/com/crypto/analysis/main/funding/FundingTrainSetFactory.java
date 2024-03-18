@@ -1,6 +1,6 @@
 package com.crypto.analysis.main.funding;
 
-import com.crypto.analysis.main.enumerations.Coin;
+import com.crypto.analysis.main.data_utils.enumerations.Coin;
 import com.crypto.analysis.main.funding.csv_datasets.CSVMultipleClassificationFundingDataSet;
 import com.crypto.analysis.main.funding.csv_datasets.CSVRegressionFundingDataSet;
 import com.crypto.analysis.main.funding.csv_datasets.CSVSingleClassificationFundingDataSet;

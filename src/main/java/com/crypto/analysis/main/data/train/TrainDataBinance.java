@@ -1,18 +1,14 @@
 package com.crypto.analysis.main.data.train;
 
 import com.crypto.analysis.main.data_utils.BinanceDataMultipleInstance;
-import com.crypto.analysis.main.data_utils.BinanceDataUtil;
-import com.crypto.analysis.main.data_utils.IndicatorsDataUtil;
-import com.crypto.analysis.main.enumerations.Coin;
-import com.crypto.analysis.main.enumerations.DataLength;
-import com.crypto.analysis.main.enumerations.TimeFrame;
-import com.crypto.analysis.main.vo.CandleObject;
+import com.crypto.analysis.main.data_utils.enumerations.Coin;
+import com.crypto.analysis.main.data_utils.enumerations.DataLength;
+import com.crypto.analysis.main.data_utils.enumerations.TimeFrame;
 import com.crypto.analysis.main.vo.DataObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.LinkedList;
 
 @Getter
@@ -27,7 +23,7 @@ public class TrainDataBinance {
     private final int countInput;
     private final int countOutput;
 
-    private final int capacity = 450;
+    private final int capacity = 490;
 
     public TrainDataBinance(Coin coin, TimeFrame interval, DataLength  dl) {
         this.coin = coin;
@@ -42,9 +38,9 @@ public class TrainDataBinance {
         try {
             DataObject[] objects = BinanceDataMultipleInstance.getLatestInstances(coin, interval, capacity);
 
-            int count = capacity-DataLength.MAX_OUTPUT_LENGTH;
+            int count = capacity-countOutput;
 
-            for (int i = DataLength.MAX_INPUT_LENGTH; i < count; i++) {
+            for (int i = countInput; i < count; i++) {
                 DataObject[] values = new DataObject[countInput+countOutput];
                 int index = 0;
 
@@ -60,7 +56,7 @@ public class TrainDataBinance {
     }
 
     public static void main(String[] args) {
-        TrainDataBinance trainDataBinance = new TrainDataBinance(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES, DataLength.S30_3);
+        TrainDataBinance trainDataBinance = new TrainDataBinance(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES, DataLength.S50_3);
         for (DataObject[] objArr : trainDataBinance.getData()) {
             System.out.println(Arrays.toString(objArr));
         }

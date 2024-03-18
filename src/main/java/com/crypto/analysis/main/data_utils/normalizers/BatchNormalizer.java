@@ -7,14 +7,17 @@ import java.util.LinkedList;
 public class BatchNormalizer implements Serializable {
     private final LinkedHashMap<double[][], double[]> min = new LinkedHashMap<>();
     private final LinkedHashMap<double[][], double[]> max = new LinkedHashMap<>();
-    private int count = 0;
     private final double epsilon = Math.random() / 1000;
+
     private final int[] mask;
+    private final int countInputs;
     private final int countOutputs;
 
-    public BatchNormalizer(int[] mask, int countOutputs) {
+    public BatchNormalizer(int[] mask, int countInputs, int countOutputs) {
         this.mask = mask;
+        this.countInputs = countInputs;
         this.countOutputs = countOutputs;
+        System.out.println("Epsilon " + epsilon);
     }
 
     public void fitHorizontal(LinkedList<double[][]> data) {
@@ -36,11 +39,14 @@ public class BatchNormalizer implements Serializable {
         double[] min = new double[paramCapacity];
         double[] max = new double[paramCapacity];
 
+        double[][] reverted = new double[countInputs][];
+        System.arraycopy(data, 0, reverted, 0, countInputs);
+
         for (int i = 0; i < paramCapacity; i++) {
             double valueMin = Double.MAX_VALUE;
             double valueMax = Double.MIN_VALUE;
 
-            for (double[] datum : data) {
+            for (double[] datum : reverted) {
                 if (datum.length != paramCapacity)
                     throw new IllegalArgumentException("Arrays parameters are not equals");
 
@@ -49,8 +55,7 @@ public class BatchNormalizer implements Serializable {
             }
 
             if (valueMax - valueMin == 0) {
-                System.out.println("Max value minus min value found to be zero in batch " + count + ", added epsilon :" + epsilon);
-                valueMin += epsilon;
+                valueMax += epsilon;
             }
 
             min[i] = valueMin;
@@ -59,7 +64,6 @@ public class BatchNormalizer implements Serializable {
 
         this.min.put(data, min);
         this.max.put(data, max);
-        count++;
     }
 
     public void transformHorizontal(LinkedList<double[][]> inputList) {

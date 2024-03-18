@@ -1,8 +1,8 @@
 package com.crypto.analysis.main.data.train;
 
-import com.crypto.analysis.main.enumerations.Coin;
-import com.crypto.analysis.main.enumerations.DataLength;
-import com.crypto.analysis.main.enumerations.TimeFrame;
+import com.crypto.analysis.main.data_utils.enumerations.Coin;
+import com.crypto.analysis.main.data_utils.enumerations.DataLength;
+import com.crypto.analysis.main.data_utils.enumerations.TimeFrame;
 import com.crypto.analysis.main.ndata.CSVCoinDataSet;
 import com.crypto.analysis.main.vo.DataObject;
 import lombok.Getter;
@@ -33,9 +33,9 @@ public class TrainDataCSV {
         try {
             if (!set.isInitialized()) throw new UnsupportedOperationException("CSV Data set is not initialized");
             LinkedList<DataObject> objects = set.getData();
-            int count = objects.size()-DataLength.MAX_OUTPUT_LENGTH;
+            int count = objects.size()-countOutput;
 
-            for (int i = 1000; i < count; i++) {
+            for (int i = countInput; i < count; i+=4) {
                 DataObject[] values = new DataObject[countInput+countOutput];
                 int index = 0;
 
@@ -53,7 +53,7 @@ public class TrainDataCSV {
     public static void main(String[] args) {
         CSVCoinDataSet csv = new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES);
         csv.load();
-        TrainDataCSV trainDataCSV = new TrainDataCSV(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES, DataLength.S30_3, csv);
+        TrainDataCSV trainDataCSV = new TrainDataCSV(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES, DataLength.S50_3, csv);
         for (DataObject[] objects : trainDataCSV.getData()) {
             System.out.println(Arrays.toString(objects));
         }

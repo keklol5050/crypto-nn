@@ -1,7 +1,8 @@
 package com.crypto.analysis.main.vo;
 
-import com.crypto.analysis.main.enumerations.Coin;
-import com.crypto.analysis.main.enumerations.TimeFrame;
+import com.crypto.analysis.main.data_utils.enumerations.Coin;
+import com.crypto.analysis.main.data_utils.enumerations.TimeFrame;
+import com.crypto.analysis.main.fundamental.stock.FundamentalStockObject;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,10 +15,14 @@ public class DataObject {
     private final TimeFrame interval;
     private CandleObject candle;
     private IndicatorsTransferObject currentIndicators; // індикатори
+    private FundamentalStockObject fundamentalData;
     private double currentFundingRate;
     private double currentOpenInterest;
     private double longShortRatio;
     private double buySellRatio;
+    private double BTCDomination;
+    private double sentimentMean;
+    private double sentimentSum;
     private Date createTime;
 
     public DataObject(Coin coin, TimeFrame interval) {
@@ -35,52 +40,26 @@ public class DataObject {
                 ",\n currentOpenInterest=" + currentOpenInterest +
                 ",\n longShortRatio=" + longShortRatio +
                 ",\n buySellRatio=" + buySellRatio +
+                ",\n BTCDomination=" + BTCDomination +
+                ",\n sentimentMean=" + sentimentMean +
+                ",\n sentimentSum=" + sentimentSum +
                 ",\n candle=" + candle +
                 ",\n currentIndicators=" + currentIndicators +
+                ",\n fundamentalData=" + fundamentalData +
                 ",\n createTime=" + createTime +
                 '}';
     }
 
     public double[] getParamArray() {
         double[] candleValues = candle.getValuesArr(); // 5
-        double[] indicators = currentIndicators.getValuesArr(); // 12
-        double[] fundValues = {currentFundingRate, currentOpenInterest, longShortRatio, buySellRatio}; // 4
-        double[] result = new double[candleValues.length + indicators.length + fundValues.length]; // 4 + 5 + 12 = 21
+        double[] indicators = currentIndicators.getValuesArr(); // 40
+        double[] fundData = fundamentalData.getValuesArr(); // 5
+        double[] coinFundValues = {currentFundingRate, currentOpenInterest, longShortRatio, buySellRatio, BTCDomination, sentimentMean, sentimentSum}; // 7
+        double[] result = new double[candleValues.length + indicators.length + fundData.length + coinFundValues.length]; // 7 + 5 + 40 + 5 = 57
         System.arraycopy(candleValues, 0, result, 0, candleValues.length);
         System.arraycopy(indicators, 0, result, candleValues.length, indicators.length);
-        System.arraycopy(fundValues, 0, result, candleValues.length + indicators.length, fundValues.length);
-        return result;
-    }
-
-    public double getMAValues() {
-        return currentIndicators.getMAValues();
-    }
-
-    public double getMAValuesAverage() {
-        return currentIndicators.getMAValuesAverage();
-    }
-    public double getUpIndicatorValues() {
-        return currentIndicators.getUpIndicatorValues();
-    }
-
-    public double getUpIndicatorValuesAverage() {
-        return currentIndicators.getUpIndicatorValuesAverage();
-    }
-
-    public double getDownIndicatorValues() {
-        return currentIndicators.getDownIndicatorValues();
-    }
-
-    public double getDownIndicatorValuesAverage() {
-        return currentIndicators.getDownIndicatorValuesAverage();
-    }
-
-    public double[] getPreparedParamArray() {
-        double[] result = new double[4];
-        result[0] = candle.getOpen();
-        result[1] = candle.getHigh();
-        result[2] = candle.getLow();
-        result[3] = candle.getClose();
+        System.arraycopy(fundData, 0, result, candleValues.length + indicators.length, fundData.length);
+        System.arraycopy(coinFundValues, 0, result, candleValues.length + indicators.length + fundData.length, coinFundValues.length);
         return result;
     }
 }

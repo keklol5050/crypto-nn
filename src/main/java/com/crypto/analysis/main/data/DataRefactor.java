@@ -2,8 +2,8 @@ package com.crypto.analysis.main.data;
 
 import com.crypto.analysis.main.data_utils.BinanceDataMultipleInstance;
 import com.crypto.analysis.main.data_utils.normalizers.BatchNormalizer;
-import com.crypto.analysis.main.enumerations.Coin;
-import com.crypto.analysis.main.enumerations.TimeFrame;
+import com.crypto.analysis.main.data_utils.enumerations.Coin;
+import com.crypto.analysis.main.data_utils.enumerations.TimeFrame;
 import com.crypto.analysis.main.vo.DataObject;
 import com.crypto.analysis.main.vo.TrainSetElement;
 import lombok.Getter;
@@ -13,6 +13,7 @@ import java.util.LinkedList;
 
 public class DataRefactor {
     public static final int[] MASK_OUTPUT = new int[] {1,2,3}; // HLC
+    public static final int SKIP_NUMBER = 1000;
     private final LinkedList<double[][]> data;
     private final int countInput;
     private final int countOutput;
@@ -31,7 +32,7 @@ public class DataRefactor {
     public void init() {
         elements = new LinkedList<>();
 
-        normalizer = new BatchNormalizer(MASK_OUTPUT, countOutput);
+        normalizer = new BatchNormalizer(MASK_OUTPUT, countInput, countOutput);
         normalizer.fitHorizontal(data);
         normalizer.transformHorizontal(data);
 

@@ -1,12 +1,7 @@
 package com.crypto.analysis.main;
 
-import com.crypto.analysis.main.enumerations.Coin;
-import com.crypto.analysis.main.funding.FundingTrainSet;
-import com.crypto.analysis.main.funding.FundingTrainSetFactory;
-import com.crypto.analysis.main.funding.csv_datasets.CSVRegressionClassificationFundingDataSet;
+import com.crypto.analysis.main.data_utils.enumerations.Coin;
 import com.crypto.analysis.main.funding.csv_datasets.CSVRegressionFundingDataSet;
-import com.crypto.analysis.main.funding.csv_datasets.CSVSingleClassificationFundingDataSet;
-import com.crypto.analysis.main.model.ModelLoader;
 import com.crypto.analysis.main.vo.TrainSetElement;
 import org.deeplearning4j.datasets.iterator.impl.ListDataSetIterator;
 import org.deeplearning4j.nn.api.OptimizationAlgorithm;
@@ -20,12 +15,10 @@ import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
-import org.nd4j.linalg.dataset.adapter.SingletonDataSetIterator;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.dataset.api.preprocessor.NormalizerMinMaxScaler;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.learning.config.Adam;
-import org.nd4j.linalg.learning.config.Nesterovs;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
 import java.util.Collections;

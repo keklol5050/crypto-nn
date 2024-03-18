@@ -1,8 +1,8 @@
 package com.crypto.analysis.main.model;
 
 import com.crypto.analysis.main.data.train.TrainDataSet;
-import com.crypto.analysis.main.enumerations.Coin;
-import com.crypto.analysis.main.enumerations.DataLength;
+import com.crypto.analysis.main.data_utils.enumerations.Coin;
+import com.crypto.analysis.main.data_utils.enumerations.DataLength;
 import org.deeplearning4j.datasets.iterator.JointMultiDataSetIterator;
 import org.deeplearning4j.datasets.iterator.impl.ListDataSetIterator;
 import org.deeplearning4j.nn.api.OptimizationAlgorithm;

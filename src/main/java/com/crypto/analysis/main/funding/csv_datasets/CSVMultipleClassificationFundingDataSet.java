@@ -1,10 +1,9 @@
 package com.crypto.analysis.main.funding.csv_datasets;
 
-import com.crypto.analysis.main.enumerations.Coin;
+import com.crypto.analysis.main.data_utils.enumerations.Coin;
 import com.crypto.analysis.main.funding.FundingClassification;
 import com.crypto.analysis.main.ndata.CSVCoinDataSet;
 import com.crypto.analysis.main.vo.TrainSetElement;
-import lombok.Getter;
 
 import java.io.File;
 import java.io.IOException;

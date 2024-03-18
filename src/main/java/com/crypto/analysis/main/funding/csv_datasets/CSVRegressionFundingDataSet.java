@@ -1,17 +1,14 @@
 package com.crypto.analysis.main.funding.csv_datasets;
 
-import com.crypto.analysis.main.data.DataTransformer;
 import com.crypto.analysis.main.data.Transposer;
-import com.crypto.analysis.main.enumerations.Coin;
+import com.crypto.analysis.main.data_utils.enumerations.Coin;
 import com.crypto.analysis.main.ndata.CSVCoinDataSet;
 import com.crypto.analysis.main.vo.TrainSetElement;
-import lombok.Getter;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 

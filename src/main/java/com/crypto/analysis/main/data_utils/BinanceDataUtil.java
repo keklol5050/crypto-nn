@@ -1,8 +1,8 @@
 package com.crypto.analysis.main.data_utils;
 
 import com.binance.connector.futures.client.impl.UMFuturesClientImpl;
-import com.crypto.analysis.main.enumerations.Coin;
-import com.crypto.analysis.main.enumerations.TimeFrame;
+import com.crypto.analysis.main.data_utils.enumerations.Coin;
+import com.crypto.analysis.main.data_utils.enumerations.TimeFrame;
 import com.crypto.analysis.main.funding.FundingHistoryObject;
 import com.crypto.analysis.main.vo.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -10,12 +10,11 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.time.Period;
 import java.util.*;
 
 public class BinanceDataUtil {
     public static final UMFuturesClientImpl client = new UMFuturesClientImpl();
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    public static final ObjectMapper objectMapper = new ObjectMapper();
     private Coin coin; // наприклад "BTCUSDT"
     private TimeFrame interval; // 1m 3m 5m 15m 30m 1h 2h 4h 6h 8h 12h 1d 3d 1w 1M
 
@@ -149,7 +148,14 @@ public class BinanceDataUtil {
         return new BuySellRatioHistoryObject(resultMap);
     }
 
-
+    public static BTCDOMObject getBTCDomination(TimeFrame interval) {
+        LinkedList<CandleObject> candlesDOM = getCandles(Coin.BTCDOMUSDT, interval, 1500);
+        TreeMap<Date, Double> resultMap = new TreeMap<Date, Double>();
+        for (CandleObject candle : candlesDOM) {
+            resultMap.put(candle.getOpenTime(), candle.getOpen());
+        }
+        return new BTCDOMObject(resultMap);
+    }
     public static double getCurrentPrice(Coin coin) {
         LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
         parameters.put("symbol", coin.getName());
@@ -159,16 +165,5 @@ public class BinanceDataUtil {
     public DataObject getSingleInstance() {
         DataObject[] instances = BinanceDataMultipleInstance.getLatestInstances(coin, interval, 1);
         return instances[instances.length - 1];
-    }
-
-    public static void main(String[] args) throws JsonProcessingException {
-        LinkedList<Double> result = new LinkedList<>();
-
-        LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
-        parameters.put("symbol", Coin.BTCUSDT.getName());
-        parameters.put("period", TimeFrame.FIFTEEN_MINUTES.getTimeFrame());
-        parameters.put("limit", 2);
-        String buySellVolume = client.market().takerBuySellVol(parameters);
-        System.out.println(buySellVolume);
     }
 }

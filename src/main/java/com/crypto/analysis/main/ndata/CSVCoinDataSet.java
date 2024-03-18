@@ -1,10 +1,15 @@
 package com.crypto.analysis.main.ndata;
 
+import com.crypto.analysis.main.data.DataRefactor;
 import com.crypto.analysis.main.data_utils.IndicatorsDataUtil;
-import com.crypto.analysis.main.enumerations.Coin;
-import com.crypto.analysis.main.enumerations.TimeFrame;
+import com.crypto.analysis.main.data_utils.SentimentUtil;
+import com.crypto.analysis.main.data_utils.enumerations.Coin;
+import com.crypto.analysis.main.data_utils.enumerations.TimeFrame;
+import com.crypto.analysis.main.fundamental.stock.FundamentalStockObject;
+import com.crypto.analysis.main.fundamental.stock.enumerations.TimeFrameConverter;
 import com.crypto.analysis.main.vo.CandleObject;
 import com.crypto.analysis.main.vo.DataObject;
+import com.crypto.analysis.main.vo.SentimentHistoryObject;
 import lombok.Getter;
 
 import java.io.File;
@@ -41,6 +46,9 @@ public class CSVCoinDataSet {
 
         LinkedList<DataObject> localData = new LinkedList<DataObject>();
         LinkedList<CandleObject> candles = new LinkedList<CandleObject>();
+
+        SentimentHistoryObject sentiment = SentimentUtil.getData();
+
         try {
             List<String> lines = Files.readAllLines(path);
             lines.remove(0);
@@ -56,10 +64,12 @@ public class CSVCoinDataSet {
                 Date closeTime = sdf.parse(tokens[6]);
                 CandleObject candle = new CandleObject(openTime, open, high, low, close, volume, closeTime);
 
-                double fundingRate = Double.parseDouble(tokens[7]);
+                double fundingRate = Double.parseDouble(tokens[7])*100;
                 double openInterest = Double.parseDouble(tokens[8]);
                 double longShortRatio = Double.parseDouble(tokens[9]);
                 double sellBuyRatio = Double.parseDouble(tokens[10]);
+                double btcDOM = Double.parseDouble(tokens[11]);
+
 
                 DataObject object = new DataObject(coin, interval);
                 object.setCandle(candle);
@@ -67,6 +77,28 @@ public class CSVCoinDataSet {
                 object.setCurrentOpenInterest(openInterest);
                 object.setLongShortRatio(longShortRatio);
                 object.setBuySellRatio(sellBuyRatio);
+                object.setBTCDomination(btcDOM);
+
+                double spx = Double.parseDouble(tokens[12]);
+                double dxy = Double.parseDouble(tokens[13]);
+                double dji = Double.parseDouble(tokens[14]);
+                double vix = Double.parseDouble(tokens[15]);
+                double ndx = Double.parseDouble(tokens[16]);
+                double gold = Double.parseDouble(tokens[17]);
+
+                FundamentalStockObject fundamentalStock = new FundamentalStockObject(TimeFrameConverter.convert(interval));
+                fundamentalStock.setSPX(spx);
+                fundamentalStock.setDXY(dxy);
+                fundamentalStock.setDJI(dji);
+                fundamentalStock.setVIX(vix);
+                fundamentalStock.setNDX(ndx);
+                fundamentalStock.setGOLD(gold);
+
+                object.setFundamentalData(fundamentalStock);
+
+                double[] sentValues = sentiment.getValueForNearestDate(candle.getOpenTime());
+                object.setSentimentMean(sentValues[0]);
+                object.setSentimentSum(sentValues[1]);
                 localData.add(object);
                 candles.add(candle);
             }
@@ -74,8 +106,8 @@ public class CSVCoinDataSet {
             throw new RuntimeException(e);
         }
 
-        IndicatorsDataUtil util = new IndicatorsDataUtil(Collections.unmodifiableList(candles));
-        for (int i = 0; i < localData.size(); i++) {
+        IndicatorsDataUtil util = new IndicatorsDataUtil(candles);
+        for (int i = DataRefactor.SKIP_NUMBER; i < localData.size(); i++) {
             DataObject object = localData.get(i);
             object.setCurrentIndicators(util.getIndicators(i));
             this.data.add(object);
@@ -86,6 +118,8 @@ public class CSVCoinDataSet {
     public static void main(String[] args) {
         CSVCoinDataSet dataSet = new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES);
         dataSet.load();
-        System.out.println(dataSet.data);
+        System.out.println(dataSet.data.removeLast());
+        System.out.println(dataSet.data.removeLast());
+        System.out.println(dataSet.data.removeLast());
     }
 }
