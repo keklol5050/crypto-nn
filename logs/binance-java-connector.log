@@ -194,3 +194,969 @@ HAVE_FLATBUFFERS
 2024-03-20 12:00:39.725[1710928839725] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 6950 is 0.19527309339580046
 2024-03-20 12:01:08.616[1710928868616] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 6960 is 0.20665229929383805
 2024-03-20 12:01:39.505[1710928899505] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 6970 is 0.22427566665300705
+2024-03-20 12:02:12.816[1710928932816] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 6980 is 0.22627975538064932
+2024-03-20 12:02:43.903[1710928963903] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 6990 is 0.24570170255106255
+2024-03-20 12:03:13.993[1710928993993] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7000 is 0.3033738927082834
+2024-03-20 12:03:46.690[1710929026690] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7010 is 0.18243116097360165
+2024-03-20 12:04:15.625[1710929055625] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7020 is 0.19791271239185398
+2024-03-20 12:04:45.044[1710929085044] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7030 is 0.21624743928937606
+2024-03-20 12:05:17.529[1710929117529] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7040 is 0.22259733423479217
+2024-03-20 12:05:45.958[1710929145958] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7050 is 0.21763715837965547
+2024-03-20 12:06:14.597[1710929174597] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7060 is 0.22285839115021827
+2024-03-20 12:06:44.487[1710929204487] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7070 is 0.29602880076114746
+2024-03-20 12:07:16.119[1710929236119] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7080 is 0.18744513757827322
+2024-03-20 12:07:45.183[1710929265183] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7090 is 0.20049693127870868
+2024-03-20 12:08:20.370[1710929300370] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7100 is 0.2106542536552029
+2024-03-20 12:08:56.344[1710929336344] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7110 is 0.21961860975659594
+2024-03-20 12:09:26.353[1710929366353] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7120 is 0.22197487229461027
+2024-03-20 12:09:55.346[1710929395346] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7130 is 0.2378455975783597
+2024-03-20 12:10:27.420[1710929427420] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7140 is 0.3018881746460846
+2024-03-20 12:10:57.547[1710929457547] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7150 is 0.1857840434719113
+2024-03-20 12:11:27.907[1710929487907] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7160 is 0.20255793657067328
+2024-03-20 12:11:59.164[1710929519164] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7170 is 0.2127453431561956
+2024-03-20 12:12:34.071[1710929554071] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7180 is 0.2271647435598302
+2024-03-20 12:13:06.254[1710929586254] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7190 is 0.22750609814596012
+2024-03-20 12:13:40.008[1710929620008] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7200 is 0.22264889936128696
+2024-03-20 12:14:14.113[1710929654113] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7210 is 0.30118985378986257
+2024-03-20 12:14:49.691[1710929689691] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7220 is 0.18079525492376056
+2024-03-20 12:15:25.674[1710929725674] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7230 is 0.1892791353273033
+2024-03-20 12:15:59.202[1710929759202] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7240 is 0.20890991578237111
+2024-03-20 12:16:36.031[1710929796031] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7250 is 0.22028919812093245
+2024-03-20 12:17:09.815[1710929829815] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7260 is 0.21774933174893
+2024-03-20 12:17:42.008[1710929862008] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7270 is 0.23069360042200512
+2024-03-20 12:18:14.683[1710929894683] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7280 is 0.29767511245943434
+2024-03-20 12:18:45.592[1710929925592] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7290 is 0.1832052109020201
+2024-03-20 12:19:17.268[1710929957268] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7300 is 0.1921173927538754
+2024-03-20 12:19:50.915[1710929990915] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7310 is 0.2111359484527703
+2024-03-20 12:20:21.838[1710930021838] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7320 is 0.21654219592585414
+2024-03-20 12:20:51.964[1710930051964] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7330 is 0.21694672607651133
+2024-03-20 12:21:22.153[1710930082153] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7340 is 0.22645659855112685
+2024-03-20 12:21:52.996[1710930112996] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7350 is 0.33424764110750826
+2024-03-20 12:22:24.259[1710930144259] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7360 is 0.2046816106388337
+2024-03-20 12:22:54.511[1710930174511] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7370 is 0.19284025206100494
+2024-03-20 12:23:24.523[1710930204523] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7380 is 0.21308743660675492
+2024-03-20 12:23:54.744[1710930234744] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7390 is 0.22215621448198505
+2024-03-20 12:24:25.892[1710930265892] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7400 is 0.22074715955300422
+2024-03-20 12:24:56.192[1710930296192] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7410 is 0.28847831762229903
+2024-03-20 12:25:27.150[1710930327150] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7420 is 0.3476306013604407
+2024-03-20 12:25:57.295[1710930357295] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7430 is 0.19680224536064722
+2024-03-20 12:26:27.788[1710930387788] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7440 is 0.2042265412201466
+2024-03-20 12:26:58.718[1710930418718] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7450 is 0.21418885156399617
+2024-03-20 12:27:31.410[1710930451410] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7460 is 0.22853282147514792
+2024-03-20 12:28:02.128[1710930482128] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7470 is 0.22113937614805218
+2024-03-20 12:28:32.554[1710930512554] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7480 is 0.22540264290440287
+2024-03-20 12:29:03.327[1710930543327] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7490 is 0.2947761638486108
+2024-03-20 12:29:33.219[1710930573219] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7500 is 0.1899149806250642
+2024-03-20 12:30:02.747[1710930602747] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7510 is 0.19477042271412853
+2024-03-20 12:30:33.157[1710930633157] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7520 is 0.2021149978951867
+2024-03-20 12:31:03.593[1710930663593] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7530 is 0.2165599853478859
+2024-03-20 12:31:33.114[1710930693114] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7540 is 0.21589869292909836
+2024-03-20 12:32:03.336[1710930723336] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7550 is 0.2234040927045396
+2024-03-20 12:32:34.196[1710930754196] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7560 is 0.3010141460912572
+2024-03-20 12:33:02.688[1710930782688] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7570 is 0.18693751808641634
+2024-03-20 12:33:30.763[1710930810763] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7580 is 0.1940746882092745
+2024-03-20 12:33:59.043[1710930839043] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7590 is 0.20338652255395473
+2024-03-20 12:34:26.954[1710930866954] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7600 is 0.22079301277426977
+2024-03-20 12:34:54.044[1710930894044] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7610 is 0.21802393101302667
+2024-03-20 12:35:21.515[1710930921515] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7620 is 0.22354698112593366
+2024-03-20 12:35:49.619[1710930949619] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7630 is 0.29276818725677056
+2024-03-20 12:36:17.164[1710930977164] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7640 is 0.18005024543047973
+2024-03-20 12:36:44.776[1710931004776] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7650 is 0.19073837884195494
+2024-03-20 12:37:13.247[1710931033247] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7660 is 0.2012066630287601
+2024-03-20 12:37:41.839[1710931061839] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7670 is 0.22078847974987575
+2024-03-20 12:38:08.995[1710931088995] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7680 is 0.2170545137699658
+2024-03-20 12:38:36.513[1710931116513] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7690 is 0.2228673171470787
+2024-03-20 12:39:04.585[1710931144585] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7700 is 0.29549983523337026
+2024-03-20 12:39:32.054[1710931172054] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7710 is 0.18002926854939996
+2024-03-20 12:39:59.708[1710931199708] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7720 is 0.19434331077269731
+2024-03-20 12:40:27.175[1710931227175] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7730 is 0.2042389058680042
+2024-03-20 12:40:55.163[1710931255163] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7740 is 0.21387325352378
+2024-03-20 12:41:22.350[1710931282350] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7750 is 0.214681752016718
+2024-03-20 12:41:49.918[1710931309918] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7760 is 0.22072189861212702
+2024-03-20 12:42:17.891[1710931337891] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7770 is 0.28906355968081215
+2024-03-20 12:42:45.046[1710931365046] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7780 is 0.17729783990712114
+2024-03-20 12:43:12.659[1710931392659] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7790 is 0.19300480491819622
+2024-03-20 12:43:40.283[1710931420283] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7800 is 0.20701032498637248
+2024-03-20 12:44:08.290[1710931448290] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7810 is 0.2143547419788303
+2024-03-20 12:44:35.380[1710931475380] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7820 is 0.2100727799214812
+2024-03-20 12:45:02.886[1710931502886] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7830 is 0.22405687914073036
+2024-03-20 12:45:31.042[1710931531042] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7840 is 0.28881479368347557
+2024-03-20 12:45:58.200[1710931558200] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7850 is 0.17894693586701133
+2024-03-20 12:46:25.842[1710931585842] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7860 is 0.19091965849532513
+2024-03-20 12:46:54.148[1710931614148] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7870 is 0.20423522386958903
+2024-03-20 12:47:22.153[1710931642153] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7880 is 0.21756279521270055
+2024-03-20 12:47:49.372[1710931669372] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7890 is 0.22693836719607008
+2024-03-20 12:48:16.908[1710931696908] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7900 is 0.22145645908649508
+2024-03-20 12:48:44.833[1710931724833] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7910 is 0.28812548447713104
+2024-03-20 12:49:11.912[1710931751912] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7920 is 0.1918460997757877
+2024-03-20 12:49:39.409[1710931779409] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7930 is 0.18979422492996093
+2024-03-20 12:50:07.064[1710931807064] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7940 is 0.20734208777865187
+2024-03-20 12:50:35.164[1710931835164] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7950 is 0.2181112592373683
+2024-03-20 12:51:02.348[1710931862348] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7960 is 0.20975699779545098
+2024-03-20 12:51:29.992[1710931889992] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7970 is 0.22342408603048658
+2024-03-20 12:51:58.073[1710931918073] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7980 is 0.29235060876712554
+2024-03-20 12:52:26.149[1710931946149] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 7990 is 0.2638521667405701
+2024-03-20 12:52:53.908[1710931973908] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8000 is 0.20000333215304378
+2024-03-20 12:53:21.380[1710932001380] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8010 is 0.20643335592205048
+2024-03-20 12:53:49.304[1710932029304] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8020 is 0.22429770285774023
+2024-03-20 12:54:16.472[1710932056472] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8030 is 0.21635709117423943
+2024-03-20 12:54:43.951[1710932083951] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8040 is 0.2242362336013565
+2024-03-20 12:55:11.865[1710932111865] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8050 is 0.29941343121746833
+2024-03-20 12:55:39.069[1710932139069] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8060 is 0.18521406548009187
+2024-03-20 12:56:06.635[1710932166635] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8070 is 0.19158622011126403
+2024-03-20 12:56:34.230[1710932194230] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8080 is 0.19978045939847136
+2024-03-20 12:57:02.232[1710932222232] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8090 is 0.22131308574950348
+2024-03-20 12:57:29.458[1710932249458] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8100 is 0.21603196007480735
+2024-03-20 12:57:56.932[1710932276932] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8110 is 0.22331532488050326
+2024-03-20 12:58:24.861[1710932304861] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8120 is 0.2920762229990518
+2024-03-20 12:58:51.904[1710932331904] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8130 is 0.17721234570071265
+2024-03-20 12:59:19.480[1710932359480] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8140 is 0.18714789316997404
+2024-03-20 12:59:47.740[1710932387740] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8150 is 0.20096212487549237
+2024-03-20 13:00:15.819[1710932415819] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8160 is 0.21054200867228817
+2024-03-20 13:00:42.932[1710932442932] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8170 is 0.21496744936842044
+2024-03-20 13:01:10.352[1710932470352] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8180 is 0.2166110752640818
+2024-03-20 13:01:38.633[1710932498633] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8190 is 0.28496369328168375
+2024-03-20 13:02:05.792[1710932525792] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8200 is 0.17094185754148983
+2024-03-20 13:02:33.285[1710932553285] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8210 is 0.19933944305754006
+2024-03-20 13:03:00.789[1710932580789] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8220 is 0.20522426985005818
+2024-03-20 13:03:28.738[1710932608738] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8230 is 0.2168214494987334
+2024-03-20 13:03:55.928[1710932635928] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8240 is 0.21637174486258695
+2024-03-20 13:04:23.429[1710932663429] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8250 is 0.22336208548487085
+2024-03-20 13:04:51.365[1710932691365] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8260 is 0.2871751542421636
+2024-03-20 13:05:18.537[1710932718537] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8270 is 0.17719878630369343
+2024-03-20 13:05:46.049[1710932746049] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8280 is 0.19034616722381056
+2024-03-20 13:06:13.610[1710932773610] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8290 is 0.2000997138408821
+2024-03-20 13:06:41.587[1710932801587] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8300 is 0.23389480514963676
+2024-03-20 13:07:09.064[1710932829064] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8310 is 0.21753860575483233
+2024-03-20 13:07:37.216[1710932857216] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8320 is 0.21505628182750675
+2024-03-20 13:08:05.178[1710932885178] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8330 is 0.28656315226929596
+2024-03-20 13:08:32.414[1710932912414] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8340 is 0.1728983671365365
+2024-03-20 13:09:03.145[1710932943145] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8350 is 0.18250220754717247
+2024-03-20 13:09:32.808[1710932972808] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8360 is 0.19887806686105575
+2024-03-20 13:10:07.715[1710933007715] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8370 is 0.21114173343689174
+2024-03-20 13:10:39.925[1710933039925] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8380 is 0.2161707795810207
+2024-03-20 13:11:10.098[1710933070098] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8390 is 0.2277707902844533
+2024-03-20 13:11:39.173[1710933099173] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8400 is 0.2859127523439367
+2024-03-20 13:12:06.945[1710933126945] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8410 is 0.17380602710870913
+2024-03-20 13:12:34.917[1710933154917] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8420 is 0.18952382710455712
+2024-03-20 13:13:03.680[1710933183680] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8430 is 0.19618683864271733
+2024-03-20 13:13:35.017[1710933215017] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8440 is 0.2132381794784922
+2024-03-20 13:14:04.574[1710933244574] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8450 is 0.20902808638804907
+2024-03-20 13:14:34.290[1710933274290] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8460 is 0.2160983970193727
+2024-03-20 13:15:04.270[1710933304270] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8470 is 0.28545063268502235
+2024-03-20 13:15:32.715[1710933332715] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8480 is 0.17686441318866997
+2024-03-20 13:16:02.996[1710933362996] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8490 is 0.1854441103373412
+2024-03-20 13:16:31.976[1710933391976] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8500 is 0.1979411495225153
+2024-03-20 13:17:03.062[1710933423062] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8510 is 0.2109390249467134
+2024-03-20 13:17:32.310[1710933452310] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8520 is 0.2236189652531186
+2024-03-20 13:18:02.176[1710933482176] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8530 is 0.21904617409860172
+2024-03-20 13:18:32.879[1710933512879] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8540 is 0.2928739521420542
+2024-03-20 13:19:03.474[1710933543474] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8550 is 0.17520104388850916
+2024-03-20 13:19:33.977[1710933573977] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8560 is 0.1858401899863727
+2024-03-20 13:20:04.502[1710933604502] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8570 is 0.2029877611279958
+2024-03-20 13:20:36.289[1710933636289] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8580 is 0.21500907978830985
+2024-03-20 13:21:05.766[1710933665766] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8590 is 0.2133795292333458
+2024-03-20 13:21:40.041[1710933700041] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8600 is 0.21781874780434698
+2024-03-20 13:22:11.968[1710933731968] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8610 is 0.28732294749940623
+2024-03-20 13:22:42.923[1710933762923] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8620 is 0.17612072492240613
+2024-03-20 13:23:14.042[1710933794042] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8630 is 0.18844812981923456
+2024-03-20 13:23:42.811[1710933822811] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8640 is 0.19861057329139176
+2024-03-20 13:24:12.212[1710933852212] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8650 is 0.2063680288054132
+2024-03-20 13:24:42.376[1710933882376] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8660 is 0.21323879650756694
+2024-03-20 13:25:13.760[1710933913760] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8670 is 0.21512828544755566
+2024-03-20 13:25:43.042[1710933943042] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8680 is 0.2807474084091393
+2024-03-20 13:26:12.779[1710933972779] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8690 is 0.1729646927475918
+2024-03-20 13:26:42.884[1710934002884] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8700 is 0.1814719137494541
+2024-03-20 13:27:13.360[1710934033360] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8710 is 0.19638482870948096
+2024-03-20 13:27:46.025[1710934066025] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8720 is 0.20912585803763403
+2024-03-20 13:28:16.778[1710934096778] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8730 is 0.20788335542463152
+2024-03-20 13:28:45.968[1710934125968] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8740 is 0.2137137983314782
+2024-03-20 13:29:15.005[1710934155005] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8750 is 0.29007042111702597
+2024-03-20 13:29:44.549[1710934184549] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8760 is 0.18109848953799443
+2024-03-20 13:30:13.146[1710934213146] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8770 is 0.18655455108183497
+2024-03-20 13:30:41.900[1710934241900] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8780 is 0.20090749191580493
+2024-03-20 13:31:11.062[1710934271062] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8790 is 0.2130135508648904
+2024-03-20 13:31:39.336[1710934299336] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8800 is 0.27872226500129194
+2024-03-20 13:32:08.346[1710934328346] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8810 is 0.2581427376131957
+2024-03-20 13:32:40.661[1710934360661] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8820 is 0.2980888258225123
+2024-03-20 13:33:10.706[1710934390706] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8830 is 0.1832087610240007
+2024-03-20 13:33:40.618[1710934420618] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8840 is 0.1841119527853583
+2024-03-20 13:34:11.138[1710934451138] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8850 is 0.197980061456146
+2024-03-20 13:34:40.612[1710934480612] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8860 is 0.20685646722517562
+2024-03-20 13:35:09.293[1710934509293] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8870 is 0.2166380337755261
+2024-03-20 13:35:38.573[1710934538573] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8880 is 0.21843904020207577
+2024-03-20 13:36:08.369[1710934568369] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8890 is 0.2824148413357501
+2024-03-20 13:36:39.251[1710934599251] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8900 is 0.1755416823214763
+2024-03-20 13:37:08.206[1710934628206] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8910 is 0.1833662666262349
+2024-03-20 13:37:40.353[1710934660353] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8920 is 0.1981069113349887
+2024-03-20 13:38:09.678[1710934689678] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8930 is 0.2085162011016074
+2024-03-20 13:38:37.598[1710934717598] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8940 is 0.2117291929553591
+2024-03-20 13:39:05.668[1710934745668] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8950 is 0.21268902246251672
+2024-03-20 13:39:35.335[1710934775335] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8960 is 0.28163486481336764
+2024-03-20 13:40:04.328[1710934804328] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8970 is 0.17465041676649035
+2024-03-20 13:40:33.995[1710934833995] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8980 is 0.1838633162443185
+2024-03-20 13:41:03.583[1710934863583] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 8990 is 0.19927222633432762
+2024-03-20 13:41:33.827[1710934893827] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9000 is 0.20425324977992154
+2024-03-20 13:42:03.848[1710934923848] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9010 is 0.20945380586323306
+2024-03-20 13:42:35.544[1710934955544] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9020 is 0.21118541594900084
+2024-03-20 13:43:07.780[1710934987780] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9030 is 0.2783681423489223
+2024-03-20 13:43:38.674[1710935018674] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9040 is 0.17367506690805734
+2024-03-20 13:44:09.430[1710935049430] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9050 is 0.18450840112849137
+2024-03-20 13:44:39.441[1710935079441] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9060 is 0.20119758229581197
+2024-03-20 13:45:10.314[1710935110314] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9070 is 0.2115834464861372
+2024-03-20 13:45:39.343[1710935139343] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9080 is 0.20646990041411317
+2024-03-20 13:46:09.858[1710935169858] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9090 is 0.214258830306009
+2024-03-20 13:46:39.873[1710935199873] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9100 is 0.283034262875175
+2024-03-20 13:47:11.213[1710935231213] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9110 is 0.16976855187115464
+2024-03-20 13:47:44.441[1710935264441] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9120 is 0.17927702742834772
+2024-03-20 13:48:14.126[1710935294126] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9130 is 0.19400805481628586
+2024-03-20 13:48:45.604[1710935325604] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9140 is 0.20493721694217087
+2024-03-20 13:49:18.653[1710935358653] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9150 is 0.2010479572112078
+2024-03-20 13:49:50.888[1710935390888] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9160 is 0.21282808881431997
+2024-03-20 13:50:20.050[1710935420050] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9170 is 0.2813289522953698
+2024-03-20 13:50:48.994[1710935448994] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9180 is 0.1679172501191865
+2024-03-20 13:51:21.922[1710935481922] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9190 is 0.18146627469715548
+2024-03-20 13:51:55.219[1710935515219] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9200 is 0.19435136016060056
+2024-03-20 13:52:26.820[1710935546820] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9210 is 0.2111025578906026
+2024-03-20 13:52:55.638[1710935575638] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9220 is 0.20717328826460457
+2024-03-20 13:53:25.698[1710935605698] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9230 is 0.21959207377899354
+2024-03-20 13:53:57.504[1710935637504] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9240 is 0.2864754750208095
+2024-03-20 13:54:28.197[1710935668197] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9250 is 0.17192496173963387
+2024-03-20 13:54:57.555[1710935697555] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9260 is 0.17632422314528257
+2024-03-20 13:55:26.489[1710935726489] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9270 is 0.19764771459254787
+2024-03-20 13:55:59.713[1710935759713] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9280 is 0.2151836501151883
+2024-03-20 13:56:32.057[1710935792057] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9290 is 0.21366756753457355
+2024-03-20 13:57:03.041[1710935823041] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9300 is 0.21318274032557805
+2024-03-20 13:57:34.453[1710935854453] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9310 is 0.2883482989163618
+2024-03-20 13:58:05.443[1710935885443] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9320 is 0.18177530770470846
+2024-03-20 13:58:33.898[1710935913898] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9330 is 0.1802685756329627
+2024-03-20 13:59:03.394[1710935943394] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9340 is 0.1973295602384583
+2024-03-20 13:59:35.360[1710935975360] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9350 is 0.2066363273707417
+2024-03-20 14:00:04.397[1710936004397] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9360 is 0.20955060974326412
+2024-03-20 14:00:34.190[1710936034190] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9370 is 0.22296726226287183
+2024-03-20 14:01:03.126[1710936063126] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9380 is 0.2913168126179686
+2024-03-20 14:01:32.733[1710936092733] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9390 is 0.17456226438293895
+2024-03-20 14:02:01.386[1710936121386] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9400 is 0.20195142017066486
+2024-03-20 14:02:30.709[1710936150709] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9410 is 0.21213886409895955
+2024-03-20 14:03:01.696[1710936181696] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9420 is 0.33208368485221046
+2024-03-20 14:03:30.287[1710936210287] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9430 is 0.2372464868497667
+2024-03-20 14:03:58.025[1710936238025] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9440 is 0.2618560059239163
+2024-03-20 14:04:27.515[1710936267515] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9450 is 0.2989826890765412
+2024-03-20 14:04:57.015[1710936297015] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9460 is 0.18504204228420143
+2024-03-20 14:05:27.861[1710936327861] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9470 is 0.18499353058203127
+2024-03-20 14:05:56.651[1710936356651] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9480 is 0.1990255826535352
+2024-03-20 14:06:47.297[1710936407297] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9490 is 0.20875148989420914
+2024-03-20 14:07:20.044[1710936440044] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9500 is 0.20522898064915404
+2024-03-20 14:08:11.500[1710936491500] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9510 is 0.21316705611874268
+2024-03-20 14:08:47.199[1710936527199] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9520 is 0.2802126699153008
+2024-03-20 14:09:22.908[1710936562908] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9530 is 0.17866274803206905
+2024-03-20 14:10:01.131[1710936601131] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9540 is 0.18195846228257256
+2024-03-20 14:10:37.678[1710936637678] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9550 is 0.1991131746821601
+2024-03-20 14:11:07.877[1710936667877] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9560 is 0.2119203423296134
+2024-03-20 14:11:37.228[1710936697228] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9570 is 0.20349050031270507
+2024-03-20 14:12:10.444[1710936730444] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9580 is 0.21485611687790462
+2024-03-20 14:12:15.785[1710936735785] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=35
+2024-03-20 14:12:18.272[1710936738272] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 14:12:19.195[1710936739195] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 14:12:19.499[1710936739499] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:12:19.785[1710936739785] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:12:20.072[1710936740072] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:12:20.378[1710936740378] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 14:12:41.971[1710936761971] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9590 is 0.2831676194184421
+2024-03-20 14:13:13.819[1710936793819] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9600 is 0.16981206908589475
+2024-03-20 14:13:50.332[1710936830332] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9610 is 0.1814908518307069
+2024-03-20 14:14:25.729[1710936865729] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9620 is 0.19299920406664994
+2024-03-20 14:15:02.938[1710936902938] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9630 is 0.2043560176821801
+2024-03-20 14:15:38.360[1710936938360] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9640 is 0.21054772417558137
+2024-03-20 14:15:41.214[1710936941214] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=35
+2024-03-20 14:15:43.328[1710936943328] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 14:15:44.248[1710936944248] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 14:15:44.555[1710936944555] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:15:44.849[1710936944849] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:15:45.131[1710936945131] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:15:45.416[1710936945416] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 14:16:08.465[1710936968465] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9650 is 0.20911705087746033
+2024-03-20 14:16:34.505[1710936994505] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=15m&limit=58
+2024-03-20 14:16:36.508[1710936996508] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=15m&limit=1500
+2024-03-20 14:16:37.429[1710936997429] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 14:16:37.733[1710936997733] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=15m&limit=500
+2024-03-20 14:16:38.022[1710936998022] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=15m&limit=500
+2024-03-20 14:16:38.307[1710936998307] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=15m&limit=500
+2024-03-20 14:16:38.597[1710936998597] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=15m&limit=1500
+2024-03-20 14:16:39.026[1710936999026] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9660 is 0.28185702212926456
+2024-03-20 14:17:08.730[1710937028730] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9670 is 0.1752598354301472
+2024-03-20 14:17:30.077[1710937050077] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=15m&limit=58
+2024-03-20 14:17:32.178[1710937052178] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=15m&limit=1500
+2024-03-20 14:17:33.077[1710937053077] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 14:17:33.377[1710937053377] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=15m&limit=500
+2024-03-20 14:17:33.660[1710937053660] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=15m&limit=500
+2024-03-20 14:17:33.946[1710937053946] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=15m&limit=500
+2024-03-20 14:17:34.228[1710937054228] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=15m&limit=1500
+2024-03-20 14:17:40.028[1710937060028] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9680 is 0.17962717126874755
+2024-03-20 14:17:51.788[1710937071788] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=15m&limit=58
+2024-03-20 14:17:53.763[1710937073763] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=15m&limit=1500
+2024-03-20 14:17:54.679[1710937074679] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 14:17:54.980[1710937074980] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=15m&limit=500
+2024-03-20 14:17:55.267[1710937075267] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=15m&limit=500
+2024-03-20 14:17:55.553[1710937075553] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=15m&limit=500
+2024-03-20 14:17:55.839[1710937075839] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=15m&limit=1500
+2024-03-20 14:18:11.121[1710937091121] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9690 is 0.20735137244137794
+2024-03-20 14:18:19.798[1710937099798] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=15m&limit=58
+2024-03-20 14:18:21.832[1710937101832] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=15m&limit=1500
+2024-03-20 14:18:22.772[1710937102772] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 14:18:23.080[1710937103080] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=15m&limit=500
+2024-03-20 14:18:23.370[1710937103370] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=15m&limit=500
+2024-03-20 14:18:23.663[1710937103663] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=15m&limit=500
+2024-03-20 14:18:23.950[1710937103950] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=15m&limit=1500
+2024-03-20 14:18:42.522[1710937122522] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9700 is 0.21040803243798503
+2024-03-20 14:19:15.764[1710937155764] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9710 is 0.20891183962831736
+2024-03-20 14:19:46.324[1710937186324] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9720 is 0.21941827886895118
+2024-03-20 14:20:15.724[1710937215724] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9730 is 0.2797582246123166
+2024-03-20 14:20:44.122[1710937244122] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9740 is 0.17398600338752848
+2024-03-20 14:21:12.917[1710937272917] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9750 is 0.18135277423026858
+2024-03-20 14:21:41.701[1710937301701] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9760 is 0.1978654256867631
+2024-03-20 14:22:10.867[1710937330867] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9770 is 0.2112766847966574
+2024-03-20 14:22:40.056[1710937360056] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9780 is 0.212145221562888
+2024-03-20 14:23:09.430[1710937389430] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9790 is 0.2145427414106498
+2024-03-20 14:23:38.587[1710937418587] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9800 is 0.28933936343926053
+2024-03-20 14:24:07.151[1710937447151] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9810 is 0.16982585591201987
+2024-03-20 14:24:35.991[1710937475991] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9820 is 0.179854600399423
+2024-03-20 14:25:05.445[1710937505445] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9830 is 0.19577559870177932
+2024-03-20 14:25:34.575[1710937534575] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9840 is 0.20949703634621508
+2024-03-20 14:26:06.056[1710937566056] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9850 is 0.20850866388713651
+2024-03-20 14:26:35.490[1710937595490] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9860 is 0.2161460739578289
+2024-03-20 14:27:05.429[1710937625429] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9870 is 0.2838932226622145
+2024-03-20 14:27:36.287[1710937656287] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9880 is 0.17458648145211875
+2024-03-20 14:28:11.397[1710937691397] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9890 is 0.1890025301086786
+2024-03-20 14:28:40.802[1710937720802] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9900 is 0.202106655876447
+2024-03-20 14:29:12.645[1710937752645] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9910 is 0.20684267365049147
+2024-03-20 14:29:49.836[1710937789836] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9920 is 0.202730718275637
+2024-03-20 14:30:25.017[1710937825017] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9930 is 0.21514042715323192
+2024-03-20 14:30:54.614[1710937854614] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9940 is 0.2756129853329809
+2024-03-20 14:31:24.925[1710937884925] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9950 is 0.1714214290975477
+2024-03-20 14:31:54.985[1710937914985] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9960 is 0.17749696976039153
+2024-03-20 14:32:26.232[1710937946232] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9970 is 0.19423624838384385
+2024-03-20 14:32:38.486[1710937958486] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=495
+2024-03-20 14:32:39.081[1710937959081] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 14:32:39.354[1710937959354] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 14:32:39.616[1710937959616] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:32:39.868[1710937959868] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:32:40.119[1710937960119] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:32:40.368[1710937960368] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 14:32:48.348[1710937968348] | INFO  | main       | org.nd4j.linalg.factory.Nd4jBackend  - Loaded [JCublasBackend] backend
+2024-03-20 14:32:55.327[1710937975327] | INFO  | main       | org.nd4j.nativeblas.NativeOpsHolder  - Number of threads used for linear algebra: 32
+2024-03-20 14:32:55.455[1710937975455] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Backend used: [CUDA]; OS: [Windows 11]
+2024-03-20 14:32:55.455[1710937975455] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Cores: [6]; Memory: [4,0GB];
+2024-03-20 14:32:55.455[1710937975455] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Blas vendor: [CUBLAS]
+2024-03-20 14:32:55.476[1710937975476] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build version: 11.2.142
+2024-03-20 14:32:55.480[1710937975480] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA GeForce GTX 1060 6GB]; cc: [6.1]; Total memory: [6442319872]
+2024-03-20 14:32:55.480[1710937975480] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - Backend build information:
+ MSVC: 192930038
+STD version: 201703L
+CUDA: 11.2.142
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+2024-03-20 14:33:02.615[1710937982615] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9980 is 0.20586907048380648
+2024-03-20 14:33:14.542[1710937994542] | INFO  | main       | o.d.nn.multilayer.MultiLayerNetwork  - Starting MultiLayerNetwork with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+2024-03-20 14:33:35.991[1710938015991] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 9990 is 0.19903413954194613
+2024-03-20 14:34:04.944[1710938044944] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 10000 is 0.21162270005153938
+2024-03-20 14:34:34.895[1710938074895] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 10010 is 0.28068999231629826
+2024-03-20 14:35:04.191[1710938104191] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 10020 is 0.17187280520627543
+2024-03-20 14:35:33.556[1710938133556] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 10030 is 0.18681839935907468
+2024-03-20 14:36:03.720[1710938163720] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 10040 is 0.19372701766583486
+2024-03-20 14:36:34.351[1710938194351] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 10050 is 0.20131706112352116
+2024-03-20 14:37:03.046[1710938223046] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 10060 is 0.20177152898234366
+2024-03-20 14:37:33.998[1710938253998] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 10070 is 0.21118958459948184
+2024-03-20 14:37:55.296[1710938275296] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=495
+2024-03-20 14:37:57.445[1710938277445] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 14:37:58.011[1710938278011] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 14:37:58.303[1710938278303] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:37:58.587[1710938278587] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:37:58.872[1710938278872] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:37:59.160[1710938279160] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 14:38:03.734[1710938283734] | INFO  | main       | org.nd4j.linalg.factory.Nd4jBackend  - Loaded [JCublasBackend] backend
+2024-03-20 14:38:04.784[1710938284784] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 10080 is 0.28655461580445724
+2024-03-20 14:38:07.873[1710938287873] | INFO  | main       | org.nd4j.nativeblas.NativeOpsHolder  - Number of threads used for linear algebra: 32
+2024-03-20 14:38:07.934[1710938287934] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Backend used: [CUDA]; OS: [Windows 11]
+2024-03-20 14:38:07.935[1710938287935] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Cores: [6]; Memory: [4,0GB];
+2024-03-20 14:38:07.935[1710938287935] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Blas vendor: [CUBLAS]
+2024-03-20 14:38:07.947[1710938287947] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build version: 11.2.142
+2024-03-20 14:38:07.949[1710938287949] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA GeForce GTX 1060 6GB]; cc: [6.1]; Total memory: [6442319872]
+2024-03-20 14:38:07.949[1710938287949] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - Backend build information:
+ MSVC: 192930038
+STD version: 201703L
+CUDA: 11.2.142
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+2024-03-20 14:38:20.959[1710938300959] | INFO  | main       | o.d.nn.multilayer.MultiLayerNetwork  - Starting MultiLayerNetwork with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+2024-03-20 14:38:40.078[1710938320078] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 10090 is 0.17032694012511862
+2024-03-20 14:39:11.757[1710938351757] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 10100 is 0.18298139789711657
+2024-03-20 14:39:16.939[1710938356939] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=495
+2024-03-20 14:39:19.081[1710938359081] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 14:39:19.657[1710938359657] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 14:39:19.953[1710938359953] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:39:20.242[1710938360242] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:39:20.531[1710938360531] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:39:20.819[1710938360819] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 14:39:25.204[1710938365204] | INFO  | main       | org.nd4j.linalg.factory.Nd4jBackend  - Loaded [JCublasBackend] backend
+2024-03-20 14:39:28.457[1710938368457] | INFO  | main       | org.nd4j.nativeblas.NativeOpsHolder  - Number of threads used for linear algebra: 32
+2024-03-20 14:39:28.508[1710938368508] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Backend used: [CUDA]; OS: [Windows 11]
+2024-03-20 14:39:28.508[1710938368508] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Cores: [6]; Memory: [4,0GB];
+2024-03-20 14:39:28.508[1710938368508] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Blas vendor: [CUBLAS]
+2024-03-20 14:39:28.520[1710938368520] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build version: 11.2.142
+2024-03-20 14:39:28.521[1710938368521] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA GeForce GTX 1060 6GB]; cc: [6.1]; Total memory: [6442319872]
+2024-03-20 14:39:28.521[1710938368521] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - Backend build information:
+ MSVC: 192930038
+STD version: 201703L
+CUDA: 11.2.142
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+2024-03-20 14:39:43.242[1710938383242] | INFO  | main       | o.d.nn.multilayer.MultiLayerNetwork  - Starting MultiLayerNetwork with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+2024-03-20 14:39:49.370[1710938389370] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 10110 is 0.19402837431697179
+2024-03-20 14:40:19.414[1710938419414] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 10120 is 0.20376632439501247
+2024-03-20 14:41:52.304[1710938512304] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=495
+2024-03-20 14:41:54.528[1710938514528] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 14:41:55.101[1710938515101] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 14:41:55.396[1710938515396] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:41:55.683[1710938515683] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:41:55.970[1710938515970] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:41:56.254[1710938516254] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 14:42:00.529[1710938520529] | INFO  | main       | org.nd4j.linalg.factory.Nd4jBackend  - Loaded [JCublasBackend] backend
+2024-03-20 14:42:03.913[1710938523913] | INFO  | main       | org.nd4j.nativeblas.NativeOpsHolder  - Number of threads used for linear algebra: 32
+2024-03-20 14:42:03.970[1710938523970] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Backend used: [CUDA]; OS: [Windows 11]
+2024-03-20 14:42:03.970[1710938523970] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Cores: [6]; Memory: [4,0GB];
+2024-03-20 14:42:03.970[1710938523970] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Blas vendor: [CUBLAS]
+2024-03-20 14:42:03.989[1710938523989] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build version: 11.2.142
+2024-03-20 14:42:03.991[1710938523991] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA GeForce GTX 1060 6GB]; cc: [6.1]; Total memory: [6442319872]
+2024-03-20 14:42:03.991[1710938523991] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - Backend build information:
+ MSVC: 192930038
+STD version: 201703L
+CUDA: 11.2.142
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+2024-03-20 14:42:11.906[1710938531906] | INFO  | main       | o.d.nn.multilayer.MultiLayerNetwork  - Starting MultiLayerNetwork with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+2024-03-20 14:43:02.302[1710938582302] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=495
+2024-03-20 14:43:04.452[1710938584452] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 14:43:05.031[1710938585031] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 14:43:05.332[1710938585332] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:43:05.621[1710938585621] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:43:05.911[1710938585911] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:43:06.201[1710938586201] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 14:43:10.612[1710938590612] | INFO  | main       | org.nd4j.linalg.factory.Nd4jBackend  - Loaded [JCublasBackend] backend
+2024-03-20 14:43:13.590[1710938593590] | INFO  | main       | org.nd4j.nativeblas.NativeOpsHolder  - Number of threads used for linear algebra: 32
+2024-03-20 14:43:13.651[1710938593651] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Backend used: [CUDA]; OS: [Windows 11]
+2024-03-20 14:43:13.651[1710938593651] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Cores: [6]; Memory: [4,0GB];
+2024-03-20 14:43:13.651[1710938593651] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Blas vendor: [CUBLAS]
+2024-03-20 14:43:13.664[1710938593664] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build version: 11.2.142
+2024-03-20 14:43:13.666[1710938593666] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA GeForce GTX 1060 6GB]; cc: [6.1]; Total memory: [6442319872]
+2024-03-20 14:43:13.667[1710938593667] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - Backend build information:
+ MSVC: 192930038
+STD version: 201703L
+CUDA: 11.2.142
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+2024-03-20 14:43:21.523[1710938601523] | INFO  | main       | o.d.nn.multilayer.MultiLayerNetwork  - Starting MultiLayerNetwork with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+2024-03-20 14:45:38.820[1710938738820] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=495
+2024-03-20 14:45:41.081[1710938741081] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 14:45:41.663[1710938741663] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 14:45:41.962[1710938741962] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:45:42.251[1710938742251] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:45:42.539[1710938742539] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:45:42.828[1710938742828] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 14:45:47.061[1710938747061] | INFO  | main       | org.nd4j.linalg.factory.Nd4jBackend  - Loaded [JCublasBackend] backend
+2024-03-20 14:45:49.949[1710938749949] | INFO  | main       | org.nd4j.nativeblas.NativeOpsHolder  - Number of threads used for linear algebra: 32
+2024-03-20 14:45:50.005[1710938750005] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Backend used: [CUDA]; OS: [Windows 11]
+2024-03-20 14:45:50.005[1710938750005] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Cores: [6]; Memory: [4,0GB];
+2024-03-20 14:45:50.005[1710938750005] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Blas vendor: [CUBLAS]
+2024-03-20 14:45:50.018[1710938750018] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build version: 11.2.142
+2024-03-20 14:45:50.020[1710938750020] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA GeForce GTX 1060 6GB]; cc: [6.1]; Total memory: [6442319872]
+2024-03-20 14:45:50.021[1710938750021] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - Backend build information:
+ MSVC: 192930038
+STD version: 201703L
+CUDA: 11.2.142
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+2024-03-20 14:45:57.848[1710938757848] | INFO  | main       | o.d.nn.multilayer.MultiLayerNetwork  - Starting MultiLayerNetwork with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+2024-03-20 14:46:33.590[1710938793590] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=495
+2024-03-20 14:46:35.620[1710938795620] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 14:46:36.204[1710938796204] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 14:46:36.499[1710938796499] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:46:36.786[1710938796786] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:46:37.073[1710938797073] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:46:37.358[1710938797358] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 14:46:41.869[1710938801869] | INFO  | main       | org.nd4j.linalg.factory.Nd4jBackend  - Loaded [JCublasBackend] backend
+2024-03-20 14:46:45.027[1710938805027] | INFO  | main       | org.nd4j.nativeblas.NativeOpsHolder  - Number of threads used for linear algebra: 32
+2024-03-20 14:46:45.088[1710938805088] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Backend used: [CUDA]; OS: [Windows 11]
+2024-03-20 14:46:45.088[1710938805088] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Cores: [6]; Memory: [4,0GB];
+2024-03-20 14:46:45.088[1710938805088] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Blas vendor: [CUBLAS]
+2024-03-20 14:46:45.102[1710938805102] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build version: 11.2.142
+2024-03-20 14:46:45.104[1710938805104] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA GeForce GTX 1060 6GB]; cc: [6.1]; Total memory: [6442319872]
+2024-03-20 14:46:45.104[1710938805104] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - Backend build information:
+ MSVC: 192930038
+STD version: 201703L
+CUDA: 11.2.142
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+2024-03-20 14:46:52.301[1710938812301] | INFO  | main       | o.d.nn.multilayer.MultiLayerNetwork  - Starting MultiLayerNetwork with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+2024-03-20 14:47:46.197[1710938866197] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=495
+2024-03-20 14:47:48.369[1710938868369] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 14:47:48.943[1710938868943] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 14:47:49.244[1710938869244] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:47:49.532[1710938869532] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:47:49.818[1710938869818] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:47:50.106[1710938870106] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 14:47:54.341[1710938874341] | INFO  | main       | org.nd4j.linalg.factory.Nd4jBackend  - Loaded [JCublasBackend] backend
+2024-03-20 14:47:57.401[1710938877401] | INFO  | main       | org.nd4j.nativeblas.NativeOpsHolder  - Number of threads used for linear algebra: 32
+2024-03-20 14:47:57.473[1710938877473] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Backend used: [CUDA]; OS: [Windows 11]
+2024-03-20 14:47:57.473[1710938877473] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Cores: [6]; Memory: [4,0GB];
+2024-03-20 14:47:57.473[1710938877473] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Blas vendor: [CUBLAS]
+2024-03-20 14:47:57.488[1710938877488] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build version: 11.2.142
+2024-03-20 14:47:57.490[1710938877490] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA GeForce GTX 1060 6GB]; cc: [6.1]; Total memory: [6442319872]
+2024-03-20 14:47:57.490[1710938877490] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - Backend build information:
+ MSVC: 192930038
+STD version: 201703L
+CUDA: 11.2.142
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+2024-03-20 14:48:04.920[1710938884920] | INFO  | main       | o.d.nn.multilayer.MultiLayerNetwork  - Starting MultiLayerNetwork with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+2024-03-20 14:49:24.475[1710938964475] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=495
+2024-03-20 14:49:26.597[1710938966597] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 14:49:27.171[1710938967171] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 14:49:27.469[1710938967469] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:49:27.756[1710938967756] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:49:28.041[1710938968041] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:49:28.331[1710938968331] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 14:49:32.660[1710938972660] | INFO  | main       | org.nd4j.linalg.factory.Nd4jBackend  - Loaded [JCublasBackend] backend
+2024-03-20 14:49:35.620[1710938975620] | INFO  | main       | org.nd4j.nativeblas.NativeOpsHolder  - Number of threads used for linear algebra: 32
+2024-03-20 14:49:35.673[1710938975673] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Backend used: [CUDA]; OS: [Windows 11]
+2024-03-20 14:49:35.673[1710938975673] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Cores: [6]; Memory: [4,0GB];
+2024-03-20 14:49:35.673[1710938975673] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Blas vendor: [CUBLAS]
+2024-03-20 14:49:35.685[1710938975685] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build version: 11.2.142
+2024-03-20 14:49:35.686[1710938975686] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA GeForce GTX 1060 6GB]; cc: [6.1]; Total memory: [6442319872]
+2024-03-20 14:49:35.686[1710938975686] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - Backend build information:
+ MSVC: 192930038
+STD version: 201703L
+CUDA: 11.2.142
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+2024-03-20 14:49:41.436[1710938981436] | INFO  | main       | o.d.nn.multilayer.MultiLayerNetwork  - Starting MultiLayerNetwork with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+2024-03-20 14:51:03.137[1710939063137] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=495
+2024-03-20 14:51:05.329[1710939065329] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 14:51:05.898[1710939065898] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 14:51:06.190[1710939066190] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:51:06.477[1710939066477] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:51:06.762[1710939066762] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:51:07.043[1710939067043] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 14:51:11.340[1710939071340] | INFO  | main       | org.nd4j.linalg.factory.Nd4jBackend  - Loaded [JCublasBackend] backend
+2024-03-20 14:51:14.380[1710939074380] | INFO  | main       | org.nd4j.nativeblas.NativeOpsHolder  - Number of threads used for linear algebra: 32
+2024-03-20 14:51:14.471[1710939074471] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Backend used: [CUDA]; OS: [Windows 11]
+2024-03-20 14:51:14.472[1710939074472] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Cores: [6]; Memory: [4,0GB];
+2024-03-20 14:51:14.472[1710939074472] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Blas vendor: [CUBLAS]
+2024-03-20 14:51:14.490[1710939074490] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build version: 11.2.142
+2024-03-20 14:51:14.492[1710939074492] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA GeForce GTX 1060 6GB]; cc: [6.1]; Total memory: [6442319872]
+2024-03-20 14:51:14.492[1710939074492] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - Backend build information:
+ MSVC: 192930038
+STD version: 201703L
+CUDA: 11.2.142
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+2024-03-20 14:51:20.392[1710939080392] | INFO  | main       | o.d.nn.multilayer.MultiLayerNetwork  - Starting MultiLayerNetwork with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+2024-03-20 14:53:45.538[1710939225538] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=495
+2024-03-20 14:53:47.724[1710939227724] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 14:53:48.299[1710939228299] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 14:53:48.599[1710939228599] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:53:48.888[1710939228888] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:53:49.174[1710939229174] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:53:49.461[1710939229461] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 14:53:54.206[1710939234206] | INFO  | main       | org.nd4j.linalg.factory.Nd4jBackend  - Loaded [JCublasBackend] backend
+2024-03-20 14:53:57.453[1710939237453] | INFO  | main       | org.nd4j.nativeblas.NativeOpsHolder  - Number of threads used for linear algebra: 32
+2024-03-20 14:53:57.530[1710939237530] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Backend used: [CUDA]; OS: [Windows 11]
+2024-03-20 14:53:57.530[1710939237530] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Cores: [6]; Memory: [4,0GB];
+2024-03-20 14:53:57.530[1710939237530] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Blas vendor: [CUBLAS]
+2024-03-20 14:53:57.543[1710939237543] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build version: 11.2.142
+2024-03-20 14:53:57.545[1710939237545] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA GeForce GTX 1060 6GB]; cc: [6.1]; Total memory: [6442319872]
+2024-03-20 14:53:57.545[1710939237545] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - Backend build information:
+ MSVC: 192930038
+STD version: 201703L
+CUDA: 11.2.142
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+2024-03-20 14:54:58.731[1710939298731] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=495
+2024-03-20 14:55:00.842[1710939300842] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 14:55:01.418[1710939301418] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 14:55:01.718[1710939301718] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:55:02.003[1710939302003] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:55:02.289[1710939302289] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 14:55:02.581[1710939302581] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 14:55:07.458[1710939307458] | INFO  | main       | org.nd4j.linalg.factory.Nd4jBackend  - Loaded [JCublasBackend] backend
+2024-03-20 14:55:10.780[1710939310780] | INFO  | main       | org.nd4j.nativeblas.NativeOpsHolder  - Number of threads used for linear algebra: 32
+2024-03-20 14:55:10.838[1710939310838] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Backend used: [CUDA]; OS: [Windows 11]
+2024-03-20 14:55:10.838[1710939310838] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Cores: [6]; Memory: [4,0GB];
+2024-03-20 14:55:10.839[1710939310839] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Blas vendor: [CUBLAS]
+2024-03-20 14:55:10.849[1710939310849] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build version: 11.2.142
+2024-03-20 14:55:10.851[1710939310851] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA GeForce GTX 1060 6GB]; cc: [6.1]; Total memory: [6442319872]
+2024-03-20 14:55:10.851[1710939310851] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - Backend build information:
+ MSVC: 192930038
+STD version: 201703L
+CUDA: 11.2.142
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+2024-03-20 14:55:15.543[1710939315543] | INFO  | main       | o.d.nn.multilayer.MultiLayerNetwork  - Starting MultiLayerNetwork with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+2024-03-20 15:14:48.836[1710940488836] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=495
+2024-03-20 15:14:49.574[1710940489574] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=15m&limit=58
+2024-03-20 15:14:51.016[1710940491016] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 15:14:51.558[1710940491558] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=15m&limit=1500
+2024-03-20 15:14:51.583[1710940491583] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 15:14:51.881[1710940491881] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 15:14:52.169[1710940492169] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 15:14:52.451[1710940492451] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 15:14:52.485[1710940492485] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 15:14:52.734[1710940492734] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 15:14:52.798[1710940492798] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=15m&limit=500
+2024-03-20 15:14:53.086[1710940493086] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=15m&limit=500
+2024-03-20 15:14:53.377[1710940493377] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=15m&limit=500
+2024-03-20 15:14:53.667[1710940493667] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=15m&limit=1500
+2024-03-20 15:14:57.358[1710940497358] | INFO  | main       | org.nd4j.linalg.factory.Nd4jBackend  - Loaded [JCublasBackend] backend
+2024-03-20 15:15:00.444[1710940500444] | INFO  | main       | org.nd4j.nativeblas.NativeOpsHolder  - Number of threads used for linear algebra: 32
+2024-03-20 15:15:00.502[1710940500502] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Backend used: [CUDA]; OS: [Windows 11]
+2024-03-20 15:15:00.502[1710940500502] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Cores: [6]; Memory: [4,0GB];
+2024-03-20 15:15:00.502[1710940500502] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Blas vendor: [CUBLAS]
+2024-03-20 15:15:00.517[1710940500517] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build version: 11.2.142
+2024-03-20 15:15:00.519[1710940500519] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA GeForce GTX 1060 6GB]; cc: [6.1]; Total memory: [6442319872]
+2024-03-20 15:15:00.519[1710940500519] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - Backend build information:
+ MSVC: 192930038
+STD version: 201703L
+CUDA: 11.2.142
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+2024-03-20 15:15:06.997[1710940506997] | INFO  | main       | o.d.nn.multilayer.MultiLayerNetwork  - Starting MultiLayerNetwork with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+2024-03-20 15:15:14.764[1710940514764] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 0 is 2.7190135467969236E9
+2024-03-20 15:16:43.101[1710940603101] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=495
+2024-03-20 15:16:45.295[1710940605295] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 15:16:45.864[1710940605864] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 15:16:46.156[1710940606156] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 15:16:46.444[1710940606444] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 15:16:46.734[1710940606734] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 15:16:47.016[1710940607016] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 15:16:51.494[1710940611494] | INFO  | main       | org.nd4j.linalg.factory.Nd4jBackend  - Loaded [JCublasBackend] backend
+2024-03-20 15:16:54.553[1710940614553] | INFO  | main       | org.nd4j.nativeblas.NativeOpsHolder  - Number of threads used for linear algebra: 32
+2024-03-20 15:16:54.610[1710940614610] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Backend used: [CUDA]; OS: [Windows 11]
+2024-03-20 15:16:54.610[1710940614610] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Cores: [6]; Memory: [4,0GB];
+2024-03-20 15:16:54.611[1710940614611] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Blas vendor: [CUBLAS]
+2024-03-20 15:16:54.622[1710940614622] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build version: 11.2.142
+2024-03-20 15:16:54.624[1710940614624] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA GeForce GTX 1060 6GB]; cc: [6.1]; Total memory: [6442319872]
+2024-03-20 15:16:54.625[1710940614625] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - Backend build information:
+ MSVC: 192930038
+STD version: 201703L
+CUDA: 11.2.142
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+2024-03-20 15:16:59.931[1710940619931] | INFO  | main       | o.d.nn.multilayer.MultiLayerNetwork  - Starting MultiLayerNetwork with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+2024-03-20 15:17:06.429[1710940626429] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 0 is 0.37188861984251975
+2024-03-20 15:17:38.368[1710940658368] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 10 is 0.13410327618930687
+2024-03-20 15:18:07.940[1710940687940] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 20 is 0.14405274479576444
+2024-03-20 15:18:37.083[1710940717083] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 30 is 0.13544984094288137
+2024-03-20 15:19:07.257[1710940747257] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 40 is 0.14259070029774035
+2024-03-20 15:19:37.625[1710940777625] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 50 is 0.15177260913035714
+2024-03-20 15:20:09.072[1710940809072] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 60 is 0.13502945969130864
+2024-03-20 15:20:39.252[1710940839252] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 70 is 0.13251636306116038
+2024-03-20 15:21:09.917[1710940869917] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 80 is 0.12031875832324074
+2024-03-20 15:21:40.935[1710940900935] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 90 is 0.13570794389296686
+2024-03-20 15:22:14.545[1710940934545] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 100 is 0.13011600856361202
+2024-03-20 15:22:49.444[1710940969444] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 110 is 0.13198173400516933
+2024-03-20 15:23:22.886[1710941002886] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 120 is 0.1401545735256727
+2024-03-20 15:23:52.375[1710941032375] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 130 is 0.12432128279830254
+2024-03-20 15:24:22.520[1710941062520] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 140 is 0.12318366307029241
+2024-03-20 15:24:52.867[1710941092867] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 150 is 0.11233323240169298
+2024-03-20 15:25:22.549[1710941122549] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 160 is 0.1284641420285305
+2024-03-20 15:25:52.419[1710941152419] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 170 is 0.1236520699935292
+2024-03-20 15:26:23.554[1710941183554] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 180 is 0.12609725234181676
+2024-03-20 15:26:53.588[1710941213588] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 190 is 0.13476097219994526
+2024-03-20 15:27:23.424[1710941243424] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 200 is 0.11933842151531526
+2024-03-20 15:27:55.114[1710941275114] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 210 is 0.11855685055584335
+2024-03-20 15:28:26.837[1710941306837] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 220 is 0.10802003372246745
+2024-03-20 15:28:56.893[1710941336893] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 230 is 0.12440303436486636
+2024-03-20 15:29:27.347[1710941367347] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 240 is 0.11982974617816929
+2024-03-20 15:29:58.295[1710941398295] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 250 is 0.12248325701210125
+2024-03-20 15:30:27.451[1710941427451] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 260 is 0.13133355361621923
+2024-03-20 15:30:56.379[1710941456379] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 270 is 0.11608092696640641
+2024-03-20 15:31:26.708[1710941486708] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 280 is 0.11545398490507927
+2024-03-20 15:31:56.067[1710941516067] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 290 is 0.10506703228523144
+2024-03-20 15:32:24.463[1710941544463] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 300 is 0.1215674370935021
+2024-03-20 15:32:53.318[1710941573318] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 310 is 0.11711425952274812
+2024-03-20 15:33:23.106[1710941603106] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 320 is 0.11987770074548193
+2024-03-20 15:33:52.440[1710941632440] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 330 is 0.1288283951190929
+2024-03-20 15:34:21.568[1710941661568] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 340 is 0.11367021654999934
+2024-03-20 15:34:50.319[1710941690319] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 350 is 0.11313104832695464
+2024-03-20 15:35:19.813[1710941719813] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 360 is 0.1028338609093243
+2024-03-20 15:35:47.378[1710941747378] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 370 is 0.11940177260088075
+2024-03-20 15:36:15.470[1710941775470] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 380 is 0.11502156373987218
+2024-03-20 15:36:43.990[1710941803990] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 390 is 0.11785357483559145
+2024-03-20 15:37:11.514[1710941831514] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 400 is 0.1268672626192155
+2024-03-20 15:37:39.620[1710941859620] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 410 is 0.11176947443515928
+2024-03-20 15:38:08.581[1710941888581] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 420 is 0.11128711564345076
+2024-03-20 15:38:37.077[1710941917077] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 430 is 0.10105028528077885
+2024-03-20 15:39:05.234[1710941945234] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 440 is 0.11766170647183966
+2024-03-20 15:39:34.156[1710941974156] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 450 is 0.11333065028293035
+2024-03-20 15:40:04.285[1710942004285] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 460 is 0.11620972640858948
+2024-03-20 15:40:32.696[1710942032696] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 470 is 0.12526667172479397
+2024-03-20 15:41:01.833[1710942061833] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 480 is 0.11021103767835254
+2024-03-20 15:41:30.665[1710942090665] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 490 is 0.10976846044920453
+2024-03-20 15:41:58.857[1710942118857] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 500 is 0.09957490119180444
+2024-03-20 15:42:26.242[1710942146242] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 510 is 0.11621699271666336
+2024-03-20 15:42:54.935[1710942174935] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 520 is 0.11192123974035821
+2024-03-20 15:43:23.193[1710942203193] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 530 is 0.1148345312684447
+2024-03-20 15:43:50.477[1710942230477] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 540 is 0.12392310353353975
+2024-03-20 15:44:18.248[1710942258248] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 550 is 0.1088984485212965
+2024-03-20 15:44:46.663[1710942286663] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 560 is 0.10848532991822003
+2024-03-20 15:45:14.892[1710942314892] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 570 is 0.09832529878401736
+2024-03-20 15:45:42.397[1710942342397] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 580 is 0.11498905947215768
+2024-03-20 15:46:10.303[1710942370303] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 590 is 0.11072005868009047
+2024-03-20 15:46:38.577[1710942398577] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 600 is 0.11365960198198483
+2024-03-20 15:47:05.906[1710942425906] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 610 is 0.12277217927467167
+2024-03-20 15:47:33.848[1710942453848] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 620 is 0.10777144210119241
+2024-03-20 15:48:01.869[1710942481869] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 630 is 0.10738104222089903
+2024-03-20 15:48:30.394[1710942510394] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 640 is 0.09724675485244805
+2024-03-20 15:48:57.636[1710942537636] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 650 is 0.11392763695358554
+2024-03-20 15:49:25.381[1710942565381] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 660 is 0.10967957655963417
+2024-03-20 15:49:53.548[1710942593548] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 670 is 0.11263986677988044
+2024-03-20 15:50:20.893[1710942620893] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 680 is 0.12177136799165622
+2024-03-20 15:50:48.537[1710942648537] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 690 is 0.10678935898882885
+2024-03-20 15:51:16.478[1710942676478] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 700 is 0.10641705634147623
+2024-03-20 15:51:44.643[1710942704643] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 710 is 0.09630456284126757
+2024-03-20 15:52:11.991[1710942731991] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 720 is 0.11299777053059709
+2024-03-20 15:52:39.774[1710942759774] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 730 is 0.1087665927145343
+2024-03-20 15:53:08.844[1710942788844] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 740 is 0.11174387303784869
+2024-03-20 15:53:36.401[1710942816401] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 750 is 0.1208907129464958
+2024-03-20 15:54:04.308[1710942844308] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 760 is 0.10592404544363938
+2024-03-20 15:54:32.064[1710942872064] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 770 is 0.10556638481087768
+2024-03-20 15:55:00.271[1710942900271] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 780 is 0.0954717386809257
+2024-03-20 15:55:27.691[1710942927691] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 790 is 0.11217488959579575
+2024-03-20 15:55:55.625[1710942955625] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 800 is 0.10795765720262054
+2024-03-20 15:56:23.862[1710942983862] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 810 is 0.11094904501767379
+2024-03-20 15:56:51.257[1710943011257] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 820 is 0.12010840042376748
+2024-03-20 15:57:19.075[1710943039075] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 830 is 0.10515506039081894
+2024-03-20 15:57:47.523[1710943067523] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 840 is 0.10480942325494694
+2024-03-20 15:58:18.092[1710943098092] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 850 is 0.09472724493138494
+2024-03-20 15:58:48.649[1710943128649] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 860 is 0.11144213884843046
+2024-03-20 15:59:17.426[1710943157426] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 870 is 0.10723617848169166
+2024-03-20 15:59:46.687[1710943186687] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 880 is 0.11023829334617201
+2024-03-20 16:00:18.252[1710943218252] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 890 is 0.11940843010402362
+2024-03-20 16:00:49.474[1710943249474] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 900 is 0.10446560679417635
+2024-03-20 16:01:18.598[1710943278598] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 910 is 0.10413067827591023
+2024-03-20 16:01:49.283[1710943309283] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 920 is 0.09405806464569469
+2024-03-20 16:02:19.254[1710943339254] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 930 is 0.11078308952292568
+2024-03-20 16:02:49.784[1710943369784] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 940 is 0.10658673699505254
+2024-03-20 16:03:20.190[1710943400190] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 950 is 0.10959888013039905
+2024-03-20 16:03:48.787[1710943428787] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 960 is 0.1187781446670937
+2024-03-20 16:04:16.505[1710943456505] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 970 is 0.10384387341311373
+2024-03-20 16:04:44.468[1710943484468] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 980 is 0.10351813021390158
+2024-03-20 16:05:12.753[1710943512753] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 990 is 0.09345687435769078
+2024-03-20 16:05:40.382[1710943540382] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1000 is 0.11018657259617715
+2024-03-20 16:06:08.080[1710943568080] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1010 is 0.10599948221760828
+2024-03-20 16:06:36.313[1710943596313] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1020 is 0.1090207194737643
+2024-03-20 16:07:03.999[1710943623999] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1030 is 0.11820747142225346
+2024-03-20 16:07:32.049[1710943652049] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1040 is 0.103281495382295
+2024-03-20 16:08:02.682[1710943682682] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1050 is 0.10296302764358661
+2024-03-20 16:08:38.658[1710943718658] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1060 is 0.0929116729680847
+2024-03-20 16:09:13.597[1710943753597] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1070 is 0.10964612127558435
+2024-03-20 16:09:42.339[1710943782339] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1080 is 0.10546641937399281
+2024-03-20 16:10:11.446[1710943811446] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1090 is 0.10849519455654937
+2024-03-20 16:10:39.089[1710943839089] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1100 is 0.11768852599949843
+2024-03-20 16:11:06.738[1710943866738] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1110 is 0.10276881255836817
+2024-03-20 16:11:35.325[1710943895325] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1120 is 0.102457394311929
+2024-03-20 16:12:04.471[1710943924471] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1130 is 0.09241569028272734
+2024-03-20 16:12:33.613[1710943953613] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1140 is 0.10915276045880055
+2024-03-20 16:13:02.645[1710943982645] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1150 is 0.10497964589196442
+2024-03-20 16:13:31.627[1710944011627] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1160 is 0.10801571123123335
+2024-03-20 16:13:59.831[1710944039831] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1170 is 0.11721468478044471
+2024-03-20 16:14:28.400[1710944068400] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1180 is 0.1023008491914061
+2024-03-20 16:14:59.280[1710944099280] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1190 is 0.10199542978187982
+2024-03-20 16:15:30.997[1710944130997] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1200 is 0.09196258778185334
+2024-03-20 16:15:59.518[1710944159518] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1210 is 0.10870162890008601
+2024-03-20 16:16:28.510[1710944188510] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1220 is 0.10453437823805023
+2024-03-20 16:16:58.297[1710944218297] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1230 is 0.10757695630651794
+2024-03-20 16:17:26.750[1710944246750] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1240 is 0.11678081806014363
+2024-03-20 16:17:56.167[1710944276167] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1250 is 0.10187215069550205
+2024-03-20 16:18:27.116[1710944307116] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1260 is 0.10157202281778166
+2024-03-20 16:18:56.778[1710944336778] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1270 is 0.09154588041167842
+2024-03-20 16:19:25.526[1710944365526] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1280 is 0.10828607260258026
+2024-03-20 16:19:55.356[1710944395356] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1290 is 0.10412459037337185
+2024-03-20 16:20:27.638[1710944427638] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1300 is 0.10717420771469488
+2024-03-20 16:20:56.171[1710944456171] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1310 is 0.11638240451826216
+2024-03-20 16:21:27.656[1710944487656] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1320 is 0.10147829624248157
+2024-03-20 16:21:57.529[1710944517529] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1330 is 0.10118284512331999
+2024-03-20 16:22:27.081[1710944547081] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1340 is 0.09116423045882953
+2024-03-20 16:22:54.618[1710944574618] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1350 is 0.10790655203498628
+2024-03-20 16:23:24.527[1710944604527] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1360 is 0.10374959079374936
+2024-03-20 16:23:55.512[1710944635512] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1370 is 0.10680358188214746
+2024-03-20 16:24:25.026[1710944665026] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1380 is 0.11601538899801361
+2024-03-20 16:24:54.579[1710944694579] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1390 is 0.10111523027484959
+2024-03-20 16:25:24.359[1710944724359] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1400 is 0.10082414188945006
+2024-03-20 16:25:53.976[1710944753976] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1410 is 0.09081226883681869
+2024-03-20 16:26:22.227[1710944782227] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1420 is 0.10755513265892452
+2024-03-20 16:26:51.981[1710944811981] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1430 is 0.10340278217256148
+2024-03-20 16:27:21.507[1710944841507] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1440 is 0.10646181806468683
+2024-03-20 16:27:49.973[1710944869973] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1450 is 0.11567675491212137
+2024-03-20 16:28:20.661[1710944900661] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1460 is 0.10078009212935118
+2024-03-20 16:28:50.377[1710944930377] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1470 is 0.10049292870264312
+2024-03-20 16:29:19.692[1710944959692] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1480 is 0.09048684982963939
+2024-03-20 16:29:48.203[1710944988203] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1490 is 0.10723021661340669
+2024-03-20 16:30:22.330[1710945022330] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1500 is 0.10308187416206181
+2024-03-20 16:30:55.675[1710945055675] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1510 is 0.10614571116451496
+2024-03-20 16:31:26.632[1710945086632] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1520 is 0.11536354547054352
+2024-03-20 16:31:56.476[1710945116476] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1530 is 0.1004699367448133
+2024-03-20 16:32:26.462[1710945146462] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1540 is 0.10018644621972235
+2024-03-20 16:32:55.199[1710945175199] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1550 is 0.09018549550999042
+2024-03-20 16:33:25.426[1710945205426] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1560 is 0.10692940382220714
+2024-03-20 16:33:55.278[1710945235278] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1570 is 0.10278494933856246
+2024-03-20 16:34:25.982[1710945265982] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1580 is 0.10585294697134535
+2024-03-20 16:34:54.871[1710945294871] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1590 is 0.11507332739307613
+2024-03-20 16:35:26.017[1710945326017] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1600 is 0.10018244018507556
+2024-03-20 16:35:55.833[1710945355833] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1610 is 0.09990235788803213
+2024-03-20 16:36:25.139[1710945385139] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1620 is 0.08990628389836958
+2024-03-20 16:36:54.050[1710945414050] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1630 is 0.10665036693863914
+2024-03-20 16:37:23.143[1710945443143] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1640 is 0.10250948941766258
+2024-03-20 16:37:53.182[1710945473182] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1650 is 0.10558151780790477
+2024-03-20 16:38:23.051[1710945503051] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1660 is 0.1148040482991256
+2024-03-20 16:38:53.289[1710945533289] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1670 is 0.09991550438791241
+2024-03-20 17:39:14.137[1710949154137] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=35
+2024-03-20 17:39:16.411[1710949156411] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 17:39:17.374[1710949157374] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 17:39:17.682[1710949157682] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 17:39:17.972[1710949157972] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 17:39:18.261[1710949158261] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 17:39:18.548[1710949158548] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 17:41:45.356[1710949305356] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=35
+2024-03-20 17:41:47.489[1710949307489] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 17:41:48.415[1710949308415] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 17:41:48.729[1710949308729] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 17:41:49.020[1710949309020] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 17:41:49.308[1710949309308] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 17:41:49.590[1710949309590] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 17:44:05.167[1710949445167] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=35
+2024-03-20 17:44:07.297[1710949447297] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 17:44:08.203[1710949448203] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 17:44:08.506[1710949448506] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 17:44:08.788[1710949448788] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 17:44:09.069[1710949449069] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 17:44:09.357[1710949449357] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 17:48:31.888[1710949711888] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=35
+2024-03-20 17:48:34.124[1710949714124] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 17:48:35.056[1710949715056] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 17:48:35.375[1710949715375] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 17:48:35.667[1710949715667] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 17:48:35.957[1710949715957] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 17:48:36.244[1710949716244] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 17:56:38.925[1710950198925] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=35
+2024-03-20 17:56:41.061[1710950201061] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 17:56:41.981[1710950201981] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 17:56:42.294[1710950202294] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 17:56:42.581[1710950202581] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 17:56:42.864[1710950202864] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 17:56:43.149[1710950203149] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 17:57:53.762[1710950273762] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=35
+2024-03-20 17:57:55.855[1710950275855] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 17:57:56.786[1710950276786] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 17:57:57.101[1710950277101] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 17:57:57.399[1710950277399] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 17:57:57.692[1710950277692] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 17:57:57.985[1710950277985] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 18:00:05.287[1710950405287] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=35
+2024-03-20 18:00:07.389[1710950407389] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 18:00:08.316[1710950408316] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 18:00:08.622[1710950408622] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 18:00:08.910[1710950408910] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 18:00:09.198[1710950409198] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 18:00:09.480[1710950409480] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 18:04:58.838[1710950698838] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=35
+2024-03-20 18:05:00.958[1710950700958] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 18:05:01.875[1710950701875] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 18:05:02.197[1710950702197] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 18:05:02.489[1710950702489] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 18:05:02.777[1710950702777] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 18:05:03.069[1710950703069] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 18:07:29.094[1710950849094] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=35
+2024-03-20 18:07:31.302[1710950851302] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 18:07:32.230[1710950852230] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 18:07:32.546[1710950852546] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 18:07:32.836[1710950852836] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 18:07:33.119[1710950853119] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 18:07:33.401[1710950853401] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 18:11:13.800[1710951073800] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=35
+2024-03-20 18:11:16.060[1710951076060] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 18:11:16.974[1710951076974] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 18:11:17.281[1710951077281] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 18:11:17.567[1710951077567] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 18:11:17.852[1710951077852] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 18:11:18.136[1710951078136] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 18:12:11.965[1710951131965] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=35
+2024-03-20 18:12:13.964[1710951133964] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 18:12:14.884[1710951134884] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 18:12:15.192[1710951135192] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 18:12:15.482[1710951135482] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 18:12:15.770[1710951135770] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 18:12:16.058[1710951136058] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 18:13:05.688[1710951185688] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=35
+2024-03-20 18:13:07.815[1710951187815] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 18:13:08.723[1710951188723] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 18:13:09.041[1710951189041] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 18:13:09.328[1710951189328] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 18:13:09.631[1710951189631] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 18:13:09.915[1710951189915] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 18:15:56.769[1710951356769] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=15m&limit=58
+2024-03-20 18:15:58.844[1710951358844] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=15m&limit=1500
+2024-03-20 18:15:59.753[1710951359753] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 18:16:00.057[1710951360057] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=15m&limit=500
+2024-03-20 18:16:00.343[1710951360343] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=15m&limit=500
+2024-03-20 18:16:00.627[1710951360627] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=15m&limit=500
+2024-03-20 18:16:00.910[1710951360910] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=15m&limit=1500
+2024-03-20 18:16:56.776[1710951416776] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=495
+2024-03-20 18:16:58.877[1710951418877] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 18:16:59.458[1710951419458] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 18:16:59.754[1710951419754] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 18:17:00.045[1710951420045] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 18:17:00.333[1710951420333] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 18:17:00.625[1710951420625] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 18:17:05.710[1710951425710] | INFO  | main       | org.nd4j.linalg.factory.Nd4jBackend  - Loaded [JCublasBackend] backend
+2024-03-20 18:17:11.272[1710951431272] | INFO  | main       | org.nd4j.nativeblas.NativeOpsHolder  - Number of threads used for linear algebra: 32
+2024-03-20 18:17:11.340[1710951431340] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Backend used: [CUDA]; OS: [Windows 11]
+2024-03-20 18:17:11.340[1710951431340] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Cores: [6]; Memory: [4,0GB];
+2024-03-20 18:17:11.340[1710951431340] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Blas vendor: [CUBLAS]
+2024-03-20 18:17:11.357[1710951431357] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build version: 11.2.142
+2024-03-20 18:17:11.359[1710951431359] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA GeForce GTX 1060 6GB]; cc: [6.1]; Total memory: [6442319872]
+2024-03-20 18:17:11.359[1710951431359] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - Backend build information:
+ MSVC: 192930038
+STD version: 201703L
+CUDA: 11.2.142
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+2024-03-20 18:17:15.891[1710951435891] | INFO  | main       | o.d.nn.multilayer.MultiLayerNetwork  - Starting MultiLayerNetwork with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+2024-03-20 18:17:20.013[1710951440013] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 0 is 1.136795202891032
+2024-03-20 18:17:44.941[1710951464941] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 10 is 0.5050357182820638
+2024-03-20 18:18:08.548[1710951488548] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 20 is 0.5171506404876709
+2024-03-20 18:18:30.989[1710951510989] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 30 is 0.33704908688863117
+2024-03-20 18:18:54.135[1710951534135] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 40 is 0.3588136037190755
+2024-03-20 18:19:17.221[1710951557221] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 50 is 0.33228200674057007
+2024-03-20 18:19:39.814[1710951579814] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 60 is 0.3461659749348958
+2024-03-20 18:20:58.334[1710951658334] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=495
+2024-03-20 18:21:00.569[1710951660569] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-20 18:21:01.154[1710951661154] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-20 18:21:01.451[1710951661451] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 18:21:01.743[1710951661743] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 18:21:02.037[1710951662037] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-20 18:21:02.330[1710951662330] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-20 18:38:15.628[1710952695628] | INFO  | main       | org.nd4j.linalg.factory.Nd4jBackend  - Loaded [JCublasBackend] backend
+2024-03-20 18:38:19.237[1710952699237] | INFO  | main       | org.nd4j.nativeblas.NativeOpsHolder  - Number of threads used for linear algebra: 32
+2024-03-20 18:38:19.346[1710952699346] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Backend used: [CUDA]; OS: [Windows 11]
+2024-03-20 18:38:19.346[1710952699346] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Cores: [6]; Memory: [4,0GB];
+2024-03-20 18:38:19.346[1710952699346] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Blas vendor: [CUBLAS]
+2024-03-20 18:38:19.367[1710952699367] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build version: 11.2.142
+2024-03-20 18:38:19.371[1710952699371] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA GeForce GTX 1060 6GB]; cc: [6.1]; Total memory: [6442319872]
+2024-03-20 18:38:19.371[1710952699371] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - Backend build information:
+ MSVC: 192930038
+STD version: 201703L
+CUDA: 11.2.142
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+2024-03-20 18:38:22.479[1710952702479] | INFO  | main       | o.d.nn.multilayer.MultiLayerNetwork  - Starting MultiLayerNetwork with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]

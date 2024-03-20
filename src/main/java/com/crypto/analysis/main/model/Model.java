@@ -3,6 +3,7 @@ package com.crypto.analysis.main.model;
 import com.crypto.analysis.main.data.train.TrainDataSet;
 import com.crypto.analysis.main.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.data_utils.select.coin.DataLength;
+import com.crypto.analysis.main.data_utils.select.coin.TimeFrame;
 import org.deeplearning4j.datasets.iterator.JointMultiDataSetIterator;
 import org.deeplearning4j.datasets.iterator.utilty.ListDataSetIterator;
 import org.deeplearning4j.nn.api.OptimizationAlgorithm;
@@ -217,7 +218,7 @@ public class Model {
         List<DataSetIterator> iterators = new ArrayList<DataSetIterator>();
 
         for (DataLength dl : DataLength.values()) {
-            TrainDataSet trainSet = TrainDataSet.prepareTrainSet(coin, dl);
+            TrainDataSet trainSet = TrainDataSet.prepareTrainSet(coin, TimeFrame.FIFTEEN_MINUTES, dl);
             int countInput = dl.getCountInput();
             int countOutput = dl.getCountOutput();
 

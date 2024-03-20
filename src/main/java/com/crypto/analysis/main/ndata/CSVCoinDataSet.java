@@ -21,16 +21,18 @@ import java.util.*;
 
 import static com.crypto.analysis.main.data_utils.select.StaticData.SKIP_NUMBER;
 
-@Getter
 public class CSVCoinDataSet {
     private static final Path pathToFifteenDataSet = new File(Objects.requireNonNull(CSVCoinDataSet.class.getClassLoader().getResource("static/bitcoin_15m.csv")).getFile()).toPath();
     private static final Path pathToHourDataSet = new File(Objects.requireNonNull(CSVCoinDataSet.class.getClassLoader().getResource("static/bitcoin_1h.csv")).getFile()).toPath();
 
     private final Path path;
     private final Coin coin;
-    private final TimeFrame interval;
-    private final LinkedList<DataObject> data;
 
+    @Getter
+    private final TimeFrame interval;
+    @Getter
+    private final LinkedList<DataObject> data;
+    @Getter
     private boolean isInitialized = false;
     public CSVCoinDataSet(Coin coin, TimeFrame interval) {
         this.coin = coin;

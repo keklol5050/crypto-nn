@@ -32,6 +32,7 @@ public class TrainDataCSV {
     private void init() {
         try {
             if (!set.isInitialized()) throw new UnsupportedOperationException("CSV Data set is not initialized");
+            if (set.getInterval() != interval) throw new IllegalArgumentException("Data set timeframe is not equals to current timeframe");
             LinkedList<DataObject> objects = set.getData();
             int count = objects.size()-countOutput;
 

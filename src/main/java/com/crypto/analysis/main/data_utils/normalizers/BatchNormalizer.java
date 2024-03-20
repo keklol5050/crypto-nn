@@ -1,5 +1,7 @@
 package com.crypto.analysis.main.data_utils.normalizers;
 
+import com.crypto.analysis.main.data_utils.select.StaticData;
+
 import java.io.*;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -7,16 +9,33 @@ import java.util.LinkedList;
 public class BatchNormalizer implements Serializable {
     private final LinkedHashMap<double[][], double[]> min = new LinkedHashMap<>();
     private final LinkedHashMap<double[][], double[]> max = new LinkedHashMap<>();
-    private final double epsilon = Math.random() / 1000;
+
+    private double[] volatileMin;
+    private double[] volatileMax;
+    private final double epsilon = Math.random() / 10000;
 
     private final int[] mask;
     private final int countInputs;
     private final int countOutputs;
-
-    public BatchNormalizer(int[] mask, int countInputs, int countOutputs) {
+    private final int notVolatileLength;
+    public BatchNormalizer(int[] mask, int countInputs, int countOutputs, int notVolatileLength) {
         this.mask = mask;
         this.countInputs = countInputs;
         this.countOutputs = countOutputs;
+        this.notVolatileLength = notVolatileLength;
+
+        init();
+    }
+
+    private void init() {
+        this.volatileMin = new double[StaticData.VOLATILE_VALUES_COUNT_FROM_LAST];
+        this.volatileMax = new double[StaticData.VOLATILE_VALUES_COUNT_FROM_LAST];
+
+        for (int i = 0; i < StaticData.VOLATILE_VALUES_COUNT_FROM_LAST; i++) {
+            volatileMin[i] = Long.MAX_VALUE;
+            volatileMax[i] = Long.MIN_VALUE;
+        }
+
         System.out.println("Epsilon " + epsilon);
     }
 
@@ -43,8 +62,8 @@ public class BatchNormalizer implements Serializable {
         System.arraycopy(data, 0, reverted, 0, countInputs);
 
         for (int i = 0; i < paramCapacity; i++) {
-            double valueMin = Double.MAX_VALUE;
-            double valueMax = Double.MIN_VALUE;
+            double valueMin = Long.MAX_VALUE;
+            double valueMax = Long.MIN_VALUE;
 
             for (double[] datum : reverted) {
                 if (datum.length != paramCapacity)
@@ -55,15 +74,32 @@ public class BatchNormalizer implements Serializable {
             }
 
             if (valueMax - valueMin == 0) {
-                valueMin += epsilon;
+                valueMin -= epsilon;
             }
 
             min[i] = valueMin;
             max[i] = valueMax;
         }
 
-        this.min.put(data, min);
-        this.max.put(data, max);
+        double[] dMin = new double[notVolatileLength];
+        double[] dMax = new double[notVolatileLength];
+
+        System.arraycopy(min, 0, dMin, 0, dMin.length);
+        System.arraycopy(max, 0, dMax, 0, dMax.length);
+
+        double[] vMin = new double[paramCapacity-notVolatileLength];
+        double[] vMax = new double[paramCapacity-notVolatileLength];
+
+        System.arraycopy(min, notVolatileLength, vMin, 0, vMin.length);
+        System.arraycopy(max, notVolatileLength, vMax, 0, vMax.length);
+
+        for (int i = 0; i < vMin.length; i++) {
+            this.volatileMin[i] = Math.min(vMin[i], volatileMin[i]);
+            this.volatileMax[i] = Math.max(vMax[i], volatileMax[i]);
+        }
+
+        this.min.put(data, dMin);
+        this.max.put(data, dMax);
     }
 
     public void transformHorizontal(LinkedList<double[][]> inputList) {
@@ -81,37 +117,20 @@ public class BatchNormalizer implements Serializable {
         if (!min.containsKey(input) || !max.containsKey(input))
             throw new IllegalArgumentException("Normalizer doesnt has stats for this array");
 
-        double[] min = this.min.get(input);
-        double[] max = this.max.get(input);
+        double[] tMin = this.min.get(input);
+        double[] tMax = this.max.get(input);
+
+        double[] min = new double[tMin.length+volatileMin.length];
+        System.arraycopy(tMin, 0, min, 0, tMin.length);
+        System.arraycopy(volatileMin, 0, min, tMin.length, volatileMin.length);
+
+        double[] max = new double[tMax.length+volatileMax.length];
+        System.arraycopy(tMax, 0, max, 0, tMax.length);
+        System.arraycopy(volatileMax, 0, max, tMax.length, volatileMax.length);
 
         for (int i = 0; i < input.length; i++) {
             for (int j = 0; j < input[0].length; j++) {
                 input[i][j] = ((input[i][j] - min[j]) / (max[j] - min[j]));
-            }
-        }
-    }
-
-    public void transformVertical(LinkedList<double[][]> inputList) {
-        if (inputList == null || inputList.isEmpty() || inputList.get(0).length == 0 || inputList.get(0)[0].length == 0)
-            throw new IllegalArgumentException("Input list cannot be empty");
-
-        for (double[][] input : inputList) {
-            transformVertical(input);
-        }
-    }
-
-    public void transformVertical(double[][] input) {
-        if (input == null || input.length == 0 || input[0].length == 0)
-            throw new IllegalArgumentException("Input array cannot be empty");
-        if (!min.containsKey(input) || !max.containsKey(input))
-            throw new IllegalArgumentException("Normalizer doesnt has stats for this array");
-
-        double[] min = this.min.get(input);
-        double[] max = this.max.get(input);
-
-        for (int i = 0; i < input[0].length; i++) {
-            for (int j = 0; j < input.length; j++) {
-                input[j][i] = ((input[j][i] - min[i]) / (max[i] - min[i]));
             }
         }
     }
@@ -122,8 +141,16 @@ public class BatchNormalizer implements Serializable {
         if (!min.containsKey(input) || !max.containsKey(input))
             throw new IllegalArgumentException("Normalizer doesnt has stats for this array");
 
-        double[] min = this.min.get(input);
-        double[] max = this.max.get(input);
+        double[] tMin = this.min.get(input);
+        double[] tMax = this.max.get(input);
+
+        double[] min = new double[tMin.length+volatileMin.length];
+        System.arraycopy(tMin, 0, min, 0, tMin.length);
+        System.arraycopy(volatileMin, 0, min, tMin.length, volatileMin.length);
+
+        double[] max = new double[tMax.length+volatileMax.length];
+        System.arraycopy(tMax, 0, max, 0, tMax.length);
+        System.arraycopy(volatileMax, 0, max, tMax.length, volatileMax.length);
 
         for (int i = 0; i < input.length; i++) {
             for (int j = 0; j < input[0].length; j++) {
@@ -140,8 +167,16 @@ public class BatchNormalizer implements Serializable {
         if (!min.containsKey(key) || !max.containsKey(key))
             throw new IllegalArgumentException("Normalizer doesnt has stats for this array");
 
-        double[] min = this.min.get(key);
-        double[] max = this.max.get(key);
+        double[] tMin = this.min.get(key);
+        double[] tMax = this.max.get(key);
+
+        double[] min = new double[tMin.length+volatileMin.length];
+        System.arraycopy(tMin, 0, min, 0, tMin.length);
+        System.arraycopy(volatileMin, 0, min, tMin.length, volatileMin.length);
+
+        double[] max = new double[tMax.length+volatileMax.length];
+        System.arraycopy(tMax, 0, max, 0, tMax.length);
+        System.arraycopy(volatileMax, 0, max, tMax.length, volatileMax.length);
 
         for (int i = 0; i < mask.length; i++) {
             for (int j = 0; j < countOutputs; j++) {

@@ -33,9 +33,10 @@ public class BitcoinPricePrediction {
         long start = System.currentTimeMillis();
 
         DataLength length = DataLength.S50_3;
-        CSVCoinDataSet setD = new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.ONE_HOUR);
+        TimeFrame tf = TimeFrame.ONE_HOUR;
+        CSVCoinDataSet setD = new CSVCoinDataSet(Coin.BTCUSDT, tf);
         setD.load();
-        TrainDataSet trainSet = TrainDataSet.prepareTrainSet(Coin.BTCUSDT, length, setD);
+        TrainDataSet trainSet = TrainDataSet.prepareTrainSet(Coin.BTCUSDT, tf, length, setD);
 
         LinkedList<double[][]> inputList = trainSet.getTrainData();
         LinkedList<double[][]> outputList = trainSet.getTrainResult();
@@ -62,31 +63,30 @@ public class BitcoinPricePrediction {
             sets.add(set);
         }
 
-        DataSetIterator iterator = new ListDataSetIterator<>(sets, 1024);
+        DataSetIterator iterator = new ListDataSetIterator<>(sets, 128);
         BatchNormalizer normalizer = trainSet.getNormalizer();
         MultiLayerConfiguration config = new NeuralNetConfiguration.Builder()
                 .seed(123)
                 .optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
                 .gradientNormalization(GradientNormalization.ClipElementWiseAbsoluteValue)
-                .l2(5e-5)
                 .weightInit(WeightInit.XAVIER)
-                .activation(Activation.LEAKYRELU)
+                .activation(Activation.TANH)
                 .updater(new Adam(0.01))
                 .list()
-                .layer(0, new LSTM.Builder().nIn(numInputs).nOut(256).build())
-                .layer(1, new LSTM.Builder().nIn(256).nOut(256).build())
-                .layer(2, new DropoutLayer.Builder(0.25).nIn(256).nOut(256).build())
-                .layer(3, new LSTM.Builder().nIn(256).nOut(256).build())
-                .layer(4, new LSTM.Builder().nIn(256).nOut(128).build())
-                .layer(5, new LSTM.Builder().nIn(128).nOut(64).build())
-                .layer(6, new LSTM.Builder().nIn(64).nOut(32).build())
+                .layer(0, new LSTM.Builder().nIn(numInputs).nOut(384).build())
+                .layer(1, new LSTM.Builder().nIn(384).nOut(384).build())
+                .layer(2, new DropoutLayer.Builder(0.75).nIn(384).nOut(384).build())
+                .layer(3, new LSTM.Builder().nIn(384).nOut(256).build())
+                .layer(4, new LSTM.Builder().nIn(256).nOut(256).build())
+                .layer(5, new LSTM.Builder().nIn(256).nOut(128).build())
+                .layer(6, new LSTM.Builder().nIn(128).nOut(64).build())
                 .layer(7, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
                         .activation(Activation.IDENTITY)
-                        .nIn(32).nOut(numOutputs)
+                        .nIn(64).nOut(numOutputs)
                         .build())
                 .build();
 
-        MultiLayerNetwork model = ModelLoader.loadNetwork("D:\\model2.zip");
+        MultiLayerNetwork model = new MultiLayerNetwork(config);
         model.init();
 
         model.setListeners(new ScoreIterationListener(10));
@@ -99,7 +99,7 @@ public class BitcoinPricePrediction {
         System.out.println();
         System.gc();
         for (int i = 0; i < numEpochs; i++) {
-            if (i % 20 == 0 && i > 0)
+            if (i % 5 == 0 && i > 0)
                 ModelLoader.saveModel(model, "D:\\model2.zip");
 
             model.fit(iterator);

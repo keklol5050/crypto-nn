@@ -34,12 +34,12 @@ public class TrainDataSet {
     }
 
 
-    public static TrainDataSet prepareTrainSet(Coin coin, DataLength dl, CSVCoinDataSet set) {
+    public static TrainDataSet prepareTrainSet(Coin coin, TimeFrame tf, DataLength dl, CSVCoinDataSet set) {
         System.out.println("Preparing train set..");
         TrainDataSet trainDataSet = new TrainDataSet(coin, dl);
 
-        TrainDataCSV trainDataCSV = new TrainDataCSV(coin, TimeFrame.ONE_HOUR, dl, set);
-        TrainDataBinance trainDataBinance = new TrainDataBinance(coin, TimeFrame.ONE_HOUR, dl);
+        TrainDataCSV trainDataCSV = new TrainDataCSV(coin, tf, dl, set);
+        TrainDataBinance trainDataBinance = new TrainDataBinance(coin, tf, dl);
 
         LinkedList<DataObject[]> data = new LinkedList<>();
         data.addAll(trainDataCSV.getData());
@@ -47,11 +47,11 @@ public class TrainDataSet {
 
         return getTrainDataSet(dl, trainDataSet, data);
     }
-    public static TrainDataSet prepareTrainSet(Coin coin, DataLength dl) {
+    public static TrainDataSet prepareTrainSet(Coin coin, TimeFrame tf, DataLength dl) {
         System.out.println("Preparing train set..");
         TrainDataSet trainDataSet = new TrainDataSet(coin, dl);
 
-        TrainDataBinance trainDataBinance = new TrainDataBinance(coin, TimeFrame.ONE_HOUR, dl);
+        TrainDataBinance trainDataBinance = new TrainDataBinance(coin, tf, dl);
 
         LinkedList<DataObject[]> data = new LinkedList<>(trainDataBinance.getData());
 

@@ -13,6 +13,7 @@ public class StaticData {
     public static final OkHttpClient okHttpClient = new OkHttpClient();
 
     public static final int[] MASK_OUTPUT = new int[] {1,2,3}; // HLC
+    public static final int VOLATILE_VALUES_COUNT_FROM_LAST = 9;
     public static final int SKIP_NUMBER = 1000;
 
     public static final String ALL_SENTIMENT_DATA = "https://api.senticrypt.com/v2/all.json"; // SentiCrypt, class SentimentUtil

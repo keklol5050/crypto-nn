@@ -1,5 +1,6 @@
 package com.crypto.analysis.main.data.refactor;
 
+import com.crypto.analysis.main.data_utils.select.StaticData;
 import com.crypto.analysis.main.data_utils.utils.binance.BinanceDataMultipleInstance;
 import com.crypto.analysis.main.data_utils.normalizers.BatchNormalizer;
 import com.crypto.analysis.main.data_utils.select.coin.Coin;
@@ -17,6 +18,8 @@ public class DataRefactor {
     private final LinkedList<double[][]> data;
     private final int countInput;
     private final int countOutput;
+    private final int sequenceLength;
+
     private LinkedList<TrainSetElement> elements;
 
     @Getter
@@ -26,13 +29,15 @@ public class DataRefactor {
         this.data = data;
         this.countInput = countInput;
         this.countOutput = countOutput;
+        this.sequenceLength = data.get(0)[0].length;
         init();
     }
 
     public void init() {
         elements = new LinkedList<>();
 
-        normalizer = new BatchNormalizer(MASK_OUTPUT, countInput, countOutput);
+        normalizer = new BatchNormalizer(MASK_OUTPUT, countInput, countOutput,
+                sequenceLength-StaticData.VOLATILE_VALUES_COUNT_FROM_LAST);
         normalizer.fitHorizontal(data);
         normalizer.transformHorizontal(data);
 
@@ -103,6 +108,17 @@ public class DataRefactor {
         System.out.println(normalizedData.length);
         System.out.println(normalizedOutput.length);
 
+        normalizer.getNormalizer().revertFeaturesVertical(normalizedData);
+        normalizer.getNormalizer().revertLabelsVertical(normalizedData, normalizedOutput);
+
+        for (double[] row : normalizedData) {
+            System.out.println(Arrays.toString(row));
+        }
+        System.out.println();
+        System.out.println();
+        for (double[] row : normalizedOutput) {
+            System.out.println(Arrays.toString(row));
+        }
     }
 
 }
