@@ -2,11 +2,11 @@ package com.crypto.analysis.main.model;
 
 import com.crypto.analysis.main.data.train.TrainDataSet;
 import com.crypto.analysis.main.data_utils.normalizers.BatchNormalizer;
-import com.crypto.analysis.main.data_utils.enumerations.Coin;
-import com.crypto.analysis.main.data_utils.enumerations.DataLength;
-import com.crypto.analysis.main.data_utils.enumerations.TimeFrame;
+import com.crypto.analysis.main.data_utils.select.coin.Coin;
+import com.crypto.analysis.main.data_utils.select.coin.DataLength;
+import com.crypto.analysis.main.data_utils.select.coin.TimeFrame;
 import com.crypto.analysis.main.ndata.CSVCoinDataSet;
-import org.deeplearning4j.datasets.iterator.impl.ListDataSetIterator;
+import org.deeplearning4j.datasets.iterator.utilty.ListDataSetIterator;
 import org.deeplearning4j.nn.api.OptimizationAlgorithm;
 import org.deeplearning4j.nn.conf.GradientNormalization;
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
@@ -33,7 +33,7 @@ public class BitcoinPricePrediction {
         long start = System.currentTimeMillis();
 
         DataLength length = DataLength.S50_3;
-        CSVCoinDataSet setD = new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES);
+        CSVCoinDataSet setD = new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.ONE_HOUR);
         setD.load();
         TrainDataSet trainSet = TrainDataSet.prepareTrainSet(Coin.BTCUSDT, length, setD);
 
@@ -43,7 +43,7 @@ public class BitcoinPricePrediction {
         int numInputs = inputList.get(0).length;
         int numOutputs = outputList.get(0).length;
         int sequenceLength = inputList.get(0)[0].length;
-        int numEpochs = 1000;
+        int numEpochs = 400;
 
         INDArray labelsMask = Nd4j.zeros(1, sequenceLength);
         for (int i = 0; i < length.getCountOutput(); i++) {
@@ -62,7 +62,7 @@ public class BitcoinPricePrediction {
             sets.add(set);
         }
 
-        DataSetIterator iterator = new ListDataSetIterator<>(sets, 3072);
+        DataSetIterator iterator = new ListDataSetIterator<>(sets, 1024);
         BatchNormalizer normalizer = trainSet.getNormalizer();
         MultiLayerConfiguration config = new NeuralNetConfiguration.Builder()
                 .seed(123)
@@ -75,17 +75,18 @@ public class BitcoinPricePrediction {
                 .list()
                 .layer(0, new LSTM.Builder().nIn(numInputs).nOut(256).build())
                 .layer(1, new LSTM.Builder().nIn(256).nOut(256).build())
-                .layer(2, new LSTM.Builder().nIn(256).nOut(256).build())
-                .layer(3, new LSTM.Builder().nIn(256).nOut(128).build())
-                .layer(4, new LSTM.Builder().nIn(128).nOut(64).build())
-                .layer(5, new LSTM.Builder().nIn(64).nOut(32).build())
-                .layer(6, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
+                .layer(2, new DropoutLayer.Builder(0.25).nIn(256).nOut(256).build())
+                .layer(3, new LSTM.Builder().nIn(256).nOut(256).build())
+                .layer(4, new LSTM.Builder().nIn(256).nOut(128).build())
+                .layer(5, new LSTM.Builder().nIn(128).nOut(64).build())
+                .layer(6, new LSTM.Builder().nIn(64).nOut(32).build())
+                .layer(7, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
                         .activation(Activation.IDENTITY)
                         .nIn(32).nOut(numOutputs)
                         .build())
                 .build();
 
-        MultiLayerNetwork model = new MultiLayerNetwork(config);
+        MultiLayerNetwork model = ModelLoader.loadNetwork("D:\\model2.zip");
         model.init();
 
         model.setListeners(new ScoreIterationListener(10));
@@ -98,15 +99,6 @@ public class BitcoinPricePrediction {
         System.out.println();
         System.gc();
         for (int i = 0; i < numEpochs; i++) {
-           if (i % 100 == 0 && i > 0){
-                try {
-                    Thread.sleep(30000);
-                    System.gc();
-                    System.gc();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
             if (i % 20 == 0 && i > 0)
                 ModelLoader.saveModel(model, "D:\\model2.zip");
 

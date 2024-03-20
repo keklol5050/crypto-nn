@@ -1,15 +1,14 @@
 package com.crypto.analysis.main.ndata;
 
-import com.crypto.analysis.main.data.DataRefactor;
-import com.crypto.analysis.main.data_utils.IndicatorsDataUtil;
-import com.crypto.analysis.main.data_utils.SentimentUtil;
-import com.crypto.analysis.main.data_utils.enumerations.Coin;
-import com.crypto.analysis.main.data_utils.enumerations.TimeFrame;
-import com.crypto.analysis.main.fundamental.stock.FundamentalStockObject;
-import com.crypto.analysis.main.fundamental.stock.enumerations.TimeFrameConverter;
+import com.crypto.analysis.main.data_utils.utils.IndicatorsDataUtil;
+import com.crypto.analysis.main.data_utils.utils.SentimentUtil;
+import com.crypto.analysis.main.data_utils.select.coin.Coin;
+import com.crypto.analysis.main.data_utils.select.coin.TimeFrame;
+import com.crypto.analysis.main.vo.FundamentalStockObject;
+import com.crypto.analysis.main.fundamental.stock.TimeFrameConverter;
 import com.crypto.analysis.main.vo.CandleObject;
 import com.crypto.analysis.main.vo.DataObject;
-import com.crypto.analysis.main.vo.SentimentHistoryObject;
+import com.crypto.analysis.main.vo.indication.SentimentHistoryObject;
 import lombok.Getter;
 
 import java.io.File;
@@ -20,9 +19,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static com.crypto.analysis.main.data_utils.select.StaticData.SKIP_NUMBER;
+
 @Getter
 public class CSVCoinDataSet {
     private static final Path pathToFifteenDataSet = new File(Objects.requireNonNull(CSVCoinDataSet.class.getClassLoader().getResource("static/bitcoin_15m.csv")).getFile()).toPath();
+    private static final Path pathToHourDataSet = new File(Objects.requireNonNull(CSVCoinDataSet.class.getClassLoader().getResource("static/bitcoin_1h.csv")).getFile()).toPath();
 
     private final Path path;
     private final Coin coin;
@@ -35,6 +37,7 @@ public class CSVCoinDataSet {
         this.interval = interval;
         this.path = switch (interval) {
             case FIFTEEN_MINUTES -> pathToFifteenDataSet;
+            case ONE_HOUR -> pathToHourDataSet;
             default -> throw new RuntimeException("Invalid time frame");
         };
         data = new LinkedList<>();
@@ -107,7 +110,7 @@ public class CSVCoinDataSet {
         }
 
         IndicatorsDataUtil util = new IndicatorsDataUtil(candles);
-        for (int i = DataRefactor.SKIP_NUMBER; i < localData.size(); i++) {
+        for (int i = SKIP_NUMBER; i < localData.size(); i++) {
             DataObject object = localData.get(i);
             object.setCurrentIndicators(util.getIndicators(i));
             this.data.add(object);

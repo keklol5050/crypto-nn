@@ -15,7 +15,7 @@
 	<name>main</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<dl4j-master.version>1.0.0-M1.1</dl4j-master.version>
+		<dl4j-master.version>1.0.0-M2.1</dl4j-master.version>
 		<jfreechart.version>1.0.13</jfreechart.version>
 		<jcommon.version>1.0.23</jcommon.version>
 		<java.version>17</java.version>
@@ -203,13 +203,13 @@
 		<dependency>
 			<groupId>org.bytedeco</groupId>
 			<artifactId>javacpp</artifactId>
-			<version>1.5.5</version>
+			<version>1.5.7</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.deeplearning4j/deeplearning4j-cuda-11.2 -->
 		<dependency>
 			<groupId>org.deeplearning4j</groupId>
 			<artifactId>deeplearning4j-cuda-11.2</artifactId>
-			<version>${dl4j-master.version}</version>
+			<version>1.0.0-M1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>jfree</groupId>

@@ -1,8 +1,7 @@
 package com.crypto.analysis.main.vo;
 
-import com.crypto.analysis.main.data_utils.enumerations.Coin;
-import com.crypto.analysis.main.data_utils.enumerations.TimeFrame;
-import com.crypto.analysis.main.fundamental.stock.FundamentalStockObject;
+import com.crypto.analysis.main.data_utils.select.coin.Coin;
+import com.crypto.analysis.main.data_utils.select.coin.TimeFrame;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -53,9 +52,9 @@ public class DataObject {
     public double[] getParamArray() {
         double[] candleValues = candle.getValuesArr(); // 5
         double[] indicators = currentIndicators.getValuesArr(); // 40
-        double[] fundData = fundamentalData.getValuesArr(); // 5
+        double[] fundData = fundamentalData.getValuesArr(); // 6
         double[] coinFundValues = {currentFundingRate, currentOpenInterest, longShortRatio, buySellRatio, BTCDomination, sentimentMean, sentimentSum}; // 7
-        double[] result = new double[candleValues.length + indicators.length + fundData.length + coinFundValues.length]; // 7 + 5 + 40 + 5 = 57
+        double[] result = new double[candleValues.length + indicators.length + fundData.length + coinFundValues.length]; // 5 + 40 + 6 + 7 = 58
         System.arraycopy(candleValues, 0, result, 0, candleValues.length);
         System.arraycopy(indicators, 0, result, candleValues.length, indicators.length);
         System.arraycopy(fundData, 0, result, candleValues.length + indicators.length, fundData.length);

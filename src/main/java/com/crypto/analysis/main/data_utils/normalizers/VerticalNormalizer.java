@@ -1,8 +1,8 @@
 package com.crypto.analysis.main.data_utils.normalizers;
 
-import com.crypto.analysis.main.data_utils.BinanceDataMultipleInstance;
-import com.crypto.analysis.main.data_utils.enumerations.Coin;
-import com.crypto.analysis.main.data_utils.enumerations.TimeFrame;
+import com.crypto.analysis.main.data_utils.utils.binance.BinanceDataMultipleInstance;
+import com.crypto.analysis.main.data_utils.select.coin.Coin;
+import com.crypto.analysis.main.data_utils.select.coin.TimeFrame;
 import com.crypto.analysis.main.vo.DataObject;
 
 import java.io.*;

@@ -1,11 +1,10 @@
 package com.crypto.analysis.main.data.train;
 
-import com.crypto.analysis.main.data_utils.BinanceDataMultipleInstance;
-import com.crypto.analysis.main.data_utils.enumerations.Coin;
-import com.crypto.analysis.main.data_utils.enumerations.DataLength;
-import com.crypto.analysis.main.data_utils.enumerations.TimeFrame;
+import com.crypto.analysis.main.data_utils.utils.binance.BinanceDataMultipleInstance;
+import com.crypto.analysis.main.data_utils.select.coin.Coin;
+import com.crypto.analysis.main.data_utils.select.coin.DataLength;
+import com.crypto.analysis.main.data_utils.select.coin.TimeFrame;
 import com.crypto.analysis.main.vo.DataObject;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 
 import java.util.Arrays;
@@ -13,8 +12,6 @@ import java.util.LinkedList;
 
 @Getter
 public class TrainDataBinance {
-    private static final ObjectMapper objectMapper = new ObjectMapper();
-
     private final Coin coin;
     private final TimeFrame interval;
 
@@ -56,7 +53,7 @@ public class TrainDataBinance {
     }
 
     public static void main(String[] args) {
-        TrainDataBinance trainDataBinance = new TrainDataBinance(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES, DataLength.S50_3);
+        TrainDataBinance trainDataBinance = new TrainDataBinance(Coin.BTCUSDT, TimeFrame.ONE_HOUR, DataLength.S50_3);
         for (DataObject[] objArr : trainDataBinance.getData()) {
             System.out.println(Arrays.toString(objArr));
         }

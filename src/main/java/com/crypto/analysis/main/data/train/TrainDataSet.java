@@ -1,10 +1,10 @@
 package com.crypto.analysis.main.data.train;
 
-import com.crypto.analysis.main.data.DataTransformer;
+import com.crypto.analysis.main.data.refactor.DataTransformer;
 import com.crypto.analysis.main.data_utils.normalizers.BatchNormalizer;
-import com.crypto.analysis.main.data_utils.enumerations.Coin;
-import com.crypto.analysis.main.data_utils.enumerations.DataLength;
-import com.crypto.analysis.main.data_utils.enumerations.TimeFrame;
+import com.crypto.analysis.main.data_utils.select.coin.Coin;
+import com.crypto.analysis.main.data_utils.select.coin.DataLength;
+import com.crypto.analysis.main.data_utils.select.coin.TimeFrame;
 import com.crypto.analysis.main.ndata.CSVCoinDataSet;
 import com.crypto.analysis.main.vo.DataObject;
 import com.crypto.analysis.main.vo.TrainSetElement;
@@ -38,8 +38,8 @@ public class TrainDataSet {
         System.out.println("Preparing train set..");
         TrainDataSet trainDataSet = new TrainDataSet(coin, dl);
 
-        TrainDataCSV trainDataCSV = new TrainDataCSV(coin, TimeFrame.FIFTEEN_MINUTES, dl, set);
-        TrainDataBinance trainDataBinance = new TrainDataBinance(coin, TimeFrame.FIFTEEN_MINUTES, dl);
+        TrainDataCSV trainDataCSV = new TrainDataCSV(coin, TimeFrame.ONE_HOUR, dl, set);
+        TrainDataBinance trainDataBinance = new TrainDataBinance(coin, TimeFrame.ONE_HOUR, dl);
 
         LinkedList<DataObject[]> data = new LinkedList<>();
         data.addAll(trainDataCSV.getData());
@@ -51,7 +51,7 @@ public class TrainDataSet {
         System.out.println("Preparing train set..");
         TrainDataSet trainDataSet = new TrainDataSet(coin, dl);
 
-        TrainDataBinance trainDataBinance = new TrainDataBinance(coin, TimeFrame.FIFTEEN_MINUTES, dl);
+        TrainDataBinance trainDataBinance = new TrainDataBinance(coin, TimeFrame.ONE_HOUR, dl);
 
         LinkedList<DataObject[]> data = new LinkedList<>(trainDataBinance.getData());
 

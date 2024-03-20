@@ -1,8 +1,8 @@
 package com.crypto.analysis.main.data.train;
 
-import com.crypto.analysis.main.data_utils.enumerations.Coin;
-import com.crypto.analysis.main.data_utils.enumerations.DataLength;
-import com.crypto.analysis.main.data_utils.enumerations.TimeFrame;
+import com.crypto.analysis.main.data_utils.select.coin.Coin;
+import com.crypto.analysis.main.data_utils.select.coin.DataLength;
+import com.crypto.analysis.main.data_utils.select.coin.TimeFrame;
 import com.crypto.analysis.main.ndata.CSVCoinDataSet;
 import com.crypto.analysis.main.vo.DataObject;
 import lombok.Getter;
@@ -35,7 +35,7 @@ public class TrainDataCSV {
             LinkedList<DataObject> objects = set.getData();
             int count = objects.size()-countOutput;
 
-            for (int i = countInput; i < count; i+=4) {
+            for (int i = countInput; i < count; i++) {
                 DataObject[] values = new DataObject[countInput+countOutput];
                 int index = 0;
 

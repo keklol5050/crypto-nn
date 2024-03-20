@@ -1,10 +1,10 @@
 package com.crypto.analysis.main.model;
 
 import com.crypto.analysis.main.data.train.TrainDataSet;
-import com.crypto.analysis.main.data_utils.enumerations.Coin;
-import com.crypto.analysis.main.data_utils.enumerations.DataLength;
+import com.crypto.analysis.main.data_utils.select.coin.Coin;
+import com.crypto.analysis.main.data_utils.select.coin.DataLength;
 import org.deeplearning4j.datasets.iterator.JointMultiDataSetIterator;
-import org.deeplearning4j.datasets.iterator.impl.ListDataSetIterator;
+import org.deeplearning4j.datasets.iterator.utilty.ListDataSetIterator;
 import org.deeplearning4j.nn.api.OptimizationAlgorithm;
 import org.deeplearning4j.nn.conf.ComputationGraphConfiguration;
 import org.deeplearning4j.nn.conf.GradientNormalization;
@@ -36,7 +36,6 @@ public class Model {
     private ComputationGraph model;
     private JointMultiDataSetIterator iterator;
     private final List<TrainDataSet> trainList = new ArrayList<>();
-    private RelativeDataIteratorNormalizer normalizer;
     private static final double LEARNING_RATE = 0.01;
     private final int batchSize;
     private final int sequenceLength;
@@ -73,7 +72,6 @@ public class Model {
         if (pathToModel != null && pathToNormalizer != null) {
             if (Files.exists(Path.of(pathToModel)) && Files.exists(Path.of(pathToNormalizer))) {
                 model = ModelLoader.loadGraph(pathToModel);
-                normalizer = RelativeDataIteratorNormalizer.loadNormalizer(pathToNormalizer);
             } else {
                 model = createModel();
             }
@@ -93,13 +91,11 @@ public class Model {
             model.fit(iterator);
             if (i > 0 && i%1000==0 && pathToModel != null) {
                 ModelLoader.saveModel(model, pathToModel);
-                normalizer.saveNormalizer(pathToNormalizer);
             }
         }
 
         if (pathToModel != null) {
             ModelLoader.saveModel(model, pathToModel);
-            normalizer.saveNormalizer(pathToNormalizer);
         }
 
         testModel();
@@ -143,14 +139,9 @@ public class Model {
                 }
             }
             INDArray[] newInput = new INDArray[]{newInput30, newInput70, newInput100};
-            for (INDArray ind : newInput) {
-                normalizer.transform(ind);
-            }
 
             INDArray[] predictions = model.output(newInput);
-            for (INDArray ind : predictions) {
-                normalizer.revertResult(ind);
-            }
+
 
             boolean is30True = false;
             boolean is70True = false;
@@ -257,8 +248,6 @@ public class Model {
             iterators.add(new ListDataSetIterator<>(sets, sets.size()));
             trainList.add(trainSet);
         }
-
-        normalizer = new RelativeDataIteratorNormalizer(iterators.toArray(new DataSetIterator[0]));
 
         return new JointMultiDataSetIterator(iterators.toArray(new DataSetIterator[0]));
     }
