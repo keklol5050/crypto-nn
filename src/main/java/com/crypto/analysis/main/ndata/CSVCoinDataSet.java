@@ -1,13 +1,12 @@
 package com.crypto.analysis.main.ndata;
 
-import com.crypto.analysis.main.data_utils.utils.IndicatorsDataUtil;
-import com.crypto.analysis.main.data_utils.utils.SentimentUtil;
 import com.crypto.analysis.main.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.data_utils.select.coin.TimeFrame;
-import com.crypto.analysis.main.vo.FundamentalStockObject;
-import com.crypto.analysis.main.fundamental.stock.TimeFrameConverter;
+import com.crypto.analysis.main.data_utils.utils.IndicatorsDataUtil;
+import com.crypto.analysis.main.data_utils.utils.SentimentUtil;
 import com.crypto.analysis.main.vo.CandleObject;
 import com.crypto.analysis.main.vo.DataObject;
+import com.crypto.analysis.main.vo.FundamentalStockObject;
 import com.crypto.analysis.main.vo.indication.SentimentHistoryObject;
 import lombok.Getter;
 
@@ -24,6 +23,7 @@ import static com.crypto.analysis.main.data_utils.select.StaticData.SKIP_NUMBER;
 public class CSVCoinDataSet {
     private static final Path pathToFifteenDataSet = new File(Objects.requireNonNull(CSVCoinDataSet.class.getClassLoader().getResource("static/bitcoin_15m.csv")).getFile()).toPath();
     private static final Path pathToHourDataSet = new File(Objects.requireNonNull(CSVCoinDataSet.class.getClassLoader().getResource("static/bitcoin_1h.csv")).getFile()).toPath();
+    private static final Path pathToFourHourDataSet = new File(Objects.requireNonNull(CSVCoinDataSet.class.getClassLoader().getResource("static/bitcoin_4h.csv")).getFile()).toPath();
 
     private final Path path;
     private final Coin coin;
@@ -34,12 +34,14 @@ public class CSVCoinDataSet {
     private final LinkedList<DataObject> data;
     @Getter
     private boolean isInitialized = false;
+
     public CSVCoinDataSet(Coin coin, TimeFrame interval) {
         this.coin = coin;
         this.interval = interval;
         this.path = switch (interval) {
             case FIFTEEN_MINUTES -> pathToFifteenDataSet;
             case ONE_HOUR -> pathToHourDataSet;
+            case FOUR_HOUR -> pathToFourHourDataSet;
             default -> throw new RuntimeException("Invalid time frame");
         };
         data = new LinkedList<>();
@@ -91,7 +93,7 @@ public class CSVCoinDataSet {
                 double ndx = Double.parseDouble(tokens[16]);
                 double gold = Double.parseDouble(tokens[17]);
 
-                FundamentalStockObject fundamentalStock = new FundamentalStockObject(TimeFrameConverter.convert(interval));
+                FundamentalStockObject fundamentalStock = new FundamentalStockObject();
                 fundamentalStock.setSPX(spx);
                 fundamentalStock.setDXY(dxy);
                 fundamentalStock.setDJI(dji);
@@ -121,7 +123,7 @@ public class CSVCoinDataSet {
     }
 
     public static void main(String[] args) {
-        CSVCoinDataSet dataSet = new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES);
+        CSVCoinDataSet dataSet = new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.FOUR_HOUR);
         dataSet.load();
         System.out.println(dataSet.data.removeLast());
         System.out.println(dataSet.data.removeLast());

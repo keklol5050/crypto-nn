@@ -1,10 +1,11 @@
 package com.crypto.analysis.main.data.refactor;
 
-import com.crypto.analysis.main.data_utils.select.StaticData;
-import com.crypto.analysis.main.data_utils.utils.binance.BinanceDataMultipleInstance;
 import com.crypto.analysis.main.data_utils.normalizers.BatchNormalizer;
+import com.crypto.analysis.main.data_utils.select.StaticData;
 import com.crypto.analysis.main.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.data_utils.select.coin.TimeFrame;
+import com.crypto.analysis.main.data_utils.utils.binance.BinanceDataMultipleInstance;
+import com.crypto.analysis.main.fundamental.stock.FundamentalDataUtil;
 import com.crypto.analysis.main.vo.DataObject;
 import com.crypto.analysis.main.vo.TrainSetElement;
 import lombok.Getter;
@@ -71,12 +72,9 @@ public class DataRefactor {
         return elements;
     }
 
-    private double calculateChange(double oldValue, double newValue){
-        return newValue-oldValue;
-    }
 
     public static void main(String[] args) {
-        DataObject[] pr = BinanceDataMultipleInstance.getLatestInstances(Coin.BTCUSDT, TimeFrame.ONE_HOUR, 30);
+        DataObject[] pr = BinanceDataMultipleInstance.getLatestInstances(Coin.BTCUSDT, TimeFrame.ONE_HOUR, 30, new FundamentalDataUtil());
         double[][] in = new double[pr.length][];
         for (int i = 0; i < pr.length; i++) {
             in[i] = pr[i].getParamArray();
@@ -92,14 +90,14 @@ public class DataRefactor {
         inl.add(in);
         DataRefactor normalizer = new DataRefactor(inl, 25, 5);
         LinkedList<TrainSetElement> element = normalizer.transform();
-        double[][] normalizedData = element.get(0).getDataMatrix();
+        double[][] normalizedData = element.get(0).getData();
 
         for (double[] row : normalizedData) {
             System.out.println(Arrays.toString(row));
         }
         System.out.println();
         System.out.println();
-        double[][] normalizedOutput =  element.get(0).getResultMatrix();
+        double[][] normalizedOutput =  element.get(0).getResult();
 
         for (double[] row : normalizedOutput) {
             System.out.println(Arrays.toString(row));

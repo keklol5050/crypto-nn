@@ -17,7 +17,7 @@ public class DataSetCreator {
         sdf.setTimeZone(TimeZone.getTimeZone("UTC+0"));
     }
     public static void main(String[] args) throws IOException, ParseException {
-        List<String> candleLines = Files.readAllLines(Path.of("C:\\Users\\keklo\\OneDrive\\Рабочий стол\\Новая папка\\ll\\1h-candles-2022_06-to-2024_02.csv"));
+        List<String> candleLines = Files.readAllLines(Path.of("C:\\Users\\keklo\\OneDrive\\Рабочий стол\\Новая папка\\ll\\4h-candles-2022_06-to-2024_02.csv"));
         List<String> fundList = Files.readAllLines(Path.of("C:\\Users\\keklo\\OneDrive\\Рабочий стол\\Новая папка\\ll\\funding-2022_06-to-2024_02.csv"));
         List<String> metrics = Files.readAllLines(Path.of("C:\\Users\\keklo\\OneDrive\\Рабочий стол\\Новая папка\\ll\\metrics-2022_06-to-2024_02.csv"));
         List<String> dom = Files.readAllLines(Path.of("C:\\Users\\keklo\\OneDrive\\Рабочий стол\\Новая папка\\ll\\btcdom-15m-2022_06-to-2024_02.csv"));
@@ -131,7 +131,7 @@ public class DataSetCreator {
         }
 
 
-        PrintWriter writer = new PrintWriter("C:\\Users\\keklo\\OneDrive\\Рабочий стол\\Новая папка\\ll\\bitcoin_1h.csv");
+        PrintWriter writer = new PrintWriter("C:\\Users\\keklo\\OneDrive\\Рабочий стол\\Новая папка\\ll\\bitcoin_4h.csv");
         writer.println("open_time,open,high,low,close,volume,close_time,funding,open_interest,long_short_ratio,taker_buy_sell_ratio,btc_dom,spx,dxy,dji,vix,ndx,gold");
 
 

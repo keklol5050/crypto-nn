@@ -1,8 +1,9 @@
 package com.crypto.analysis.main.data_utils.normalizers;
 
-import com.crypto.analysis.main.data_utils.utils.binance.BinanceDataMultipleInstance;
 import com.crypto.analysis.main.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.data_utils.select.coin.TimeFrame;
+import com.crypto.analysis.main.data_utils.utils.binance.BinanceDataMultipleInstance;
+import com.crypto.analysis.main.fundamental.stock.FundamentalDataUtil;
 import com.crypto.analysis.main.vo.DataObject;
 
 import java.io.*;
@@ -108,7 +109,7 @@ public class VerticalNormalizer implements Serializable {
     }
 
     public static void main(String[] args) {
-        DataObject[] objs = BinanceDataMultipleInstance.getLatestInstances(Coin.BTCUSDT, TimeFrame.ONE_HOUR,40);
+        DataObject[] objs = BinanceDataMultipleInstance.getLatestInstances(Coin.BTCUSDT, TimeFrame.ONE_HOUR,40, new FundamentalDataUtil());
         double[][] m = new double[objs.length][];
         double[][] first = new double[objs.length/2][];
         double[][] second = new double[objs.length/2][];

@@ -5,15 +5,16 @@ import com.crypto.analysis.main.data_utils.select.coin.TimeFrame;
 import com.crypto.analysis.main.data_utils.utils.IndicatorsDataUtil;
 import com.crypto.analysis.main.data_utils.utils.SentimentUtil;
 import com.crypto.analysis.main.fundamental.stock.FundamentalDataUtil;
+import com.crypto.analysis.main.vo.CandleObject;
+import com.crypto.analysis.main.vo.DataObject;
 import com.crypto.analysis.main.vo.indication.*;
-import com.crypto.analysis.main.vo.*;
 
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 
 public class BinanceDataMultipleInstance {
-    public static DataObject[] getLatestInstances(Coin coin, TimeFrame interval, int count) {
+    public static DataObject[] getLatestInstances(Coin coin, TimeFrame interval, int count, FundamentalDataUtil fundUtil) {
         DataObject[] instances = new DataObject[count];
         LinkedList<CandleObject> candles = BinanceDataUtil.getCandles(coin, interval, count+5);
 
@@ -42,7 +43,6 @@ public class BinanceDataMultipleInstance {
 
         while (candles.size()!=count) candles.removeFirst();
 
-        FundamentalDataUtil fundUtil = new FundamentalDataUtil(count, interval);
         SentimentHistoryObject sentiment = SentimentUtil.getData();
 
         for (int i = 0; i < count; i++) {
@@ -72,6 +72,6 @@ public class BinanceDataMultipleInstance {
 
     public static void main(String[] args) {
         System.out.println(
-                Arrays.toString(BinanceDataMultipleInstance.getLatestInstances(Coin.BTCUSDT, TimeFrame.ONE_HOUR, 10)));
+                Arrays.toString(BinanceDataMultipleInstance.getLatestInstances(Coin.BTCUSDT, TimeFrame.ONE_HOUR, 10, new FundamentalDataUtil())));
     }
 }

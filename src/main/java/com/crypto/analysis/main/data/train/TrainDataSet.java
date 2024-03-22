@@ -5,6 +5,7 @@ import com.crypto.analysis.main.data_utils.normalizers.BatchNormalizer;
 import com.crypto.analysis.main.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.data_utils.select.coin.DataLength;
 import com.crypto.analysis.main.data_utils.select.coin.TimeFrame;
+import com.crypto.analysis.main.fundamental.stock.FundamentalDataUtil;
 import com.crypto.analysis.main.ndata.CSVCoinDataSet;
 import com.crypto.analysis.main.vo.DataObject;
 import com.crypto.analysis.main.vo.TrainSetElement;
@@ -34,26 +35,35 @@ public class TrainDataSet {
     }
 
 
-    public static TrainDataSet prepareTrainSet(Coin coin, TimeFrame tf, DataLength dl, CSVCoinDataSet set) {
+    public static TrainDataSet prepareTrainSet(Coin coin, DataLength dl, CSVCoinDataSet set15m, CSVCoinDataSet set1h, CSVCoinDataSet set4h) {
         System.out.println("Preparing train set..");
         TrainDataSet trainDataSet = new TrainDataSet(coin, dl);
 
-        TrainDataCSV trainDataCSV = new TrainDataCSV(coin, tf, dl, set);
-        TrainDataBinance trainDataBinance = new TrainDataBinance(coin, tf, dl);
-
         LinkedList<DataObject[]> data = new LinkedList<>();
-        data.addAll(trainDataCSV.getData());
-        data.addAll(trainDataBinance.getData());
+
+        TrainDataCSV trainDataCSV15m = new TrainDataCSV(coin, TimeFrame.FIFTEEN_MINUTES, dl, set15m);
+        TrainDataCSV trainDataCSV1h = new TrainDataCSV(coin, TimeFrame.ONE_HOUR, dl, set1h);
+        TrainDataCSV trainDataCSV4h = new TrainDataCSV(coin, TimeFrame.FOUR_HOUR, dl, set4h);
+
+        data.addAll(trainDataCSV15m.getData());
+        data.addAll(trainDataCSV1h.getData());
+        data.addAll(trainDataCSV4h.getData());
 
         return getTrainDataSet(dl, trainDataSet, data);
     }
-    public static TrainDataSet prepareTrainSet(Coin coin, TimeFrame tf, DataLength dl) {
+    public static TrainDataSet prepareTrainSet(Coin coin, DataLength dl, FundamentalDataUtil fdUtil) {
         System.out.println("Preparing train set..");
         TrainDataSet trainDataSet = new TrainDataSet(coin, dl);
 
-        TrainDataBinance trainDataBinance = new TrainDataBinance(coin, tf, dl);
+        LinkedList<DataObject[]> data = new LinkedList<>();
 
-        LinkedList<DataObject[]> data = new LinkedList<>(trainDataBinance.getData());
+        TrainDataBinance trainDataBinance15m = new TrainDataBinance(coin, TimeFrame.FIFTEEN_MINUTES, dl, fdUtil);
+        TrainDataBinance trainDataBinance1h = new TrainDataBinance(coin, TimeFrame.ONE_HOUR, dl, fdUtil);
+        TrainDataBinance trainDataBinance4h = new TrainDataBinance(coin, TimeFrame.FOUR_HOUR, dl, fdUtil);
+
+        data.addAll(trainDataBinance15m.getData());
+        data.addAll(trainDataBinance1h.getData());
+        data.addAll(trainDataBinance4h.getData());
 
         return getTrainDataSet(dl, trainDataSet, data);
     }
@@ -77,11 +87,11 @@ public class TrainDataSet {
 
         for (int i = 0; i < count; i++) {
             if (i < max) {
-                trainData.add(dataSet.get(i).getDataMatrix());
-                trainResult.add(dataSet.get(i).getResultMatrix());
+                trainData.add(dataSet.get(i).getData());
+                trainResult.add(dataSet.get(i).getResult());
             } else {
-                testData.add(dataSet.get(i).getDataMatrix());
-                testResult.add(dataSet.get(i).getResultMatrix());
+                testData.add(dataSet.get(i).getData());
+                testResult.add(dataSet.get(i).getResult());
             }
         }
 
@@ -95,6 +105,7 @@ public class TrainDataSet {
         System.out.println("Train data set result size: " + trainResult.size());
         System.out.println("Test data set size: " + testData.size());
         System.out.println("Test data set result size: " + testResult.size());
+        System.out.println();
         return trainDataSet;
     }
 }

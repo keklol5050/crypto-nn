@@ -3,8 +3,8 @@ package com.crypto.analysis.main.data_utils.utils.binance;
 import com.binance.connector.futures.client.impl.UMFuturesClientImpl;
 import com.crypto.analysis.main.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.data_utils.select.coin.TimeFrame;
+import com.crypto.analysis.main.vo.CandleObject;
 import com.crypto.analysis.main.vo.indication.*;
-import com.crypto.analysis.main.vo.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -15,13 +15,6 @@ import static com.crypto.analysis.main.data_utils.select.StaticData.client;
 import static com.crypto.analysis.main.data_utils.select.StaticData.objectMapper;
 
 public class BinanceDataUtil {
-    private Coin coin; // наприклад "BTCUSDT"
-    private TimeFrame interval; // 1m 3m 5m 15m 30m 1h 2h 4h 6h 8h 12h 1d 3d 1w 1M
-
-    public BinanceDataUtil(Coin coin, TimeFrame interval) { // !! формат типу "BTCUSDT" "15m" 4
-        this.coin = coin;
-        this.interval = interval;
-    }
 
     public static LinkedList<CandleObject> getCandles(Coin coin, TimeFrame interval, int capacity) {
         LinkedList<CandleObject> result = new LinkedList<>();
@@ -160,10 +153,5 @@ public class BinanceDataUtil {
         LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
         parameters.put("symbol", coin.getName());
         return Double.parseDouble(new UMFuturesClientImpl().market().markPrice(parameters));
-    }
-
-    public DataObject getSingleInstance() {
-        DataObject[] instances = BinanceDataMultipleInstance.getLatestInstances(coin, interval, 1);
-        return instances[instances.length - 1];
     }
 }

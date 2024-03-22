@@ -1,6 +1,5 @@
 package com.crypto.analysis.main.vo;
 
-import com.crypto.analysis.main.data_utils.select.fundamental.FundamentalTimeFrame;
 import lombok.Setter;
 
 import java.util.Date;
@@ -14,11 +13,9 @@ public class FundamentalStockObject {
     private double NDX;
     private double GOLD;
 
-    private final FundamentalTimeFrame interval;
     private final Date createTime;
 
-    public FundamentalStockObject(FundamentalTimeFrame interval) {
-        this.interval = interval;
+    public FundamentalStockObject() {
         createTime = new Date();
     }
 
@@ -31,7 +28,6 @@ public class FundamentalStockObject {
                 ", VIX=" + VIX +
                 ", NDX=" + NDX +
                 ", GOLD=" + GOLD +
-                ", interval=" + interval +
                 ", createTime=" + createTime +
                 '}';
     }

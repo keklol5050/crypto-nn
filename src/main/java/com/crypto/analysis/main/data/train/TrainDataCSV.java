@@ -1,5 +1,6 @@
 package com.crypto.analysis.main.data.train;
 
+import com.crypto.analysis.main.data_utils.select.StaticData;
 import com.crypto.analysis.main.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.data_utils.select.coin.DataLength;
 import com.crypto.analysis.main.data_utils.select.coin.TimeFrame;
@@ -34,9 +35,11 @@ public class TrainDataCSV {
             if (!set.isInitialized()) throw new UnsupportedOperationException("CSV Data set is not initialized");
             if (set.getInterval() != interval) throw new IllegalArgumentException("Data set timeframe is not equals to current timeframe");
             LinkedList<DataObject> objects = set.getData();
-            int count = objects.size()-countOutput;
 
-            for (int i = countInput; i < count; i++) {
+            int count = objects.size()-countOutput;
+            int delimiter = StaticData.getDelimiterForSet(interval);
+
+            for (int i = countInput; i < count; i+=delimiter) {
                 DataObject[] values = new DataObject[countInput+countOutput];
                 int index = 0;
 

@@ -51,11 +51,11 @@ public class DataObject {
 
     public double[] getParamArray() {
         double[] candleValues = candle.getValuesArr(); // 5
-        double[] indicators = currentIndicators.getValuesArr(); // 40
+        double[] indicators = currentIndicators.getValuesArr(); // 41
         double[] coinFundValues = {currentFundingRate, currentOpenInterest, longShortRatio, buySellRatio}; // 4
         double[] volatileFundData = fundamentalData.getValuesArr(); // 6
         double[] volatileValues = {BTCDomination, sentimentMean, sentimentSum}; // 3
-        double[] result = new double[candleValues.length + indicators.length + volatileFundData.length + coinFundValues.length + volatileValues.length]; // 5 + 40 + 6 + 4 + 3 = 58
+        double[] result = new double[candleValues.length + indicators.length + volatileFundData.length + coinFundValues.length + volatileValues.length]; // 5 + 41 + 6 + 4 + 3 = 59
         System.arraycopy(candleValues, 0, result, 0, candleValues.length);
         System.arraycopy(indicators, 0, result, candleValues.length, indicators.length);
         System.arraycopy(coinFundValues, 0, result, candleValues.length+indicators.length, coinFundValues.length);

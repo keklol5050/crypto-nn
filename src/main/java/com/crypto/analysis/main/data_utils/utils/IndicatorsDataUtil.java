@@ -23,7 +23,10 @@ public class IndicatorsDataUtil {
     private final boolean revert;
 
     private RSIIndicator rsi;
-    private MACDIndicator macd;
+
+    private MACDIndicator macd12;
+    private MACDIndicator macd24;
+
     private StochasticOscillatorKIndicator stochasticK;
     private StochasticOscillatorDIndicator stochasticD;
 
@@ -98,7 +101,10 @@ public class IndicatorsDataUtil {
         ClosePriceIndicator ind = new ClosePriceIndicator(series);
 
         rsi = new RSIIndicator(ind, 14);
-        macd = new MACDIndicator(ind, 12, 26);
+
+        macd12 = new MACDIndicator(ind, 12, 26);
+        macd24 = new MACDIndicator(ind, 24, 78);
+
         stochasticK = new StochasticOscillatorKIndicator(series, 14);
         stochasticD = new StochasticOscillatorDIndicator(stochasticK);
 
@@ -153,7 +159,10 @@ public class IndicatorsDataUtil {
         IndicatorsTransferObject result = new IndicatorsTransferObject();
 
         result.setRSI(rsi.getValue(countBar).doubleValue());
-        result.setMACD(macd.getValue(countBar).doubleValue());
+
+        result.setMACD12(macd12.getValue(countBar).doubleValue());
+        result.setMACD24(macd24.getValue(countBar).doubleValue());
+
         result.setSTOCHK(stochasticK.getValue(countBar).doubleValue());
         result.setSTOCHD(stochasticD.getValue(countBar).doubleValue());
 

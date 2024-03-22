@@ -7,7 +7,10 @@ import lombok.Setter;
 @Getter
 public class IndicatorsTransferObject {
     private double RSI;
-    private double MACD;
+
+    private double MACD12;
+    private double MACD24;
+
     private double STOCHK;
     private double STOCHD;
 
@@ -58,7 +61,8 @@ public class IndicatorsTransferObject {
     public String toString() {
         return "IndicatorsTransferObject{" +
                 "RSI=" + RSI +
-                ", MACD=" + MACD +
+                ", MACD12=" + MACD12 +
+                ", MACD24=" + MACD24 +
                 ", STOCHK=" + STOCHK +
                 ", STOCHD=" + STOCHD +
                 ", SMA200=" + SMA200 +
@@ -103,7 +107,10 @@ public class IndicatorsTransferObject {
     public double[] getValuesArr() {
         return new double[]{
                 RSI,
-                MACD,
+
+                MACD12,
+                MACD24,
+
                 STOCHK,
                 STOCHD,
 

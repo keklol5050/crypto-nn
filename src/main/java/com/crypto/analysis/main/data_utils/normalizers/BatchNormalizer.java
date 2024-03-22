@@ -74,7 +74,7 @@ public class BatchNormalizer implements Serializable {
             }
 
             if (valueMax - valueMin == 0) {
-                valueMin -= epsilon;
+                valueMax += epsilon;
             }
 
             min[i] = valueMin;

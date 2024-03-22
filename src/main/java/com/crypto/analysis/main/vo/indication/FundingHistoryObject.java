@@ -1,8 +1,5 @@
 package com.crypto.analysis.main.vo.indication;
 
-import org.nd4j.linalg.api.ndarray.INDArray;
-import org.nd4j.linalg.factory.Nd4j;
-
 import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;

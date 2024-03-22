@@ -1,10 +1,11 @@
 package com.crypto.analysis.main.data.refactor;
 
-import com.crypto.analysis.main.data_utils.utils.binance.BinanceDataMultipleInstance;
 import com.crypto.analysis.main.data_utils.normalizers.BatchNormalizer;
 import com.crypto.analysis.main.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.data_utils.select.coin.DataLength;
 import com.crypto.analysis.main.data_utils.select.coin.TimeFrame;
+import com.crypto.analysis.main.data_utils.utils.binance.BinanceDataMultipleInstance;
+import com.crypto.analysis.main.fundamental.stock.FundamentalDataUtil;
 import com.crypto.analysis.main.vo.DataObject;
 import com.crypto.analysis.main.vo.TrainSetElement;
 import lombok.Getter;
@@ -47,7 +48,7 @@ public class DataTransformer {
     }
 
     public static void main(String[] args) {
-        DataObject[] objs = BinanceDataMultipleInstance.getLatestInstances(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES, 53);
+        DataObject[] objs = BinanceDataMultipleInstance.getLatestInstances(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES, 53, new FundamentalDataUtil());
         LinkedList<DataObject[]> list = new LinkedList<DataObject[]>();
         list.add(objs);
         DataTransformer transformer = new DataTransformer(list, DataLength.S50_3);
@@ -59,8 +60,8 @@ public class DataTransformer {
         LinkedList<TrainSetElement> data = transformer.getTrainData();
         data.forEach(System.out::println);
         System.out.println();
-        double[][] tData = data.getFirst().getDataMatrix();
-        double[][] tResult = data.getFirst().getResultMatrix();
+        double[][] tData = data.getFirst().getData();
+        double[][] tResult = data.getFirst().getResult();
         for (double[] t : tData) {
             System.out.println(Arrays.toString(t));
         }

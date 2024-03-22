@@ -5,10 +5,10 @@ import lombok.Getter;
 @Getter
 public enum DataLength {
     S50_3(50, 3),
-    L100_6(100, 6),
-    X150_9(150, 9);
+    L70_6(70, 6),
+    X100_9(100, 9);
 
-    public static final int MAX_INPUT_LENGTH = 150;
+    public static final int MAX_INPUT_LENGTH = 100;
     public static final int MAX_OUTPUT_LENGTH = 9;
 
     private final int countInput;
