@@ -12,7 +12,7 @@ public class BatchNormalizer implements Serializable {
 
     private double[] volatileMin;
     private double[] volatileMax;
-    private final double epsilon = Math.random() / 10000;
+    private final double epsilon = Math.random() / 1000000;
 
     private final int[] mask;
     private final int countInputs;

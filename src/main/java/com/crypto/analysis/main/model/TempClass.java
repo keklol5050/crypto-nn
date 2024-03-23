@@ -92,7 +92,7 @@ public class TempClass {
         model = new Model(path);
         model.init();
         model.setAccessor(accessor);
-        model.fit(trainIterator, 300, path, 5 );
+        model.fit(trainIterator, 150, 3 );
         test();
     }
     private void test() {

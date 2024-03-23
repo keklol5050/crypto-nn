@@ -5,17 +5,16 @@ import com.crypto.analysis.main.data_utils.select.coin.DataLength;
 import lombok.Setter;
 import org.deeplearning4j.datasets.iterator.JointMultiDataSetIterator;
 import org.deeplearning4j.nn.api.OptimizationAlgorithm;
-import org.deeplearning4j.nn.conf.ComputationGraphConfiguration;
-import org.deeplearning4j.nn.conf.GradientNormalization;
-import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
-import org.deeplearning4j.nn.conf.RNNFormat;
+import org.deeplearning4j.nn.conf.*;
 import org.deeplearning4j.nn.conf.inputs.InputType;
+import org.deeplearning4j.nn.conf.layers.Convolution1DLayer;
 import org.deeplearning4j.nn.conf.layers.LSTM;
 import org.deeplearning4j.nn.conf.layers.RnnOutputLayer;
 import org.deeplearning4j.nn.graph.ComputationGraph;
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
 import org.nd4j.linalg.activations.Activation;
+import org.nd4j.linalg.api.buffer.DataType;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.learning.config.Adam;
@@ -29,17 +28,18 @@ import java.util.Arrays;
 public class Model {
     private final String path;
 
-    private int numInputs = StaticData.MODEL_NUM_INPUTS;
-    private int numOutputs = StaticData.MODEL_NUM_OUTPUTS;
+    private static final int numInputs = StaticData.MODEL_NUM_INPUTS;
+    private static final int numOutputs = StaticData.MODEL_NUM_OUTPUTS;
+    private static final double LEARNING_RATE = StaticData.MODEL_LEARNING_RATE;
 
     private String pathToModel;
     private String pathToAccessor;
 
     private ComputationGraph model;
     private RelativeAccessor accessor;
-    private static final double LEARNING_RATE = StaticData.MODEL_LEARNING_RATE;
 
     public Model(String path) {
+        if (!Files.isDirectory(Path.of(path))) throw new IllegalStateException("Path must be a directory");
         this.path = path;
     }
 
@@ -69,17 +69,27 @@ public class Model {
     private ComputationGraphConfiguration getConfiguration() {
         return new NeuralNetConfiguration.Builder()
                 .seed(123)
+                .trainingWorkspaceMode(WorkspaceMode.ENABLED).inferenceWorkspaceMode(WorkspaceMode.ENABLED)
                 .optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
+
                 .gradientNormalization(GradientNormalization.ClipElementWiseAbsoluteValue)
+                .gradientNormalizationThreshold(5.0)
+
+                .l2(3e-5)
+                .dataType(DataType.DOUBLE)
+
                 .weightInit(WeightInit.XAVIER)
                 .activation(Activation.TANH)
                 .updater(new Adam(LEARNING_RATE))
+
                 .graphBuilder()
                 .setInputTypes(InputType.recurrent(numInputs, DataLength.S50_3.getCountInput(), RNNFormat.NCW),
-                        InputType.recurrent(numInputs,  DataLength.L70_6.getCountInput(), RNNFormat.NCW),
-                        InputType.recurrent(numInputs,  DataLength.X100_9.getCountInput(), RNNFormat.NCW))
+                        InputType.recurrent(numInputs, DataLength.L70_6.getCountInput(), RNNFormat.NCW),
+                        InputType.recurrent(numInputs, DataLength.X100_9.getCountInput(), RNNFormat.NCW))
                 .addInputs("input_50", "input_70", "input_100")
                 .setOutputs("output_50", "output_70", "output_100")
+                .backpropType(BackpropType.Standard)
+                .tBPTTLength(40)
 
                 .addLayer("lstm1_50", new LSTM.Builder()
                         .nIn(numInputs)
@@ -181,12 +191,10 @@ public class Model {
                         .activation(Activation.IDENTITY)
                         .lossFunction(LossFunctions.LossFunction.MSE)
                         .build(), "lstm7_100")
-                .tBPTTLength(40)
                 .build();
     }
 
-    public void save(String path) {
-        if (!Files.isDirectory(Path.of(path))) throw new IllegalStateException("Path must be a directory");
+    public void save() {
         ModelLoader.saveModel(model, pathToModel);
         accessor.saveAccessor(pathToAccessor);
     }
@@ -220,7 +228,7 @@ public class Model {
             int length = 0;
             for (double d : matrix[0]) {
                 if (d != 0) length++;
-                else if (length>=3) break;
+                else if (length >= 3) break;
             }
             double[][] newMatrix = new double[numOutputs][length];
             for (int j = 0; j < numOutputs; j++) {
@@ -245,13 +253,15 @@ public class Model {
         for (int i = 0; i < epoch; i++) {
             model.fit(iterator);
         }
+        save();
     }
 
-    public void fit(JointMultiDataSetIterator iterator, int epoch, String path, int countEpoch) {
+    public void fit(JointMultiDataSetIterator iterator, int epoch, int countEpoch) {
         for (int i = 0; i < epoch; i++) {
-            if (i>0 && i%countEpoch == 0)
-                save(path);
+            if (i > 0 && i % countEpoch == 0)
+                save();
             model.fit(iterator);
         }
+        save();
     }
 }
