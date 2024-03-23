@@ -9,7 +9,7 @@ public class BuySellRatioHistoryObject {
         this.map = map;
     }
     public double getValueForNearestDate(Date targetDate) {
-        return map.get(targetDate);
+        return map.floorEntry(targetDate).getValue();
     }
     public double getFirst() {
         return map.firstEntry().getValue();

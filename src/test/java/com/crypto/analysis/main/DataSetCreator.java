@@ -27,6 +27,8 @@ public class DataSetCreator {
         List<String> vix = Files.readAllLines(Path.of("C:\\Users\\keklo\\OneDrive\\Рабочий стол\\Новая папка\\ll\\vix-2022_06-to-2024_02.csv"));
         List<String> ndx = Files.readAllLines(Path.of("C:\\Users\\keklo\\OneDrive\\Рабочий стол\\Новая папка\\ll\\ndx-2022_06-to-2024_02.csv"));
         List<String> xau = Files.readAllLines(Path.of("C:\\Users\\keklo\\OneDrive\\Рабочий стол\\Новая папка\\ll\\xau-2022_06-to-2024_02.csv"));
+        List<String> fundCr = Files.readAllLines(Path.of("C:\\Users\\keklo\\OneDrive\\Рабочий стол\\Новая папка\\ll\\fund_crypto_4h.csv"));
+
         candleLines.remove(0);
         fundList.remove(0);
         metrics.remove(0);
@@ -37,6 +39,7 @@ public class DataSetCreator {
         vix.remove(0);
         ndx.remove(0);
         xau.remove(0);
+        fundCr.remove(0);
 
         LinkedList<CandleObject> candles = new LinkedList<CandleObject>();
         for (String str : candleLines) {
@@ -130,9 +133,25 @@ public class DataSetCreator {
             xauMap.put(openTime, open);
         }
 
+        TreeMap<Date, double[]> fundCrMap = new TreeMap<Date, double[]>();
+        for (String str : fundCr) {
+            String[] tokens = str.split(",");
+            Date openTime = sdf.parse(tokens[0]);
+            fundCrMap.put(openTime, new double[]{
+                    Double.parseDouble(tokens[1]),
+                    Double.parseDouble(tokens[2]),
+                    Double.parseDouble(tokens[3]),
+                    Double.parseDouble(tokens[4]),
+                    Double.parseDouble(tokens[5]),
+                    Double.parseDouble(tokens[6]),
+                    Double.parseDouble(tokens[7]),
+                    Double.parseDouble(tokens[8])
+            });
+        }
+
 
         PrintWriter writer = new PrintWriter("C:\\Users\\keklo\\OneDrive\\Рабочий стол\\Новая папка\\ll\\bitcoin_4h.csv");
-        writer.println("open_time,open,high,low,close,volume,close_time,funding,open_interest,long_short_ratio,taker_buy_sell_ratio,btc_dom,spx,dxy,dji,vix,ndx,gold");
+        writer.println("open_time,open,high,low,close,volume,close_time,funding,open_interest,long_short_ratio,taker_buy_sell_ratio,btc_dom,spx,dxy,dji,vix,ndx,gold,transactions_count,fee_value,fee_average,input_count,input_value,mined_value,output_count,output_value");
 
 
         for (CandleObject candle : candles) {
@@ -148,9 +167,10 @@ public class DataSetCreator {
             double vixV = vixMap.floorEntry(current).getValue();
             double ndxV = ndxMap.floorEntry(current).getValue();
             double xauV = xauMap.floorEntry(current).getValue();
-            String result = String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s", sdf.format(current), candle.getOpen(), candle.getHigh(),
+            double[] trans = fundCrMap.floorEntry(current).getValue();
+            String result = String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s", sdf.format(current), candle.getOpen(), candle.getHigh(),
                     candle.getLow(), candle.getClose(), candle.getVolume(), sdf.format(candle.getCloseTime()),fund, oi, ls, bsr, btcDOM,
-                    spxV, dxyV, djiV, vixV, ndxV, xauV);
+                    spxV, dxyV, djiV, vixV, ndxV, xauV, trans[0], trans[1], trans[2], trans[3], trans[4], trans[5], trans[6], trans[7]);
             writer.println(result);
             writer.flush();
         }

@@ -6,6 +6,7 @@ import com.crypto.analysis.main.data_utils.utils.IndicatorsDataUtil;
 import com.crypto.analysis.main.data_utils.utils.SentimentUtil;
 import com.crypto.analysis.main.vo.CandleObject;
 import com.crypto.analysis.main.vo.DataObject;
+import com.crypto.analysis.main.vo.FundamentalCryptoDataObject;
 import com.crypto.analysis.main.vo.FundamentalStockObject;
 import com.crypto.analysis.main.vo.indication.SentimentHistoryObject;
 import lombok.Getter;
@@ -100,8 +101,21 @@ public class CSVCoinDataSet {
                 fundamentalStock.setVIX(vix);
                 fundamentalStock.setNDX(ndx);
                 fundamentalStock.setGOLD(gold);
-
                 object.setFundamentalData(fundamentalStock);
+
+                double transactions_count = Double.parseDouble(tokens[18]);
+                double fee_value = Double.parseDouble(tokens[19]);
+                double fee_average = Double.parseDouble(tokens[20]);
+                double input_count = Double.parseDouble(tokens[21]);
+                double input_value = Double.parseDouble(tokens[22]);
+                double mined_value = Double.parseDouble(tokens[23]);
+                double output_count = Double.parseDouble(tokens[24]);
+                double output_value = Double.parseDouble(tokens[25]);
+
+                FundamentalCryptoDataObject fCrypto = new FundamentalCryptoDataObject(coin, new double[]{transactions_count, fee_value, fee_average,
+                input_count, input_value, mined_value, output_count, output_value});
+
+                object.setCryptoFundamental(fCrypto);
 
                 double[] sentValues = sentiment.getValueForNearestDate(candle.getOpenTime());
                 object.setSentimentMean(sentValues[0]);

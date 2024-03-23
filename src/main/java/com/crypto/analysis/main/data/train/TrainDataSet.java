@@ -83,7 +83,7 @@ public class TrainDataSet {
         LinkedList<double[][]> testData = new LinkedList<>();
         LinkedList<double[][]> testResult = new LinkedList<>();
         int count = dataSet.size();
-        int max = data.size() > 5000 ? count-700 : count-70;
+        int max = data.size() > 5000 ? count-350 : count-70;
 
         for (int i = 0; i < count; i++) {
             if (i < max) {

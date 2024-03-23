@@ -10,7 +10,6 @@ public class BTCDOMObject {
     }
     public double getValueForNearestDate(Date targetDate) {
         return map.get(targetDate);
-
     }
     public double getFirst() {
         return map.firstEntry().getValue();

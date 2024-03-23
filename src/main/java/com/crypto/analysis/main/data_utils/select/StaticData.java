@@ -17,11 +17,12 @@ public class StaticData {
     public static final int VOLATILE_VALUES_COUNT_FROM_LAST = 13;
     public static final int SKIP_NUMBER = 800;
 
-    public static final int MODEL_NUM_INPUTS = 59;
+    public static final int MODEL_NUM_INPUTS = 67;
     public static final int MODEL_NUM_OUTPUTS = MASK_OUTPUT.length;
     public static final double MODEL_LEARNING_RATE = 0.005;
 
     public static final String ALL_SENTIMENT_DATA = "https://api.senticrypt.com/v2/all.json"; // SentiCrypt, class SentimentUtil
+    public static final String bitQueryApiKey = "BQYM7GOqY0AGd3Sss16XsDtijqogxOM6"; // BitQuery crypto fundamental api key, class BitQueryUtil
     public static final String twelveDataKey = "4bb2e7eb9fe24d8d907287b30ae5eb4b"; // TwelveData API fundamental stocks, class FundamentalUtil
 
     public static final SimpleDateFormat sdfFullISO = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
