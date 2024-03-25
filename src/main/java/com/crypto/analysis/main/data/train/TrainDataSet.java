@@ -36,14 +36,18 @@ public class TrainDataSet {
 
 
     public static TrainDataSet prepareTrainSet(Coin coin, DataLength dl, CSVCoinDataSet set15m, CSVCoinDataSet set1h, CSVCoinDataSet set4h) {
+        if (set15m.getInterval() != TimeFrame.FIFTEEN_MINUTES) throw new IllegalArgumentException("15m ses is not valid");
+        if (set1h.getInterval() != TimeFrame.ONE_HOUR) throw new IllegalArgumentException("1h ses is not valid");
+        if (set4h.getInterval() != TimeFrame.FOUR_HOUR) throw new IllegalArgumentException("4h ses is not valid");
+
         System.out.println("Preparing train set..");
         TrainDataSet trainDataSet = new TrainDataSet(coin, dl);
 
         LinkedList<DataObject[]> data = new LinkedList<>();
 
-        TrainDataCSV trainDataCSV15m = new TrainDataCSV(coin, TimeFrame.FIFTEEN_MINUTES, dl, set15m);
-        TrainDataCSV trainDataCSV1h = new TrainDataCSV(coin, TimeFrame.ONE_HOUR, dl, set1h);
-        TrainDataCSV trainDataCSV4h = new TrainDataCSV(coin, TimeFrame.FOUR_HOUR, dl, set4h);
+        TrainDataCSV trainDataCSV15m = new TrainDataCSV(coin, set15m.getInterval(), dl, set15m);
+        TrainDataCSV trainDataCSV1h = new TrainDataCSV(coin, set1h.getInterval(), dl, set1h);
+        TrainDataCSV trainDataCSV4h = new TrainDataCSV(coin, set4h.getInterval(), dl, set4h);
 
         data.addAll(trainDataCSV15m.getData());
         data.addAll(trainDataCSV1h.getData());

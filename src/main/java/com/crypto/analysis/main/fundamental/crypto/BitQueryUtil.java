@@ -52,7 +52,7 @@ public class BitQueryUtil {
         endDate = endDate.replace(' ', 'T');
 
         RequestBody body = RequestBody.create(mediaType, switch (interval) {
-            case ONE_HOUR -> String.format(HOUR_REQ, coin, startDate, endDate);
+            case ONE_HOUR, FOUR_HOUR  -> String.format(HOUR_REQ, coin, startDate, endDate);
             default -> String.format(SIMPLE_REQ, coin, startDate, endDate);
         });
         Request request = new Request.Builder()
@@ -90,7 +90,7 @@ public class BitQueryUtil {
                     double outputValue = node.get("outputValue").asDouble();
 
                     Date timestamp;
-                    if (interval == TimeFrame.ONE_HOUR) {
+                    if (interval == TimeFrame.ONE_HOUR || interval == TimeFrame.FOUR_HOUR) {
                         int year = node.get("block").get("timestamp").get("year").asInt();
                         int month = node.get("block").get("timestamp").get("month").asInt();
                         int day = node.get("block").get("timestamp").get("dayOfMonth").asInt();
@@ -141,12 +141,8 @@ public class BitQueryUtil {
 
             // Если начался новый интервал, добавляем данные предыдущего интервала в результаты
             if (currentIntervalStart != null && !currentIntervalStart.equals(roundedDate)) {
-                double[] avgValues = new double[values.length];
-                for (int i = 0; i < sumValues.length; i++) {
-                    avgValues[i] = sumValues[i] / count;
-                }
-                mergedData.put(currentIntervalStart, avgValues);
-
+                sumValues[2] = sumValues[1] / sumValues[0];
+                mergedData.put(currentIntervalStart, sumValues);
                 // Обнуляем сумму и счетчик для нового интервала
                 sumValues = new double[values.length];
                 count = 0;
@@ -163,18 +159,15 @@ public class BitQueryUtil {
 
         // Добавляем последний интервал
         if (currentIntervalStart != null) {
-            double[] avgValues = new double[sumValues.length];
-            for (int i = 0; i < sumValues.length; i++) {
-                avgValues[i] = sumValues[i] / count;
-            }
-            mergedData.put(currentIntervalStart, avgValues);
+            sumValues[2] = sumValues[1] / sumValues[0];
+            mergedData.put(currentIntervalStart, sumValues);
         }
 
         return mergedData;
     }
 
     public static void main(String[] args) {
-         new BitQueryUtil(Coin.BTCUSDT, TimeFrame.ONE_HOUR).initData(new Date(124, 02, 20), new Date());
+         new BitQueryUtil(Coin.BTCUSDT, TimeFrame.FOUR_HOUR).initData(new Date(124, 02, 20), new Date());
     }
 
 }

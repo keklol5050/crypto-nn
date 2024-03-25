@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class SetCreator {
-    public static void main(String[] args) throws IOException, ParseException {
+    public static void main(String[] args) throws IOException, ParseException, InterruptedException {
         BitQueryUtil util = new BitQueryUtil(Coin.BTCUSDT, TimeFrame.FOUR_HOUR);
 
         PrintWriter writer = new PrintWriter(new FileWriter("C:\\Users\\keklo\\OneDrive\\Рабочий стол\\Новая папка\\ll\\fund_crypto_4h.csv", true));
@@ -43,6 +43,7 @@ public class SetCreator {
                writer.println(String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s", StaticData.sdfFullISO.format(entry.getKey()), entry.getValue()[0], entry.getValue()[1], entry.getValue()[2], entry.getValue()[3], entry.getValue()[4], entry.getValue()[5], entry.getValue()[6], entry.getValue()[7]));
                writer.flush();
            }
+           Thread.sleep(5000);
        }
     }
 }
