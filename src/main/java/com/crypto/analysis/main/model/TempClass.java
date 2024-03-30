@@ -1,7 +1,7 @@
 package com.crypto.analysis.main.model;
 
 import com.crypto.analysis.main.data.train.TrainDataSet;
-import com.crypto.analysis.main.data_utils.normalizers.BatchNormalizer;
+import com.crypto.analysis.main.data_utils.normalizers.RobustNormalizer;
 import com.crypto.analysis.main.data_utils.select.StaticData;
 import com.crypto.analysis.main.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.data_utils.select.coin.DataLength;
@@ -17,42 +17,39 @@ import org.nd4j.linalg.factory.Nd4j;
 import java.util.*;
 
 public class TempClass {
-    private JointMultiDataSetIterator trainIterator;
-    private RelativeAccessor accessor;
     private final String path;
-
-    private HashMap<Integer, TrainDataSet> trainList;
-    private final CSVCoinDataSet csvSet15m;
     private final CSVCoinDataSet csvSet1h;
-    private final CSVCoinDataSet csvSet4h;
+    private final JointMultiDataSetIterator trainIterator;
+    private RelativeAccessor accessor;
+    private HashMap<Integer, TrainDataSet> trainList;
     private Model model;
-    public TempClass(CSVCoinDataSet csvSet15m, CSVCoinDataSet csvSet1h, CSVCoinDataSet csvSet4h, String path) throws Exception {
-        this.csvSet15m = csvSet15m;
-        this.csvSet1h = csvSet1h;
-        this.csvSet4h = csvSet4h;
 
+    public TempClass(CSVCoinDataSet csvSet1h, String path) {
+        this.csvSet1h = csvSet1h;
         this.path = path;
 
         trainIterator = getDataSetIterator();
     }
 
-    private JointMultiDataSetIterator getDataSetIterator()  {
+    public static void main(String[] args) throws Exception {
+        new TempClass(new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.ONE_HOUR),
+                "D:\\md\\").start();
+    }
+
+    private JointMultiDataSetIterator getDataSetIterator() {
 
         LinkedList<DataSetIterator> iteratorsTrain = new LinkedList<>();
 
         HashMap<Integer, INDArray> masks = new HashMap<>();
 
-        HashMap<Integer, BatchNormalizer> normalizers = new HashMap<>();
+        HashMap<Integer, RobustNormalizer> normalizers = new HashMap<>();
 
         trainList = new HashMap<>();
 
-        csvSet15m.load();
         csvSet1h.load();
-        csvSet4h.load();
 
-
-        for (DataLength dl :  DataLength.values()) {
-            TrainDataSet trainSet = TrainDataSet.prepareTrainSet(Coin.BTCUSDT, dl, csvSet15m, csvSet1h, csvSet4h);
+        for (DataLength dl : DataLength.values()) {
+            TrainDataSet trainSet = TrainDataSet.prepareTrainSet(Coin.BTCUSDT, dl, csvSet1h);
 
             LinkedList<double[][]> inputList = trainSet.getTrainData();
             LinkedList<double[][]> outputList = trainSet.getTrainResult();
@@ -76,7 +73,7 @@ public class TempClass {
                 sets.add(set);
             }
             Collections.shuffle(sets);
-            DataSetIterator it = new ListDataSetIterator<>(sets, 128);
+            DataSetIterator it = new ListDataSetIterator<>(sets, 64);
 
             iteratorsTrain.add(it);
             masks.put(sequenceLength, labelsMask);
@@ -92,9 +89,10 @@ public class TempClass {
         model = new Model(path);
         model.init();
         model.setAccessor(accessor);
-        model.fit(trainIterator, 150, 3 );
+        model.fit(trainIterator, 9999, 3);
         test();
     }
+
     private void test() {
         long start = System.currentTimeMillis();
         LinkedList<double[][]> d50values = trainList.get(50).getTestData();
@@ -117,18 +115,13 @@ public class TempClass {
 
             double[][][] predicted = model.predict(nIn);
 
+            accessor.revertFeatures(d50values.get(i));
+            accessor.revertFeatures(d70values.get(i));
+            accessor.revertFeatures(d100values.get(i));
 
-            BatchNormalizer normalizer50 = accessor.getNormalizer(50);
-            BatchNormalizer normalizer70 = accessor.getNormalizer(70);
-            BatchNormalizer normalizer100 = accessor.getNormalizer(100);
-
-            normalizer50.revertFeaturesVertical(d50values.get(i));
-            normalizer70.revertFeaturesVertical(d70values.get(i));
-            normalizer100.revertFeaturesVertical(d100values.get(i));
-
-            normalizer50.revertLabelsVertical(d50values.get(i), d50result.get(i));
-            normalizer70.revertLabelsVertical(d70values.get(i), d70result.get(i));
-            normalizer100.revertLabelsVertical(d100values.get(i), d100result.get(i));
+            accessor.revertLabels(d50values.get(i), d50result.get(i));
+            accessor.revertLabels(d70values.get(i), d70result.get(i));
+            accessor.revertLabels(d100values.get(i), d100result.get(i));
 
             HashMap<Integer, double[][]> data = new HashMap<Integer, double[][]>();
             HashMap<Integer, double[][]> results = new HashMap<Integer, double[][]>();
@@ -211,12 +204,5 @@ public class TempClass {
         System.out.println("Percentage accuracy 70 input size: " + ((double) pred70acc / (double) d100result.size()) * 100 + '%');
         System.out.println("Percentage accuracy 100 input size: " + ((double) pred100acc / (double) d100values.size()) * 100 + '%');
         System.out.println("Time taken: " + ((System.currentTimeMillis() - start) / 1000) / 60 + " minutes");
-    }
-
-    public static void main(String[] args) throws Exception {
-        new TempClass(new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES),
-                new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.ONE_HOUR),
-                new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.FOUR_HOUR),
-                "D:\\md\\").start();
     }
 }

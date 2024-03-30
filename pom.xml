@@ -95,7 +95,6 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.15.1</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.datavec</groupId>
 			<artifactId>datavec-data-image</artifactId>
@@ -108,21 +107,9 @@
 		</dependency>
 		<dependency>
 			<groupId>org.deeplearning4j</groupId>
-			<artifactId>deeplearning4j-datasets</artifactId>
-			<version>${dl4j-master.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.deeplearning4j</groupId>
 			<artifactId>deeplearning4j-core</artifactId>
 			<version>${dl4j-master.version}</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.deeplearning4j/resources -->
-		<dependency>
-			<groupId>org.deeplearning4j</groupId>
-			<artifactId>resources</artifactId>
-			<version>1.0.0-M2.1</version>
-		</dependency>
-
 		<dependency>
 			<groupId>org.nd4j</groupId>
 			<artifactId>nd4j-api</artifactId>
@@ -183,11 +170,6 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.telegram</groupId>
-			<artifactId>telegrambots</artifactId>
-			<version>6.7.0</version>
-		</dependency>
-		<dependency>
 			<groupId>org.bytedeco</groupId>
 			<artifactId>cuda</artifactId>
 			<version>11.2-8.1-1.5.5</version>
@@ -221,19 +203,13 @@
 			<artifactId>jcommon</artifactId>
 			<version>${jcommon.version}</version>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/ai.djl/api -->
 		<dependency>
-			<groupId>org.deeplearning4j</groupId>
-			<artifactId>deeplearning4j-zoo</artifactId>
-			<version>${dl4j-master.version}</version>
+			<groupId>ai.djl</groupId>
+			<artifactId>api</artifactId>
+			<version>0.26.0</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/ml.dmlc/xgboost4j -->
-		<dependency>
-			<groupId>ml.dmlc</groupId>
-			<artifactId>xgboost4j_2.13</artifactId>
-			<version>2.0.3</version>
-		</dependency>
 
 	</dependencies>
 

@@ -1,10 +1,13 @@
 package com.crypto.analysis.main.vo.indication;
 
+import lombok.Getter;
+
 import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class SentimentHistoryObject {
+    @Getter
     private final TreeMap<Date, double[]> map;
 
     public SentimentHistoryObject(TreeMap<Date, double[]> map) {

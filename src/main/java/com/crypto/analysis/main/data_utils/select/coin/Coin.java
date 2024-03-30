@@ -9,6 +9,7 @@ public enum Coin {
     BTCDOMUSDT("BTCDOMUSDT");
 
     private final String name;
+
     Coin(String name) {
         this.name = name;
     }

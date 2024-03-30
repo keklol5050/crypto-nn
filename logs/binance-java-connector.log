@@ -1,50 +1,942 @@
-2024-03-23 01:59:07.186[1711151947186] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=10
-2024-03-23 01:59:14.690[1711151954690] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
-2024-03-23 01:59:16.166[1711151956166] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
-2024-03-23 01:59:16.581[1711151956581] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
-2024-03-23 01:59:16.941[1711151956941] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
-2024-03-23 01:59:17.294[1711151957294] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
-2024-03-23 01:59:17.639[1711151957639] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
-2024-03-23 02:02:18.770[1711152138770] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=10
-2024-03-23 02:02:20.773[1711152140773] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
-2024-03-23 02:02:21.683[1711152141683] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
-2024-03-23 02:02:21.981[1711152141981] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
-2024-03-23 02:02:22.262[1711152142262] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
-2024-03-23 02:02:22.550[1711152142550] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
-2024-03-23 02:02:22.838[1711152142838] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
-2024-03-23 02:05:55.018[1711152355018] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=15m&limit=10
-2024-03-23 02:05:56.940[1711152356940] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=15m&limit=1500
-2024-03-23 02:05:57.842[1711152357842] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
-2024-03-23 02:05:58.139[1711152358139] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=15m&limit=500
-2024-03-23 02:05:58.420[1711152358420] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=15m&limit=500
-2024-03-23 02:05:58.706[1711152358706] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=15m&limit=500
-2024-03-23 02:05:58.992[1711152358992] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=15m&limit=1500
-2024-03-23 02:14:35.699[1711152875699] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=15m&limit=10
-2024-03-23 02:14:37.653[1711152877653] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=15m&limit=1500
-2024-03-23 02:14:38.582[1711152878582] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
-2024-03-23 02:14:38.879[1711152878879] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=15m&limit=500
-2024-03-23 02:14:39.168[1711152879168] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=15m&limit=500
-2024-03-23 02:14:39.455[1711152879455] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=15m&limit=500
-2024-03-23 02:14:39.748[1711152879748] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=15m&limit=1500
-2024-03-23 02:38:46.570[1711154326570] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=30
-2024-03-23 02:38:48.547[1711154328547] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
-2024-03-23 02:38:49.557[1711154329557] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
-2024-03-23 02:38:49.864[1711154329864] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
-2024-03-23 02:38:50.152[1711154330152] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
-2024-03-23 02:38:50.433[1711154330433] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
-2024-03-23 02:38:50.716[1711154330716] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
-2024-03-23 02:51:06.102[1711155066102] | INFO  | main       | org.nd4j.linalg.factory.Nd4jBackend  - Loaded [JCublasBackend] backend
-2024-03-23 02:51:12.465[1711155072465] | INFO  | main       | org.nd4j.nativeblas.NativeOpsHolder  - Number of threads used for linear algebra: 32
-2024-03-23 02:51:12.532[1711155072532] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Backend used: [CUDA]; OS: [Windows 11]
-2024-03-23 02:51:12.532[1711155072532] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Cores: [6]; Memory: [4,0GB];
-2024-03-23 02:51:12.532[1711155072532] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Blas vendor: [CUBLAS]
-2024-03-23 02:51:12.546[1711155072546] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build version: 11.2.142
-2024-03-23 02:51:12.549[1711155072549] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA GeForce GTX 1060 6GB]; cc: [6.1]; Total memory: [6442319872]
-2024-03-23 02:51:12.549[1711155072549] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - Backend build information:
+2024-03-30 00:00:00.886[1711749600886] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2830 is 8.773719787597656
+2024-03-30 00:00:14.032[1711749614032] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2840 is 10.2477658589681
+2024-03-30 00:00:26.737[1711749626737] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2850 is 2.5050646464029946
+2024-03-30 00:00:39.718[1711749639718] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2860 is 2.006608327229818
+2024-03-30 00:00:52.570[1711749652570] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2870 is 2.7131150563557944
+2024-03-30 00:01:06.392[1711749666392] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2880 is 3.0989392598470054
+2024-03-30 00:01:20.758[1711749680758] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2890 is 1.8367700576782227
+2024-03-30 00:01:35.586[1711749695586] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2900 is 3.751943906148275
+2024-03-30 00:01:50.330[1711749710330] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2910 is 3.806302070617676
+2024-03-30 00:02:05.592[1711749725592] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2920 is 2.9424616495768228
+2024-03-30 00:02:20.508[1711749740508] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2930 is 2.238607088724772
+2024-03-30 00:02:35.283[1711749755283] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2940 is 3.254155476888021
+2024-03-30 00:02:48.686[1711749768686] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2950 is 3.1032536824544272
+2024-03-30 00:03:02.159[1711749782159] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2960 is 2.172562917073568
+2024-03-30 00:03:16.067[1711749796067] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2970 is 2.7621494928995767
+2024-03-30 00:03:29.013[1711749809013] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2980 is 2.923865636189779
+2024-03-30 00:03:41.880[1711749821880] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2990 is 2.2538787523905435
+2024-03-30 00:03:54.937[1711749834937] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3000 is 1.5065906842549641
+2024-03-30 00:04:09.428[1711749849428] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3010 is 2.7923148473103843
+2024-03-30 00:04:22.334[1711749862334] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3020 is 3.42411200205485
+2024-03-30 00:04:37.058[1711749877058] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3030 is 3.354045550028483
+2024-03-30 00:04:50.655[1711749890655] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3040 is 4.085985501607259
+2024-03-30 00:05:03.477[1711749903477] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3050 is 9.854129791259766
+2024-03-30 00:05:17.762[1711749917762] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3060 is 4.612580299377441
+2024-03-30 00:05:31.089[1711749931089] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3070 is 2.8085784912109375
+2024-03-30 00:05:44.477[1711749944477] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3080 is 2.5105679829915366
+2024-03-30 00:05:57.579[1711749957579] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3090 is 2.696983019510905
+2024-03-30 00:06:10.804[1711749970804] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3100 is 2.5139783223470054
+2024-03-30 00:06:25.508[1711749985508] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3110 is 1.738922119140625
+2024-03-30 00:06:38.781[1711749998781] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3120 is 3.7672545115152993
+2024-03-30 00:06:51.796[1711750011796] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3130 is 3.7827142079671225
+2024-03-30 00:07:04.120[1711750024120] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3140 is 2.9282042185465493
+2024-03-30 00:07:16.978[1711750036978] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3150 is 1.9005560874938965
+2024-03-30 00:07:29.440[1711750049440] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3160 is 5.526827494303386
+2024-03-30 00:07:41.833[1711750061833] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3170 is 3.9067357381184897
+2024-03-30 00:07:54.148[1711750074148] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3180 is 2.3134536743164062
+2024-03-30 00:08:06.556[1711750086556] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3190 is 1.7994518280029297
+2024-03-30 00:08:19.366[1711750099366] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3200 is 3.9213485717773438
+2024-03-30 00:08:32.880[1711750112880] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3210 is 2.508498191833496
+2024-03-30 00:08:46.341[1711750126341] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3220 is 2.04972775777181
+2024-03-30 00:08:59.786[1711750139786] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3230 is 3.2996079126993814
+2024-03-30 00:09:13.145[1711750153145] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3240 is 2.9294986724853516
+2024-03-30 00:09:26.273[1711750166273] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3250 is 1.8600699106852214
+2024-03-30 00:09:39.651[1711750179651] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3260 is 1.943463961283366
+2024-03-30 00:09:53.572[1711750193572] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3270 is 3.4705638885498047
+2024-03-30 00:10:07.157[1711750207157] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3280 is 3.3337615331014
+2024-03-30 00:10:20.600[1711750220600] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3290 is 2.04245392481486
+2024-03-30 00:10:36.898[1711750236898] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3300 is 2.0929037729899087
+2024-03-30 00:10:53.661[1711750253661] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3310 is 2.5186710357666016
+2024-03-30 00:11:09.724[1711750269724] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3320 is 2.1494261423746743
+2024-03-30 00:11:25.598[1711750285598] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3330 is 1.6251061757405598
+2024-03-30 00:11:41.664[1711750301664] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3340 is 3.075058619181315
+2024-03-30 00:11:57.202[1711750317202] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3350 is 3.1710777282714844
+2024-03-30 00:12:14.132[1711750334132] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3360 is 3.5446933110555015
+2024-03-30 00:12:31.438[1711750351438] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3370 is 1.8010931015014648
+2024-03-30 00:12:48.518[1711750368518] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3380 is 3.5055885314941406
+2024-03-30 00:13:05.634[1711750385634] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3390 is 4.017983118693034
+2024-03-30 00:13:23.460[1711750403460] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3400 is 2.391475041707357
+2024-03-30 00:13:39.005[1711750419005] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3410 is 1.975369135538737
+2024-03-30 00:13:54.968[1711750434968] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3420 is 2.6501429875691733
+2024-03-30 00:14:11.327[1711750451327] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3430 is 2.4590673446655273
+2024-03-30 00:14:29.222[1711750469222] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3440 is 1.7496744791666667
+2024-03-30 00:14:44.908[1711750484908] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3450 is 2.944025675455729
+2024-03-30 00:14:59.691[1711750499691] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3460 is 3.041546185811361
+2024-03-30 00:15:15.191[1711750515191] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3470 is 2.8900674184163413
+2024-03-30 00:15:31.531[1711750531531] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3480 is 10.186957041422525
+2024-03-30 00:15:47.405[1711750547405] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3490 is 8.454042434692383
+2024-03-30 00:16:04.167[1711750564167] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3500 is 4.815132776896159
+2024-03-30 00:16:21.038[1711750581038] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3510 is 2.5385920206705728
+2024-03-30 00:16:37.432[1711750597432] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3520 is 2.460625648498535
+2024-03-30 00:16:53.012[1711750613012] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3530 is 2.330287456512451
+2024-03-30 00:17:09.044[1711750629044] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3540 is 2.6658124923706055
+2024-03-30 00:17:25.849[1711750645849] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3550 is 1.4738988876342773
+2024-03-30 00:17:42.281[1711750662281] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3560 is 2.6827014287312827
+2024-03-30 00:17:58.771[1711750678771] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3570 is 4.418124834696452
+2024-03-30 00:18:16.348[1711750696348] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3580 is 2.5165855089823403
+2024-03-30 00:18:33.163[1711750713163] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3590 is 1.68769105275472
+2024-03-30 00:18:49.146[1711750729146] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3600 is 3.854885737101237
+2024-03-30 00:19:05.857[1711750745857] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3610 is 3.913201014200846
+2024-03-30 00:19:21.396[1711750761396] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3620 is 2.01932684580485
+2024-03-30 00:19:37.967[1711750777967] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3630 is 4.410575230916341
+2024-03-30 00:19:54.947[1711750794947] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3640 is 2.538243134816488
+2024-03-30 00:20:11.680[1711750811680] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3650 is 2.5828062693277993
+2024-03-30 00:20:28.269[1711750828269] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3660 is 1.6376444498697917
+2024-03-30 00:20:44.535[1711750844535] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3670 is 3.0428829193115234
+2024-03-30 00:21:01.492[1711750861492] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3680 is 5.6402333577473955
+2024-03-30 00:21:19.186[1711750879186] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3690 is 2.499828020731608
+2024-03-30 00:21:37.031[1711750897031] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3700 is 6.701386133829753
+2024-03-30 00:21:55.590[1711750915590] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3710 is 7.507822036743164
+2024-03-30 00:22:11.471[1711750931471] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3720 is 5.624538421630859
+2024-03-30 00:22:27.194[1711750947194] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3730 is 2.7553043365478516
+2024-03-30 00:22:43.526[1711750963526] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3740 is 2.246870676676432
+2024-03-30 00:23:00.575[1711750980575] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3750 is 2.899162928263346
+2024-03-30 00:23:16.977[1711750996977] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3760 is 2.4590190251668296
+2024-03-30 00:23:33.799[1711751013799] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3770 is 1.374909241994222
+2024-03-30 00:23:49.673[1711751029673] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3780 is 2.6973756154378257
+2024-03-30 00:24:06.285[1711751046285] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3790 is 4.0742238362630205
+2024-03-30 00:24:23.306[1711751063306] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3800 is 2.172147591908773
+2024-03-30 00:24:40.068[1711751080068] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3810 is 2.385103702545166
+2024-03-30 00:24:56.374[1711751096374] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3820 is 2.5414822896321616
+2024-03-30 00:25:12.800[1711751112800] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3830 is 3.14070192972819
+2024-03-30 00:25:29.813[1711751129813] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3840 is 1.989873727162679
+2024-03-30 00:25:46.739[1711751146739] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3850 is 2.0318592389424643
+2024-03-30 00:26:04.154[1711751164154] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3860 is 3.308894475301107
+2024-03-30 00:26:21.028[1711751181028] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3870 is 2.137362321217855
+2024-03-30 00:26:37.310[1711751197310] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3880 is 1.678951899210612
+2024-03-30 00:26:52.986[1711751212986] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3890 is 2.9128780364990234
+2024-03-30 00:27:09.073[1711751229073] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3900 is 3.290675163269043
+2024-03-30 00:27:25.229[1711751245229] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3910 is 1.7926352818806965
+2024-03-30 00:27:41.096[1711751261096] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3920 is 1.5328874588012695
+2024-03-30 00:27:58.998[1711751278998] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3930 is 2.547122001647949
+2024-03-30 00:28:15.516[1711751295516] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3940 is 3.284449259440104
+2024-03-30 00:28:32.234[1711751312234] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3950 is 1.8480971654256184
+2024-03-30 00:28:49.801[1711751329801] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3960 is 1.9010566075642903
+2024-03-30 00:29:06.181[1711751346181] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3970 is 3.025283177693685
+2024-03-30 00:29:23.761[1711751363761] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3980 is 1.7969403266906738
+2024-03-30 00:29:43.358[1711751383358] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3990 is 1.2701115608215332
+2024-03-30 00:30:00.523[1711751400523] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4000 is 2.337860107421875
+2024-03-30 00:30:17.581[1711751417581] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4010 is 3.5070196787516275
+2024-03-30 00:30:33.738[1711751433738] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4020 is 2.425304889678955
+2024-03-30 00:30:49.701[1711751449701] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4030 is 1.5544373194376628
+2024-03-30 00:31:06.812[1711751466812] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4040 is 2.100389321645101
+2024-03-30 00:31:22.956[1711751482956] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4050 is 3.4775161743164062
+2024-03-30 00:31:39.537[1711751499537] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4060 is 2.163971741994222
+2024-03-30 00:31:57.470[1711751517470] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4070 is 2.190791447957357
+2024-03-30 00:32:15.696[1711751535696] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4080 is 2.2663869857788086
+2024-03-30 00:32:31.872[1711751551872] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4090 is 2.3496824900309243
+2024-03-30 00:32:50.290[1711751570290] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4100 is 1.6968984603881836
+2024-03-30 00:33:06.119[1711751586119] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4110 is 2.399099667867025
+2024-03-30 00:33:21.526[1711751601526] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4120 is 2.294820785522461
+2024-03-30 00:33:39.030[1711751619030] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4130 is 2.0103724797566733
+2024-03-30 00:33:54.716[1711751634716] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4140 is 1.847744623819987
+2024-03-30 00:34:10.685[1711751650685] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4150 is 1.8269271850585938
+2024-03-30 00:34:27.187[1711751667187] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4160 is 2.913228988647461
+2024-03-30 00:34:43.575[1711751683575] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4170 is 2.2238782246907554
+2024-03-30 00:35:00.890[1711751700890] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4180 is 1.6009165445963542
+2024-03-30 00:35:17.963[1711751717963] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4190 is 2.502640883127848
+2024-03-30 00:35:34.404[1711751734404] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4200 is 2.127317428588867
+2024-03-30 00:35:52.433[1711751752433] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4210 is 1.2685404618581135
+2024-03-30 00:36:08.826[1711751768826] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4220 is 1.9834715525309246
+2024-03-30 00:36:25.525[1711751785525] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4230 is 2.606243928273519
+2024-03-30 00:36:41.957[1711751801957] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4240 is 2.976487159729004
+2024-03-30 00:37:00.105[1711751820105] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4250 is 1.1958406766255696
+2024-03-30 00:37:16.070[1711751836070] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4260 is 2.220575491587321
+2024-03-30 00:37:31.248[1711751851248] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4270 is 2.427976926167806
+2024-03-30 00:37:47.230[1711751867230] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4280 is 2.240046660105387
+2024-03-30 00:38:02.858[1711751882858] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4290 is 2.070199807484945
+2024-03-30 00:38:18.747[1711751898747] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4300 is 2.328887939453125
+2024-03-30 00:38:34.538[1711751914538] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4310 is 2.042628447214762
+2024-03-30 00:38:54.660[1711751934660] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4320 is 1.7911453247070312
+2024-03-30 00:39:12.317[1711751952317] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4330 is 2.2860608100891113
+2024-03-30 00:39:29.427[1711751969427] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4340 is 2.496217409769694
+2024-03-30 00:39:46.656[1711751986656] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4350 is 2.13256565729777
+2024-03-30 00:40:03.625[1711752003625] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4360 is 1.4189713795979817
+2024-03-30 00:40:21.041[1711752021041] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4370 is 2.333189010620117
+2024-03-30 00:40:41.230[1711752041230] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4380 is 2.9667434692382812
+2024-03-30 00:40:58.363[1711752058363] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4390 is 2.1519813537597656
+2024-03-30 00:41:20.605[1711752080605] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4400 is 2.730544090270996
+2024-03-30 00:41:39.643[1711752099643] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4410 is 2.141074816385905
+2024-03-30 00:42:00.310[1711752120310] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4420 is 1.686380386352539
+2024-03-30 00:42:21.712[1711752141712] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4430 is 1.3649040857950847
+2024-03-30 00:42:40.732[1711752160732] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4440 is 2.694390296936035
+2024-03-30 00:43:02.586[1711752182586] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4450 is 2.716289520263672
+2024-03-30 00:43:19.789[1711752199789] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4460 is 1.7651437123616536
+2024-03-30 00:43:40.689[1711752220689] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4470 is 1.4516749382019043
+2024-03-30 00:43:58.043[1711752238043] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4480 is 1.902051289876302
+2024-03-30 00:44:16.954[1711752256954] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4490 is 2.801682154337565
+2024-03-30 00:44:34.350[1711752274350] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4500 is 2.2422890663146973
+2024-03-30 00:44:50.588[1711752290588] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4510 is 1.5664561589558919
+2024-03-30 00:45:07.644[1711752307644] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4520 is 2.915532430013021
+2024-03-30 00:45:24.125[1711752324125] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4530 is 2.0543036460876465
+2024-03-30 00:45:40.782[1711752340782] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4540 is 1.2769420941670735
+2024-03-30 00:45:59.484[1711752359484] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4550 is 2.8395748138427734
+2024-03-30 00:46:17.435[1711752377435] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4560 is 2.8470586140950522
+2024-03-30 00:46:37.394[1711752397394] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4570 is 2.0129475593566895
+2024-03-30 00:46:57.579[1711752417579] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4580 is 1.7323390642801921
+2024-03-30 00:47:16.593[1711752436593] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4590 is 2.3110499382019043
+2024-03-30 00:47:37.961[1711752457961] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4600 is 2.198756217956543
+2024-03-30 00:47:55.885[1711752475885] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4610 is 1.8457295099894206
+2024-03-30 00:48:17.216[1711752497216] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4620 is 1.5286682446797688
+2024-03-30 00:48:37.175[1711752517175] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4630 is 2.217024644215902
+2024-03-30 00:48:57.106[1711752537106] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4640 is 1.6857333183288574
+2024-03-30 00:49:13.974[1711752553974] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4650 is 1.4360575675964355
+2024-03-30 00:49:30.732[1711752570732] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4660 is 1.9495118459065754
+2024-03-30 00:49:51.456[1711752591456] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4670 is 2.5633182525634766
+2024-03-30 00:50:16.223[1711752616223] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4680 is 1.8725050290425618
+2024-03-30 00:50:36.141[1711752636141] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4690 is 1.535984992980957
+2024-03-30 00:50:53.648[1711752653648] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4700 is 1.6849149068196614
+2024-03-30 00:51:11.349[1711752671349] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4710 is 2.3972743352254233
+2024-03-30 00:51:32.296[1711752692296] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4720 is 1.6487407684326172
+2024-03-30 00:51:53.290[1711752713290] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4730 is 1.5780965487162273
+2024-03-30 00:52:13.210[1711752733210] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4740 is 2.1969579060872397
+2024-03-30 00:52:32.896[1711752752896] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4750 is 1.5590817133585613
+2024-03-30 00:52:52.637[1711752772637] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4760 is 1.498947302500407
+2024-03-30 00:53:12.806[1711752792806] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4770 is 2.317153294881185
+2024-03-30 00:53:29.062[1711752809062] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4780 is 2.3459033966064453
+2024-03-30 00:53:45.333[1711752825333] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4790 is 1.9612558682759602
+2024-03-30 00:54:03.026[1711752843026] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4800 is 1.390528678894043
+2024-03-30 00:54:19.712[1711752859712] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4810 is 1.623609224955241
+2024-03-30 00:54:36.738[1711752876738] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4820 is 2.6742159525553384
+2024-03-30 00:54:55.585[1711752895585] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4830 is 1.6421982447306316
+2024-03-30 00:55:14.059[1711752914059] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4840 is 1.681325117746989
+2024-03-30 00:55:31.459[1711752931459] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4850 is 1.8109512329101562
+2024-03-30 00:55:49.323[1711752949323] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4860 is 1.938229242960612
+2024-03-30 00:56:06.921[1711752966921] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4870 is 1.5314222971598308
+2024-03-30 00:56:24.673[1711752984673] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4880 is 1.8281447092692058
+2024-03-30 00:56:42.498[1711753002498] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4890 is 2.0957810084025064
+2024-03-30 00:57:00.318[1711753020318] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4900 is 1.6045420964558919
+2024-03-30 00:57:17.882[1711753037882] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4910 is 1.2708120346069336
+2024-03-30 00:57:35.615[1711753055615] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4920 is 1.6865779558817546
+2024-03-30 00:57:53.401[1711753073401] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4930 is 1.9350531895955403
+2024-03-30 00:58:11.172[1711753091172] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4940 is 1.9264901479085286
+2024-03-30 00:58:30.186[1711753110186] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4950 is 1.5679969787597656
+2024-03-30 00:58:48.291[1711753128291] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4960 is 1.815317948659261
+2024-03-30 00:59:06.321[1711753146321] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4970 is 1.781485875447591
+2024-03-30 00:59:24.040[1711753164040] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4980 is 1.3318983713785808
+2024-03-30 00:59:41.891[1711753181891] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4990 is 2.1694437662760415
+2024-03-30 00:59:59.666[1711753199666] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5000 is 2.3642001152038574
+2024-03-30 01:00:17.768[1711753217768] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5010 is 1.7924817403157551
+2024-03-30 01:00:37.714[1711753237714] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5020 is 1.5104982058207195
+2024-03-30 01:00:54.390[1711753254390] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5030 is 1.9406232833862305
+2024-03-30 01:01:11.141[1711753271141] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5040 is 3.206605911254883
+2024-03-30 01:01:28.006[1711753288006] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5050 is 1.5385284423828125
+2024-03-30 01:01:43.845[1711753303845] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5060 is 1.487446626027425
+2024-03-30 01:01:59.280[1711753319280] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5070 is 2.2480239868164062
+2024-03-30 01:02:15.269[1711753335269] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5080 is 2.6312039693196616
+2024-03-30 01:02:31.848[1711753351848] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5090 is 1.2699278195699055
+2024-03-30 01:02:48.211[1711753368211] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5100 is 2.4283924102783203
+2024-03-30 01:03:05.840[1711753385840] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5110 is 2.098834991455078
+2024-03-30 01:03:22.747[1711753402747] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5120 is 1.3070615132649739
+2024-03-30 01:03:41.107[1711753421107] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5130 is 1.8932123184204102
+2024-03-30 01:04:02.363[1711753442363] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5140 is 2.0363574028015137
+2024-03-30 01:04:19.997[1711753459997] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5150 is 2.3014829953511557
+2024-03-30 01:04:36.188[1711753476188] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5160 is 1.83098570505778
+2024-03-30 01:04:52.226[1711753492226] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5170 is 1.4641582171122234
+2024-03-30 01:05:08.633[1711753508633] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5180 is 2.020977020263672
+2024-03-30 01:05:24.856[1711753524856] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5190 is 1.9475587209065754
+2024-03-30 01:05:40.849[1711753540849] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5200 is 1.364105224609375
+2024-03-30 01:05:56.694[1711753556694] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5210 is 2.3509960174560547
+2024-03-30 01:06:12.783[1711753572783] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5220 is 2.183465321858724
+2024-03-30 01:06:29.708[1711753589708] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5230 is 1.851899782816569
+2024-03-30 01:06:45.835[1711753605835] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5240 is 1.3077619870503743
+2024-03-30 01:07:02.389[1711753622389] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5250 is 1.6288137435913086
+2024-03-30 01:07:18.556[1711753638556] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5260 is 2.3553951581319175
+2024-03-30 01:07:34.894[1711753654894] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5270 is 1.475250244140625
+2024-03-30 01:07:51.385[1711753671385] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5280 is 1.3710796038309734
+2024-03-30 01:08:08.103[1711753688103] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5290 is 2.203340689341227
+2024-03-30 01:08:23.481[1711753703481] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5300 is 1.8950462341308594
+2024-03-30 01:08:41.068[1711753721068] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5310 is 1.0789930025736492
+2024-03-30 01:08:57.375[1711753737375] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5320 is 1.8019520441691081
+2024-03-30 01:09:17.337[1711753757337] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5330 is 1.9939781824747722
+2024-03-30 01:09:33.377[1711753773377] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5340 is 1.7009243965148926
+2024-03-30 01:09:50.154[1711753790154] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5350 is 1.520474116007487
+2024-03-30 01:10:09.745[1711753809745] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5360 is 2.245594024658203
+2024-03-30 01:10:28.410[1711753828410] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5370 is 3.1424859364827475
+2024-03-30 01:10:48.831[1711753848831] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5380 is 1.6234874725341797
+2024-03-30 01:11:09.926[1711753869926] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5390 is 1.9781006177266438
+2024-03-30 01:11:26.205[1711753886205] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5400 is 1.9961628913879395
+2024-03-30 01:11:43.571[1711753903571] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5410 is 1.9155060450236003
+2024-03-30 01:12:00.891[1711753920891] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5420 is 1.158802588780721
+2024-03-30 01:12:17.514[1711753937514] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5430 is 1.9096438090006511
+2024-03-30 01:12:33.590[1711753953590] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5440 is 2.206709067026774
+2024-03-30 01:12:50.016[1711753970016] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5450 is 2.2934579849243164
+2024-03-30 01:13:06.044[1711753986044] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5460 is 1.436596393585205
+2024-03-30 01:13:24.763[1711754004763] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5470 is 2.1509828567504883
+2024-03-30 01:13:42.005[1711754022005] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5480 is 3.9064728418986
+2024-03-30 01:13:58.799[1711754038799] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5490 is 2.29168701171875
+2024-03-30 10:31:17.471[1711787477471] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=490
+2024-03-30 10:31:19.588[1711787479588] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=1h&limit=1500
+2024-03-30 10:31:20.214[1711787480214] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-30 10:31:20.514[1711787480514] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-30 10:31:20.804[1711787480804] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=1h&limit=500
+2024-03-30 10:31:21.092[1711787481092] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=1h&limit=500
+2024-03-30 10:31:21.380[1711787481380] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=1h&limit=1500
+2024-03-30 10:31:27.237[1711787487237] | INFO  | main       | org.nd4j.linalg.factory.Nd4jBackend  - Loaded [JCublasBackend] backend
+2024-03-30 10:31:34.323[1711787494323] | INFO  | main       | org.nd4j.nativeblas.NativeOpsHolder  - Number of threads used for linear algebra: 32
+2024-03-30 10:31:34.390[1711787494390] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Backend used: [CUDA]; OS: [Windows 11]
+2024-03-30 10:31:34.390[1711787494390] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Cores: [6]; Memory: [4,0GB];
+2024-03-30 10:31:34.390[1711787494390] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Blas vendor: [CUBLAS]
+2024-03-30 10:31:34.401[1711787494401] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build version: 11.2.142
+2024-03-30 10:31:34.403[1711787494403] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA GeForce GTX 1060 6GB]; cc: [6.1]; Total memory: [6442319872]
+2024-03-30 10:31:34.404[1711787494404] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - Backend build information:
  MSVC: 192930038
 STD version: 201703L
 CUDA: 11.2.142
 DEFAULT_ENGINE: samediff::ENGINE_CUDA
 HAVE_FLATBUFFERS
-2024-03-23 02:52:36.650[1711155156650] | WARN  | main       | o.d.n.c.ComputationGraphConfiguration - Truncated backpropagation through time lengths have been configured with values 40 and 40 but backprop type is set to Standard. TBPTT configuration settings will only take effect if backprop type is set to BackpropType.TruncatedBPTT
-2024-03-23 02:52:36.664[1711155156664] | INFO  | main       | o.d.nn.graph.ComputationGraph        - Starting ComputationGraph with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+2024-03-30 10:31:40.665[1711787500665] | INFO  | main       | o.d.nn.multilayer.MultiLayerNetwork  - Starting MultiLayerNetwork with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+2024-03-30 10:39:33.570[1711787973570] | INFO  | main       | org.nd4j.linalg.factory.Nd4jBackend  - Loaded [JCublasBackend] backend
+2024-03-30 10:39:36.784[1711787976784] | INFO  | main       | org.nd4j.nativeblas.NativeOpsHolder  - Number of threads used for linear algebra: 32
+2024-03-30 10:39:36.833[1711787976833] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Backend used: [CUDA]; OS: [Windows 11]
+2024-03-30 10:39:36.833[1711787976833] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Cores: [6]; Memory: [4,0GB];
+2024-03-30 10:39:36.833[1711787976833] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Blas vendor: [CUBLAS]
+2024-03-30 10:39:36.844[1711787976844] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build version: 11.2.142
+2024-03-30 10:39:36.845[1711787976845] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA GeForce GTX 1060 6GB]; cc: [6.1]; Total memory: [6442319872]
+2024-03-30 10:39:36.846[1711787976846] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - Backend build information:
+ MSVC: 192930038
+STD version: 201703L
+CUDA: 11.2.142
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+2024-03-30 10:39:38.527[1711787978527] | INFO  | main       | o.d.nn.multilayer.MultiLayerNetwork  - Starting MultiLayerNetwork with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+2024-03-30 10:39:41.678[1711787981678] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 0 is 12.442211151123047
+2024-03-30 10:40:01.686[1711788001686] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 10 is NaN
+2024-03-30 10:40:21.141[1711788021141] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 20 is NaN
+2024-03-30 10:42:08.844[1711788128844] | INFO  | main       | org.nd4j.linalg.factory.Nd4jBackend  - Loaded [JCublasBackend] backend
+2024-03-30 10:42:12.552[1711788132552] | INFO  | main       | org.nd4j.nativeblas.NativeOpsHolder  - Number of threads used for linear algebra: 32
+2024-03-30 10:42:12.607[1711788132607] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Backend used: [CUDA]; OS: [Windows 11]
+2024-03-30 10:42:12.607[1711788132607] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Cores: [6]; Memory: [4,0GB];
+2024-03-30 10:42:12.607[1711788132607] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Blas vendor: [CUBLAS]
+2024-03-30 10:42:12.620[1711788132620] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build version: 11.2.142
+2024-03-30 10:42:12.622[1711788132622] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA GeForce GTX 1060 6GB]; cc: [6.1]; Total memory: [6442319872]
+2024-03-30 10:42:12.622[1711788132622] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - Backend build information:
+ MSVC: 192930038
+STD version: 201703L
+CUDA: 11.2.142
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+2024-03-30 10:42:14.642[1711788134642] | INFO  | main       | o.d.nn.multilayer.MultiLayerNetwork  - Starting MultiLayerNetwork with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+2024-03-30 10:42:17.702[1711788137702] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 0 is 18.744503021240234
+2024-03-30 10:42:38.517[1711788158517] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 10 is NaN
+2024-03-30 10:42:58.222[1711788178222] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 20 is NaN
+2024-03-30 10:49:51.252[1711788591252] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=4h&limit=30
+2024-03-30 10:49:53.128[1711788593128] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCUSDT&interval=4h&limit=1500
+2024-03-30 10:49:54.038[1711788594038] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/fundingRate?symbol=BTCUSDT&limit=1000
+2024-03-30 10:49:54.333[1711788594333] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/globalLongShortAccountRatio?symbol=BTCUSDT&period=4h&limit=500
+2024-03-30 10:49:54.614[1711788594614] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/openInterestHist?symbol=BTCUSDT&period=4h&limit=500
+2024-03-30 10:49:54.895[1711788594895] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/futures/data/takerlongshortRatio?symbol=BTCUSDT&period=4h&limit=500
+2024-03-30 10:49:55.175[1711788595175] | INFO  | main       | c.b.c.f.client.utils.RequestHandler  - GET https://fapi.binance.com/fapi/v1/klines?symbol=BTCDOMUSDT&interval=4h&limit=1500
+2024-03-30 11:39:20.723[1711791560723] | INFO  | main       | org.nd4j.linalg.factory.Nd4jBackend  - Loaded [JCublasBackend] backend
+2024-03-30 11:39:23.972[1711791563972] | INFO  | main       | org.nd4j.nativeblas.NativeOpsHolder  - Number of threads used for linear algebra: 32
+2024-03-30 11:39:24.027[1711791564027] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Backend used: [CUDA]; OS: [Windows 11]
+2024-03-30 11:39:24.027[1711791564027] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Cores: [6]; Memory: [4,0GB];
+2024-03-30 11:39:24.027[1711791564027] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Blas vendor: [CUBLAS]
+2024-03-30 11:39:24.042[1711791564042] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build version: 11.2.142
+2024-03-30 11:39:24.042[1711791564042] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA GeForce GTX 1060 6GB]; cc: [6.1]; Total memory: [6442319872]
+2024-03-30 11:39:24.042[1711791564042] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - Backend build information:
+ MSVC: 192930038
+STD version: 201703L
+CUDA: 11.2.142
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+2024-03-30 11:39:25.582[1711791565582] | INFO  | main       | o.d.nn.multilayer.MultiLayerNetwork  - Starting MultiLayerNetwork with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+2024-03-30 11:39:28.750[1711791568750] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 0 is 29.644124348958332
+2024-03-30 11:39:47.587[1711791587587] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 10 is 16.658063252766926
+2024-03-30 11:40:07.382[1711791607382] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 20 is 44.23382568359375
+2024-03-30 11:40:27.182[1711791627182] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 30 is 29.4146728515625
+2024-03-30 11:40:47.954[1711791647954] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 40 is 14.835898081461588
+2024-03-30 11:41:06.980[1711791666980] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 50 is 18.3009516398112
+2024-03-30 11:41:27.505[1711791687505] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 60 is 44.57115681966146
+2024-03-30 11:41:47.181[1711791707181] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 70 is 12.579915364583334
+2024-03-30 11:42:07.266[1711791727266] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 80 is 21.29220453898112
+2024-03-30 11:42:26.521[1711791746521] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 90 is 28.220609029134113
+2024-03-30 11:42:45.640[1711791765640] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 100 is 15.845535278320312
+2024-03-30 11:43:04.837[1711791784837] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 110 is 32.0904286702474
+2024-03-30 11:43:23.941[1711791803941] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 120 is 17.91341781616211
+2024-03-30 11:43:43.434[1711791823434] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 130 is 23.444986979166668
+2024-03-30 11:44:03.659[1711791843659] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 140 is 30.24846903483073
+2024-03-30 11:44:23.454[1711791863454] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 150 is 14.709542592366537
+2024-03-30 11:44:43.944[1711791883944] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 160 is 10.148438135782877
+2024-03-30 11:45:04.119[1711791904119] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 170 is 9.039607365926107
+2024-03-30 11:45:24.512[1711791924512] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 180 is 22.622161865234375
+2024-03-30 11:45:43.509[1711791943509] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 190 is 26.655237833658855
+2024-03-30 11:46:03.021[1711791963021] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 200 is 17.415966033935547
+2024-03-30 11:46:22.824[1711791982824] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 210 is 14.757255554199219
+2024-03-30 11:46:41.282[1711792001282] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 220 is 29.94964599609375
+2024-03-30 11:46:59.881[1711792019881] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 230 is 28.178995768229168
+2024-03-30 11:47:18.587[1711792038587] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 240 is 20.17542775472005
+2024-03-30 11:47:37.305[1711792057305] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 250 is 22.989400227864582
+2024-03-30 11:47:55.699[1711792075699] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 260 is 15.2378298441569
+2024-03-30 11:48:28.691[1711792108691] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 270 is 28.29614766438802
+2024-03-30 11:48:47.102[1711792127102] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 280 is 13.814219156901041
+2024-03-30 11:49:05.708[1711792145708] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 290 is 44.363067626953125
+2024-03-30 11:49:24.068[1711792164068] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 300 is 28.868021647135418
+2024-03-30 11:49:42.061[1711792182061] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 310 is 14.58575185139974
+2024-03-30 11:50:00.731[1711792200731] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 320 is 17.575904846191406
+2024-03-30 11:50:19.106[1711792219106] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 330 is 42.999003092447914
+2024-03-30 11:50:37.156[1711792237156] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 340 is 12.438565572102865
+2024-03-30 11:50:55.219[1711792255219] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 350 is 21.880035400390625
+2024-03-30 11:51:13.177[1711792273177] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 360 is 28.38897705078125
+2024-03-30 11:51:31.523[1711792291523] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 370 is 14.829044342041016
+2024-03-30 11:51:49.603[1711792309603] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 380 is 29.99468994140625
+2024-03-30 11:52:07.628[1711792327628] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 390 is 18.785837809244793
+2024-03-30 11:52:25.690[1711792345690] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 400 is 22.21898905436198
+2024-03-30 11:52:43.849[1711792363849] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 410 is 30.141515096028645
+2024-03-30 11:53:01.909[1711792381909] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 420 is 13.600168863932291
+2024-03-30 11:53:20.089[1711792400089] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 430 is 11.434560139973959
+2024-03-30 11:53:38.271[1711792418271] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 440 is 9.111455281575521
+2024-03-30 11:53:56.325[1711792436325] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 450 is 22.390782674153645
+2024-03-30 11:54:14.278[1711792454278] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 460 is 25.61650848388672
+2024-03-30 11:54:33.423[1711792473423] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 470 is 16.730058034261067
+2024-03-30 11:54:51.471[1711792491471] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 480 is 13.950650533040365
+2024-03-30 11:55:09.586[1711792509586] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 490 is 25.830123901367188
+2024-03-30 11:55:27.647[1711792527647] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 500 is 24.67016347249349
+2024-03-30 11:55:45.758[1711792545758] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 510 is 20.437108357747395
+2024-03-30 11:56:03.796[1711792563796] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 520 is 19.901479085286457
+2024-03-30 11:56:21.859[1711792581859] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 530 is 14.958244323730469
+2024-03-30 11:56:53.589[1711792613589] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 540 is 28.062474568684895
+2024-03-30 11:57:11.584[1711792631584] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 550 is 13.614645640055338
+2024-03-30 11:57:30.112[1711792650112] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 560 is 39.71052805582682
+2024-03-30 11:57:49.072[1711792669072] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 570 is 28.21715545654297
+2024-03-30 11:58:07.232[1711792687232] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 580 is 14.543754577636719
+2024-03-30 11:58:26.795[1711792706795] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 590 is 16.153951009114582
+2024-03-30 11:58:45.918[1711792725918] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 600 is 37.016520182291664
+2024-03-30 11:59:04.583[1711792744583] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 610 is 10.89114507039388
+2024-03-30 11:59:23.515[1711792763515] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 620 is 18.857948303222656
+2024-03-30 11:59:42.182[1711792782182] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 630 is 24.908185323079426
+2024-03-30 12:00:01.159[1711792801159] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 640 is 14.770225524902344
+2024-03-30 12:00:19.757[1711792819757] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 650 is 29.037457784016926
+2024-03-30 12:00:38.301[1711792838301] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 660 is 16.75682322184245
+2024-03-30 12:00:56.761[1711792856761] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 670 is 17.996156056722004
+2024-03-30 12:01:15.524[1711792875524] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 680 is 21.383392333984375
+2024-03-30 12:01:34.429[1711792894429] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 690 is 12.328585306803385
+2024-03-30 12:01:53.050[1711792913050] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 700 is 8.429489135742188
+2024-03-30 12:02:11.632[1711792931632] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 710 is 10.750541687011719
+2024-03-30 12:02:30.067[1711792950067] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 720 is 19.613953908284504
+2024-03-30 12:02:48.646[1711792968646] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 730 is 23.357589721679688
+2024-03-30 12:03:07.226[1711792987226] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 740 is 15.957544962565104
+2024-03-30 12:03:25.740[1711793005740] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 750 is 13.221912384033203
+2024-03-30 12:03:44.210[1711793024210] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 760 is 26.43750254313151
+2024-03-30 12:04:02.764[1711793042764] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 770 is 18.063929239908855
+2024-03-30 12:04:21.364[1711793061364] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 780 is 17.1075439453125
+2024-03-30 12:04:39.888[1711793079888] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 790 is 19.476099650065105
+2024-03-30 12:04:58.384[1711793098384] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 800 is 13.260874430338541
+2024-03-30 12:05:30.665[1711793130665] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 810 is 26.364107767740887
+2024-03-30 12:05:49.199[1711793149199] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 820 is 12.966990152994791
+2024-03-30 12:06:07.805[1711793167805] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 830 is 38.556854248046875
+2024-03-30 12:06:26.264[1711793186264] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 840 is 25.053599039713543
+2024-03-30 12:06:44.876[1711793204876] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 850 is 14.830576578776041
+2024-03-30 12:07:03.358[1711793223358] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 860 is 16.329238891601562
+2024-03-30 12:07:21.909[1711793241909] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 870 is 27.568440755208332
+2024-03-30 12:07:40.780[1711793260780] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 880 is 13.049602508544922
+2024-03-30 12:07:59.326[1711793279326] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 890 is 15.560401916503906
+2024-03-30 12:08:17.774[1711793297774] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 900 is 24.794576009114582
+2024-03-30 12:08:36.351[1711793316351] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 910 is 12.881839752197266
+2024-03-30 12:08:55.045[1711793335045] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 920 is 26.061627705891926
+2024-03-30 12:09:14.047[1711793354047] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 930 is 17.24791717529297
+2024-03-30 12:09:33.701[1711793373701] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 940 is 16.87915547688802
+2024-03-30 12:09:51.808[1711793391808] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 950 is 29.720420837402344
+2024-03-30 12:10:10.462[1711793410462] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 960 is 11.940424601236979
+2024-03-30 12:10:29.813[1711793429813] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 970 is 6.435543060302734
+2024-03-30 12:10:48.835[1711793448835] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 980 is 8.277268727620443
+2024-03-30 12:11:07.763[1711793467763] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 990 is 16.311208089192707
+2024-03-30 12:11:26.655[1711793486655] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1000 is 16.58875020345052
+2024-03-30 12:11:45.798[1711793505798] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1010 is 15.858881632486979
+2024-03-30 12:12:05.343[1711793525343] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1020 is 15.007363637288412
+2024-03-30 12:12:24.244[1711793544244] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1030 is 20.909833272298176
+2024-03-30 12:12:43.124[1711793563124] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1040 is 12.7718874613444
+2024-03-30 12:13:01.695[1711793581695] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1050 is 18.188250223795574
+2024-03-30 12:13:20.242[1711793600242] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1060 is 18.608492533365887
+2024-03-30 12:13:39.192[1711793619192] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1070 is 11.605787913004557
+2024-03-30 12:14:12.060[1711793652060] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1080 is 27.21043650309245
+2024-03-30 12:14:30.436[1711793670436] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1090 is 10.732957204182943
+2024-03-30 12:14:49.210[1711793689210] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1100 is 31.237767537434895
+2024-03-30 12:15:07.820[1711793707820] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1110 is 21.30567169189453
+2024-03-30 12:15:26.255[1711793726255] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1120 is 11.431524912516275
+2024-03-30 12:15:44.584[1711793744584] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1130 is 14.433404286702475
+2024-03-30 12:16:03.007[1711793763007] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1140 is 27.914596557617188
+2024-03-30 12:16:21.517[1711793781517] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1150 is 10.56390126546224
+2024-03-30 12:16:39.921[1711793799921] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1160 is 11.647394816080729
+2024-03-30 12:16:58.255[1711793818255] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1170 is 21.864278157552082
+2024-03-30 12:17:16.739[1711793836739] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1180 is 12.344205220540365
+2024-03-30 12:17:35.107[1711793855107] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1190 is 23.314651489257812
+2024-03-30 12:17:53.489[1711793873489] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1200 is 17.108304341634113
+2024-03-30 12:18:11.871[1711793891871] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1210 is 14.504150390625
+2024-03-30 12:18:30.270[1711793910270] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1220 is 9.655035654703775
+2024-03-30 12:18:48.740[1711793928740] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1230 is 12.083040873209635
+2024-03-30 12:19:07.046[1711793947046] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1240 is 9.501906077067057
+2024-03-30 12:19:25.520[1711793965520] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1250 is 7.120143890380859
+2024-03-30 12:19:43.863[1711793983863] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1260 is 13.834706624348959
+2024-03-30 12:20:02.316[1711794002316] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1270 is 11.850903828938803
+2024-03-30 12:20:20.805[1711794020805] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1280 is 11.064895629882812
+2024-03-30 12:20:40.313[1711794040313] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1290 is 12.067230224609375
+2024-03-30 12:20:59.380[1711794059380] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1300 is 20.559205373128254
+2024-03-30 12:21:17.673[1711794077673] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1310 is 11.491017659505209
+2024-03-30 12:21:36.131[1711794096131] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1320 is 14.897811889648438
+2024-03-30 12:21:54.494[1711794114494] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1330 is 15.894817352294922
+2024-03-30 12:22:12.782[1711794132782] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1340 is 13.886403401692709
+2024-03-30 12:22:45.486[1711794165486] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1350 is 20.29351298014323
+2024-03-30 12:23:04.748[1711794184748] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1360 is 10.908507029215494
+2024-03-30 12:23:24.103[1711794204103] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1370 is 26.942466735839844
+2024-03-30 12:23:45.477[1711794225477] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1380 is 19.5078608194987
+2024-03-30 12:24:05.054[1711794245054] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1390 is 11.735178629557291
+2024-03-30 12:24:26.562[1711794266562] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1400 is 11.336858113606771
+2024-03-30 12:24:48.146[1711794288146] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1410 is 25.593172709147137
+2024-03-30 12:25:10.148[1711794310148] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1420 is 12.683539072672525
+2024-03-30 12:25:29.567[1711794329567] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1430 is 10.645439783732096
+2024-03-30 12:25:49.000[1711794349000] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1440 is 20.622487386067707
+2024-03-30 12:26:09.476[1711794369476] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1450 is 10.841712951660156
+2024-03-30 12:26:31.377[1711794391377] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1460 is 19.71422068277995
+2024-03-30 12:26:52.974[1711794412974] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1470 is 15.417723337809244
+2024-03-30 12:27:13.761[1711794433761] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1480 is 18.572516123453777
+2024-03-30 12:27:33.938[1711794453938] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1490 is 9.5089480082194
+2024-03-30 12:27:53.522[1711794473522] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1500 is 11.291647593180338
+2024-03-30 12:28:12.997[1711794492997] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1510 is 7.2891286214192705
+2024-03-30 12:28:33.193[1711794513193] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1520 is 6.1812082926432295
+2024-03-30 12:28:52.864[1711794532864] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1530 is 12.33212407430013
+2024-03-30 12:29:12.230[1711794552230] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1540 is 9.823095321655273
+2024-03-30 12:29:31.205[1711794571205] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1550 is 10.344170252482096
+2024-03-30 12:29:51.102[1711794591102] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1560 is 10.479960123697916
+2024-03-30 12:30:11.819[1711794611819] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1570 is 17.828575134277344
+2024-03-30 12:30:32.065[1711794632065] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1580 is 10.391011555989584
+2024-03-30 12:30:52.933[1711794652933] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1590 is 12.518852233886719
+2024-03-30 12:31:12.005[1711794672005] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1600 is 17.221996307373047
+2024-03-30 12:31:32.169[1711794692169] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1610 is 9.487464904785156
+2024-03-30 12:32:08.450[1711794728450] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1620 is 19.4755376180013
+2024-03-30 12:32:28.191[1711794748191] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1630 is 9.829536437988281
+2024-03-30 12:32:47.662[1711794767662] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1640 is 26.98980458577474
+2024-03-30 12:33:07.151[1711794787151] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1650 is 17.63494110107422
+2024-03-30 12:33:25.014[1711794805014] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1660 is 13.02228037516276
+2024-03-30 12:33:42.997[1711794822997] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1670 is 11.78194808959961
+2024-03-30 12:34:00.916[1711794840916] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1680 is 23.787312825520832
+2024-03-30 12:34:19.136[1711794859136] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1690 is 9.861443201700846
+2024-03-30 12:34:37.289[1711794877289] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1700 is 11.597766876220703
+2024-03-30 12:34:55.294[1711794895294] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1710 is 18.64735285441081
+2024-03-30 12:35:13.460[1711794913460] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1720 is 11.145436604817709
+2024-03-30 12:35:31.600[1711794931600] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1730 is 23.0475591023763
+2024-03-30 12:35:49.693[1711794949693] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1740 is 14.240203857421875
+2024-03-30 12:36:07.667[1711794967667] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1750 is 16.10467274983724
+2024-03-30 12:36:25.703[1711794985703] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1760 is 5.380057017008464
+2024-03-30 12:36:43.464[1711795003464] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1770 is 7.396544138590495
+2024-03-30 12:37:01.261[1711795021261] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1780 is 5.99954350789388
+2024-03-30 12:37:19.747[1711795039747] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1790 is 7.983532587687175
+2024-03-30 12:37:37.504[1711795057504] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1800 is 10.322583516438803
+2024-03-30 12:37:55.345[1711795075345] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1810 is 12.339101155598959
+2024-03-30 12:38:13.280[1711795093280] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1820 is 9.08029301961263
+2024-03-30 12:38:31.178[1711795111178] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1830 is 8.796250661214193
+2024-03-30 12:38:49.257[1711795129257] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1840 is 14.697956085205078
+2024-03-30 12:39:07.382[1711795147382] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1850 is 8.666982014973959
+2024-03-30 12:39:25.411[1711795165411] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1860 is 12.258229573567709
+2024-03-30 12:39:43.476[1711795183476] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1870 is 14.341092427571615
+2024-03-30 12:40:01.326[1711795201326] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1880 is 10.782445271809896
+2024-03-30 12:40:32.668[1711795232668] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1890 is 18.186879475911457
+2024-03-30 12:40:50.783[1711795250783] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1900 is 9.480630874633789
+2024-03-30 12:41:08.703[1711795268703] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1910 is 26.85327657063802
+2024-03-30 12:41:26.644[1711795286644] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1920 is 16.065663655598957
+2024-03-30 12:41:44.756[1711795304756] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1930 is 11.942367553710938
+2024-03-30 12:42:02.737[1711795322737] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1940 is 8.158626556396484
+2024-03-30 12:42:20.849[1711795340849] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1950 is 21.719813028971355
+2024-03-30 12:42:38.733[1711795358733] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1960 is 12.844843546549479
+2024-03-30 12:42:56.586[1711795376586] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1970 is 10.397160847981771
+2024-03-30 12:43:14.595[1711795394595] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1980 is 18.286410013834637
+2024-03-30 12:43:32.454[1711795412454] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 1990 is 9.7137451171875
+2024-03-30 12:43:50.466[1711795430466] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2000 is 22.178980509440105
+2024-03-30 12:44:08.468[1711795448468] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2010 is 10.873626708984375
+2024-03-30 12:44:26.295[1711795466295] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2020 is 15.075721740722656
+2024-03-30 12:44:44.284[1711795484284] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2030 is 17.876333872477215
+2024-03-30 12:45:02.813[1711795502813] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2040 is 7.656553268432617
+2024-03-30 12:45:20.980[1711795520980] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2050 is 8.88644282023112
+2024-03-30 12:45:39.212[1711795539212] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2060 is 7.4655202229817705
+2024-03-30 12:45:56.988[1711795556988] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2070 is 13.708573659261068
+2024-03-30 12:46:14.807[1711795574807] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2080 is 7.601945241292317
+2024-03-30 12:46:32.741[1711795592741] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2090 is 8.011788686116537
+2024-03-30 12:46:50.462[1711795610462] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2100 is 9.717703501383463
+2024-03-30 12:47:08.667[1711795628667] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2110 is 16.418436686197918
+2024-03-30 12:47:26.667[1711795646667] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2120 is 10.761674245198568
+2024-03-30 12:47:44.900[1711795664900] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2130 is 12.694007873535156
+2024-03-30 12:48:02.690[1711795682690] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2140 is 16.735734303792317
+2024-03-30 12:48:21.804[1711795701804] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2150 is 8.452913920084635
+2024-03-30 12:48:55.991[1711795735991] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2160 is 15.393183390299479
+2024-03-30 12:49:14.775[1711795754775] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2170 is 8.991438547770182
+2024-03-30 12:49:34.461[1711795774461] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2180 is 29.531102498372395
+2024-03-30 12:49:54.908[1711795794908] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2190 is 17.98015848795573
+2024-03-30 12:50:14.924[1711795814924] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2200 is 9.536725362141928
+2024-03-30 12:50:33.513[1711795833513] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2210 is 9.812426884969076
+2024-03-30 12:50:52.309[1711795852309] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2220 is 15.804580688476562
+2024-03-30 12:51:11.510[1711795871510] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2230 is 6.185573577880859
+2024-03-30 12:51:33.057[1711795893057] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2240 is 10.185065587361654
+2024-03-30 12:51:54.873[1711795914873] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2250 is 16.264273325602215
+2024-03-30 12:52:15.622[1711795935622] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2260 is 10.129655838012695
+2024-03-30 12:52:34.968[1711795954968] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2270 is 17.507808685302734
+2024-03-30 12:52:54.848[1711795974848] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2280 is 10.942487080891928
+2024-03-30 12:53:16.131[1711795996131] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2290 is 14.316869099934896
+2024-03-30 12:53:34.545[1711796014545] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2300 is 7.300034840901692
+2024-03-30 12:53:54.369[1711796034369] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2310 is 8.84271494547526
+2024-03-30 12:54:15.448[1711796055448] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2320 is 6.083126068115234
+2024-03-30 12:54:35.628[1711796075628] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2330 is 5.781050364176433
+2024-03-30 12:54:55.279[1711796095279] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2340 is 14.756913503011068
+2024-03-30 12:55:14.842[1711796114842] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2350 is 8.396868387858072
+2024-03-30 12:55:34.393[1711796134393] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2360 is 8.429288228352865
+2024-03-30 12:55:53.628[1711796153628] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2370 is 8.57590357462565
+2024-03-30 12:56:12.379[1711796172379] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2380 is 17.422571818033855
+2024-03-30 12:56:31.578[1711796191578] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2390 is 10.804944356282553
+2024-03-30 12:56:52.857[1711796212857] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2400 is 10.916328430175781
+2024-03-30 12:57:11.880[1711796231880] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2410 is 18.00010935465495
+2024-03-30 12:57:30.642[1711796250642] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2420 is 8.765711466471354
+2024-03-30 12:58:02.164[1711796282164] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2430 is 17.6510492960612
+2024-03-30 12:58:21.160[1711796301160] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2440 is 10.11300786336263
+2024-03-30 12:58:40.590[1711796320590] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2450 is 27.13396708170573
+2024-03-30 12:59:02.608[1711796342608] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2460 is 18.896446228027344
+2024-03-30 12:59:24.187[1711796364187] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2470 is 8.17381731669108
+2024-03-30 12:59:46.054[1711796386054] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2480 is 11.403803507486979
+2024-03-30 13:00:07.891[1711796407891] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2490 is 20.22379430135091
+2024-03-30 13:00:28.288[1711796428288] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2500 is 7.429754892985026
+2024-03-30 13:00:48.055[1711796448055] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2510 is 11.184435526529947
+2024-03-30 13:01:07.761[1711796467761] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2520 is 14.038798014322916
+2024-03-30 13:01:27.290[1711796487290] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2530 is 8.938311894734701
+2024-03-30 13:01:47.084[1711796507084] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2540 is 16.497108459472656
+2024-03-30 13:02:06.961[1711796526961] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2550 is 12.140848795572916
+2024-03-30 13:02:26.676[1711796546676] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2560 is 17.42714564005534
+2024-03-30 13:02:47.123[1711796567123] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2570 is 7.778580983479817
+2024-03-30 13:03:07.281[1711796587281] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2580 is 9.528310139973959
+2024-03-30 13:03:26.422[1711796606422] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2590 is 5.98052978515625
+2024-03-30 13:03:47.276[1711796627276] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2600 is 5.9579315185546875
+2024-03-30 13:04:05.798[1711796645798] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2610 is 11.86657460530599
+2024-03-30 13:04:23.762[1711796663762] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2620 is 7.496758778889974
+2024-03-30 13:04:41.842[1711796681842] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2630 is 11.160954793294271
+2024-03-30 13:04:59.809[1711796699809] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2640 is 10.183366139729818
+2024-03-30 13:05:17.652[1711796717652] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2650 is 16.219097137451172
+2024-03-30 13:05:35.604[1711796735604] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2660 is 9.594735463460287
+2024-03-30 13:05:53.332[1711796753332] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2670 is 9.690443674723307
+2024-03-30 13:06:11.076[1711796771076] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2680 is 15.066822052001953
+2024-03-30 13:06:29.012[1711796789012] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2690 is 10.204767227172852
+2024-03-30 13:07:00.589[1711796820589] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2700 is 13.98629379272461
+2024-03-30 13:07:18.572[1711796838572] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2710 is 7.246011734008789
+2024-03-30 13:07:36.459[1711796856459] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2720 is 20.16248067220052
+2024-03-30 13:07:54.550[1711796874550] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2730 is 13.318613688151041
+2024-03-30 13:08:12.348[1711796892348] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2740 is 8.558231353759766
+2024-03-30 13:08:30.130[1711796910130] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2750 is 9.597816467285156
+2024-03-30 13:08:47.920[1711796927920] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2760 is 24.956631978352863
+2024-03-30 13:09:05.825[1711796945825] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2770 is 8.16318448384603
+2024-03-30 13:09:23.517[1711796963517] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2780 is 9.553725560506185
+2024-03-30 13:09:41.556[1711796981556] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2790 is 13.921918233235678
+2024-03-30 13:09:59.633[1711796999633] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2800 is 8.669855117797852
+2024-03-30 13:10:17.600[1711797017600] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2810 is 14.616859436035156
+2024-03-30 13:10:35.573[1711797035573] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2820 is 12.676015218098959
+2024-03-30 13:10:53.367[1711797053367] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2830 is 13.848477681477865
+2024-03-30 13:11:11.393[1711797071393] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2840 is 8.718570709228516
+2024-03-30 13:11:29.096[1711797089096] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2850 is 9.265630086263021
+2024-03-30 13:11:46.993[1711797106993] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2860 is 7.2218977610270185
+2024-03-30 13:12:05.055[1711797125055] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2870 is 7.488437652587891
+2024-03-30 13:12:22.986[1711797142986] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2880 is 14.407877604166666
+2024-03-30 13:12:40.609[1711797160609] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2890 is 7.0420786539713545
+2024-03-30 13:12:58.606[1711797178606] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2900 is 12.772467295328775
+2024-03-30 13:13:16.361[1711797196361] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2910 is 9.981143951416016
+2024-03-30 13:13:34.189[1711797214189] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2920 is 17.346590677897137
+2024-03-30 13:13:52.162[1711797232162] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2930 is 10.842229207356771
+2024-03-30 13:14:10.058[1711797250058] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2940 is 10.293509801228842
+2024-03-30 13:14:28.064[1711797268064] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2950 is 11.741554260253906
+2024-03-30 13:14:45.913[1711797285913] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2960 is 9.330376942952475
+2024-03-30 13:15:18.537[1711797318537] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2970 is 14.749683380126953
+2024-03-30 13:15:36.369[1711797336369] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2980 is 8.753605524698893
+2024-03-30 13:15:54.158[1711797354158] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 2990 is 23.565948486328125
+2024-03-30 13:16:12.076[1711797372076] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3000 is 17.5637944539388
+2024-03-30 13:16:30.169[1711797390169] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3010 is 12.00607426961263
+2024-03-30 13:16:48.656[1711797408656] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3020 is 9.433676401774088
+2024-03-30 13:17:06.804[1711797426804] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3030 is 17.935035705566406
+2024-03-30 13:17:25.116[1711797445116] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3040 is 7.245463053385417
+2024-03-30 13:17:43.370[1711797463370] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3050 is 9.956732432047525
+2024-03-30 13:18:01.569[1711797481569] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3060 is 13.502647399902344
+2024-03-30 13:18:19.782[1711797499782] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3070 is 8.170106252034506
+2024-03-30 13:18:37.995[1711797517995] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3080 is 16.68360646565755
+2024-03-30 13:18:56.504[1711797536504] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3090 is 11.430398305257162
+2024-03-30 13:19:14.631[1711797554631] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3100 is 12.709932963053385
+2024-03-30 13:19:32.664[1711797572664] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3110 is 10.37930170694987
+2024-03-30 13:19:50.974[1711797590974] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3120 is 9.35067049662272
+2024-03-30 13:20:09.831[1711797609831] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3130 is 6.039241790771484
+2024-03-30 13:20:28.901[1711797628901] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3140 is 5.632944742838542
+2024-03-30 13:20:47.232[1711797647232] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3150 is 8.633424123128256
+2024-03-30 13:21:07.256[1711797667256] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3160 is 6.581840515136719
+2024-03-30 13:21:27.628[1711797687628] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3170 is 8.80777676900228
+2024-03-30 13:21:46.089[1711797706089] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3180 is 8.936052322387695
+2024-03-30 13:22:03.940[1711797723940] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3190 is 16.717528025309246
+2024-03-30 13:22:21.748[1711797741748] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3200 is 9.412214914957682
+2024-03-30 13:22:39.484[1711797759484] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3210 is 9.434040069580078
+2024-03-30 13:22:57.228[1711797777228] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3220 is 11.116715749104818
+2024-03-30 13:23:15.109[1711797795109] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3230 is 7.730215708414714
+2024-03-30 13:23:48.361[1711797828361] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3240 is 17.70984649658203
+2024-03-30 13:24:07.859[1711797847859] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3250 is 10.754807790120443
+2024-03-30 13:24:29.038[1711797869038] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3260 is 23.665390014648438
+2024-03-30 13:24:51.391[1711797891391] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3270 is 20.798336029052734
+2024-03-30 13:25:13.468[1711797913468] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3280 is 9.663455327351889
+2024-03-30 13:25:33.233[1711797933233] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3290 is 10.169209798177084
+2024-03-30 13:25:54.133[1711797954133] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3300 is 15.114569346110025
+2024-03-30 13:26:13.225[1711797973225] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3310 is 7.180071512858073
+2024-03-30 13:26:34.457[1711797994457] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3320 is 8.95091183980306
+2024-03-30 13:26:56.887[1711798016887] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3330 is 18.98233922322591
+2024-03-30 13:27:19.059[1711798039059] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3340 is 9.362477620442709
+2024-03-30 13:27:40.811[1711798060811] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3350 is 17.192494710286457
+2024-03-30 13:28:02.703[1711798082703] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3360 is 10.401324590047201
+2024-03-30 13:28:24.678[1711798104678] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3370 is 18.848276774088543
+2024-03-30 13:28:46.791[1711798126791] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3380 is 7.469472249348958
+2024-03-30 13:29:09.401[1711798149401] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3390 is 7.707408905029297
+2024-03-30 13:29:34.993[1711798174993] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3400 is 7.067004521687825
+2024-03-30 13:29:57.635[1711798197635] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3410 is 6.603061676025391
+2024-03-30 13:30:20.593[1711798220593] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3420 is 11.794041951497396
+2024-03-30 13:30:43.120[1711798243120] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3430 is 9.874570846557617
+2024-03-30 13:31:04.967[1711798264967] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3440 is 9.029720306396484
+2024-03-30 13:31:30.538[1711798290538] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3450 is 8.98511823018392
+2024-03-30 13:31:51.317[1711798311317] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3460 is 12.860087076822916
+2024-03-30 13:32:11.026[1711798331026] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3470 is 14.238042195638021
+2024-03-30 13:32:30.177[1711798350177] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3480 is 11.426617940266928
+2024-03-30 13:32:49.294[1711798369294] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3490 is 11.580095926920572
+2024-03-30 13:33:09.109[1711798389109] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3500 is 10.721405029296875
+2024-03-30 13:33:42.164[1711798422164] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3510 is 13.600574493408203
+2024-03-30 13:34:01.919[1711798441919] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3520 is 7.4679718017578125
+2024-03-30 13:34:21.257[1711798461257] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3530 is 23.90105946858724
+2024-03-30 13:34:41.349[1711798481349] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3540 is 18.420132954915363
+2024-03-30 13:35:00.425[1711798500425] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3550 is 9.11197280883789
+2024-03-30 13:35:21.045[1711798521045] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3560 is 9.720785140991211
+2024-03-30 13:35:41.334[1711798541334] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3570 is 15.342386881510416
+2024-03-30 13:36:01.519[1711798561519] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3580 is 7.2424163818359375
+2024-03-30 13:36:20.904[1711798580904] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3590 is 8.591073354085287
+2024-03-30 13:36:41.255[1711798601255] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3600 is 14.391839345296225
+2024-03-30 13:37:01.665[1711798621665] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3610 is 9.038379033406576
+2024-03-30 13:37:21.889[1711798641889] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3620 is 19.65274175008138
+2024-03-30 13:37:41.290[1711798661290] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3630 is 10.811602274576822
+2024-03-30 13:38:00.722[1711798680722] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3640 is 14.420972188313803
+2024-03-30 13:38:20.509[1711798700509] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3650 is 9.596739451090494
+2024-03-30 13:38:41.464[1711798721464] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3660 is 9.502886454264322
+2024-03-30 13:39:02.551[1711798742551] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3670 is 6.273750305175781
+2024-03-30 13:39:23.720[1711798763720] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3680 is 6.732504526774089
+2024-03-30 13:39:44.518[1711798784518] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3690 is 13.131965637207031
+2024-03-30 13:40:03.607[1711798803607] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3700 is 10.552383422851562
+2024-03-30 13:40:23.642[1711798823642] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3710 is 8.836465199788412
+2024-03-30 13:40:44.040[1711798844040] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3720 is 8.04561996459961
+2024-03-30 13:41:04.063[1711798864063] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3730 is 14.410100301106771
+2024-03-30 13:41:24.402[1711798884402] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3740 is 8.93533198038737
+2024-03-30 13:41:44.378[1711798904378] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3750 is 11.651585896809896
+2024-03-30 13:42:02.184[1711798922184] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3760 is 10.920130411783854
+2024-03-30 13:42:19.913[1711798939913] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3770 is 10.265187581380209
+2024-03-30 13:42:51.175[1711798971175] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3780 is 13.587354024251303
+2024-03-30 13:43:09.584[1711798989584] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3790 is 9.463597615559896
+2024-03-30 13:43:27.590[1711799007590] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3800 is 27.509785970052082
+2024-03-30 13:43:45.719[1711799025719] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3810 is 19.84369150797526
+2024-03-30 13:44:03.723[1711799043723] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3820 is 8.939558664957682
+2024-03-30 13:44:21.615[1711799061615] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3830 is 9.965325037638346
+2024-03-30 13:44:39.564[1711799079564] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3840 is 19.781046549479168
+2024-03-30 13:45:00.102[1711799100102] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3850 is 8.567567189534506
+2024-03-30 13:45:20.700[1711799120700] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3860 is 10.017862319946289
+2024-03-30 13:45:41.103[1711799141103] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3870 is 19.207970937093098
+2024-03-30 13:46:00.887[1711799160887] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3880 is 9.89459482828776
+2024-03-30 13:46:20.575[1711799180575] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3890 is 20.114837646484375
+2024-03-30 13:46:39.852[1711799199852] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3900 is 11.76721445719401
+2024-03-30 13:47:00.433[1711799220433] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3910 is 16.701831817626953
+2024-03-30 13:47:20.107[1711799240107] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3920 is 6.633141199747722
+2024-03-30 13:47:39.320[1711799259320] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3930 is 9.138927459716797
+2024-03-30 13:47:59.946[1711799279946] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3940 is 6.753207524617513
+2024-03-30 13:48:20.799[1711799300799] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3950 is 6.903090794881185
+2024-03-30 13:48:40.655[1711799320655] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3960 is 9.839431126912435
+2024-03-30 13:48:59.699[1711799339699] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3970 is 6.890738169352214
+2024-03-30 13:49:19.036[1711799359036] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3980 is 11.734686533610025
+2024-03-30 13:49:37.905[1711799377905] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 3990 is 8.62606938680013
+2024-03-30 13:49:56.355[1711799396355] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4000 is 15.132532755533854
+2024-03-30 13:50:16.744[1711799416744] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4010 is 10.476823170979818
+2024-03-30 13:50:36.484[1711799436484] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4020 is 11.716356913248697
+2024-03-30 13:50:55.760[1711799455760] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4030 is 14.68899154663086
+2024-03-30 13:51:16.010[1711799476010] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4040 is 10.74896494547526
+2024-03-30 13:51:51.026[1711799511026] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4050 is 11.662704467773438
+2024-03-30 13:52:10.665[1711799530665] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4060 is 8.485791524251303
+2024-03-30 13:52:31.118[1711799551118] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4070 is 21.910499572753906
+2024-03-30 13:52:51.135[1711799571135] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4080 is 14.50570297241211
+2024-03-30 13:53:10.062[1711799590062] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4090 is 10.54727300008138
+2024-03-30 13:53:29.591[1711799609591] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4100 is 12.981744130452475
+2024-03-30 13:53:49.147[1711799629147] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4110 is 22.920862833658855
+2024-03-30 13:54:09.293[1711799649293] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4120 is 10.602837880452475
+2024-03-30 13:54:29.209[1711799669209] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4130 is 10.363187154134115
+2024-03-30 13:54:49.497[1711799689497] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4140 is 17.444529215494793
+2024-03-30 13:55:11.434[1711799711434] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4150 is 9.257684707641602
+2024-03-30 13:55:34.384[1711799734384] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4160 is 19.27015431722005
+2024-03-30 13:55:56.916[1711799756916] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4170 is 10.130499521891275
+2024-03-30 13:56:17.455[1711799777455] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4180 is 14.374038696289062
+2024-03-30 13:56:37.241[1711799797241] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4190 is 9.195660909016928
+2024-03-30 13:56:57.365[1711799817365] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4200 is 6.916688283284505
+2024-03-30 13:57:17.967[1711799837967] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4210 is 6.260214487711589
+2024-03-30 13:57:38.886[1711799858886] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4220 is 7.770963668823242
+2024-03-30 13:57:59.494[1711799879494] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4230 is 13.404977162679037
+2024-03-30 13:58:21.186[1711799901186] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4240 is 7.963179270426433
+2024-03-30 13:58:40.830[1711799920830] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4250 is 9.541680653889975
+2024-03-30 13:59:00.257[1711799940257] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4260 is 8.83676274617513
+2024-03-30 13:59:19.804[1711799959804] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4270 is 13.479832967122396
+2024-03-30 13:59:39.949[1711799979949] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4280 is 8.70718765258789
+2024-03-30 14:00:01.205[1711800001205] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4290 is 10.369285583496094
+2024-03-30 14:00:22.307[1711800022307] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4300 is 11.480077107747396
+2024-03-30 14:00:42.374[1711800042374] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4310 is 12.108505249023438
+2024-03-30 14:01:17.908[1711800077908] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4320 is 18.722544352213543
+2024-03-30 14:01:37.685[1711800097685] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4330 is 7.841592152913411
+2024-03-30 14:01:56.439[1711800116439] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4340 is 25.4656244913737
+2024-03-30 14:02:15.045[1711800135045] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4350 is 19.13049570719401
+2024-03-30 14:02:35.847[1711800155847] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4360 is 11.481497446695963
+2024-03-30 14:02:55.088[1711800175088] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4370 is 8.577545801798502
+2024-03-30 14:03:15.499[1711800195499] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4380 is 17.906532287597656
+2024-03-30 14:03:34.775[1711800214775] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4390 is 8.017353693644205
+2024-03-30 14:03:55.132[1711800235132] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4400 is 9.210732777913412
+2024-03-30 14:04:15.904[1711800255904] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4410 is 13.9623654683431
+2024-03-30 14:04:36.538[1711800276538] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4420 is 8.60261344909668
+2024-03-30 14:04:57.732[1711800297732] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4430 is 18.136492411295574
+2024-03-30 14:05:17.764[1711800317764] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4440 is 10.071698506673178
+2024-03-30 14:05:37.916[1711800337916] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4450 is 15.069329579671225
+2024-03-30 14:05:57.959[1711800357959] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4460 is 7.941665013631185
+2024-03-30 14:06:18.087[1711800378087] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4470 is 9.753520329793295
+2024-03-30 14:06:38.078[1711800398078] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4480 is 7.068265279134114
+2024-03-30 14:06:58.155[1711800418155] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4490 is 5.699168523152669
+2024-03-30 14:07:18.914[1711800438914] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4500 is 12.261545817057291
+2024-03-30 14:07:39.546[1711800459546] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4510 is 10.983222961425781
+2024-03-30 14:08:01.124[1711800481124] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4520 is 9.41046396891276
+2024-03-30 14:08:21.102[1711800501102] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4530 is 8.85128402709961
+2024-03-30 14:08:41.348[1711800521348] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4540 is 15.066492716471354
+2024-03-30 14:09:02.063[1711800542063] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4550 is 10.545262654622396
+2024-03-30 14:09:22.294[1711800562294] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4560 is 10.961921691894531
+2024-03-30 14:09:41.513[1711800581513] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4570 is 14.956405639648438
+2024-03-30 14:10:01.772[1711800601772] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4580 is 11.557510375976562
+2024-03-30 14:10:36.074[1711800636074] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4590 is 15.243077596028646
+2024-03-30 14:10:57.313[1711800657313] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4600 is 7.282254536946614
+2024-03-30 14:11:18.859[1711800678859] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4610 is 37.49810282389323
+2024-03-30 14:11:40.450[1711800700450] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4620 is 17.200050354003906
+2024-03-30 14:12:00.345[1711800720345] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4630 is 10.211061477661133
+2024-03-30 14:12:20.086[1711800740086] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4640 is 9.711962381998697
+2024-03-30 14:12:39.903[1711800759903] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4650 is 20.34036636352539
+2024-03-30 14:13:01.055[1711800781055] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4660 is 9.2975705464681
+2024-03-30 14:13:21.115[1711800801115] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4670 is 10.976722717285156
+2024-03-30 14:13:42.945[1711800822945] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4680 is 17.058616638183594
+2024-03-30 14:14:04.679[1711800844679] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4690 is 9.393013636271158
+2024-03-30 14:14:25.507[1711800865507] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4700 is 20.31237538655599
+2024-03-30 14:14:45.235[1711800885235] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4710 is 12.919637044270834
+2024-03-30 14:15:05.633[1711800905633] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4720 is 17.382429758707683
+2024-03-30 14:15:27.549[1711800927549] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4730 is 7.422290166219075
+2024-03-30 14:15:47.490[1711800947490] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4740 is 8.10879643758138
+2024-03-30 14:16:08.316[1711800968316] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4750 is 6.245944976806641
+2024-03-30 14:16:28.535[1711800988535] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4760 is 8.125577290852865
+2024-03-30 14:16:48.450[1711801008450] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4770 is 12.972434997558594
+2024-03-30 14:17:08.446[1711801028446] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4780 is 11.124766031901041
+2024-03-30 14:17:28.606[1711801048606] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4790 is 8.52890650431315
+2024-03-30 14:17:48.662[1711801068662] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4800 is 8.843332926432291
+2024-03-30 14:18:08.933[1711801088933] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4810 is 14.676343282063803
+2024-03-30 14:18:29.402[1711801109402] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4820 is 12.905905405680338
+2024-03-30 14:18:50.737[1711801130737] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4830 is 11.200645446777344
+2024-03-30 14:19:11.132[1711801151132] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4840 is 14.758797963460287
+2024-03-30 14:19:31.315[1711801171315] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4850 is 11.507190704345703
+2024-03-30 14:20:06.071[1711801206071] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4860 is 19.82834243774414
+2024-03-30 14:20:26.257[1711801226257] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4870 is 9.615900675455729
+2024-03-30 14:20:46.282[1711801246282] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4880 is 29.350479125976562
+2024-03-30 14:21:06.569[1711801266569] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4890 is 19.015981038411457
+2024-03-30 14:21:26.002[1711801286002] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4900 is 10.895280202229818
+2024-03-30 14:21:44.420[1711801304420] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4910 is 9.705972035725912
+2024-03-30 14:22:03.218[1711801323218] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4920 is 21.416839599609375
+2024-03-30 14:22:21.394[1711801341394] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4930 is 8.13080088297526
+2024-03-30 14:22:39.555[1711801359555] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4940 is 11.975711822509766
+2024-03-30 14:22:57.750[1711801377750] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4950 is 17.58368174235026
+2024-03-30 14:23:15.901[1711801395901] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4960 is 10.91443125406901
+2024-03-30 14:23:34.419[1711801414419] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4970 is 19.448955535888672
+2024-03-30 14:23:52.607[1711801432607] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4980 is 10.154396057128906
+2024-03-30 14:24:10.756[1711801450756] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 4990 is 16.77093760172526
+2024-03-30 14:24:28.954[1711801468954] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5000 is 7.091952641805013
+2024-03-30 14:24:47.026[1711801487026] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5010 is 9.766657511393229
+2024-03-30 14:25:05.227[1711801505227] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5020 is 8.947853088378906
+2024-03-30 14:25:23.449[1711801523449] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5030 is 7.57736333211263
+2024-03-30 14:25:41.706[1711801541706] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5040 is 13.96493148803711
+2024-03-30 14:26:00.207[1711801560207] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5050 is 8.909890492757162
+2024-03-30 14:26:18.745[1711801578745] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5060 is 8.308001200358072
+2024-03-30 14:26:36.883[1711801596883] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5070 is 8.702667236328125
+2024-03-30 14:26:54.960[1711801614960] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5080 is 15.608680725097656
+2024-03-30 14:27:12.990[1711801632990] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5090 is 13.482626597086588
+2024-03-30 14:27:31.528[1711801651528] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5100 is 13.489252726236979
+2024-03-30 14:27:49.892[1711801669892] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5110 is 15.844600677490234
+2024-03-30 14:28:08.090[1711801688090] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5120 is 9.992071151733398
+2024-03-30 14:28:39.722[1711801719722] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5130 is 17.515570322672527
+2024-03-30 14:28:57.919[1711801737919] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5140 is 10.131488800048828
+2024-03-30 14:29:18.228[1711801758228] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5150 is 31.327128092447918
+2024-03-30 14:29:40.120[1711801780120] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5160 is 19.38073984781901
+2024-03-30 14:29:58.818[1711801798818] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5170 is 8.950702667236328
+2024-03-30 14:30:18.016[1711801818016] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5180 is 11.073539733886719
+2024-03-30 14:30:38.473[1711801838473] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5190 is 20.205210367838543
+2024-03-30 14:30:57.852[1711801857852] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5200 is 11.0216064453125
+2024-03-30 14:31:17.683[1711801877683] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5210 is 11.816993713378906
+2024-03-30 14:31:38.343[1711801898343] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5220 is 21.285919189453125
+2024-03-30 14:31:58.005[1711801918005] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5230 is 9.551900227864584
+2024-03-30 14:32:17.871[1711801937871] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5240 is 19.407124837239582
+2024-03-30 14:32:37.171[1711801957171] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5250 is 9.719989140828451
+2024-03-30 14:32:56.596[1711801976596] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5260 is 17.28470738728841
+2024-03-30 14:33:16.299[1711801996299] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5270 is 7.927499135335286
+2024-03-30 14:33:35.514[1711802015514] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5280 is 8.378456751505533
+2024-03-30 14:33:55.385[1711802035385] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5290 is 7.582034428914388
+2024-03-30 14:34:14.857[1711802054857] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5300 is 8.084904352823893
+2024-03-30 14:34:33.610[1711802073610] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5310 is 12.879650115966797
+2024-03-30 14:34:53.200[1711802093200] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5320 is 10.414232889811197
+2024-03-30 14:35:12.845[1711802112845] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5330 is 9.357610066731771
+2024-03-30 14:35:31.696[1711802131696] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5340 is 12.021937052408854
+2024-03-30 14:35:51.045[1711802151045] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5350 is 14.631968180338541
+2024-03-30 14:36:10.718[1711802170718] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5360 is 11.209615071614584
+2024-03-30 14:36:30.095[1711802190095] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5370 is 12.738868713378906
+2024-03-30 14:36:50.964[1711802210964] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5380 is 16.961903889973957
+2024-03-30 14:37:10.187[1711802230187] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 5390 is 10.938410441080729
+2024-03-30 14:46:11.695[1711802771695] | INFO  | main       | org.nd4j.linalg.factory.Nd4jBackend  - Loaded [JCublasBackend] backend
+2024-03-30 14:46:15.699[1711802775699] | INFO  | main       | org.nd4j.nativeblas.NativeOpsHolder  - Number of threads used for linear algebra: 32
+2024-03-30 14:46:15.763[1711802775763] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Backend used: [CUDA]; OS: [Windows 11]
+2024-03-30 14:46:15.763[1711802775763] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Cores: [6]; Memory: [4,0GB];
+2024-03-30 14:46:15.763[1711802775763] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Blas vendor: [CUBLAS]
+2024-03-30 14:46:15.777[1711802775777] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build version: 11.2.142
+2024-03-30 14:46:15.779[1711802775779] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA GeForce GTX 1060 6GB]; cc: [6.1]; Total memory: [6442319872]
+2024-03-30 14:46:15.779[1711802775779] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - Backend build information:
+ MSVC: 192930038
+STD version: 201703L
+CUDA: 11.2.142
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+2024-03-30 14:46:17.596[1711802777596] | INFO  | main       | o.d.nn.conf.NeuralNetConfiguration   - Layer index 3 already exists, layer of type Builder will be replace by layer type RnnOutputLayer
+2024-03-30 14:46:17.628[1711802777628] | INFO  | main       | o.d.nn.multilayer.MultiLayerNetwork  - Starting MultiLayerNetwork with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+2024-03-30 14:46:40.643[1711802800643] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 0 is 48.71756656539613
+2024-03-30 14:49:46.242[1711802986242] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 10 is 29.39966147245379
+2024-03-30 14:52:51.387[1711803171387] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 20 is 15.675161715076602
+2024-03-30 14:55:50.805[1711803350805] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 30 is 27.17663369585788
+2024-03-30 14:57:14.821[1711803434821] | INFO  | main       | org.nd4j.linalg.factory.Nd4jBackend  - Loaded [JCublasBackend] backend
+2024-03-30 14:57:17.818[1711803437818] | INFO  | main       | org.nd4j.nativeblas.NativeOpsHolder  - Number of threads used for linear algebra: 32
+2024-03-30 14:57:17.870[1711803437870] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Backend used: [CUDA]; OS: [Windows 11]
+2024-03-30 14:57:17.870[1711803437870] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Cores: [6]; Memory: [4,0GB];
+2024-03-30 14:57:17.870[1711803437870] | INFO  | main       | o.n.l.a.o.e.DefaultOpExecutioner     - Blas vendor: [CUBLAS]
+2024-03-30 14:57:17.883[1711803437883] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - ND4J CUDA build version: 11.2.142
+2024-03-30 14:57:17.884[1711803437884] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - CUDA device 0: [NVIDIA GeForce GTX 1060 6GB]; cc: [6.1]; Total memory: [6442319872]
+2024-03-30 14:57:17.885[1711803437885] | INFO  | main       | o.nd4j.linalg.jcublas.JCublasBackend - Backend build information:
+ MSVC: 192930038
+STD version: 201703L
+CUDA: 11.2.142
+DEFAULT_ENGINE: samediff::ENGINE_CUDA
+HAVE_FLATBUFFERS
+2024-03-30 14:57:19.407[1711803439407] | INFO  | main       | o.d.nn.multilayer.MultiLayerNetwork  - Starting MultiLayerNetwork with WorkspaceModes set to [training: ENABLED; inference: ENABLED], cacheMode set to [NONE]
+2024-03-30 14:57:25.519[1711803445519] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 0 is 18.68712209356619
+2024-03-30 14:58:13.948[1711803493948] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 10 is 7.484625199285149
+2024-03-30 14:59:01.689[1711803541689] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 20 is 11.532638534468093
+2024-03-30 14:59:49.433[1711803589433] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 30 is 9.032583120757142
+2024-03-30 15:00:37.754[1711803637754] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 40 is 6.906607357808581
+2024-03-30 15:01:25.449[1711803685449] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 50 is 7.379021739525962
+2024-03-30 15:02:13.328[1711803733328] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 60 is 19.496580800539203
+2024-03-30 15:03:01.028[1711803781028] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 70 is 8.016287190175612
+2024-03-30 15:03:48.840[1711803828840] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 80 is 16.841796325436967
+2024-03-30 15:04:36.542[1711803876542] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 90 is 5.871644415728409
+2024-03-30 15:05:24.446[1711803924446] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 100 is 7.706346924926483
+2024-03-30 15:06:12.257[1711803972257] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 110 is 13.611686418117948
+2024-03-30 15:07:01.335[1711804021335] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 120 is 14.475926749786387
+2024-03-30 15:07:50.595[1711804070595] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 130 is 13.609510351217581
+2024-03-30 15:08:39.636[1711804119636] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 140 is 4.671285870714234
+2024-03-30 15:09:28.629[1711804168629] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 150 is 5.388271353314551
+2024-03-30 15:10:17.654[1711804217654] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 160 is 20.0854077795979
+2024-03-30 15:11:06.686[1711804266686] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 170 is 9.425233130897695
+2024-03-30 15:11:55.870[1711804315870] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 180 is 5.546848589492435
+2024-03-30 15:12:44.947[1711804364947] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 190 is 13.51671591206306
+2024-03-30 15:13:33.980[1711804413980] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 200 is 16.50178813850068
+2024-03-30 15:14:23.014[1711804463014] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 210 is 10.307061921891833
+2024-03-30 15:15:11.846[1711804511846] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 220 is 6.7336847454402085
+2024-03-30 15:16:01.213[1711804561213] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 230 is 7.5007702455469
+2024-03-30 15:16:51.392[1711804611392] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 240 is 8.032355613190235
+2024-03-30 15:17:40.966[1711804660966] | INFO  | main       | o.d.o.l.ScoreIterationListener       - Score at iteration 250 is 7.189106155509912

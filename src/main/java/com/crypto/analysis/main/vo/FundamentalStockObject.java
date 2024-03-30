@@ -6,14 +6,13 @@ import java.util.Date;
 
 @Setter
 public class FundamentalStockObject {
+    private final Date createTime;
     private double SPX;
     private double DXY;
     private double DJI;
     private double VIX;
     private double NDX;
     private double GOLD;
-
-    private final Date createTime;
 
     public FundamentalStockObject() {
         createTime = new Date();

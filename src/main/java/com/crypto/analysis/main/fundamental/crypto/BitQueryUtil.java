@@ -1,12 +1,12 @@
 package com.crypto.analysis.main.fundamental.crypto;
 
+import com.crypto.analysis.main.data_utils.select.StaticData;
 import com.crypto.analysis.main.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.data_utils.select.coin.TimeFrame;
 import com.crypto.analysis.main.vo.CandleObject;
 import com.crypto.analysis.main.vo.FundamentalCryptoDataObject;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Getter;
-import lombok.Setter;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -19,11 +19,8 @@ import java.util.*;
 import static com.crypto.analysis.main.data_utils.select.StaticData.*;
 
 public class BitQueryUtil {
-    private static final String HOUR_REQ = "{\"query\":\"{%s {\\ntransactions(time: {since: \\\"%s\\\", till: \\\"%s\\\"}) {\\ncount feeValue fee_avg: feeValue(calculate: average)\\ninputCount inputValue minedValue outputCount\\noutputValue\\nblock {timestamp {year month dayOfMonth hour}}\\n}}}\\n\",\"variables\":\"{}\"}";
-    private static final String SIMPLE_REQ = "{\"query\":\"{%s {\\ntransactions(time: {since: \\\"%s\\\", till: \\\"%s\\\"}) {\\ncount feeValue fee_avg: feeValue(calculate: average) \\ninputCount inputValue minedValue\\noutputCount outputValue\\nblock {timestamp {time}}\\n}}}\\n\",\"variables\":\"{}\"}";
-
-    private Coin coin;
-    private TimeFrame interval;
+    private final Coin coin;
+    private final TimeFrame interval;
 
     @Getter
     private TreeMap<Date, double[]> data;
@@ -31,6 +28,10 @@ public class BitQueryUtil {
     public BitQueryUtil(Coin coin, TimeFrame interval) {
         this.coin = coin;
         this.interval = interval;
+    }
+
+    public static void main(String[] args) {
+        new BitQueryUtil(Coin.BTCUSDT, TimeFrame.FOUR_HOUR).initData(new Date(124, 02, 20), new Date());
     }
 
     public FundamentalCryptoDataObject getData(CandleObject candle) {
@@ -45,15 +46,12 @@ public class BitQueryUtil {
             case BTCUSDT -> "bitcoin";
             default -> throw new IllegalArgumentException();
         };
-        String startDate = sdfFullISO.format(start);
-        startDate = startDate.replace(' ', 'T');
-
-        String endDate = sdfFullISO.format(end);
-        endDate = endDate.replace(' ', 'T');
+        String startDate = sdfShortISO.format(start);
+        String endDate = sdfShortISO.format(end);
 
         RequestBody body = RequestBody.create(mediaType, switch (interval) {
-            case ONE_HOUR, FOUR_HOUR  -> String.format(HOUR_REQ, coin, startDate, endDate);
-            default -> String.format(SIMPLE_REQ, coin, startDate, endDate);
+            case ONE_HOUR, FOUR_HOUR -> String.format(BITQUERY_HOUR_REQ, coin, startDate, endDate);
+            default -> String.format(BITQUERY_SIMPLE_REQ, coin, startDate, endDate);
         });
         Request request = new Request.Builder()
                 .url("https://graphql.bitquery.io")
@@ -136,19 +134,16 @@ public class BitQueryUtil {
             Date timestamp = entry.getKey();
             double[] values = entry.getValue();
 
-            // Округляем текущую дату до ближайшего интервала
             Date roundedDate = roundDown(timestamp, interval);
 
-            // Если начался новый интервал, добавляем данные предыдущего интервала в результаты
             if (currentIntervalStart != null && !currentIntervalStart.equals(roundedDate)) {
                 sumValues[2] = sumValues[1] / sumValues[0];
                 mergedData.put(currentIntervalStart, sumValues);
-                // Обнуляем сумму и счетчик для нового интервала
+
                 sumValues = new double[values.length];
                 count = 0;
             }
 
-            // Обновляем сумму значений и счетчик
             for (int i = 0; i < values.length; i++) {
                 sumValues[i] += values[i];
             }
@@ -157,17 +152,12 @@ public class BitQueryUtil {
             currentIntervalStart = roundedDate;
         }
 
-        // Добавляем последний интервал
         if (currentIntervalStart != null) {
             sumValues[2] = sumValues[1] / sumValues[0];
             mergedData.put(currentIntervalStart, sumValues);
         }
 
         return mergedData;
-    }
-
-    public static void main(String[] args) {
-         new BitQueryUtil(Coin.BTCUSDT, TimeFrame.FOUR_HOUR).initData(new Date(124, 02, 20), new Date());
     }
 
 }

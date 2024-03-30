@@ -11,7 +11,6 @@ import com.crypto.analysis.main.vo.DataObject;
 import com.crypto.analysis.main.vo.indication.*;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.LinkedList;
 
 public class BinanceDataMultipleInstance {

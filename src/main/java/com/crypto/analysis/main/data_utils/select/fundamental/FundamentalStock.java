@@ -12,6 +12,7 @@ public enum FundamentalStock {
     GOLD("XAU/USD");
 
     private final String name;
+
     FundamentalStock(String name) {
         this.name = name;
     }

@@ -25,7 +25,8 @@ public class BinanceDataUtil {
         String candles = client.market().klines(parameters);
         List<List<Object>> candlestickList = null;
         try {
-            candlestickList = objectMapper.readValue(candles, new TypeReference<>() {});
+            candlestickList = objectMapper.readValue(candles, new TypeReference<>() {
+            });
         } catch (JsonProcessingException e) {
             e.printStackTrace(System.out);
         }
@@ -56,7 +57,7 @@ public class BinanceDataUtil {
 
         for (JsonNode node : jsonNode) {
             long fundingTime = node.get("fundingTime").asLong();
-            double fundingRate = node.get("fundingRate").asDouble()*100;
+            double fundingRate = node.get("fundingRate").asDouble();
             Date date = new Date(fundingTime);
             resultMap.put(date, fundingRate);
         }
@@ -149,6 +150,7 @@ public class BinanceDataUtil {
         }
         return new BTCDOMObject(resultMap);
     }
+
     public static double getCurrentPrice(Coin coin) {
         LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
         parameters.put("symbol", coin.getName());

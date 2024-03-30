@@ -1,13 +1,9 @@
 package com.crypto.analysis.main.vo;
 
 import com.crypto.analysis.main.data_utils.select.coin.Coin;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Map;
-import java.util.TreeMap;
 
 
 public class FundamentalCryptoDataObject {

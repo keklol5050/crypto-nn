@@ -1,6 +1,7 @@
 package com.crypto.analysis.main.data.refactor;
 
-import com.crypto.analysis.main.data_utils.normalizers.BatchNormalizer;
+import com.crypto.analysis.main.data_utils.normalizers.RobustNormalizer;
+import com.crypto.analysis.main.data_utils.normalizers.robust.NormalizerHelper;
 import com.crypto.analysis.main.data_utils.select.StaticData;
 import com.crypto.analysis.main.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.data_utils.select.coin.TimeFrame;
@@ -10,47 +11,55 @@ import com.crypto.analysis.main.vo.DataObject;
 import com.crypto.analysis.main.vo.TrainSetElement;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 import static com.crypto.analysis.main.data_utils.select.StaticData.MASK_OUTPUT;
 
 public class DataRefactor {
     private final LinkedList<double[][]> data;
+
     private final int countInput;
     private final int countOutput;
     private final int sequenceLength;
+    private final int notVolatileLength;
 
     private LinkedList<TrainSetElement> elements;
 
     @Getter
-    private BatchNormalizer normalizer;
+    private RobustNormalizer normalizer;
 
     public DataRefactor(LinkedList<double[][]> data, int countInput, int countOutput) {
         this.data = data;
         this.countInput = countInput;
         this.countOutput = countOutput;
         this.sequenceLength = data.get(0)[0].length;
+        this.notVolatileLength = sequenceLength - StaticData.VOLATILE_VALUES_COUNT_FROM_LAST;
         init();
     }
-
     public void init() {
         elements = new LinkedList<>();
 
-        normalizer = new BatchNormalizer(MASK_OUTPUT, countInput, countOutput,
-                sequenceLength-StaticData.VOLATILE_VALUES_COUNT_FROM_LAST);
-        normalizer.fitHorizontal(data);
-        normalizer.transformHorizontal(data);
+        NormalizerHelper.loadData(Coin.BTCUSDT);
+        HashMap<Integer, ArrayList<Double>> volatileData = NormalizerHelper.getMap();
+
+        normalizer = new RobustNormalizer(MASK_OUTPUT, countInput, countOutput, notVolatileLength, StaticData.VOLATILE_VALUES_COUNT_FROM_LAST);
+        normalizer.setVolatileData(volatileData);
+        normalizer.fit(data);
+        normalizer.transform(data);
 
         for (double[][] in : data) {
-            if (countInput+countOutput!=in.length) throw new ArithmeticException("Parameters count are not equals");
-            if (countOutput<1 || countInput<1) throw new IllegalArgumentException("Parameters cannot be zero or negative");
+            if (countInput + countOutput != in.length) throw new ArithmeticException("Parameters count are not equals");
+            if (countOutput < 1 || countInput < 1)
+                throw new IllegalArgumentException("Parameters cannot be zero or negative");
 
             double[][] input = new double[countInput][];
             System.arraycopy(in, 0, input, 0, input.length);
 
             double[][] output = new double[countOutput][];
-            System.arraycopy(in,countInput, output, 0, output.length);
+            System.arraycopy(in, countInput, output, 0, output.length);
 
             double[][] finalOutput = new double[countOutput][];
             for (int i = 0; i < finalOutput.length; i++) {
@@ -72,9 +81,8 @@ public class DataRefactor {
         return elements;
     }
 
-
     public static void main(String[] args) {
-        DataObject[] pr = BinanceDataMultipleInstance.getLatestInstances(Coin.BTCUSDT, TimeFrame.ONE_HOUR, 30, new FundamentalDataUtil());
+        DataObject[] pr = BinanceDataMultipleInstance.getLatestInstances(Coin.BTCUSDT, TimeFrame.FOUR_HOUR, 30, new FundamentalDataUtil());
         double[][] in = new double[pr.length][];
         for (int i = 0; i < pr.length; i++) {
             in[i] = pr[i].getParamArray();
@@ -88,6 +96,7 @@ public class DataRefactor {
         System.out.println();
         LinkedList<double[][]> inl = new LinkedList<double[][]>();
         inl.add(in);
+
         DataRefactor normalizer = new DataRefactor(inl, 25, 5);
         LinkedList<TrainSetElement> element = normalizer.transform();
         double[][] normalizedData = element.get(0).getData();
@@ -97,7 +106,7 @@ public class DataRefactor {
         }
         System.out.println();
         System.out.println();
-        double[][] normalizedOutput =  element.get(0).getResult();
+        double[][] normalizedOutput = element.get(0).getResult();
 
         for (double[] row : normalizedOutput) {
             System.out.println(Arrays.toString(row));
@@ -106,8 +115,8 @@ public class DataRefactor {
         System.out.println(normalizedData.length);
         System.out.println(normalizedOutput.length);
 
-        normalizer.getNormalizer().revertFeaturesVertical(normalizedData);
-        normalizer.getNormalizer().revertLabelsVertical(normalizedData, normalizedOutput);
+        normalizer.getNormalizer().revertFeatures(normalizedData);
+        normalizer.getNormalizer().revertLabels(normalizedData, normalizedOutput);
 
         for (double[] row : normalizedData) {
             System.out.println(Arrays.toString(row));

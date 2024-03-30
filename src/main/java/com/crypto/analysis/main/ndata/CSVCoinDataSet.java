@@ -11,7 +11,6 @@ import com.crypto.analysis.main.vo.FundamentalStockObject;
 import com.crypto.analysis.main.vo.indication.SentimentHistoryObject;
 import lombok.Getter;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -19,13 +18,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static com.crypto.analysis.main.data_utils.select.StaticData.SKIP_NUMBER;
+import static com.crypto.analysis.main.data_utils.select.StaticData.*;
 
 public class CSVCoinDataSet {
-    private static final Path pathToFifteenDataSet = new File(Objects.requireNonNull(CSVCoinDataSet.class.getClassLoader().getResource("static/bitcoin_15m.csv")).getFile()).toPath();
-    private static final Path pathToHourDataSet = new File(Objects.requireNonNull(CSVCoinDataSet.class.getClassLoader().getResource("static/bitcoin_1h.csv")).getFile()).toPath();
-    private static final Path pathToFourHourDataSet = new File(Objects.requireNonNull(CSVCoinDataSet.class.getClassLoader().getResource("static/bitcoin_4h.csv")).getFile()).toPath();
-
     private final Path path;
     private final Coin coin;
 
@@ -40,12 +35,20 @@ public class CSVCoinDataSet {
         this.coin = coin;
         this.interval = interval;
         this.path = switch (interval) {
-            case FIFTEEN_MINUTES -> pathToFifteenDataSet;
-            case ONE_HOUR -> pathToHourDataSet;
-            case FOUR_HOUR -> pathToFourHourDataSet;
+            case FIFTEEN_MINUTES -> pathToFifteenMinutesBTCDataSet;
+            case ONE_HOUR -> pathToHourBTCDataSet;
+            case FOUR_HOUR -> pathToFourHourBTCDataSet;
             default -> throw new RuntimeException("Invalid time frame");
         };
         data = new LinkedList<>();
+    }
+
+    public static void main(String[] args) {
+        CSVCoinDataSet dataSet = new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.FOUR_HOUR);
+        dataSet.load();
+        System.out.println(dataSet.data.removeLast());
+        System.out.println(dataSet.data.removeLast());
+        System.out.println(dataSet.data.removeLast());
     }
 
     public void load() {
@@ -72,7 +75,7 @@ public class CSVCoinDataSet {
                 Date closeTime = sdf.parse(tokens[6]);
                 CandleObject candle = new CandleObject(openTime, open, high, low, close, volume, closeTime);
 
-                double fundingRate = Double.parseDouble(tokens[7])*100;
+                double fundingRate = Double.parseDouble(tokens[7]);
                 double openInterest = Double.parseDouble(tokens[8]);
                 double longShortRatio = Double.parseDouble(tokens[9]);
                 double sellBuyRatio = Double.parseDouble(tokens[10]);
@@ -113,7 +116,7 @@ public class CSVCoinDataSet {
                 double output_value = Double.parseDouble(tokens[25]);
 
                 FundamentalCryptoDataObject fCrypto = new FundamentalCryptoDataObject(coin, new double[]{transactions_count, fee_value, fee_average,
-                input_count, input_value, mined_value, output_count, output_value});
+                        input_count, input_value, mined_value, output_count, output_value});
 
                 object.setCryptoFundamental(fCrypto);
 
@@ -134,13 +137,5 @@ public class CSVCoinDataSet {
             this.data.add(object);
         }
         isInitialized = true;
-    }
-
-    public static void main(String[] args) {
-        CSVCoinDataSet dataSet = new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.FOUR_HOUR);
-        dataSet.load();
-        System.out.println(dataSet.data.removeLast());
-        System.out.println(dataSet.data.removeLast());
-        System.out.println(dataSet.data.removeLast());
     }
 }

@@ -7,7 +7,6 @@ import org.deeplearning4j.datasets.iterator.JointMultiDataSetIterator;
 import org.deeplearning4j.nn.api.OptimizationAlgorithm;
 import org.deeplearning4j.nn.conf.*;
 import org.deeplearning4j.nn.conf.inputs.InputType;
-import org.deeplearning4j.nn.conf.layers.Convolution1DLayer;
 import org.deeplearning4j.nn.conf.layers.LSTM;
 import org.deeplearning4j.nn.conf.layers.RnnOutputLayer;
 import org.deeplearning4j.nn.graph.ComputationGraph;
@@ -22,16 +21,13 @@ import org.nd4j.linalg.lossfunctions.LossFunctions;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
 
 @Setter
 public class Model {
-    private final String path;
-
     private static final int numInputs = StaticData.MODEL_NUM_INPUTS;
     private static final int numOutputs = StaticData.MODEL_NUM_OUTPUTS;
     private static final double LEARNING_RATE = StaticData.MODEL_LEARNING_RATE;
-
+    private final String path;
     private String pathToModel;
     private String pathToAccessor;
 
@@ -45,23 +41,19 @@ public class Model {
 
     public void init() {
         pathToModel = path + "model.zip";
-        pathToAccessor = path + "accessor.zip";
 
-        if (Files.exists(Path.of(pathToModel)) && Files.exists(Path.of(pathToAccessor))) {
+        if (Files.exists(Path.of(pathToModel))) {
             model = ModelLoader.loadGraph(pathToModel);
-            accessor = RelativeAccessor.loadAccessor(pathToAccessor);
         } else {
             model = createModel();
         }
+        System.out.println(model.summary());
+        model.setListeners(new ScoreIterationListener(10));
     }
 
     private ComputationGraph createModel() {
         ComputationGraph model = new ComputationGraph(getConfiguration());
         model.init();
-
-        model.setListeners(new ScoreIterationListener(10));
-        System.out.println(model.summary());
-
         return model;
     }
 
@@ -75,7 +67,7 @@ public class Model {
                 .gradientNormalization(GradientNormalization.ClipElementWiseAbsoluteValue)
                 .gradientNormalizationThreshold(5.0)
 
-                .l2(3e-5)
+                .l2(5e-5)
                 .dataType(DataType.DOUBLE)
 
                 .weightInit(WeightInit.XAVIER)
@@ -98,7 +90,7 @@ public class Model {
                 .addLayer("lstm2_50", new LSTM.Builder()
                         .nIn(256)
                         .nOut(256)
-                        .dropOut(0.6)
+                        .dropOut(0.5)
                         .build(), "lstm1_50")
                 .addLayer("lstm3_50", new LSTM.Builder()
                         .nIn(256)
@@ -107,27 +99,27 @@ public class Model {
                 .addLayer("lstm4_50", new LSTM.Builder()
                         .nIn(256)
                         .nOut(128)
-                        .dropOut(0.8)
+                        .dropOut(0.75)
                         .build(), "lstm3_50")
                 .addLayer("lstm5_50", new LSTM.Builder()
                         .nIn(128)
                         .nOut(64)
                         .build(), "lstm4_50")
-                .addLayer("output_50", new RnnOutputLayer.Builder()
+                .addLayer("output_50", new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
+                        .activation(Activation.IDENTITY)
                         .nIn(64)
                         .nOut(numOutputs)
-                        .activation(Activation.IDENTITY)
-                        .lossFunction(LossFunctions.LossFunction.MSE)
                         .build(), "lstm5_50")
+
 
                 .addLayer("lstm1_70", new LSTM.Builder()
                         .nIn(numInputs)
-                        .nOut(384)
+                        .nOut(256)
                         .build(), "input_70")
                 .addLayer("lstm2_70", new LSTM.Builder()
-                        .nIn(384)
+                        .nIn(256)
                         .nOut(384)
-                        .dropOut(0.6)
+                        .dropOut(0.5)
                         .build(), "lstm1_70")
                 .addLayer("lstm3_70", new LSTM.Builder()
                         .nIn(384)
@@ -136,61 +128,45 @@ public class Model {
                 .addLayer("lstm4_70", new LSTM.Builder()
                         .nIn(384)
                         .nOut(256)
-                        .dropOut(0.8)
+                        .dropOut(0.75)
                         .build(), "lstm3_70")
                 .addLayer("lstm5_70", new LSTM.Builder()
                         .nIn(256)
-                        .nOut(128)
+                        .nOut(96)
                         .build(), "lstm4_70")
-                .addLayer("lstm6_70", new LSTM.Builder()
-                        .nIn(128)
-                        .nOut(64)
-                        .build(), "lstm5_70")
-                .addLayer("output_70", new RnnOutputLayer.Builder()
-                        .nIn(64)
-                        .nOut(numOutputs)
+                .addLayer("output_70", new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
                         .activation(Activation.IDENTITY)
-                        .lossFunction(LossFunctions.LossFunction.MSE)
-                        .build(), "lstm6_70")
-
+                        .nIn(96)
+                        .nOut(numOutputs)
+                        .build(), "lstm5_70")
 
                 .addLayer("lstm1_100", new LSTM.Builder()
                         .nIn(numInputs)
-                        .nOut(384)
+                        .nOut(256)
                         .build(), "input_100")
                 .addLayer("lstm2_100", new LSTM.Builder()
-                        .nIn(384)
-                        .nOut(384)
-                        .dropOut(0.6)
+                        .nIn(256)
+                        .nOut(512)
+                        .dropOut(0.5)
                         .build(), "lstm1_100")
                 .addLayer("lstm3_100", new LSTM.Builder()
-                        .nIn(384)
-                        .nOut(384)
+                        .nIn(512)
+                        .nOut(512)
                         .build(), "lstm2_100")
                 .addLayer("lstm4_100", new LSTM.Builder()
-                        .nIn(384)
+                        .nIn(512)
                         .nOut(256)
-                        .dropOut(0.8)
+                        .dropOut(0.75)
                         .build(), "lstm3_100")
                 .addLayer("lstm5_100", new LSTM.Builder()
                         .nIn(256)
-                        .nOut(256)
-                        .dropOut(0.8)
-                        .build(), "lstm4_100")
-                .addLayer("lstm6_100", new LSTM.Builder()
-                        .nIn(256)
                         .nOut(128)
-                        .build(), "lstm5_100")
-                .addLayer("lstm7_100", new LSTM.Builder()
-                        .nIn(128)
-                        .nOut(64)
-                        .build(), "lstm6_100")
-                .addLayer("output_100", new RnnOutputLayer.Builder()
-                        .nIn(64)
-                        .nOut(numOutputs)
+                        .build(), "lstm4_100")
+                .addLayer("output_100", new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
                         .activation(Activation.IDENTITY)
-                        .lossFunction(LossFunctions.LossFunction.MSE)
-                        .build(), "lstm7_100")
+                        .nIn(128)
+                        .nOut(numOutputs)
+                        .build(), "lstm5_100")
                 .build();
     }
 
@@ -207,12 +183,10 @@ public class Model {
         INDArray[] input = new INDArray[inputs.length];
         INDArray[] masks = new INDArray[inputs.length];
 
-        Arrays.sort(inputs);
-
         for (int i = 0; i < inputs.length; i++) {
             int length = inputs[i][0].length;
 
-            INDArray newInput = Nd4j.createFromArray(inputs[i]);
+            INDArray newInput = Nd4j.createFromArray(new double[][][]{inputs[i]});
             INDArray mask = accessor.getMask(length);
 
             input[i] = newInput;
@@ -237,11 +211,6 @@ public class Model {
             output[i] = newMatrix;
         }
 
-        for (int i = 0; i < input.length; i++) {
-            input[i].close();
-            masks[i].close();
-        }
-
         for (int i = 0; i < output.length; i++) {
             accessor.revertLabels(inputs[i], output[i]);
         }
@@ -259,7 +228,7 @@ public class Model {
     public void fit(JointMultiDataSetIterator iterator, int epoch, int countEpoch) {
         for (int i = 0; i < epoch; i++) {
             if (i > 0 && i % countEpoch == 0)
-                save();
+                ModelLoader.saveModel(model, pathToModel);
             model.fit(iterator);
         }
         save();

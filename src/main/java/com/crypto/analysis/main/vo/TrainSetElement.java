@@ -6,8 +6,8 @@ import java.util.Arrays;
 
 @Getter
 public class TrainSetElement {
-    private double[][] data;
-    private double[][] result;
+    private final double[][] data;
+    private final double[][] result;
 
     public TrainSetElement(double[][] data, double[][] result) {
         this.data = data;
