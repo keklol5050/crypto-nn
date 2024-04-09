@@ -1,15 +1,5 @@
 package com.crypto.analysis.main;
 
-import com.crypto.analysis.main.model.ModelLoader;
-import com.crypto.analysis.main.data.train.TrainDataSet;
-import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
-import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
-import org.nd4j.linalg.api.ndarray.INDArray;
-import org.nd4j.linalg.factory.Nd4j;
-
-import java.util.Arrays;
-import java.util.LinkedList;
-
 public class TestLinear {
     public static void main(String[] args) {
 /*

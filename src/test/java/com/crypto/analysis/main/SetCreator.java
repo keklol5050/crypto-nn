@@ -1,12 +1,10 @@
 package com.crypto.analysis.main;
 
-import com.crypto.analysis.main.data_utils.select.StaticData;
-import com.crypto.analysis.main.data_utils.select.coin.Coin;
-import com.crypto.analysis.main.data_utils.select.coin.TimeFrame;
-import com.crypto.analysis.main.fundamental.crypto.BitQueryUtil;
-import org.tensorflow.distruntime.TracingRequest;
+import com.crypto.analysis.main.core.data_utils.select.StaticData;
+import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
+import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
+import com.crypto.analysis.main.core.fundamental.crypto.BitQueryUtil;
 
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
