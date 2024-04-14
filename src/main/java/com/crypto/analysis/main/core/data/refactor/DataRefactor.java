@@ -1,8 +1,7 @@
 package com.crypto.analysis.main.core.data.refactor;
 
-import com.crypto.analysis.main.Differentiator;
-import com.crypto.analysis.main.core.data_utils.normalizers.robust.RobustScaler;
-import com.crypto.analysis.main.core.data_utils.normalizers.robust.NormalizerHelper;
+import com.crypto.analysis.main.core.data_utils.normalizers.Differentiator;
+import com.crypto.analysis.main.core.data_utils.normalizers.RobustScaler;
 import com.crypto.analysis.main.core.data_utils.select.StaticData;
 import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.core.data_utils.select.coin.DataLength;
@@ -27,25 +26,39 @@ public class DataRefactor {
 
     private final int countInput;
     private final int countOutput;
+    private final int delimiter;
     private LinkedList<TrainSetElement> elements;
 
     @Getter
     private RobustScaler normalizer;
 
-    public DataRefactor(LinkedList<double[][]> data, int countInput, int countOutput) {
+    public DataRefactor(LinkedList<double[][]> data, int countInput, int countOutput, int delimiter) {
         this.data = data;
         this.countInput = countInput;
         this.countOutput = countOutput;
+        this.delimiter = delimiter;
+
         init();
     }
     public void init() {
         elements = new LinkedList<>();
 
-        NormalizerHelper.loadData(Coin.BTCUSDT);
-        HashMap<Integer, ArrayList<Double>> volatileData = NormalizerHelper.getMap();
+        HashMap<Integer, ArrayList<Double>> volatileData = new HashMap<>();
 
+        for (double[][] datum : data) {
+            for (int j = NOT_VOLATILE_VALUES; j < MODEL_NUM_INPUTS; j++) {
+                ArrayList<Double> values = new ArrayList<>();
+                int start = volatileData.size()!=VOLATILE_VALUES_COUNT_FROM_LAST ? 0 : datum.length-delimiter;
+                for (int k = start; k < datum.length; k++) {
+                    values.add(datum[k][j]);
+                }
+                if (volatileData.containsKey(j)) volatileData.get(j).addAll(values);
+                else volatileData.put(j, values);
+            }
+        }
         normalizer = new RobustScaler(MASK_OUTPUT, NOT_VOLATILE_VALUES, StaticData.VOLATILE_VALUES_COUNT_FROM_LAST);
         normalizer.setVolatileData(volatileData);
+        normalizer.setHasVolatileChangedFlag(false);
         normalizer.setCountInputs(countInput);
         normalizer.setCountOutputs(countOutput);
 
@@ -56,10 +69,7 @@ public class DataRefactor {
             if (countOutput < 1 || countInput < 1)
                 throw new IllegalArgumentException("Parameters cannot be zero or negative");
 
-            double[][] diff = differentiator.differentiate(in, NUMBER_OF_DIFFERENTIATIONS, false);
-
-            normalizer.fit(diff);
-            normalizer.transform(diff);
+            double[][] diff = refactor(in, differentiator, false, normalizer);
 
             double[][] input = new double[countInput][];
             System.arraycopy(diff, 0, input, 0, input.length);
@@ -83,6 +93,23 @@ public class DataRefactor {
         }
     }
 
+    public static double[][] refactor(double[][] in, Differentiator differentiator, boolean save, RobustScaler scaler) {
+        double[] orient = RobustScaler.getColumn(in, POSITION_OF_PRICES_NORMALIZER_IND, in.length);
+
+        double[][] diff = differentiator.differentiate(in, NUMBER_OF_DIFFERENTIATIONS, save);
+
+        for (int i = COUNT_VALUES_FOR_DIFFERENTIATION; i < COUNT_VALUES_FOR_DIFFERENTIATION+MOVING_AVERAGES_COUNT_FOR_DIFF_WITH_PRICE_VALUES; i++) {
+            for (int j = 0; j < diff.length; j++) {
+                diff[j][i] = orient[j+NUMBER_OF_DIFFERENTIATIONS] - diff[j][i];
+            }
+        }
+
+        scaler.fit(diff);
+        scaler.transform(diff);
+
+        return diff;
+    }
+
     public LinkedList<TrainSetElement> transform() {
         return elements;
     }
@@ -104,7 +131,7 @@ public class DataRefactor {
         LinkedList<double[][]> inl = new LinkedList<double[][]>();
         inl.add(in);
 
-        DataRefactor normalizer = new DataRefactor(inl, dl.getCountInput()-NUMBER_OF_DIFFERENTIATIONS, dl.getCountOutput());
+        DataRefactor normalizer = new DataRefactor(inl, dl.getCountInput()-NUMBER_OF_DIFFERENTIATIONS, dl.getCountOutput(),1);
         LinkedList<TrainSetElement> element = normalizer.transform();
         double[][] normalizedData = element.get(0).getData();
 
@@ -143,8 +170,8 @@ public class DataRefactor {
             series3.add(i, low[i]);
         }
 
-        double[] close = new double[normalizedData[3].length];
-        System.arraycopy(normalizedData[3], 0, close, 0, normalizedData[3].length);
+        double[] close = new double[normalizedData[13].length];
+        System.arraycopy(normalizedData[13], 0, close, 0, normalizedData[13].length);
         XYSeries series4 = new XYSeries("close");
         for (int i = 0; i < close.length; i++) {
             series4.add(i, close[i]);

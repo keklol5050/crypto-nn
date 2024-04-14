@@ -18,15 +18,20 @@ public class StaticData {
     public static final OkHttpClient okHttpClient = new OkHttpClient();
 
     public static final int[] MASK_OUTPUT = new int[]{3, 1, 2}; // CHL
-    public static final int VOLATILE_VALUES_COUNT_FROM_LAST = 13;
+    public static final int POSITION_OF_PRICES_NORMALIZER_IND = MASK_OUTPUT[0];
     public static final int SKIP_NUMBER = 800;
 
     public static final int binanceCapacityMax = 490;
 
     public static final int MODEL_NUM_INPUTS = 67;
     public static final int MODEL_NUM_OUTPUTS = MASK_OUTPUT.length;
+    public static final int VOLATILE_VALUES_COUNT_FROM_LAST = 30;
+    public static final int PRICE_VALUES_COUNT_TO_NORMALIZE_WITH_ONE = 3;
+    public static final int MOVING_AVERAGES_COUNT_FOR_DIFF_WITH_PRICE_VALUES = 24;
     public static final int NOT_VOLATILE_VALUES = MODEL_NUM_INPUTS - VOLATILE_VALUES_COUNT_FROM_LAST;
-    public static final int NUMBER_OF_DIFFERENTIATIONS = 2;
+
+    public static final int NUMBER_OF_DIFFERENTIATIONS = 1;
+    public static final int COUNT_VALUES_FOR_DIFFERENTIATION = 13;
 
     public static final String ALL_SENTIMENT_DATA = "https://api.senticrypt.com/v2/all.json"; // SentiCrypt, class SentimentUtil
     public static final String bitQueryApiKey = "BQYM7GOqY0AGd3Sss16XsDtijqogxOM6"; // BitQuery crypto fundamental api key, class BitQueryUtil
@@ -86,7 +91,7 @@ public class StaticData {
     }
 
     public static void main(String[] args) {
-        System.out.println(new Date(1712070900000l));
-        System.out.println(new Date(1711929600000l));
+        System.out.println(new Date(1713097800000l));
+        System.out.println(new Date(1713123900000l));
     }
 }

@@ -104,7 +104,7 @@ public class IndicatorsTransferObject {
                 '}';
     }
 
-    public double[] getValuesArr() {
+    public double[] getIndicatorValues() {
         return new double[]{
                 RSI,
 
@@ -114,6 +114,25 @@ public class IndicatorsTransferObject {
                 STOCHK,
                 STOCHD,
 
+                CCI,
+                ADX,
+                AROONUP,
+                AROONDOWN,
+                STOCHRSI,
+
+                ATR,
+                DPO,
+                WILLR,
+                MI,
+
+                CMO,
+                ROC,
+                RAVI
+        };
+    }
+
+    public double[] getMovingAverageValues() {
+        return new double[]{
                 SMA200,
                 SMA99,
                 SMA60,
@@ -139,23 +158,8 @@ public class IndicatorsTransferObject {
                 EMA10,
 
                 MMA,
-                CCI,
-                ADX,
-                AROONUP,
-                AROONDOWN,
-
                 PSAR,
-                STOCHRSI,
-                VWAP,
-
-                ATR,
-                DPO,
-                WILLR,
-                MI,
-
-                CMO,
-                ROC,
-                RAVI
+                VWAP
         };
     }
 

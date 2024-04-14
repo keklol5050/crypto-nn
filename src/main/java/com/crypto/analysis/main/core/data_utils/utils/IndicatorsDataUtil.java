@@ -139,7 +139,7 @@ public class IndicatorsDataUtil {
         down = new AroonDownIndicator(series, 14);
 
         psar = new ParabolicSarIndicator(series);
-        stochRSI = new StochasticRSIIndicator(rsi, 14);//
+        stochRSI = new StochasticRSIIndicator(rsi, 14);
         vwap = new VWAPIndicator(series, 14);
 
         atr = new ATRIndicator(series, 14);

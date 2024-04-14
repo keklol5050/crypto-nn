@@ -1,4 +1,4 @@
-package com.crypto.analysis.main;
+package com.crypto.analysis.main.core.data_utils.normalizers;
 
 import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
@@ -9,8 +9,8 @@ import com.crypto.analysis.main.core.vo.DataObject;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import static com.crypto.analysis.main.core.data_utils.select.StaticData.COUNT_VALUES_FOR_DIFFERENTIATION;
 import static com.crypto.analysis.main.core.data_utils.select.StaticData.MASK_OUTPUT;
-import static com.crypto.analysis.main.core.data_utils.select.StaticData.NOT_VOLATILE_VALUES;
 
 public class Differentiator {
     private final HashMap<double[][], double[][]> firstValuesCash;
@@ -21,10 +21,10 @@ public class Differentiator {
     private double[][] differentiate(double[][] data) {
         double[][] diff = new double[data.length - 1][data[0].length];
         for (int i = 0; i < data.length - 1; i++) {
-            for (int j = 0; j < NOT_VOLATILE_VALUES; j++) {
+            for (int j = 0; j < COUNT_VALUES_FOR_DIFFERENTIATION; j++) {
                 diff[i][j] = data[i + 1][j] - data[i][j];
             }
-            System.arraycopy(data[i+1], NOT_VOLATILE_VALUES, diff[i], NOT_VOLATILE_VALUES, data[i+1].length - NOT_VOLATILE_VALUES);
+            System.arraycopy(data[i+1], COUNT_VALUES_FOR_DIFFERENTIATION, diff[i], COUNT_VALUES_FOR_DIFFERENTIATION, data[i+1].length - COUNT_VALUES_FOR_DIFFERENTIATION);
         }
         return diff;
     }

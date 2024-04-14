@@ -1,9 +1,9 @@
 package com.crypto.analysis.main.view;
 
-import com.crypto.analysis.main.Differentiator;
+import com.crypto.analysis.main.core.data_utils.normalizers.Differentiator;
 import com.crypto.analysis.main.core.data.refactor.Transposer;
 import com.crypto.analysis.main.core.data.train.TrainDataSet;
-import com.crypto.analysis.main.core.data_utils.normalizers.robust.RobustScaler;
+import com.crypto.analysis.main.core.data_utils.normalizers.RobustScaler;
 import com.crypto.analysis.main.core.data_utils.select.StaticData;
 import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.core.data_utils.select.coin.DataLength;

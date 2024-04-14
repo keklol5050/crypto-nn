@@ -2,22 +2,23 @@ package com.crypto.analysis.main.core.model;
 
 import com.crypto.analysis.main.core.data.refactor.Transposer;
 import com.crypto.analysis.main.core.data.train.TrainDataSet;
-import com.crypto.analysis.main.core.data_utils.normalizers.robust.RobustScaler;
+import com.crypto.analysis.main.core.data_utils.normalizers.RobustScaler;
 import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.core.data_utils.select.coin.DataLength;
 import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
 import com.crypto.analysis.main.core.ndata.CSVCoinDataSet;
+import org.deeplearning4j.core.storage.StatsStorage;
 import org.deeplearning4j.datasets.iterator.utilty.ListDataSetIterator;
 import org.deeplearning4j.nn.api.OptimizationAlgorithm;
-import org.deeplearning4j.nn.conf.BackpropType;
-import org.deeplearning4j.nn.conf.GradientNormalization;
-import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
-import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
+import org.deeplearning4j.nn.conf.*;
 import org.deeplearning4j.nn.conf.layers.LSTM;
 import org.deeplearning4j.nn.conf.layers.RnnOutputLayer;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
+import org.deeplearning4j.ui.api.UIServer;
+import org.deeplearning4j.ui.model.stats.StatsListener;
+import org.deeplearning4j.ui.model.storage.FileStatsStorage;
 import org.jfree.data.xy.XYSeries;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
@@ -25,9 +26,9 @@ import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.learning.config.Adam;
-import org.nd4j.linalg.learning.config.Nadam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -72,22 +73,26 @@ public class Predictor {
         RobustScaler normalizer = trainSet.getNormalizer();
         MultiLayerConfiguration config = new NeuralNetConfiguration.Builder()
                 .seed(123)
+                .trainingWorkspaceMode(WorkspaceMode.ENABLED)
+                .inferenceWorkspaceMode(WorkspaceMode.ENABLED)
                 .optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
                 .gradientNormalization(GradientNormalization.ClipElementWiseAbsoluteValue)
                 .weightInit(WeightInit.LECUN_NORMAL)
                 .activation(Activation.TANH)
-                .l2(1e-3)
-                .updater(new Nadam())
+                .l2(5e-5)
+                .updater(new Adam())
                 .list()
-                .layer(0, new LSTM.Builder().nIn(numInputs).nOut(1600)
+                .layer(0, new LSTM.Builder().nIn(numInputs).nOut(1200)
                         .dropOut(0.85).build())
-                .layer(1, new LSTM.Builder().nIn(1600).nOut(832).build())
-                .layer(2, new LSTM.Builder().nIn(832).nOut(832).build())
-                .layer(3, new LSTM.Builder().nIn(832).nOut(512).build())
-                .layer(4, new LSTM.Builder().nIn(512).nOut(256).build())
+                .layer(1, new LSTM.Builder().nIn(1200).nOut(600)
+                        .dropOut(0.85).build())
+                .layer(2, new LSTM.Builder().nIn(600).nOut(400)
+                        .dropOut(0.85).build())
+                .layer(3, new LSTM.Builder().nIn(400).nOut(400).build())
+                .layer(4, new LSTM.Builder().nIn(400).nOut(200).build())
                 .layer(5, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
                         .activation(Activation.IDENTITY)
-                        .nIn(256).nOut(numOutputs)
+                        .nIn(200).nOut(numOutputs)
                         .build())
                 .backpropType(BackpropType.Standard)
                 .build();
@@ -95,25 +100,30 @@ public class Predictor {
         MultiLayerNetwork model = new MultiLayerNetwork(config);
         model.init();
 
-        model.setListeners(new ScoreIterationListener(10));
-
         System.out.println(model.summary());
 
         System.out.println("Count input params: " + numInputs);
         System.out.println("Count output params: " + numOutputs);
         System.out.println("Count input objects: " + sequenceLength);
         System.out.println();
+
+        UIServer uiServer = UIServer.getInstance();
+        StatsStorage statsStorage = new FileStatsStorage(new File(System.getProperty("java.io.tmpdir"), "ui-stats.dl4j"));
+
+        model.setListeners(new StatsListener(statsStorage, 10), new ScoreIterationListener(10));
+        uiServer.attach(statsStorage);
+
         System.gc();
         for (int i = 0; i < numEpochs; i++) {
             if (i % 20 == 0 && i > 0) {
-                ModelLoader.saveModel(model, "D:\\model6.zip");
+                ModelLoader.saveModel(model, "D:\\model12.zip");
                 System.out.println("Saved at epoch: " + model.getEpochCount());
             }
             model.fit(iterator);
             System.gc();
         }
 
-        ModelLoader.saveModel(model, "D:\\model6.zip");
+        ModelLoader.saveModel(model, "D:\\model12.zip");
 
 
         LinkedList<double[][]> testSet = trainSet.getTestData();

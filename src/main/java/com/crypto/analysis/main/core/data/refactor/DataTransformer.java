@@ -1,6 +1,6 @@
 package com.crypto.analysis.main.core.data.refactor;
 
-import com.crypto.analysis.main.core.data_utils.normalizers.robust.RobustScaler;
+import com.crypto.analysis.main.core.data_utils.normalizers.RobustScaler;
 import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.core.data_utils.select.coin.DataLength;
 import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
@@ -18,6 +18,7 @@ import static com.crypto.analysis.main.core.data_utils.select.StaticData.NUMBER_
 public class DataTransformer {
     private final int countInput;
     private final int countOutput;
+    private final int delimiter;
 
     private LinkedList<double[][]> data;
 
@@ -27,9 +28,10 @@ public class DataTransformer {
     private RobustScaler normalizer;
 
 
-    public DataTransformer(LinkedList<DataObject[]> data, DataLength dl) {
+    public DataTransformer(LinkedList<DataObject[]> data, DataLength dl, int delimiter) {
         this.countInput = dl.getCountInput()-NUMBER_OF_DIFFERENTIATIONS;
         this.countOutput = dl.getCountOutput();
+        this.delimiter = delimiter;
 
         revert(data);
     }
@@ -40,7 +42,7 @@ public class DataTransformer {
         LinkedList<DataObject[]> list = new LinkedList<DataObject[]>();
         list.add(objs);
 
-        DataTransformer transformer = new DataTransformer(list, dl);
+        DataTransformer transformer = new DataTransformer(list, dl, 1);
         for (DataObject o : objs) {
             System.out.println(Arrays.toString(o.getParamArray()));
         }
@@ -78,7 +80,7 @@ public class DataTransformer {
 
     public void transform() {
         trainData = new LinkedList<>();
-        DataRefactor refactor = new DataRefactor(data, countInput, countOutput);
+        DataRefactor refactor = new DataRefactor(data, countInput, countOutput, delimiter);
         trainData.addAll(refactor.transform());
         normalizer = refactor.getNormalizer();
     }

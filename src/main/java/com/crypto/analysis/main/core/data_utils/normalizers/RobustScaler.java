@@ -1,4 +1,4 @@
-package com.crypto.analysis.main.core.data_utils.normalizers.robust;
+package com.crypto.analysis.main.core.data_utils.normalizers;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+
+import static com.crypto.analysis.main.core.data_utils.select.StaticData.PRICE_VALUES_COUNT_TO_NORMALIZE_WITH_ONE;
 
 public class RobustScaler implements Serializable {
     private transient final Percentile percentile = new Percentile();
@@ -30,9 +32,9 @@ public class RobustScaler implements Serializable {
     private final int volatileLength;
 
     private final int sequenceLength;
-    private boolean isInitialized;
 
-    private boolean hasChanged;
+    @Setter
+    private boolean hasVolatileChangedFlag;
 
     public RobustScaler(int[] mask, int notVolatileLength, int volatileLength) {
         this.mask = mask;
@@ -62,20 +64,17 @@ public class RobustScaler implements Serializable {
         if (sequenceLength != input[0].length)
             throw new IllegalArgumentException("Input array length are not equals");
 
-        double[] median = new double[notVolatileLength];
-        double[] iqr = new double[notVolatileLength];
+        double[] median = new double[notVolatileLength-PRICE_VALUES_COUNT_TO_NORMALIZE_WITH_ONE];
+        double[] iqr = new double[notVolatileLength-PRICE_VALUES_COUNT_TO_NORMALIZE_WITH_ONE];
 
-        for (int i = 0; i < notVolatileLength; i++) {
+        for (int i = PRICE_VALUES_COUNT_TO_NORMALIZE_WITH_ONE; i < notVolatileLength; i++) {
             double[] column = getColumn(input, i, countInputs);
-            median[i] = calculateMedian(column);
-            iqr[i] = calculateIQR(column);
+            median[i-PRICE_VALUES_COUNT_TO_NORMALIZE_WITH_ONE] = calculateMedian(column);
+            iqr[i-PRICE_VALUES_COUNT_TO_NORMALIZE_WITH_ONE] = calculateIQR(column);
         }
 
         this.median.put(input, median);
         this.iqr.put(input, iqr);
-
-        if (!isInitialized) isInitialized = true;
-        hasChanged = true;
     }
 
     public void transform(LinkedList<double[][]> inputList) {
@@ -107,10 +106,10 @@ public class RobustScaler implements Serializable {
 
         for (int i = 0; i < input.length; i++) {
             for (int j = 0; j < input[0].length; j++) {
-                input[i][j] = (input[i][j] - median[j]) / iqr[j];
+                int index = j > 3 ? j-PRICE_VALUES_COUNT_TO_NORMALIZE_WITH_ONE : 0;
+                input[i][j] = (input[i][j] - median[index]) / iqr[index];
             }
         }
-        hasChanged = false;
     }
 
     public void revertFeatures(double[][] input) {
@@ -137,7 +136,8 @@ public class RobustScaler implements Serializable {
 
         for (int i = 0; i < input.length; i++) {
             for (int j = 0; j < input[0].length; j++) {
-                input[i][j] = (input[i][j] * iqr[i]) + median[i];
+                int index = i > 3 ? i-PRICE_VALUES_COUNT_TO_NORMALIZE_WITH_ONE : 0;
+                input[i][j] = (input[i][j] * iqr[index]) + median[index];
             }
         }
     }
@@ -168,7 +168,8 @@ public class RobustScaler implements Serializable {
 
         for (int i = 0; i < mask.length; i++) {
             for (int j = 0; j < countOutputs; j++) {
-                input[i][j] = (input[i][j] * iqr[mask[i]]) + median[mask[i]];
+                int index = mask[i] > 3 ? mask[i]-PRICE_VALUES_COUNT_TO_NORMALIZE_WITH_ONE : 0;
+                input[i][j] = (input[i][j] * iqr[index]) + median[index];
             }
         }
     }
@@ -192,7 +193,7 @@ public class RobustScaler implements Serializable {
         if (volatileData.size() != volatileLength)
             throw new IllegalStateException("Volatile data map size are not equals to volatile params count");
 
-        if (!hasChanged) return volatileMedian;
+        if (!hasVolatileChangedFlag && volatileMedian!=null) return volatileMedian;
         double[] median = new double[volatileLength];
         int index = 0;
         for (int i = notVolatileLength; i < sequenceLength; i++) {
@@ -212,7 +213,7 @@ public class RobustScaler implements Serializable {
         if (volatileData.size() != volatileLength)
             throw new IllegalStateException("Volatile data map size are not equals to volatile params count");
 
-        if (!hasChanged) return volatileIQR;
+        if (!hasVolatileChangedFlag && volatileIQR!=null) return volatileIQR;
         double[] iqr = new double[volatileLength];
         int index = 0;
         for (int i = notVolatileLength; i < sequenceLength; i++) {
@@ -227,7 +228,7 @@ public class RobustScaler implements Serializable {
         return iqr;
     }
 
-    private double[] getColumn(double[][] input, int columnIndex, int lastIndex) {
+    public static double[] getColumn(double[][] input, int columnIndex, int lastIndex) {
         if (lastIndex > input.length) throw new IllegalArgumentException("Last index must be less than array length");
         double[] column = new double[lastIndex];
         for (int i = 0; i < lastIndex; i++) {

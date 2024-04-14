@@ -60,6 +60,6 @@ public class BinanceDataMultipleInstance {
 
     public static void main(String[] args) {
         System.out.println(
-                Arrays.toString(BinanceDataMultipleInstance.getLatestInstances(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES, 10, new FundamentalDataUtil())));
+                Arrays.toString(BinanceDataMultipleInstance.getLatestInstances(Coin.BTCUSDT, TimeFrame.ONE_HOUR, 10, new FundamentalDataUtil())));
     }
 }

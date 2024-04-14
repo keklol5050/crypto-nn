@@ -156,4 +156,11 @@ public class BinanceDataUtil {
         parameters.put("symbol", coin.getName());
         return Double.parseDouble(new UMFuturesClientImpl().market().markPrice(parameters));
     }
+
+    public static void main(String[] args) {
+        BuySellRatioHistoryObject bsr = BinanceDataUtil.getBuySellRatio(Coin.BTCUSDT, TimeFrame.ONE_HOUR);
+        for (Map.Entry<Date, Double> entry : bsr.getMap().entrySet()) {
+            System.out.println(entry);
+        }
+    }
 }

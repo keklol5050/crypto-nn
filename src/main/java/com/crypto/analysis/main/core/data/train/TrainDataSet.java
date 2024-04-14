@@ -1,7 +1,7 @@
 package com.crypto.analysis.main.core.data.train;
 
 import com.crypto.analysis.main.core.data.refactor.DataTransformer;
-import com.crypto.analysis.main.core.data_utils.normalizers.robust.RobustScaler;
+import com.crypto.analysis.main.core.data_utils.normalizers.RobustScaler;
 import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.core.fundamental.stock.FundamentalDataUtil;
 import com.crypto.analysis.main.core.ndata.CSVCoinDataSet;
@@ -43,7 +43,7 @@ public class TrainDataSet {
 
         LinkedList<DataObject[]> data = new LinkedList<>(trainData.getData());
 
-        return getTrainDataSet(dl, trainDataSet, data);
+        return getTrainDataSet(dl, trainDataSet, data, trainData.getDelimiter());
     }
 
     public static TrainDataSet prepareTrainSet(Coin coin, DataLength dl, TimeFrame interval, FundamentalDataUtil fdUtil) {
@@ -54,12 +54,12 @@ public class TrainDataSet {
 
         LinkedList<DataObject[]> data = new LinkedList<>(trainDataBinance.getData());
 
-        return getTrainDataSet(dl, trainDataSet, data);
+        return getTrainDataSet(dl, trainDataSet, data, trainDataBinance.getDelimiter());
     }
 
     @NotNull
-    public static TrainDataSet getTrainDataSet(DataLength dl, TrainDataSet trainDataSet, LinkedList<DataObject[]> data) {
-        DataTransformer transformer = new DataTransformer(data, dl);
+    public static TrainDataSet getTrainDataSet(DataLength dl, TrainDataSet trainDataSet, LinkedList<DataObject[]> data, int delimiter) {
+        DataTransformer transformer = new DataTransformer(data, dl, delimiter);
         transformer.transform();
 
         LinkedList<TrainSetElement> dataSet = transformer.getTrainData();
