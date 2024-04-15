@@ -116,32 +116,6 @@ public class BinanceDataUtil {
         return new LongShortRatioHistoryObject(resultMap);
     }
 
-    public static BuySellRatioHistoryObject getBuySellRatio(Coin coin, TimeFrame period) {
-        TreeMap<Date, Double> resultMap = new TreeMap<>();
-
-        LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
-        parameters.put("symbol", coin.getName());
-        parameters.put("period", period.getTimeFrame());
-        parameters.put("limit", 500);
-        String buySellVolume = client.market().takerBuySellVol(parameters);
-
-        JsonNode jsonNode = null;
-        try {
-            jsonNode = objectMapper.readTree(buySellVolume);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-
-        for (JsonNode node : jsonNode) {
-            long timestamp = node.get("timestamp").asLong();
-            double buySellRatio = node.get("buySellRatio").asDouble();
-            Date date = new Date(timestamp);
-            resultMap.put(date, buySellRatio);
-        }
-
-        return new BuySellRatioHistoryObject(resultMap);
-    }
-
     public static BTCDOMObject getBTCDomination(TimeFrame interval) {
         LinkedList<CandleObject> candlesDOM = getCandles(Coin.BTCDOMUSDT, interval, 1500);
         TreeMap<Date, Double> resultMap = new TreeMap<Date, Double>();
@@ -155,12 +129,5 @@ public class BinanceDataUtil {
         LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
         parameters.put("symbol", coin.getName());
         return Double.parseDouble(new UMFuturesClientImpl().market().markPrice(parameters));
-    }
-
-    public static void main(String[] args) {
-        BuySellRatioHistoryObject bsr = BinanceDataUtil.getBuySellRatio(Coin.BTCUSDT, TimeFrame.ONE_HOUR);
-        for (Map.Entry<Date, Double> entry : bsr.getMap().entrySet()) {
-            System.out.println(entry);
-        }
     }
 }

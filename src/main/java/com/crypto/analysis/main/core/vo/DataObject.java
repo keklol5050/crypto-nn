@@ -19,7 +19,6 @@ public class DataObject {
     private double currentFundingRate;
     private double currentOpenInterest;
     private double longShortRatio;
-    private double buySellRatio;
     private double BTCDomination;
     private double sentimentMean;
     private double sentimentSum;
@@ -39,7 +38,6 @@ public class DataObject {
                 ",\n currentFundingRate=" + currentFundingRate +
                 ",\n currentOpenInterest=" + currentOpenInterest +
                 ",\n longShortRatio=" + longShortRatio +
-                ",\n buySellRatio=" + buySellRatio +
                 ",\n BTCDomination=" + BTCDomination +
                 ",\n sentimentMean=" + sentimentMean +
                 ",\n sentimentSum=" + sentimentSum +
@@ -58,12 +56,12 @@ public class DataObject {
         double[] movingAverages = currentIndicators.getMovingAverageValues(); // 24
 
         double[] indicators = currentIndicators.getIndicatorValues(); // 17
-        double[] coinFundValues = {currentFundingRate, currentOpenInterest, longShortRatio, buySellRatio}; // 4
+        double[] coinFundValues = {currentFundingRate, currentOpenInterest, longShortRatio}; // 3
         double[] volatileFundData = fundamentalData.getValuesArr(); // 6
         double[] volatileValues = {BTCDomination, sentimentMean, sentimentSum}; // 3
 
         double[] result = new double[candleValues.length + movingAverages.length + + cryptoFundData.length + indicators
-                .length + coinFundValues.length + volatileFundData.length + volatileValues.length]; // 5 + 8 + 24  + 17 + 4 + 6 + 3 = 67
+                .length + coinFundValues.length + volatileFundData.length + volatileValues.length]; // 5 + 8 + 24  + 17 + 3 + 6 + 3 = 66
 
         System.arraycopy(candleValues, 0, result,
                 0, candleValues.length);

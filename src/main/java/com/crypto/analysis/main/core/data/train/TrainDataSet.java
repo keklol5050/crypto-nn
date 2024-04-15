@@ -65,7 +65,7 @@ public class TrainDataSet {
         LinkedList<TrainSetElement> dataSet = transformer.getTrainData();
 
         int count = dataSet.size();
-        int max = data.size() > 5000 ? count-350 : count-100;
+        int max = data.size() > 5000 ? count-550 : count-100;
 
         LinkedList<TrainSetElement> testSet = new LinkedList<TrainSetElement>();
         for (int i = max; i < count; i++) {

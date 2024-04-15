@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class CompareCSV {
     public static void main(String[] args) throws IOException {
-        BufferedReader br1 = new BufferedReader(new FileReader("C:\\static\\datasets\\btc\\bitcoin_1h — копия.csv"));
+        BufferedReader br1 = new BufferedReader(new FileReader("C:\\static\\datasets\\btc\\bitcoin_1h2.csv"));
         BufferedReader br2 = new BufferedReader(new FileReader("C:\\static\\datasets\\btc\\bitcoin_1h.csv"));
 
         String line1 = br1.readLine();

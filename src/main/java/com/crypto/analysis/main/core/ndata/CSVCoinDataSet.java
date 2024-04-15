@@ -74,24 +74,21 @@ public class CSVCoinDataSet {
                 double fundingRate = Double.parseDouble(tokens[7]);
                 double openInterest = Double.parseDouble(tokens[8]);
                 double longShortRatio = Double.parseDouble(tokens[9]);
-                double sellBuyRatio = Double.parseDouble(tokens[10]);
-                double btcDOM = Double.parseDouble(tokens[11]);
-
+                double btcDOM = Double.parseDouble(tokens[10]);
 
                 DataObject object = new DataObject(coin, interval);
                 object.setCandle(candle);
                 object.setCurrentFundingRate(fundingRate);
                 object.setCurrentOpenInterest(openInterest);
                 object.setLongShortRatio(longShortRatio);
-                object.setBuySellRatio(sellBuyRatio);
                 object.setBTCDomination(btcDOM);
 
-                double spx = Double.parseDouble(tokens[12]);
-                double dxy = Double.parseDouble(tokens[13]);
-                double dji = Double.parseDouble(tokens[14]);
-                double vix = Double.parseDouble(tokens[15]);
-                double ndx = Double.parseDouble(tokens[16]);
-                double gold = Double.parseDouble(tokens[17]);
+                double spx = Double.parseDouble(tokens[11]);
+                double dxy = Double.parseDouble(tokens[12]);
+                double dji = Double.parseDouble(tokens[13]);
+                double vix = Double.parseDouble(tokens[14]);
+                double ndx = Double.parseDouble(tokens[15]);
+                double gold = Double.parseDouble(tokens[16]);
 
                 FundamentalStockObject fundamentalStock = new FundamentalStockObject();
                 fundamentalStock.setSPX(spx);
@@ -102,14 +99,14 @@ public class CSVCoinDataSet {
                 fundamentalStock.setGOLD(gold);
                 object.setFundamentalData(fundamentalStock);
 
-                double transactions_count = Double.parseDouble(tokens[18]);
-                double fee_value = Double.parseDouble(tokens[19]);
-                double fee_average = Double.parseDouble(tokens[20]);
-                double input_count = Double.parseDouble(tokens[21]);
-                double input_value = Double.parseDouble(tokens[22]);
-                double mined_value = Double.parseDouble(tokens[23]);
-                double output_count = Double.parseDouble(tokens[24]);
-                double output_value = Double.parseDouble(tokens[25]);
+                double transactions_count = Double.parseDouble(tokens[17]);
+                double fee_value = Double.parseDouble(tokens[18]);
+                double fee_average = Double.parseDouble(tokens[19]);
+                double input_count = Double.parseDouble(tokens[20]);
+                double input_value = Double.parseDouble(tokens[21]);
+                double mined_value = Double.parseDouble(tokens[22]);
+                double output_count = Double.parseDouble(tokens[23]);
+                double output_value = Double.parseDouble(tokens[24]);
 
                 FundamentalCryptoDataObject fCrypto = new FundamentalCryptoDataObject(coin, new double[]{transactions_count, fee_value, fee_average,
                         input_count, input_value, mined_value, output_count, output_value});

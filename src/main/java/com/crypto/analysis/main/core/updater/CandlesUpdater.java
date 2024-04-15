@@ -50,6 +50,7 @@ public class CandlesUpdater {
 
             LinkedList<CandleObject> candles = BinanceDataUtil.getCandles(coin, tf,  1500);
             candles.removeLast();
+            candles.removeLast();
 
             if (!dates.contains(candles.getFirst().getOpenTime())) throw new IllegalStateException("Data list is not full");
 

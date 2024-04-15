@@ -23,7 +23,6 @@ public class BinanceDataMultipleInstance {
 
         LongShortRatioHistoryObject longShortRatioHistoryObject = BinanceDataUtil.getLongShortRatio(coin, interval);
         OpenInterestHistoryObject openInterest = BinanceDataUtil.getOpenInterest(coin, interval);
-        BuySellRatioHistoryObject buySellRatio = BinanceDataUtil.getBuySellRatio(coin, interval);
 
         BTCDOMObject BTCDom = BinanceDataUtil.getBTCDomination(interval);
         SentimentHistoryObject sentiment = SentimentUtil.getData();
@@ -41,7 +40,6 @@ public class BinanceDataMultipleInstance {
             obj.setCurrentFundingRate(funding.getValueForNearestDate(candle.getOpenTime()));
             obj.setCurrentOpenInterest(openInterest.getValueForNearestDate(candle.getOpenTime()));
             obj.setLongShortRatio(longShortRatioHistoryObject.getValueForNearestDate(candle.getOpenTime()));
-            obj.setBuySellRatio(buySellRatio.getValueForNearestDate(candle.getOpenTime()));
 
             obj.setBTCDomination(BTCDom.getValueForNearestDate(candle.getOpenTime()));
             obj.setFundamentalData(fundUtil.getFundamentalData(candle));

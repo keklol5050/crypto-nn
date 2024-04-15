@@ -39,7 +39,7 @@ public class Predictor {
         long start = System.currentTimeMillis();
 
         DataLength length = DataLength.L60_6;
-        TimeFrame tf = TimeFrame.ONE_HOUR;
+        TimeFrame tf = TimeFrame.FIFTEEN_MINUTES;
         CSVCoinDataSet setD = new CSVCoinDataSet(Coin.BTCUSDT, tf);
         setD.load();
         TrainDataSet trainSet = TrainDataSet.prepareTrainSet(Coin.BTCUSDT, length, setD);
@@ -69,7 +69,7 @@ public class Predictor {
             sets.add(set);
         }
 
-        DataSetIterator iterator = new ListDataSetIterator<>(sets, 512);
+        DataSetIterator iterator = new ListDataSetIterator<>(sets, 128);
         RobustScaler normalizer = trainSet.getNormalizer();
         MultiLayerConfiguration config = new NeuralNetConfiguration.Builder()
                 .seed(123)
@@ -87,17 +87,16 @@ public class Predictor {
                 .layer(1, new LSTM.Builder().nIn(1200).nOut(600)
                         .dropOut(0.85).build())
                 .layer(2, new LSTM.Builder().nIn(600).nOut(400)
-                        .dropOut(0.85).build())
+                        .dropOut(0.9).build())
                 .layer(3, new LSTM.Builder().nIn(400).nOut(400).build())
-                .layer(4, new LSTM.Builder().nIn(400).nOut(200).build())
-                .layer(5, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
+                .layer(4, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
                         .activation(Activation.IDENTITY)
-                        .nIn(200).nOut(numOutputs)
+                        .nIn(400).nOut(numOutputs)
                         .build())
                 .backpropType(BackpropType.Standard)
                 .build();
 
-        MultiLayerNetwork model = new MultiLayerNetwork(config);
+        MultiLayerNetwork model = ModelLoader.loadNetwork("D:\\model13.zip");
         model.init();
 
         System.out.println(model.summary());
@@ -115,15 +114,15 @@ public class Predictor {
 
         System.gc();
         for (int i = 0; i < numEpochs; i++) {
-            if (i % 20 == 0 && i > 0) {
-                ModelLoader.saveModel(model, "D:\\model12.zip");
+            if (i % 3 == 0 && i > 0) {
+                ModelLoader.saveModel(model, "D:\\model13.zip");
                 System.out.println("Saved at epoch: " + model.getEpochCount());
             }
             model.fit(iterator);
             System.gc();
         }
 
-        ModelLoader.saveModel(model, "D:\\model12.zip");
+        ModelLoader.saveModel(model, "D:\\model13.zip");
 
 
         LinkedList<double[][]> testSet = trainSet.getTestData();

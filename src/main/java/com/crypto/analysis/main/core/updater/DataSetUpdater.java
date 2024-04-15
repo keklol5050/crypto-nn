@@ -103,18 +103,15 @@ public class DataSetUpdater {
 
         TreeMap<Date, Double> longShortMap = new TreeMap<Date, Double>();
         TreeMap<Date, Double> oiMap = new TreeMap<Date, Double>();
-        TreeMap<Date, Double> bsrMap = new TreeMap<Date, Double>();
 
         for (String str : metrics) {
             String[] tokens = (str.split(","));
             Date date = sdfFullISO.parse(tokens[0]);
             double longShort = Double.parseDouble(tokens[6]);
             double oi = Double.parseDouble(tokens[2]);
-            double bsr = Double.parseDouble(tokens[7]);
-            if (longShort == 0 || oi == 0 || bsr == 0) throw new RuntimeException();
+            if (longShort == 0 || oi == 0) throw new RuntimeException();
             longShortMap.put(date, longShort);
             oiMap.put(date, oi);
-            bsrMap.put(date, bsr);
         }
 
         TreeMap<Date, Double> domMap = new TreeMap<Date, Double>();
@@ -191,14 +188,13 @@ public class DataSetUpdater {
         }
 
         try (PrintWriter writer = new PrintWriter(String.valueOf(pathToDataSet))) {
-            writer.println("open_time,open,high,low,close,volume,close_time,funding,open_interest,long_short_ratio,taker_buy_sell_ratio,btc_dom,spx,dxy,dji,vix,ndx,gold,transactions_count,fee_value,fee_average,input_count,input_value,mined_value,output_count,output_value");
+            writer.println("open_time,open,high,low,close,volume,close_time,funding,open_interest,long_short_ratio,btc_dom,spx,dxy,dji,vix,ndx,gold,transactions_count,fee_value,fee_average,input_count,input_value,mined_value,output_count,output_value");
 
             for (CandleObject candle : candles) {
                 Date current = candle.getOpenTime();
                 double fund = funding.getValueForNearestDate(current);
                 double oi = oiMap.get(current);
                 double ls = longShortMap.get(current);
-                double bsr = bsrMap.get(current);
                 double btcDOM = domMap.get(current);
                 double spxV = spxMap.floorEntry(current).getValue();
                 double dxyV = dxyMap.floorEntry(current).getValue();
@@ -207,8 +203,8 @@ public class DataSetUpdater {
                 double ndxV = ndxMap.floorEntry(current).getValue();
                 double xauV = xauMap.floorEntry(current).getValue();
                 double[] trans = fundCrMap.floorEntry(current).getValue();
-                String result = String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s", sdfFullISO.format(current), candle.getOpen(), candle.getHigh(),
-                        candle.getLow(), candle.getClose(), candle.getVolume(), sdfFullISO.format(candle.getCloseTime()), fund, oi, ls, bsr, btcDOM,
+                String result = String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s", sdfFullISO.format(current), candle.getOpen(), candle.getHigh(),
+                        candle.getLow(), candle.getClose(), candle.getVolume(), sdfFullISO.format(candle.getCloseTime()), fund, oi, ls, btcDOM,
                         spxV, dxyV, djiV, vixV, ndxV, xauV, trans[0], trans[1], trans[2], trans[3], trans[4], trans[5], trans[6], trans[7]);
                 writer.println(result);
                 writer.flush();

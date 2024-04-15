@@ -139,8 +139,6 @@ public class CoinUpdater {
 
             OpenInterestHistoryObject openInterestHistoryObject = BinanceDataUtil.getOpenInterest(coin, TimeFrame.FIFTEEN_MINUTES);
             LongShortRatioHistoryObject longShortObject = BinanceDataUtil.getLongShortRatio(coin, TimeFrame.FIFTEEN_MINUTES);
-            BuySellRatioHistoryObject buySellRatioHistoryObject = BinanceDataUtil.getBuySellRatio(coin, TimeFrame.FIFTEEN_MINUTES);
-
             TreeMap<Date, double[]> dataMap = new TreeMap<>();
 
             StringBuilder builderKey = new StringBuilder(String.valueOf(openInterestHistoryObject.getMap().firstKey().getTime()));
@@ -161,28 +159,17 @@ public class CoinUpdater {
             if (!dates.contains(key))
                 throw new IllegalStateException("Data list is not full");
 
-            builderKey = new StringBuilder(String.valueOf(buySellRatioHistoryObject.getMap().firstKey().getTime()));
-            builderKey.setCharAt(builderKey.length() -1, '0');
-            builderKey.setCharAt(builderKey.length() -2, '0');
-            builderKey.setCharAt(builderKey.length() -3, '0');
-            builderKey.setCharAt(builderKey.length() -4, '0');
-            key = new Date(Long.parseLong(builderKey.toString()));
-            if (!dates.contains(key))
-                throw new IllegalStateException("Data list is not full");
 
             for (Map.Entry<Date, Double> entry : openInterestHistoryObject.getMap().entrySet()) {
-                dataMap.put(entry.getKey(), new double[]{entry.getValue(), 0, 0});
+                dataMap.put(entry.getKey(), new double[]{entry.getValue(), 0});
             }
             for (Map.Entry<Date, Double> entry : longShortObject.getMap().entrySet()) {
                 if (!dataMap.containsKey(entry.getKey())) continue;
                 dataMap.get(entry.getKey())[1] = entry.getValue();
             }
-            for (Map.Entry<Date, Double> entry : buySellRatioHistoryObject.getMap().entrySet()) {
-                if (!dataMap.containsKey(entry.getKey())) continue;
-                dataMap.get(entry.getKey())[2] = entry.getValue();
-            }
 
-            System.out.println(dataMap.pollLastEntry());
+            dataMap.pollLastEntry();
+
             for (Map.Entry<Date, double[]> entry : dataMap.entrySet()) {
                 StringBuilder builder = new StringBuilder(String.valueOf(entry.getKey().getTime()));
                 builder.setCharAt(builder.length() -1, '0');
@@ -192,9 +179,9 @@ public class CoinUpdater {
                 Date date = new Date(Long.parseLong(builder.toString()));
 
                 if (date.after(dates.getLast()) && !dates.contains(date)){
-                    writer.print(String.format("\n%s,%s,%s,0,0,0,%s,%s",
+                    writer.print(String.format("\n%s,%s,%s,0,0,0,%s,0",
                             sdfFullISO.format(date), coin.getName(),
-                            entry.getValue()[0], entry.getValue()[1], entry.getValue()[2]));
+                            entry.getValue()[0], entry.getValue()[1]));
                 }
             }
 
