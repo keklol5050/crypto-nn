@@ -95,20 +95,23 @@ public class Predictor {
                 .layer(1, new Bidirectional(Bidirectional.Mode.CONCAT,
                         new LSTM.Builder()
                                 .nOut(512)
+                                .dropOut(0.8)
                                 .build()))
                 .layer(2, new Bidirectional(Bidirectional.Mode.CONCAT,
                         new LSTM.Builder()
                                 .nOut(256)
+                                .dropOut(0.8)
                                 .build()))
                 .layer(3, new Bidirectional(Bidirectional.Mode.CONCAT,
                         new LSTM.Builder()
                                 .nOut(128)
+                                .dropOut(0.9)
                                 .build()))
                 .layer(4, new Bidirectional(Bidirectional.Mode.CONCAT,
                         new LSTM.Builder()
                                 .nOut(64)
                                 .build()))
-                .layer(5, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
+                .layer(5, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MEAN_ABSOLUTE_ERROR)
                         .activation(Activation.IDENTITY)
                         .nOut(numOutputs)
                         .build())
