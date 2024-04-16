@@ -98,7 +98,7 @@ public class DataRefactor {
 
         double[][] diff = differentiator.differentiate(in, NUMBER_OF_DIFFERENTIATIONS, save);
 
-        for (int i = COUNT_VALUES_FOR_DIFFERENTIATION; i < COUNT_VALUES_FOR_DIFFERENTIATION+MOVING_AVERAGES_COUNT_FOR_DIFF_WITH_PRICE_VALUES; i++) {
+        for (int i = COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA; i < COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA+MOVING_AVERAGES_COUNT_FOR_DIFF_WITH_PRICE_VALUES; i++) {
             for (int j = 0; j < diff.length; j++) {
                 diff[j][i] = orient[j+NUMBER_OF_DIFFERENTIATIONS] - diff[j][i];
             }

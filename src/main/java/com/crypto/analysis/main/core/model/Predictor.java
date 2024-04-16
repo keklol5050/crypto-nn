@@ -11,8 +11,10 @@ import org.deeplearning4j.core.storage.StatsStorage;
 import org.deeplearning4j.datasets.iterator.utilty.ListDataSetIterator;
 import org.deeplearning4j.nn.api.OptimizationAlgorithm;
 import org.deeplearning4j.nn.conf.*;
+import org.deeplearning4j.nn.conf.inputs.InputType;
 import org.deeplearning4j.nn.conf.layers.LSTM;
 import org.deeplearning4j.nn.conf.layers.RnnOutputLayer;
+import org.deeplearning4j.nn.conf.layers.recurrent.Bidirectional;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
@@ -26,6 +28,7 @@ import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.learning.config.Adam;
+import org.nd4j.linalg.learning.config.Nadam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
 import java.io.File;
@@ -39,7 +42,7 @@ public class Predictor {
         long start = System.currentTimeMillis();
 
         DataLength length = DataLength.L60_6;
-        TimeFrame tf = TimeFrame.FIFTEEN_MINUTES;
+        TimeFrame tf = TimeFrame.ONE_HOUR;
         CSVCoinDataSet setD = new CSVCoinDataSet(Coin.BTCUSDT, tf);
         setD.load();
         TrainDataSet trainSet = TrainDataSet.prepareTrainSet(Coin.BTCUSDT, length, setD);
@@ -79,24 +82,40 @@ public class Predictor {
                 .gradientNormalization(GradientNormalization.ClipElementWiseAbsoluteValue)
                 .weightInit(WeightInit.LECUN_NORMAL)
                 .activation(Activation.TANH)
-                .l2(5e-5)
-                .updater(new Adam())
+                .l1(0.000128)
+                .l2(0.000256)
+                .updater(new Adam(0.00384))
                 .list()
-                .layer(0, new LSTM.Builder().nIn(numInputs).nOut(1200)
-                        .dropOut(0.85).build())
-                .layer(1, new LSTM.Builder().nIn(1200).nOut(600)
-                        .dropOut(0.85).build())
-                .layer(2, new LSTM.Builder().nIn(600).nOut(400)
-                        .dropOut(0.9).build())
-                .layer(3, new LSTM.Builder().nIn(400).nOut(400).build())
-                .layer(4, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
+                .setInputType(InputType.recurrent(numInputs, sequenceLength, RNNFormat.NCW))
+                .layer(0, new Bidirectional(Bidirectional.Mode.CONCAT,
+                        new LSTM.Builder()
+                                .nIn(numInputs)
+                                .nOut(256)
+                                .build()))
+                .layer(1, new Bidirectional(Bidirectional.Mode.CONCAT,
+                        new LSTM.Builder()
+                                .nOut(512)
+                                .build()))
+                .layer(2, new Bidirectional(Bidirectional.Mode.CONCAT,
+                        new LSTM.Builder()
+                                .nOut(256)
+                                .build()))
+                .layer(3, new Bidirectional(Bidirectional.Mode.CONCAT,
+                        new LSTM.Builder()
+                                .nOut(128)
+                                .build()))
+                .layer(4, new Bidirectional(Bidirectional.Mode.CONCAT,
+                        new LSTM.Builder()
+                                .nOut(64)
+                                .build()))
+                .layer(5, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
                         .activation(Activation.IDENTITY)
-                        .nIn(400).nOut(numOutputs)
+                        .nOut(numOutputs)
                         .build())
                 .backpropType(BackpropType.Standard)
                 .build();
 
-        MultiLayerNetwork model = ModelLoader.loadNetwork("D:\\model13.zip");
+        MultiLayerNetwork model = new MultiLayerNetwork(config);
         model.init();
 
         System.out.println(model.summary());
@@ -114,15 +133,15 @@ public class Predictor {
 
         System.gc();
         for (int i = 0; i < numEpochs; i++) {
-            if (i % 3 == 0 && i > 0) {
-                ModelLoader.saveModel(model, "D:\\model13.zip");
+            if (i % 5 == 0 && i > 0) {
+                ModelLoader.saveModel(model, "D:\\model17.zip");
                 System.out.println("Saved at epoch: " + model.getEpochCount());
             }
             model.fit(iterator);
             System.gc();
         }
 
-        ModelLoader.saveModel(model, "D:\\model13.zip");
+        ModelLoader.saveModel(model, "D:\\model17.zip");
 
 
         LinkedList<double[][]> testSet = trainSet.getTestData();

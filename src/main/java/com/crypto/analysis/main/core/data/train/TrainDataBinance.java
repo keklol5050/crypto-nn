@@ -33,7 +33,7 @@ public class TrainDataBinance {
         this.countInput = dl.getCountInput();
         this.countOutput = dl.getCountOutput();
         this.fdUtil = fdUtil;
-        this.delimiter = 1;
+        this.delimiter = StaticData.getDelimiterForBinance(interval);
         init();
     }
 

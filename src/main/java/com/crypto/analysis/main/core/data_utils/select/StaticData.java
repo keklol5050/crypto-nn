@@ -31,7 +31,8 @@ public class StaticData {
     public static final int NOT_VOLATILE_VALUES = MODEL_NUM_INPUTS - VOLATILE_VALUES_COUNT_FROM_LAST;
 
     public static final int NUMBER_OF_DIFFERENTIATIONS = 1;
-    public static final int COUNT_VALUES_FOR_DIFFERENTIATION = 13;
+    public static final int COUNT_VALUES_FOR_DIFFERENTIATION = 5;
+    public static final int COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA = 13;
 
     public static final String ALL_SENTIMENT_DATA = "https://api.senticrypt.com/v2/all.json"; // SentiCrypt, class SentimentUtil
     public static final String bitQueryApiKey = "BQYM7GOqY0AGd3Sss16XsDtijqogxOM6"; // BitQuery crypto fundamental api key, class BitQueryUtil
@@ -79,10 +80,9 @@ public class StaticData {
 
     public static int getDelimiterForSet(TimeFrame tf) {
         return switch (tf) {
-            case FIFTEEN_MINUTES -> 5;
-            case ONE_HOUR -> 4;
+            case FIFTEEN_MINUTES -> 6;
+            case ONE_HOUR -> 5;
             case FOUR_HOUR -> 3;
-            default -> throw new IllegalStateException("Unexpected value: " + tf);
         };
     }
 
