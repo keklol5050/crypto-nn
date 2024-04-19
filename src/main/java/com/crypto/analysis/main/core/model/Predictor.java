@@ -72,7 +72,7 @@ public class Predictor {
             sets.add(set);
         }
 
-        DataSetIterator iterator = new ListDataSetIterator<>(sets, 128);
+        DataSetIterator iterator = new ListDataSetIterator<>(sets, 64);
         RobustScaler normalizer = trainSet.getNormalizer();
         MultiLayerConfiguration config = new NeuralNetConfiguration.Builder()
                 .seed(123)
@@ -83,35 +83,20 @@ public class Predictor {
                 .weightInit(WeightInit.LECUN_NORMAL)
                 .activation(Activation.TANH)
                 .l1(0.000128)
-                .l2(0.000256)
-                .updater(new Adam(0.00384))
+                .l2(0.000512)
+                .updater(new Adam(0.00256))
                 .list()
                 .setInputType(InputType.recurrent(numInputs, sequenceLength, RNNFormat.NCW))
                 .layer(0, new Bidirectional(Bidirectional.Mode.CONCAT,
                         new LSTM.Builder()
                                 .nIn(numInputs)
-                                .nOut(256)
+                                .nOut(1600)
                                 .build()))
                 .layer(1, new Bidirectional(Bidirectional.Mode.CONCAT,
                         new LSTM.Builder()
-                                .nOut(512)
-                                .dropOut(0.8)
+                                .nOut(400)
                                 .build()))
-                .layer(2, new Bidirectional(Bidirectional.Mode.CONCAT,
-                        new LSTM.Builder()
-                                .nOut(256)
-                                .dropOut(0.8)
-                                .build()))
-                .layer(3, new Bidirectional(Bidirectional.Mode.CONCAT,
-                        new LSTM.Builder()
-                                .nOut(128)
-                                .dropOut(0.9)
-                                .build()))
-                .layer(4, new Bidirectional(Bidirectional.Mode.CONCAT,
-                        new LSTM.Builder()
-                                .nOut(64)
-                                .build()))
-                .layer(5, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MEAN_ABSOLUTE_ERROR)
+                .layer(2, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
                         .activation(Activation.IDENTITY)
                         .nOut(numOutputs)
                         .build())
@@ -136,15 +121,15 @@ public class Predictor {
 
         System.gc();
         for (int i = 0; i < numEpochs; i++) {
-            if (i % 5 == 0 && i > 0) {
-                ModelLoader.saveModel(model, "D:\\model17.zip");
+            if (i % 10 == 0 && i > 0) {
+                ModelLoader.saveModel(model, "D:\\model18.zip");
                 System.out.println("Saved at epoch: " + model.getEpochCount());
             }
             model.fit(iterator);
             System.gc();
         }
 
-        ModelLoader.saveModel(model, "D:\\model17.zip");
+        ModelLoader.saveModel(model, "D:\\model18.zip");
 
 
         LinkedList<double[][]> testSet = trainSet.getTestData();

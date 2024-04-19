@@ -149,35 +149,13 @@ public class DataRefactor {
         System.out.println(normalizedData.length);
         System.out.println(normalizedOutput.length);
 
-        double[] open = new double[normalizedData[0].length];
-        System.arraycopy(normalizedData[0], 0, open, 0, normalizedData[0].length);
-        XYSeries series1 = new XYSeries("open");
-        for (int i = 0; i < open.length; i++) {
-            series1.add(i, open[i]);
+        for (double[] d : normalizedData) {
+            XYSeries series1 = new XYSeries("series");
+            for (int i = 0; i < d.length; i++) {
+                series1.add(i, d[i]);
+            }
+            DataVisualisation.visualize("OHLC data", "count candles", "normalized diff price", series1);
         }
-
-        double[] high = new double[normalizedData[1].length];
-        System.arraycopy(normalizedData[1], 0, high, 0, normalizedData[1].length);
-        XYSeries series2 = new XYSeries("high");
-        for (int i = 0; i < high.length; i++) {
-            series2.add(i, high[i]);
-        }
-
-        double[] low = new double[normalizedData[2].length];
-        System.arraycopy(normalizedData[2], 0, low, 0, normalizedData[2].length);
-        XYSeries series3 = new XYSeries("low");
-        for (int i = 0; i < low.length; i++) {
-            series3.add(i, low[i]);
-        }
-
-        double[] close = new double[normalizedData[13].length];
-        System.arraycopy(normalizedData[13], 0, close, 0, normalizedData[13].length);
-        XYSeries series4 = new XYSeries("close");
-        for (int i = 0; i < close.length; i++) {
-            series4.add(i, close[i]);
-        }
-
-        DataVisualisation.visualize("OHLC data", "count candles", "normalized diff price", series4);
         normalizer.getNormalizer().revertFeatures(normalizedData);
         normalizer.getNormalizer().revertLabels(normalizedData, normalizedOutput);
 
