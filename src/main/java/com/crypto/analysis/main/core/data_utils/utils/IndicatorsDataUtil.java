@@ -5,12 +5,12 @@ import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
 import com.crypto.analysis.main.core.data_utils.utils.binance.BinanceDataUtil;
 import com.crypto.analysis.main.core.vo.CandleObject;
 import com.crypto.analysis.main.core.vo.IndicatorsTransferObject;
-import org.ta4j.core.Bar;
-import org.ta4j.core.BaseBar;
-import org.ta4j.core.BaseTimeSeries;
-import org.ta4j.core.TimeSeries;
+import org.ta4j.core.BarSeries;
+import org.ta4j.core.BaseBarSeries;
 import org.ta4j.core.indicators.*;
 import org.ta4j.core.indicators.adx.ADXIndicator;
+import org.ta4j.core.indicators.aroon.AroonDownIndicator;
+import org.ta4j.core.indicators.aroon.AroonUpIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
 import org.ta4j.core.indicators.volume.VWAPIndicator;
 
@@ -86,18 +86,17 @@ public class IndicatorsDataUtil {
         init();
     }
 
-    public static TimeSeries getTimeSeries(LinkedList<CandleObject> candleObjects) {
-        TimeSeries series = new BaseTimeSeries();
+    public static BarSeries getTimeSeries(LinkedList<CandleObject> candleObjects) {
+        BarSeries series = new BaseBarSeries();
         for (CandleObject candle : candleObjects) {
             ZonedDateTime timestamp = candle.getCloseTime().toInstant().atZone(ZoneId.systemDefault());
-            Bar bar = new BaseBar(timestamp, candle.getOpen(), candle.getHigh(), candle.getLow(), candle.getClose(), candle.getVolume());
-            series.addBar(bar);
+            series.addBar(timestamp, candle.getOpen(), candle.getHigh(), candle.getLow(), candle.getClose(), candle.getVolume());
         }
         return series;
     }
 
     private void init() {
-        TimeSeries series = getTimeSeries(candles);
+        BarSeries series = getTimeSeries(candles);
         ClosePriceIndicator ind = new ClosePriceIndicator(series);
 
         rsi = new RSIIndicator(ind, 14);

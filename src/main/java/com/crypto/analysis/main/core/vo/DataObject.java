@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Setter
 @Getter
@@ -80,5 +81,17 @@ public class DataObject {
 
 
         return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DataObject that)) return false;
+        return Double.compare(getCurrentFundingRate(), that.getCurrentFundingRate()) == 0 && Double.compare(getCurrentOpenInterest(), that.getCurrentOpenInterest()) == 0 && Double.compare(getLongShortRatio(), that.getLongShortRatio()) == 0 && Double.compare(getBTCDomination(), that.getBTCDomination()) == 0 && Double.compare(getSentimentMean(), that.getSentimentMean()) == 0 && Double.compare(getSentimentSum(), that.getSentimentSum()) == 0 && getCoin() == that.getCoin() && getInterval() == that.getInterval() && Objects.equals(getCandle(), that.getCandle()) && Objects.equals(getCurrentIndicators(), that.getCurrentIndicators()) && Objects.equals(getFundamentalData(), that.getFundamentalData()) && Objects.equals(getCryptoFundamental(), that.getCryptoFundamental()) && Objects.equals(getCreateTime(), that.getCreateTime());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCoin(), getInterval(), getCandle(), getCurrentIndicators(), getFundamentalData(), getCryptoFundamental(), getCurrentFundingRate(), getCurrentOpenInterest(), getLongShortRatio(), getBTCDomination(), getSentimentMean(), getSentimentSum(), getCreateTime());
     }
 }

@@ -1,8 +1,6 @@
 package com.crypto.analysis.main.core.model;
 
-import com.crypto.analysis.main.core.data.refactor.Transposer;
 import com.crypto.analysis.main.core.data.train.TrainDataSet;
-import com.crypto.analysis.main.core.data_utils.normalizers.RobustScaler;
 import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.core.data_utils.select.coin.DataLength;
 import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
@@ -21,89 +19,125 @@ import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
 import org.deeplearning4j.ui.api.UIServer;
 import org.deeplearning4j.ui.model.stats.StatsListener;
 import org.deeplearning4j.ui.model.storage.FileStatsStorage;
-import org.jfree.data.xy.XYSeries;
+import org.nd4j.evaluation.regression.RegressionEvaluation;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
+import org.nd4j.linalg.dataset.api.preprocessor.NormalizerMinMaxScaler;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.learning.config.Adam;
-import org.nd4j.linalg.learning.config.Nadam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Predictor {
     public static void main(String[] args) {
-        long start = System.currentTimeMillis();
 
         DataLength length = DataLength.L60_6;
         TimeFrame tf = TimeFrame.ONE_HOUR;
+
         CSVCoinDataSet setD = new CSVCoinDataSet(Coin.BTCUSDT, tf);
         setD.load();
+
         TrainDataSet trainSet = TrainDataSet.prepareTrainSet(Coin.BTCUSDT, length, setD);
 
-        LinkedList<double[][]> inputList = trainSet.getTrainData();
-        LinkedList<double[][]> outputList = trainSet.getTrainResult();
+        LinkedList<double[][]> trainInput = trainSet.getTrainData();
+        LinkedList<double[][]> trainOutput = trainSet.getTrainResult();
 
-        int numInputs = inputList.get(0).length;
-        int numOutputs = outputList.get(0).length;
-        int sequenceLength = inputList.get(0)[0].length;
-        int numEpochs = 100000;
+        LinkedList<double[][]> testInput = trainSet.getTestData();
+        LinkedList<double[][]> testOutput = trainSet.getTestResult();
+
+        int numInputs = trainInput.get(0).length;
+        int numOutputs = trainOutput.get(0).length;
+        int sequenceLength = trainInput.get(0)[0].length;
+        int numEpochs = 1000;
 
         INDArray labelsMask = Nd4j.zeros(1, sequenceLength);
         for (int i = 0; i < length.getCountOutput(); i++) {
             labelsMask.putScalar(new int[]{0, i}, 1.0);
         }
 
-        List<DataSet> sets = new ArrayList<>();
-        for (int i = 0; i < inputList.size(); i++) {
-            double[][] inputData = inputList.get(i);
-            double[][] outputData = outputList.get(i);
+        List<DataSet> trainSets = new ArrayList<>();
+        for (int i = 0; i < trainInput.size(); i++) {
+            double[][] inputData = trainInput.get(i);
+            double[][] outputData = trainOutput.get(i);
 
             INDArray input = Nd4j.createFromArray(new double[][][]{inputData});
             INDArray labels = Nd4j.createFromArray(new double[][][]{outputData});
 
             DataSet set = new DataSet(input, labels, null, labelsMask);
-            sets.add(set);
+            trainSets.add(set);
         }
 
-        DataSetIterator iterator = new ListDataSetIterator<>(sets, 64);
-        RobustScaler normalizer = trainSet.getNormalizer();
+        List<DataSet> validationSets = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            double[][] inputData = testInput.get(i);
+            double[][] outputData = testOutput.get(i);
+
+            INDArray input = Nd4j.createFromArray(new double[][][]{inputData});
+            INDArray labels = Nd4j.createFromArray(new double[][][]{outputData});
+
+            DataSet set = new DataSet(input, labels, null, labelsMask);
+            validationSets.add(set);
+        }
+
+        Collections.shuffle(trainSets);
+        Collections.shuffle(validationSets);
+
+        DataSetIterator trainIterator = new ListDataSetIterator<>(trainSets, 64);
+        DataSetIterator validationIterator = new ListDataSetIterator<>(validationSets, 64);
+
+        NormalizerMinMaxScaler minMaxScaler = new NormalizerMinMaxScaler(-1, 1);
+        minMaxScaler.fitLabel(true);
+        minMaxScaler.fit(trainIterator);
+
+        trainIterator.setPreProcessor(minMaxScaler);
+        validationIterator.setPreProcessor(minMaxScaler);
+
         MultiLayerConfiguration config = new NeuralNetConfiguration.Builder()
                 .seed(123)
                 .trainingWorkspaceMode(WorkspaceMode.ENABLED)
                 .inferenceWorkspaceMode(WorkspaceMode.ENABLED)
                 .optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
-                .gradientNormalization(GradientNormalization.ClipElementWiseAbsoluteValue)
+                .gradientNormalization(GradientNormalization.RenormalizeL2PerLayer)
                 .weightInit(WeightInit.LECUN_NORMAL)
                 .activation(Activation.TANH)
                 .l1(0.000128)
-                .l2(0.000512)
+                .l2(0.000432)
                 .updater(new Adam(0.00256))
                 .list()
                 .setInputType(InputType.recurrent(numInputs, sequenceLength, RNNFormat.NCW))
                 .layer(0, new Bidirectional(Bidirectional.Mode.CONCAT,
                         new LSTM.Builder()
                                 .nIn(numInputs)
-                                .nOut(1600)
+                                .nOut(2048)
+                                .dropOut(0.864)
                                 .build()))
                 .layer(1, new Bidirectional(Bidirectional.Mode.CONCAT,
                         new LSTM.Builder()
-                                .nOut(400)
+                                .nIn(numInputs)
+                                .nOut(896)
+                                .dropOut(0.784)
                                 .build()))
-                .layer(2, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
+                .layer(2, new Bidirectional(Bidirectional.Mode.CONCAT,
+                        new LSTM.Builder()
+                                .nIn(numInputs)
+                                .nOut(400)
+                                .dropOut(0.960)
+                                .build()))
+                .layer(3, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
                         .activation(Activation.IDENTITY)
                         .nOut(numOutputs)
                         .build())
                 .backpropType(BackpropType.Standard)
                 .build();
 
-        MultiLayerNetwork model = new MultiLayerNetwork(config);
+        MultiLayerNetwork model = ModelLoader.loadNetwork("D:\\model19.zip");
         model.init();
 
         System.out.println(model.summary());
@@ -111,6 +145,8 @@ public class Predictor {
         System.out.println("Count input params: " + numInputs);
         System.out.println("Count output params: " + numOutputs);
         System.out.println("Count input objects: " + sequenceLength);
+        System.out.println("Train set size: " + trainSets.size());
+        System.out.println("Validation set size: " + validationSets.size());
         System.out.println();
 
         UIServer uiServer = UIServer.getInstance();
@@ -120,103 +156,39 @@ public class Predictor {
         uiServer.attach(statsStorage);
 
         System.gc();
+
+        //  double testMSEBest = 10;
+
         for (int i = 0; i < numEpochs; i++) {
-            if (i % 10 == 0 && i > 0) {
-                ModelLoader.saveModel(model, "D:\\model18.zip");
+            if (i % 3 == 0 && i > 0) {
+                RegressionEvaluation eval = new RegressionEvaluation();
+                System.out.println("Evaluating validation set...");
+                while (validationIterator.hasNext()) {
+                    DataSet set = validationIterator.next(1);
+                    INDArray output = model.output(set.getFeatures());
+                    eval.eval(set.getLabels(), output, labelsMask);
+                }
+                validationIterator.reset();
+                System.out.println(eval.stats());
+                System.out.println();
+
+            /*    if (eval.meanSquaredError(0) < testMSEBest) {
+                    ModelLoader.saveModel(model, "D:\\model18best.zip");
+                    System.out.println("Saved as best at epoch: " + model.getEpochCount());
+                    testMSEBest = eval.meanSquaredError(0);
+                }
+                System.out.println("Best validation MSE: " + testMSEBest);
+                System.out.println("Current validation MSE: " + eval.meanSquaredError(0));
+            */
+
+                ModelLoader.saveModel(model, "D:\\model19.zip");
                 System.out.println("Saved at epoch: " + model.getEpochCount());
             }
-            model.fit(iterator);
+            model.fit(trainIterator);
             System.gc();
         }
 
-        ModelLoader.saveModel(model, "D:\\model18.zip");
-
-
-        LinkedList<double[][]> testSet = trainSet.getTestData();
-        LinkedList<double[][]> testResult = trainSet.getTestResult();
-
-        XYSeries predT = new XYSeries("Predicted");
-        XYSeries realT = new XYSeries("Real");
-        int index1 = 0;
-        int index2 = 0;
-        int countRight = 0;
-        for (int i = 0; i < testSet.size(); i++) {
-            INDArray newInput = Nd4j.createFromArray(new double[][][]{testSet.get(i)});
-            INDArray predictedOutput = model.output(newInput, false, null, labelsMask);
-
-            double[][] features = testSet.get(i);
-            normalizer.revertFeatures(features);
-
-            double[][] newFeaturesArr = new double[4][];
-            System.arraycopy(features, 0, newFeaturesArr, 0, 4);
-
-            double[][] real = testResult.get(i);
-            normalizer.revertLabels(testSet.get(i), real);
-
-            double[][] predMatrix = predictedOutput.slice(0).toDoubleMatrix();
-            normalizer.revertLabels(testSet.get(i), predMatrix);
-
-            double[][] predicted = new double[numOutputs][length.getCountOutput()];
-            for (int j = 0; j < numOutputs; j++) {
-                System.arraycopy(predMatrix[j], 0, predicted[j], 0, length.getCountOutput());
-            }
-
-            double[][] realFin = new double[numOutputs][length.getCountOutput()];
-            for (int j = 0; j < numOutputs; j++) {
-                System.arraycopy(real[j], 0, realFin[j], 0, length.getCountOutput());
-            }
-            DataVisualisation.visualizeData("Prediction", "candle length", "price", newFeaturesArr[3], realFin[0], predicted[0]);
-            for (double d : realFin[0]) {
-                realT.add(index1++, d);
-            }
-            for (double d : predicted[0]) {
-                predT.add(index2++, d);
-            }
-
-            newFeaturesArr = Transposer.transpose(newFeaturesArr);
-            predicted = Transposer.transpose(predicted);
-            realFin = Transposer.transpose(realFin);
-
-            int rows = predicted.length;
-            int cols = predicted[0].length;
-            double totalDifference = 0.0;
-
-            for (int k = 0; k < rows; k++) {
-                for (int j = 0; j < cols; j++) {
-                    double realValue = realFin[k][j];
-                    double predictedValue = predicted[k][j];
-                    double percentageDifference = Math.abs(predictedValue - realValue);
-                    totalDifference += percentageDifference;
-                }
-            }
-            totalDifference /= rows*cols;
-            double mean = Math.abs(realFin[2][0]*0.05);
-            if (Math.abs(totalDifference) < mean)
-                countRight++;
-
-            System.out.println("Input data: ");
-            for (double[] arr : newFeaturesArr) {
-                System.out.println(Arrays.toString(arr));
-            }
-            System.out.println("=============================================================");
-            System.out.println("Predicted: ");
-            for (double[] arr : predicted) {
-                System.out.println(Arrays.toString(arr));
-            }
-            System.out.println("=============================================================");
-            System.out.println("Real: ");
-            for (double[] arr : realFin) {
-                System.out.println(Arrays.toString(arr));
-            }
-            System.out.println();
-            System.out.println("Total difference " + totalDifference + ", mean: " + mean);
-            System.out.println("=============================================================");
-            System.out.println();
-
-        }
-        System.out.println("Percentage: " + ((double) countRight / (double) testSet.size()) * 100 + '%');
-        System.out.println("Time taken: " + ((System.currentTimeMillis() - start) / 1000) / 60 + " minutes");
-        DataVisualisation.visualize("Predictions", "candle", "price", predT, realT);
+        ModelLoader.saveModel(model, "D:\\model19.zip");
     }
 }
 

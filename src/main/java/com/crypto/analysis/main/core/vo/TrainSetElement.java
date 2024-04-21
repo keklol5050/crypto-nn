@@ -21,4 +21,18 @@ public class TrainSetElement {
                 ", result=" + Arrays.deepToString(result) +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TrainSetElement that)) return false;
+        return Arrays.deepEquals(getData(), that.getData()) && Arrays.deepEquals(getResult(), that.getResult());
+    }
+
+    @Override
+    public int hashCode() {
+        int result1 = Arrays.deepHashCode(getData());
+        result1 = 31 * result1 + Arrays.deepHashCode(getResult());
+        return result1;
+    }
 }

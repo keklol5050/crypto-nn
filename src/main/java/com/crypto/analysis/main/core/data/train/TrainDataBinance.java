@@ -33,7 +33,7 @@ public class TrainDataBinance {
         this.countInput = dl.getCountInput();
         this.countOutput = dl.getCountOutput();
         this.fdUtil = fdUtil;
-        this.delimiter = countOutput;
+        this.delimiter = 1;
         init();
     }
 

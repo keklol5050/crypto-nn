@@ -4,6 +4,7 @@ import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Objects;
 
 
 public class FundamentalCryptoDataObject {
@@ -30,5 +31,19 @@ public class FundamentalCryptoDataObject {
 
     public double[] getParamArray() {
         return data;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof FundamentalCryptoDataObject that)) return false;
+        return coin == that.coin && Objects.equals(createTime, that.createTime) && Arrays.equals(data, that.data);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(coin, createTime);
+        result = 31 * result + Arrays.hashCode(data);
+        return result;
     }
 }

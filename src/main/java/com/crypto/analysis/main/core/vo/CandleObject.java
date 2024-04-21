@@ -3,6 +3,7 @@ package com.crypto.analysis.main.core.vo;
 import lombok.Getter;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Getter
 public class CandleObject { // формат свічки графіку
@@ -33,6 +34,7 @@ public class CandleObject { // формат свічки графіку
                 ",\n high=" + high +
                 ",\n low=" + low +
                 ",\n close=" + close +
+                ",\n volume=" + volume +
                 ",\n closeTime=" + closeTime +
                 "\n}";
     }
@@ -45,5 +47,17 @@ public class CandleObject { // формат свічки графіку
                 close,
                 volume
         };
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CandleObject that)) return false;
+        return Double.compare(getOpen(), that.getOpen()) == 0 && Double.compare(getHigh(), that.getHigh()) == 0 && Double.compare(getLow(), that.getLow()) == 0 && Double.compare(getClose(), that.getClose()) == 0 && Double.compare(getVolume(), that.getVolume()) == 0 && Objects.equals(getOpenTime(), that.getOpenTime()) && Objects.equals(getCloseTime(), that.getCloseTime());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getOpenTime(), getOpen(), getHigh(), getLow(), getClose(), getVolume(), getCloseTime());
     }
 }

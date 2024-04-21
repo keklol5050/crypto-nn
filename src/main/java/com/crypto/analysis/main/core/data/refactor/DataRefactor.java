@@ -116,7 +116,7 @@ public class DataRefactor {
 
     public static void main(String[] args) {
         DataLength dl = DataLength.X100_10;
-        DataObject[] pr = BinanceDataMultipleInstance.getLatestInstances(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES, dl.getCountInput()+dl.getCountOutput(), new FundamentalDataUtil());
+        DataObject[] pr = BinanceDataMultipleInstance.getLatestInstances(Coin.BTCUSDT, TimeFrame.ONE_HOUR, dl.getCountInput()+dl.getCountOutput(), new FundamentalDataUtil());
         double[][] in = new double[pr.length][];
         for (int i = 0; i < pr.length; i++) {
             in[i] = pr[i].getParamArray();

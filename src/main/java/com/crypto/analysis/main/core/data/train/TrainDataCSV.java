@@ -29,7 +29,7 @@ public class TrainDataCSV {
         this.set = set;
         this.countInput = dl.getCountInput();
         this.countOutput = dl.getCountOutput();
-        this.delimiter = countOutput;
+        this.delimiter = 1;
         init();
     }
 

@@ -19,18 +19,17 @@ import org.deeplearning4j.nn.conf.layers.recurrent.Bidirectional;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.jfree.data.xy.XYSeries;
+import org.nd4j.evaluation.regression.RegressionEvaluation;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
+import org.nd4j.linalg.dataset.api.preprocessor.NormalizerMinMaxScaler;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class ModeLoadTest {
     public static void main(String[] args) {
@@ -42,48 +41,73 @@ public class ModeLoadTest {
         setD.load();
         TrainDataSet trainSet = TrainDataSet.prepareTrainSet(Coin.BTCUSDT, length, setD);
 
-        LinkedList<double[][]> inputList = trainSet.getTrainData();
-        LinkedList<double[][]> outputList = trainSet.getTrainResult();
 
-        int numOutputs = outputList.get(0).length;
-        int sequenceLength = inputList.get(0)[0].length;
+        LinkedList<double[][]> trainInput = trainSet.getTrainData();
+        LinkedList<double[][]> trainOutput = trainSet.getTrainResult();
+
+        LinkedList<double[][]> testInput = trainSet.getTestData();
+        LinkedList<double[][]> testOutput = trainSet.getTestResult();
+
+        int numOutputs = testOutput.get(0).length;
+        int sequenceLength = testInput.get(0)[0].length;
 
         INDArray labelsMask = Nd4j.zeros(1, sequenceLength);
         for (int i = 0; i < length.getCountOutput(); i++) {
             labelsMask.putScalar(new int[]{0, i}, 1.0);
         }
 
+        List<DataSet> trainSets = new ArrayList<>();
+        for (int i = 0; i < trainInput.size(); i++) {
+            double[][] inputData = trainInput.get(i);
+            double[][] outputData = trainOutput.get(i);
+
+            INDArray input = Nd4j.createFromArray(new double[][][]{inputData});
+            INDArray labels = Nd4j.createFromArray(new double[][][]{outputData});
+
+            DataSet set = new DataSet(input, labels, null, labelsMask);
+            trainSets.add(set);
+        }
+
+        DataSetIterator trainIterator = new ListDataSetIterator<>(trainSets, 1);
+
+        NormalizerMinMaxScaler minMaxScaler = new NormalizerMinMaxScaler(-1, 1);
+        minMaxScaler.fitLabel(true);
+        minMaxScaler.fit(trainIterator);
+        trainIterator.setPreProcessor(minMaxScaler);
 
         RobustScaler normalizer = trainSet.getNormalizer();
 
-        MultiLayerNetwork model = ModelLoader.loadNetwork("D:\\model18.zip");
+        MultiLayerNetwork model = ModelLoader.loadNetwork("D:\\model19.zip");
         model.init();
 
         System.out.println(model.summary());
-
-        LinkedList<double[][]> testSet = trainSet.getTestData();
-        LinkedList<double[][]> testResult = trainSet.getTestResult();
 
         XYSeries predT = new XYSeries("Predicted");
         XYSeries realT = new XYSeries("Real");
         int index1 = 0;
         int index2 = 0;
         int countRight = 0;
-        for (int i = 0; i < testSet.size(); i++) {
-            INDArray newInput = Nd4j.createFromArray(new double[][][]{testSet.get(i)});
-            INDArray predictedOutput = model.output(newInput, false, null, labelsMask);
 
-            double[][] features = testSet.get(i);
+        RegressionEvaluation eval = new RegressionEvaluation();
+        System.out.println("Evaluating validation set...");
+        for (int i = 0; i < testInput.size(); i+=5) {
+            INDArray newInput = Nd4j.createFromArray(new double[][][]{testInput.get(i)});
+            minMaxScaler.transform(newInput);
+            INDArray predictedOutput = model.output(newInput, false, null, labelsMask);
+        minMaxScaler.revertLabels(predictedOutput);
+
+            eval.eval(Nd4j.createFromArray(new double[][][]{testOutput.get(i)}), predictedOutput, labelsMask);
+            double[][] features = testInput.get(i);
             normalizer.revertFeatures(features);
 
             double[][] newFeaturesArr = new double[4][];
             System.arraycopy(features, 0, newFeaturesArr, 0, 4);
 
-            double[][] real = testResult.get(i);
-            normalizer.revertLabels(testSet.get(i), real);
+            double[][] real = testOutput.get(i);
+            normalizer.revertLabels(testInput.get(i), real);
 
             double[][] predMatrix = predictedOutput.slice(0).toDoubleMatrix();
-            normalizer.revertLabels(testSet.get(i), predMatrix);
+            normalizer.revertLabels(testInput.get(i), predMatrix);
 
             double[][] predicted = new double[numOutputs][length.getCountOutput()];
             for (int j = 0; j < numOutputs; j++) {
@@ -143,8 +167,9 @@ public class ModeLoadTest {
             System.out.println();
 
         }
-        System.out.println("Percentage: " + ((double) countRight / (double) testSet.size()) * 100 + '%');
+        System.out.println("Percentage: " + ((double) countRight / (double) testInput.size()) * 100 + '%');
         System.out.println("Time taken: " + ((System.currentTimeMillis() - start) / 1000) / 60 + " minutes");
+        System.out.println(eval.stats());
         DataVisualisation.visualize("Predictions", "candle", "price", predT, realT);
     }
 }
