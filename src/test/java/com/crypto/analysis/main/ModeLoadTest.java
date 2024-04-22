@@ -25,6 +25,7 @@ import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.dataset.api.preprocessor.NormalizerMinMaxScaler;
+import org.nd4j.linalg.dataset.api.preprocessor.NormalizerStandardize;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
@@ -70,14 +71,15 @@ public class ModeLoadTest {
 
         DataSetIterator trainIterator = new ListDataSetIterator<>(trainSets, 1);
 
-        NormalizerMinMaxScaler minMaxScaler = new NormalizerMinMaxScaler(-1, 1);
-        minMaxScaler.fitLabel(true);
-        minMaxScaler.fit(trainIterator);
-        trainIterator.setPreProcessor(minMaxScaler);
+        NormalizerStandardize normalizerStandardize = new NormalizerStandardize();
+        normalizerStandardize.fitLabel(true);
+        normalizerStandardize.fit(trainIterator);
+
+        trainIterator.setPreProcessor(normalizerStandardize);
 
         RobustScaler normalizer = trainSet.getNormalizer();
 
-        MultiLayerNetwork model = ModelLoader.loadNetwork("D:\\model19.zip");
+        MultiLayerNetwork model = ModelLoader.loadNetwork("D:\\model20.zip");
         model.init();
 
         System.out.println(model.summary());
@@ -92,9 +94,9 @@ public class ModeLoadTest {
         System.out.println("Evaluating validation set...");
         for (int i = 0; i < testInput.size(); i+=5) {
             INDArray newInput = Nd4j.createFromArray(new double[][][]{testInput.get(i)});
-            minMaxScaler.transform(newInput);
+            normalizerStandardize.transform(newInput);
             INDArray predictedOutput = model.output(newInput, false, null, labelsMask);
-        minMaxScaler.revertLabels(predictedOutput);
+            normalizerStandardize.revertLabels(predictedOutput);
 
             eval.eval(Nd4j.createFromArray(new double[][][]{testOutput.get(i)}), predictedOutput, labelsMask);
             double[][] features = testInput.get(i);

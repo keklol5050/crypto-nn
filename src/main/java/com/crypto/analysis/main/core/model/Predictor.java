@@ -25,6 +25,7 @@ import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.dataset.api.preprocessor.NormalizerMinMaxScaler;
+import org.nd4j.linalg.dataset.api.preprocessor.NormalizerStandardize;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
@@ -92,19 +93,19 @@ public class Predictor {
         DataSetIterator trainIterator = new ListDataSetIterator<>(trainSets, 64);
         DataSetIterator validationIterator = new ListDataSetIterator<>(validationSets, 64);
 
-        NormalizerMinMaxScaler minMaxScaler = new NormalizerMinMaxScaler(-1, 1);
-        minMaxScaler.fitLabel(true);
-        minMaxScaler.fit(trainIterator);
+        NormalizerStandardize normalizerStandardize = new NormalizerStandardize();
+        normalizerStandardize.fitLabel(true);
+        normalizerStandardize.fit(trainIterator);
 
-        trainIterator.setPreProcessor(minMaxScaler);
-        validationIterator.setPreProcessor(minMaxScaler);
+        trainIterator.setPreProcessor(normalizerStandardize);
+        validationIterator.setPreProcessor(normalizerStandardize);
 
         MultiLayerConfiguration config = new NeuralNetConfiguration.Builder()
                 .seed(123)
                 .trainingWorkspaceMode(WorkspaceMode.ENABLED)
                 .inferenceWorkspaceMode(WorkspaceMode.ENABLED)
                 .optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
-                .gradientNormalization(GradientNormalization.RenormalizeL2PerLayer)
+                .gradientNormalization(GradientNormalization.ClipElementWiseAbsoluteValue)
                 .weightInit(WeightInit.LECUN_NORMAL)
                 .activation(Activation.TANH)
                 .l1(0.000128)
@@ -115,29 +116,32 @@ public class Predictor {
                 .layer(0, new Bidirectional(Bidirectional.Mode.CONCAT,
                         new LSTM.Builder()
                                 .nIn(numInputs)
-                                .nOut(2048)
-                                .dropOut(0.864)
+                                .nOut(800)
+                                .dropOut(0.944)
                                 .build()))
                 .layer(1, new Bidirectional(Bidirectional.Mode.CONCAT,
                         new LSTM.Builder()
-                                .nIn(numInputs)
-                                .nOut(896)
-                                .dropOut(0.784)
+                                .nOut(400)
+                                .dropOut(0.800)
                                 .build()))
                 .layer(2, new Bidirectional(Bidirectional.Mode.CONCAT,
                         new LSTM.Builder()
-                                .nIn(numInputs)
                                 .nOut(400)
-                                .dropOut(0.960)
+                                .dropOut(0.800)
                                 .build()))
-                .layer(3, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
+                .layer(3, new Bidirectional(Bidirectional.Mode.CONCAT,
+                        new LSTM.Builder()
+                                .nOut(200)
+                                .dropOut(0.912)
+                                .build()))
+                .layer(4, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
                         .activation(Activation.IDENTITY)
                         .nOut(numOutputs)
                         .build())
                 .backpropType(BackpropType.Standard)
                 .build();
 
-        MultiLayerNetwork model = ModelLoader.loadNetwork("D:\\model19.zip");
+        MultiLayerNetwork model = ModelLoader.loadNetwork("D:\\model20.zip");
         model.init();
 
         System.out.println(model.summary());
@@ -160,7 +164,7 @@ public class Predictor {
         //  double testMSEBest = 10;
 
         for (int i = 0; i < numEpochs; i++) {
-            if (i % 3 == 0 && i > 0) {
+            if (i % 5 == 0 && i > 0) {
                 RegressionEvaluation eval = new RegressionEvaluation();
                 System.out.println("Evaluating validation set...");
                 while (validationIterator.hasNext()) {
@@ -181,14 +185,14 @@ public class Predictor {
                 System.out.println("Current validation MSE: " + eval.meanSquaredError(0));
             */
 
-                ModelLoader.saveModel(model, "D:\\model19.zip");
+                ModelLoader.saveModel(model, "D:\\model20.zip");
                 System.out.println("Saved at epoch: " + model.getEpochCount());
             }
             model.fit(trainIterator);
             System.gc();
         }
 
-        ModelLoader.saveModel(model, "D:\\model19.zip");
+        ModelLoader.saveModel(model, "D:\\model20.zip");
     }
 }
 
