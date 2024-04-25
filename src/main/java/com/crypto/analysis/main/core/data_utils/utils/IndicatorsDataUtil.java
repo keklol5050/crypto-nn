@@ -2,7 +2,6 @@ package com.crypto.analysis.main.core.data_utils.utils;
 
 import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
-import com.crypto.analysis.main.core.data_utils.utils.binance.BinanceDataUtil;
 import com.crypto.analysis.main.core.vo.CandleObject;
 import com.crypto.analysis.main.core.vo.IndicatorsTransferObject;
 import org.ta4j.core.BarSeries;

@@ -1,4 +1,4 @@
-package com.crypto.analysis.main.core.data.refactor;
+package com.crypto.analysis.main.core.data_utils.normalizers;
 
 public class Transposer {
     public static double[][] transpose(double[][] input) {

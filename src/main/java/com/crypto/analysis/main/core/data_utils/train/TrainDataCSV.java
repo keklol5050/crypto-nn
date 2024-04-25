@@ -1,62 +1,62 @@
-package com.crypto.analysis.main.core.data.train;
+package com.crypto.analysis.main.core.data_utils.train;
 
-import com.crypto.analysis.main.core.data_utils.select.StaticData;
 import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.core.data_utils.select.coin.DataLength;
 import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
-import com.crypto.analysis.main.core.data_utils.utils.binance.BinanceDataMultipleInstance;
-import com.crypto.analysis.main.core.fundamental.stock.FundamentalDataUtil;
+import com.crypto.analysis.main.core.ndata.CSVCoinDataSet;
 import com.crypto.analysis.main.core.vo.DataObject;
 import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 
-import static com.crypto.analysis.main.core.data_utils.select.StaticData.binanceCapacityMax;
-
 @Getter
-public class TrainDataBinance {
+public class TrainDataCSV {
     private final Coin coin;
-    private final TimeFrame interval;
-
+    private final CSVCoinDataSet set;
     private final LinkedList<DataObject[]> data = new LinkedList<>();
 
+    private final TimeFrame interval;
     private final int countInput;
     private final int countOutput;
-    private final FundamentalDataUtil fdUtil;
 
     private final int delimiter;
 
-    public TrainDataBinance(Coin coin, TimeFrame interval, DataLength dl, FundamentalDataUtil fdUtil) {
+    public TrainDataCSV(Coin coin, TimeFrame interval, DataLength dl, CSVCoinDataSet set) {
         this.coin = coin;
         this.interval = interval;
+        this.set = set;
         this.countInput = dl.getCountInput();
         this.countOutput = dl.getCountOutput();
-        this.fdUtil = fdUtil;
         this.delimiter = 1;
         init();
     }
 
     public static void main(String[] args) {
-        TrainDataBinance trainDataBinance = new TrainDataBinance(Coin.BTCUSDT, TimeFrame.ONE_HOUR, DataLength.S30_3, new FundamentalDataUtil());
-        for (DataObject[] objArr : trainDataBinance.getData()) {
-            System.out.println(Arrays.toString(objArr));
+        CSVCoinDataSet csv = new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES);
+        csv.load();
+        TrainDataCSV trainDataCSV = new TrainDataCSV(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES, DataLength.S30_3, csv);
+        for (DataObject[] objects : trainDataCSV.getData()) {
+            System.out.println(Arrays.toString(objects));
         }
-
     }
 
     private void init() {
         try {
-            DataObject[] objects = BinanceDataMultipleInstance.getLatestInstances(coin, interval, binanceCapacityMax, fdUtil);
+            if (!set.isInitialized()) throw new UnsupportedOperationException("CSV Data set is not initialized");
+            if (set.getInterval() != interval)
+                throw new IllegalArgumentException("Data set timeframe is not equals to current timeframe");
 
-            int count = binanceCapacityMax - countOutput;
+            LinkedList<DataObject> objects = set.getData();
+
+            int count = objects.size() - countOutput;
 
             for (int i = countInput; i < count; i += delimiter) {
                 DataObject[] values = new DataObject[countInput + countOutput];
                 int index = 0;
 
                 for (int j = i - countInput; j < i + countOutput; j++) {
-                    values[index++] = objects[j];
+                    values[index++] = objects.get(j);
                 }
                 data.add(values);
             }

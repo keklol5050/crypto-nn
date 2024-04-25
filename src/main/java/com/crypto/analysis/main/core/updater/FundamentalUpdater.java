@@ -1,6 +1,6 @@
 package com.crypto.analysis.main.core.updater;
 
-import com.crypto.analysis.main.core.data_utils.utils.binance.BinanceDataUtil;
+import com.crypto.analysis.main.core.data_utils.utils.BinanceDataUtil;
 import com.crypto.analysis.main.core.vo.indication.BTCDOMObject;
 import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
 import com.crypto.analysis.main.core.data_utils.select.fundamental.FundamentalStock;

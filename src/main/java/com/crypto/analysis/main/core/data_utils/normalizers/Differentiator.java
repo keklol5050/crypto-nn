@@ -2,15 +2,15 @@ package com.crypto.analysis.main.core.data_utils.normalizers;
 
 import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
-import com.crypto.analysis.main.core.data_utils.utils.binance.BinanceDataMultipleInstance;
+import com.crypto.analysis.main.core.data_utils.utils.BinanceDataUtil;
 import com.crypto.analysis.main.core.fundamental.stock.FundamentalDataUtil;
 import com.crypto.analysis.main.core.vo.DataObject;
 
 import java.util.Arrays;
 import java.util.HashMap;
 
-import static com.crypto.analysis.main.core.data_utils.select.StaticData.COUNT_VALUES_FOR_DIFFERENTIATION;
-import static com.crypto.analysis.main.core.data_utils.select.StaticData.MASK_OUTPUT;
+import static com.crypto.analysis.main.core.data_utils.select.StaticData.*;
+import static com.crypto.analysis.main.core.data_utils.select.StaticData.NUMBER_OF_DIFFERENTIATIONS;
 
 public class Differentiator {
     private final HashMap<double[][], double[][]> firstValuesCash;
@@ -82,9 +82,32 @@ public class Differentiator {
         return lastRestored;
     }
 
+    public static double[] getColumn(double[][] input, int columnIndex, int lastIndex) {
+        if (lastIndex > input.length) throw new IllegalArgumentException("Last index must be less than array length");
+        double[] column = new double[lastIndex];
+        for (int i = 0; i < lastIndex; i++) {
+            column[i] = input[i][columnIndex];
+        }
+        return column;
+    }
+
+    public static double[][] refactor(double[][] in, Differentiator differentiator, boolean save) {
+        double[] orient = Differentiator.getColumn(in, POSITION_OF_PRICES_NORMALIZER_IND, in.length);
+
+        double[][] diff = differentiator.differentiate(in, NUMBER_OF_DIFFERENTIATIONS, save);
+
+        for (int i = COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA; i < COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA+MOVING_AVERAGES_COUNT_FOR_DIFF_WITH_PRICE_VALUES; i++) {
+            for (int j = 0; j < diff.length; j++) {
+                diff[j][i] = orient[j+NUMBER_OF_DIFFERENTIATIONS] - diff[j][i];
+            }
+        }
+
+        return diff;
+    }
+    
     public static void main(String[] args) {
         Differentiator differentiator = new Differentiator();
-        DataObject[] objs = BinanceDataMultipleInstance.getLatestInstances(Coin.BTCUSDT, TimeFrame.ONE_HOUR, 40, new FundamentalDataUtil());
+        DataObject[] objs = BinanceDataUtil.getLatestInstances(Coin.BTCUSDT, TimeFrame.ONE_HOUR, 40, new FundamentalDataUtil());
         double[][] m = new double[objs.length][];
         for (int i = 0; i < objs.length; i++) {
             double[] val = objs[i].getParamArray();
