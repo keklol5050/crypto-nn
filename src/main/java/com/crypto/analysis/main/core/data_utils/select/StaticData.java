@@ -23,13 +23,8 @@ public class StaticData {
 
     public static final int binanceCapacityMax = 490;
 
-    public static final int MODEL_NUM_INPUTS = 66;
-    public static final int MODEL_NUM_OUTPUTS = MASK_OUTPUT.length;
     public static final int BATCH_SIZE = 64;
-    public static final int VOLATILE_VALUES_COUNT_FROM_LAST = 29;
-    public static final int PRICE_VALUES_COUNT_TO_NORMALIZE_WITH_ONE = 3;
     public static final int MOVING_AVERAGES_COUNT_FOR_DIFF_WITH_PRICE_VALUES = 24;
-    public static final int NOT_VOLATILE_VALUES = MODEL_NUM_INPUTS - VOLATILE_VALUES_COUNT_FROM_LAST;
 
     public static final int NUMBER_OF_DIFFERENTIATIONS = 1;
     public static final int COUNT_VALUES_FOR_DIFFERENTIATION = 5;

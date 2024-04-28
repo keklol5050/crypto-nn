@@ -62,36 +62,35 @@ public class Predictor {
                 .weightInit(WeightInit.LECUN_NORMAL)
                 .activation(Activation.TANH)
                 .cacheMode(CacheMode.DEVICE)
-                .l2(0.000512)
-                .l1(0.000096)
+                .l2(1e-3)
                 .updater(new Adam())
                 .list()
                 .setInputType(InputType.recurrent(trainDataSet.getCountInput(), trainDataSet.getSequenceLength(), RNNFormat.NCW))
                 .layer(0, new Bidirectional(Bidirectional.Mode.CONCAT,
                         new LSTM.Builder()
                                 .nIn(trainDataSet.getCountInput())
-                                .nOut(1200)
+                                .nOut(256)
                                 .build()))
                 .layer(1, new Bidirectional(Bidirectional.Mode.CONCAT,
                         new LSTM.Builder()
-                                .nOut(1200)
+                                .nOut(256)
                                 .build()))
                 .layer(2, new Bidirectional(Bidirectional.Mode.CONCAT,
                         new LSTM.Builder()
-                                .nOut(1200)
+                                .nOut(256)
                                 .build()))
                 .layer(3, new Bidirectional(Bidirectional.Mode.CONCAT,
                         new LSTM.Builder()
-                                .nOut(1200)
+                                .nOut(256)
                                 .build()))
-                .layer(4, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
+                .layer(3, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
                         .activation(Activation.IDENTITY)
                         .nOut(trainDataSet.getCountOutput())
                         .build())
                 .backpropType(BackpropType.Standard)
                 .build();
 
-        MultiLayerNetwork model = ModelLoader.loadNetwork("D:\\model1.zip");
+        MultiLayerNetwork model = ModelLoader.loadNetwork("D:\\model2.zip");
         model.init();
         CudaEnvironment.getInstance().getConfiguration().setMaximumDeviceCacheableLength(1024 * 1024 * 2048L).setMaximumDeviceCache((long) (0.5 * 6096 * 1024 * 1024 * 2048L)).setMaximumHostCacheableLength(1024 * 1024 * 2048L).setMaximumHostCache((long) (0.5 * 6096 * 1024 * 1024 * 2048L));
         Nd4j.getMemoryManager().setAutoGcWindow(50000);
@@ -133,13 +132,13 @@ public class Predictor {
                 System.out.println("Current validation MSE: " + eval.meanSquaredError(0));
             */
 
-                ModelLoader.saveModel(model, "D:\\model1.zip");
+                ModelLoader.saveModel(model, "D:\\model2.zip");
                 System.out.println("Saved at epoch: " + model.getEpochCount());
             }
             model.fit(trainIterator);
         }
 
-        ModelLoader.saveModel(model, "D:\\model1.zip");
+        ModelLoader.saveModel(model, "D:\\model2.zip");
     }
 }
 

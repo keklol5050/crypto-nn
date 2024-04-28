@@ -6,8 +6,9 @@ import java.util.List;
 
 public class FifteenInvertor {
     public static void main(String[] args) throws IOException {
-        List<String> lines = Files.readAllLines(Path.of("C:\\Users\\keklo\\OneDrive\\Documents\\BTCUSDT-metrics-2024-04-02.csv"));
-        PrintWriter writer = new PrintWriter("C:\\Users\\keklo\\OneDrive\\Documents\\BTCUSDT-metrics-2024-04-02.csv");
+        String path = "C:\\Users\\keklo\\OneDrive\\Рабочий стол\\merge_from_ofoct.csv";
+        List<String> lines = Files.readAllLines(Path.of(path));
+        PrintWriter writer = new PrintWriter(path);
         writer.println(lines.remove(0));
         for (String str : lines) {
             String[] tokens = str.split(",")[0].split(" ");
