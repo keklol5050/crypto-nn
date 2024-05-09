@@ -1,12 +1,12 @@
 package com.crypto.analysis.main;
 
 import com.crypto.analysis.main.core.data_utils.normalizers.Transposer;
-import com.crypto.analysis.main.core.data_utils.train.TrainDataSet;
+import com.crypto.analysis.main.core.regression.RegressionDataSet;
 import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.core.data_utils.select.coin.DataLength;
 import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
-import com.crypto.analysis.main.core.model.DataVisualisation;
-import com.crypto.analysis.main.core.model.ModelLoader;
+import com.crypto.analysis.main.core.data_utils.utils.mutils.DataVisualisation;
+import com.crypto.analysis.main.core.data_utils.utils.mutils.ModelLoader;
 import com.crypto.analysis.main.core.ndata.CSVCoinDataSet;
 import org.deeplearning4j.datasets.iterator.utilty.ListDataSetIterator;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
@@ -14,36 +14,30 @@ import org.jfree.data.xy.XYSeries;
 import org.nd4j.evaluation.regression.RegressionEvaluation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
-import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
-import org.nd4j.linalg.dataset.api.preprocessor.NormalizerStandardize;
-import org.nd4j.linalg.factory.Nd4j;
 
 import java.util.*;
 
 public class ModeLoadTest {
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
-
-        DataLength length = DataLength.L60_6;
-        TimeFrame tf = TimeFrame.ONE_HOUR;
+        DataLength length = DataLength.X150_9;
+        TimeFrame tf = TimeFrame.FIFTEEN_MINUTES;
 
         CSVCoinDataSet setD = new CSVCoinDataSet(Coin.BTCUSDT, tf);
         setD.load();
 
-        TrainDataSet trainDataSet = TrainDataSet.prepareTrainSet(Coin.BTCUSDT, length, setD);
-        ListDataSetIterator<DataSet> trainIterator = trainDataSet.getTrainIterator();
-        ListDataSetIterator<DataSet> testIterator = trainDataSet.getTestIterator();
+        RegressionDataSet regressionDataSet = RegressionDataSet.prepareTrainSet(Coin.BTCUSDT, length, setD);
+        ListDataSetIterator<DataSet> trainIterator = regressionDataSet.getTrainIterator();
+        ListDataSetIterator<DataSet> testIterator = regressionDataSet.getTestIterator();
 
-        INDArray labelsMask = trainDataSet.getLabelsMask();
+        INDArray labelsMask = regressionDataSet.getLabelsMask();
 
-        NormalizerStandardize normalizerStandardize = new NormalizerStandardize();
-        normalizerStandardize.fitLabel(true);
-        normalizerStandardize.fit(trainIterator);
+        System.out.println(trainIterator.next(1));
+        System.out.println();
+        System.out.println();
+        System.out.println(testIterator.next(1));
 
-        trainIterator.setPreProcessor(normalizerStandardize);
-        testIterator.setPreProcessor(normalizerStandardize);
-
-        MultiLayerNetwork model = ModelLoader.loadNetwork("D:\\model1.zip");
+        MultiLayerNetwork model = ModelLoader.loadNetwork("D:\\model14_ftm.zip");
         model.init();
 
         System.out.println(model.summary());
@@ -56,7 +50,7 @@ public class ModeLoadTest {
 
         RegressionEvaluation eval = new RegressionEvaluation();
         System.out.println("Evaluating validation set...");
-        while(testIterator.hasNext()) {
+        for (int i = 0; i < 100; i++){
             DataSet set = testIterator.next(1);
             INDArray futures = set.getFeatures();
             INDArray labels = set.getLabels();
@@ -73,13 +67,13 @@ public class ModeLoadTest {
 
             double[][] predMatrix = predictedOutput.slice(0).toDoubleMatrix();
 
-            double[][] predicted = new double[trainDataSet.getCountOutput()][length.getCountOutput()];
-            for (int j = 0; j < trainDataSet.getCountOutput(); j++) {
+            double[][] predicted = new double[regressionDataSet.getCountOutput()][length.getCountOutput()];
+            for (int j = 0; j < regressionDataSet.getCountOutput(); j++) {
                 System.arraycopy(predMatrix[j], 0, predicted[j], 0, length.getCountOutput());
             }
 
-            double[][] realFin = new double[trainDataSet.getCountOutput()][length.getCountOutput()];
-            for (int j = 0; j < trainDataSet.getCountOutput(); j++) {
+            double[][] realFin = new double[regressionDataSet.getCountOutput()][length.getCountOutput()];
+            for (int j = 0; j < regressionDataSet.getCountOutput(); j++) {
                 System.arraycopy(real[j], 0, realFin[j], 0, length.getCountOutput());
             }
             DataVisualisation.visualizeData("Prediction", "candle length", "price", newFeaturesArr[3], realFin[0], predicted[0]);

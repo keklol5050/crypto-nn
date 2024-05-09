@@ -15,10 +15,10 @@ import org.ta4j.core.indicators.volume.VWAPIndicator;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 public class IndicatorsDataUtil {
-    private final LinkedList<CandleObject> candles;
+    private final ArrayList<CandleObject> candles;
     private final boolean revert;
 
     private RSIIndicator rsi;
@@ -79,13 +79,13 @@ public class IndicatorsDataUtil {
         init();
     }
 
-    public IndicatorsDataUtil(LinkedList<CandleObject> candles) {
+    public IndicatorsDataUtil(ArrayList<CandleObject> candles) {
         this.candles = candles;
         revert = false;
         init();
     }
 
-    public static BarSeries getTimeSeries(LinkedList<CandleObject> candleObjects) {
+    public static BarSeries getTimeSeries(ArrayList<CandleObject> candleObjects) {
         BarSeries series = new BaseBarSeries();
         for (CandleObject candle : candleObjects) {
             ZonedDateTime timestamp = candle.getCloseTime().toInstant().atZone(ZoneId.systemDefault());

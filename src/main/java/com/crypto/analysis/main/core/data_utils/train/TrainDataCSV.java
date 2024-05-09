@@ -7,14 +7,14 @@ import com.crypto.analysis.main.core.ndata.CSVCoinDataSet;
 import com.crypto.analysis.main.core.vo.DataObject;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 
 @Getter
 public class TrainDataCSV {
     private final Coin coin;
     private final CSVCoinDataSet set;
-    private final LinkedList<DataObject[]> data = new LinkedList<>();
+    private final ArrayList<DataObject[]> data = new ArrayList<>();
 
     private final TimeFrame interval;
     private final int countInput;
@@ -35,7 +35,7 @@ public class TrainDataCSV {
     public static void main(String[] args) {
         CSVCoinDataSet csv = new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES);
         csv.load();
-        TrainDataCSV trainDataCSV = new TrainDataCSV(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES, DataLength.S30_3, csv);
+        TrainDataCSV trainDataCSV = new TrainDataCSV(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES, DataLength.S50_3, csv);
         for (DataObject[] objects : trainDataCSV.getData()) {
             System.out.println(Arrays.toString(objects));
         }
@@ -47,7 +47,7 @@ public class TrainDataCSV {
             if (set.getInterval() != interval)
                 throw new IllegalArgumentException("Data set timeframe is not equals to current timeframe");
 
-            LinkedList<DataObject> objects = set.getData();
+            ArrayList<DataObject> objects = set.getData();
 
             int count = objects.size() - countOutput;
 

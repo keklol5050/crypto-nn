@@ -1,13 +1,11 @@
 package com.crypto.analysis.main.core.volatility;
 
-import com.crypto.analysis.main.core.classification.ClassificationTrainSet;
 import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.core.data_utils.select.coin.DataLength;
 import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
-import com.crypto.analysis.main.core.model.DataVisualisation;
-import com.crypto.analysis.main.core.model.ModelLoader;
+import com.crypto.analysis.main.core.data_utils.utils.mutils.DataVisualisation;
+import com.crypto.analysis.main.core.data_utils.utils.mutils.ModelLoader;
 import com.crypto.analysis.main.core.ndata.CSVCoinDataSet;
-import org.deeplearning4j.core.storage.StatsStorage;
 import org.deeplearning4j.datasets.iterator.utilty.ListDataSetIterator;
 import org.deeplearning4j.nn.api.OptimizationAlgorithm;
 import org.deeplearning4j.nn.conf.*;
@@ -15,12 +13,7 @@ import org.deeplearning4j.nn.conf.layers.LSTM;
 import org.deeplearning4j.nn.conf.layers.RnnOutputLayer;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.nn.weights.WeightInit;
-import org.deeplearning4j.optimize.api.InvocationType;
-import org.deeplearning4j.optimize.listeners.EvaluativeListener;
 import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
-import org.deeplearning4j.ui.api.UIServer;
-import org.deeplearning4j.ui.model.stats.StatsListener;
-import org.deeplearning4j.ui.model.storage.FileStatsStorage;
 import org.nd4j.evaluation.regression.RegressionEvaluation;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
@@ -28,8 +21,6 @@ import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.api.preprocessor.NormalizerStandardize;
 import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
-
-import java.io.File;
 
 public class Model {
     public static void main(String[] args) {
@@ -83,12 +74,8 @@ public class Model {
 
         System.out.println(model.summary());
 
-        UIServer uiServer = UIServer.getInstance();
-        StatsStorage statsStorage = new FileStatsStorage(new File(System.getProperty("java.io.tmpdir"), "ui-stats.dl4j"));
+        model.setListeners(new ScoreIterationListener(10));
 
-        model.setListeners(new StatsListener(statsStorage, 10), new ScoreIterationListener(10));
-
-        uiServer.attach(statsStorage);
         System.gc();
         for (int i = 0; i < numEpochs; i++) {
             if (i % 20 == 0 && i > 0) {

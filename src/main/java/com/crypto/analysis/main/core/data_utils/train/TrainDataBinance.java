@@ -8,8 +8,8 @@ import com.crypto.analysis.main.core.fundamental.stock.FundamentalDataUtil;
 import com.crypto.analysis.main.core.vo.DataObject;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 
 import static com.crypto.analysis.main.core.data_utils.select.StaticData.binanceCapacityMax;
 
@@ -18,7 +18,7 @@ public class TrainDataBinance {
     private final Coin coin;
     private final TimeFrame interval;
 
-    private final LinkedList<DataObject[]> data = new LinkedList<>();
+    private final ArrayList<DataObject[]> data = new ArrayList<>();
 
     private final int countInput;
     private final int countOutput;
@@ -37,7 +37,7 @@ public class TrainDataBinance {
     }
 
     public static void main(String[] args) {
-        TrainDataBinance trainDataBinance = new TrainDataBinance(Coin.BTCUSDT, TimeFrame.ONE_HOUR, DataLength.S30_3, new FundamentalDataUtil());
+        TrainDataBinance trainDataBinance = new TrainDataBinance(Coin.BTCUSDT, TimeFrame.ONE_HOUR, DataLength.S50_3, new FundamentalDataUtil());
         for (DataObject[] objArr : trainDataBinance.getData()) {
             System.out.println(Arrays.toString(objArr));
         }

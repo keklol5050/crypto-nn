@@ -9,11 +9,12 @@ import com.crypto.analysis.main.core.vo.DataObject;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import static com.crypto.analysis.main.core.data_utils.select.StaticData.*;
-import static com.crypto.analysis.main.core.data_utils.select.StaticData.NUMBER_OF_DIFFERENTIATIONS;
+import static com.crypto.analysis.main.core.data_utils.select.StaticData.COUNT_VALUES_FOR_DIFFERENTIATION;
+import static com.crypto.analysis.main.core.data_utils.select.StaticData.MASK_OUTPUT;
 
 public class Differentiator {
     private final HashMap<double[][], double[][]> firstValuesCash;
+
     public Differentiator() {
         this.firstValuesCash = new HashMap<>();
     }
@@ -24,7 +25,7 @@ public class Differentiator {
             for (int j = 0; j < COUNT_VALUES_FOR_DIFFERENTIATION; j++) {
                 diff[i][j] = data[i + 1][j] - data[i][j];
             }
-            System.arraycopy(data[i+1], COUNT_VALUES_FOR_DIFFERENTIATION, diff[i], COUNT_VALUES_FOR_DIFFERENTIATION, data[i+1].length - COUNT_VALUES_FOR_DIFFERENTIATION);
+            System.arraycopy(data[i + 1], COUNT_VALUES_FOR_DIFFERENTIATION, diff[i], COUNT_VALUES_FOR_DIFFERENTIATION, data[i + 1].length - COUNT_VALUES_FOR_DIFFERENTIATION);
         }
         return diff;
     }
@@ -42,20 +43,22 @@ public class Differentiator {
         return integratedData;
     }
 
-    public double[][] differentiate(double[][] data, int countDifferentiations, boolean save) {
+    public double[][] differentiate(double[][] data, int numberOfDifferentiations, boolean save) {
 
-        if (countDifferentiations<0) throw new IllegalArgumentException("Count of differentiations must be greater than 0!");
-        if (data==null || data.length==0) throw new IllegalArgumentException("Data must be not empty and not null!");
-        if (countDifferentiations == 0) return data;
+        if (numberOfDifferentiations < 0)
+            throw new IllegalArgumentException("Count of differentiations must be greater than 0!");
+        if (data == null || data.length == 0)
+            throw new IllegalArgumentException("Data must be not empty and not null!");
+        if (numberOfDifferentiations == 0) return data;
 
-        double[][] firstValues = new double[countDifferentiations][MASK_OUTPUT.length];
+        double[][] firstValues = new double[numberOfDifferentiations][MASK_OUTPUT.length];
 
         for (int i = 0; i < MASK_OUTPUT.length; i++) {
             firstValues[0][i] = data[0][MASK_OUTPUT[i]];
         }
         double[][] lastDiff = differentiate(data);
 
-        for (int i = 1; i < countDifferentiations; i++) {
+        for (int i = 1; i < numberOfDifferentiations; i++) {
             for (int j = 0; j < MASK_OUTPUT.length; j++) {
                 firstValues[i][j] = lastDiff[0][MASK_OUTPUT[j]];
             }
@@ -67,44 +70,22 @@ public class Differentiator {
     }
 
     public double[][] restoreData(double[][] key, double[][] data) {
-        if (key==null || key.length==0) throw new IllegalArgumentException("Key must be not empty and not null!");
-        if (data==null || data.length==0) throw new IllegalArgumentException("Predicts must be not empty and not null!");
+        if (key == null || key.length == 0) throw new IllegalArgumentException("Key must be not empty and not null!");
+        if (data == null || data.length == 0)
+            throw new IllegalArgumentException("Predicts must be not empty and not null!");
 
         double[][] firstValues = firstValuesCash.get(key);
         if (firstValues.length == 0) return data;
 
-        double[][] lastRestored = integrate(data, firstValues[firstValues.length-1]);
+        double[][] lastRestored = integrate(data, firstValues[firstValues.length - 1]);
 
-        for (int i = firstValues.length-2; i >= 0; i--) {
+        for (int i = firstValues.length - 2; i >= 0; i--) {
             lastRestored = integrate(lastRestored, firstValues[i]);
         }
 
         return lastRestored;
     }
 
-    public static double[] getColumn(double[][] input, int columnIndex, int lastIndex) {
-        if (lastIndex > input.length) throw new IllegalArgumentException("Last index must be less than array length");
-        double[] column = new double[lastIndex];
-        for (int i = 0; i < lastIndex; i++) {
-            column[i] = input[i][columnIndex];
-        }
-        return column;
-    }
-
-    public static double[][] refactor(double[][] in, Differentiator differentiator, boolean save) {
-        double[] orient = Differentiator.getColumn(in, POSITION_OF_PRICES_NORMALIZER_IND, in.length);
-
-        double[][] diff = differentiator.differentiate(in, NUMBER_OF_DIFFERENTIATIONS, save);
-
-        for (int i = COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA; i < COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA+MOVING_AVERAGES_COUNT_FOR_DIFF_WITH_PRICE_VALUES; i++) {
-            for (int j = 0; j < diff.length; j++) {
-                diff[j][i] = orient[j+NUMBER_OF_DIFFERENTIATIONS] - diff[j][i];
-            }
-        }
-
-        return diff;
-    }
-    
     public static void main(String[] args) {
         Differentiator differentiator = new Differentiator();
         DataObject[] objs = BinanceDataUtil.getLatestInstances(Coin.BTCUSDT, TimeFrame.ONE_HOUR, 40, new FundamentalDataUtil());
@@ -117,8 +98,8 @@ public class Differentiator {
         System.out.println();
         double[][] diff = differentiator.differentiate(m, 10, true);
         double[][] labels = new double[diff.length][MASK_OUTPUT.length];
-        for (int i = 0; i < diff.length; i++){
-            for (int j = 0; j < labels[0].length; j++){
+        for (int i = 0; i < diff.length; i++) {
+            for (int j = 0; j < labels[0].length; j++) {
                 labels[i][j] = diff[i][MASK_OUTPUT[j]];
             }
         }
@@ -128,7 +109,7 @@ public class Differentiator {
         }
         System.out.println();
         System.out.println();
-        for (double[] d : labels){
+        for (double[] d : labels) {
             System.out.println(Arrays.toString(d));
         }
     }

@@ -7,7 +7,7 @@ import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
 import com.crypto.analysis.main.core.data_utils.train.TrainDataBinance;
 import com.crypto.analysis.main.core.data_utils.train.TrainDataCSV;
 import com.crypto.analysis.main.core.fundamental.stock.FundamentalDataUtil;
-import com.crypto.analysis.main.core.model.DataVisualisation;
+import com.crypto.analysis.main.core.data_utils.utils.mutils.DataVisualisation;
 import com.crypto.analysis.main.core.ndata.CSVCoinDataSet;
 import com.crypto.analysis.main.core.vo.DataObject;
 import lombok.Getter;
@@ -17,8 +17,8 @@ import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.factory.Nd4j;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 
 import static com.crypto.analysis.main.core.data_utils.select.StaticData.BATCH_SIZE;
 
@@ -37,14 +37,15 @@ public class VolatilityTrainSet {
     }
 
     public static VolatilityTrainSet prepareTrainSet(Coin coin, CSVCoinDataSet set) {
-        if (set.getInterval() != TimeFrame.FOUR_HOUR) throw new IllegalArgumentException("Time frame for volatility regression must be 4h!");
+        if (set.getInterval() != TimeFrame.FOUR_HOUR)
+            throw new IllegalArgumentException("Time frame for volatility regression must be 4h!");
 
         System.out.println("Preparing train set..");
         VolatilityTrainSet trainDataSet = new VolatilityTrainSet(coin);
 
         TrainDataCSV trainData = new TrainDataCSV(coin, set.getInterval(), DataLength.VOLATILITY_REGRESSION, set);
 
-        LinkedList<DataObject[]> data = new LinkedList<>(trainData.getData());
+        ArrayList<DataObject[]> data = new ArrayList<>(trainData.getData());
 
         return getTrainDataSet(trainDataSet, data);
     }
@@ -55,16 +56,16 @@ public class VolatilityTrainSet {
 
         TrainDataBinance trainDataBinance = new TrainDataBinance(coin, TimeFrame.FOUR_HOUR, DataLength.VOLATILITY_REGRESSION, fdUtil);
 
-        LinkedList<DataObject[]> data = new LinkedList<>(trainDataBinance.getData());
+        ArrayList<DataObject[]> data = new ArrayList<>(trainDataBinance.getData());
 
         return getTrainDataSet(trainDataSet, data);
     }
 
-    public static VolatilityTrainSet getTrainDataSet(VolatilityTrainSet trainDataSet, LinkedList<DataObject[]> data) {
+    public static VolatilityTrainSet getTrainDataSet(VolatilityTrainSet trainDataSet, ArrayList<DataObject[]> data) {
         int countInput = DataLength.VOLATILITY_REGRESSION.getCountInput();
         int countOutput = DataLength.VOLATILITY_REGRESSION.getCountOutput();
 
-        LinkedList<double[][]> dataArr = new LinkedList<double[][]>();
+        ArrayList<double[][]> dataArr = new ArrayList<double[][]>();
         for (DataObject[] datum : data) {
             double[][] doArray = new double[datum.length][];
             for (int j = 0; j < datum.length; j++) {
@@ -78,7 +79,7 @@ public class VolatilityTrainSet {
             labelsMask.putScalar(new int[]{0, i}, 1.0);
         }
 
-        LinkedList<DataSet> trainSets = new LinkedList<DataSet>();
+        ArrayList<DataSet> trainSets = new ArrayList<DataSet>();
 
         for (double[][] in : dataArr) {
             if (countInput + countOutput != in.length)
@@ -115,12 +116,12 @@ public class VolatilityTrainSet {
 
             trainSets.add(new DataSet(inputArr, outputArr, null, labelsMask));
         }
-        LinkedList<DataSet> testSets = new LinkedList<DataSet>();
+        ArrayList<DataSet> testSets = new ArrayList<DataSet>();
 
         int max = data.size() > 5000 ? 550 : 100;
 
         for (int i = 0; i < max; i++) {
-            testSets.add(0, trainSets.removeLast());
+            testSets.addFirst(trainSets.removeLast());
         }
 
         Collections.shuffle(trainSets);
@@ -132,8 +133,8 @@ public class VolatilityTrainSet {
         trainDataSet.trainIterator = trainIterator;
         trainDataSet.testIterator = testIterator;
         trainDataSet.labelsMask = labelsMask;
-        trainDataSet.countInput = trainSets.get(0).numInputs();
-        trainDataSet.countOutput = trainSets.get(0).numOutcomes();
+        trainDataSet.countInput = trainSets.getFirst().numInputs();
+        trainDataSet.countOutput = trainSets.getFirst().numOutcomes();
         trainDataSet.sequenceLength = countInput;
 
         System.out.println("Train set size: " + trainSets.size());

@@ -15,7 +15,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import static com.crypto.analysis.main.core.data_utils.select.StaticData.*;
 
@@ -26,7 +28,7 @@ public class CSVCoinDataSet {
     @Getter
     private final TimeFrame interval;
     @Getter
-    private final LinkedList<DataObject> data;
+    private final ArrayList<DataObject> data;
     @Getter
     private boolean isInitialized = false;
 
@@ -38,27 +40,19 @@ public class CSVCoinDataSet {
             case ONE_HOUR -> pathToOneHourBTCDataSet;
             case FOUR_HOUR -> pathToFourHourBTCDataSet;
         };
-        data = new LinkedList<>();
-    }
-
-    public static void main(String[] args) {
-        CSVCoinDataSet dataSet = new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.FOUR_HOUR);
-        dataSet.load();
-        System.out.println(dataSet.data.removeLast());
-        System.out.println(dataSet.data.removeLast());
-        System.out.println(dataSet.data.removeLast());
+        data = new ArrayList<>();
     }
 
     public void load() {
         if (isInitialized) return;
-        LinkedList<DataObject> localData = new LinkedList<DataObject>();
-        LinkedList<CandleObject> candles = new LinkedList<CandleObject>();
+        ArrayList<DataObject> localData = new ArrayList<DataObject>();
+        ArrayList<CandleObject> candles = new ArrayList<CandleObject>();
 
         SentimentHistoryObject sentiment = SentimentUtil.getData();
 
         try {
             List<String> lines = Files.readAllLines(path);
-            lines.remove(0);
+            lines.removeFirst();
             for (String line : lines) {
                 String[] tokens = line.split(",");
 

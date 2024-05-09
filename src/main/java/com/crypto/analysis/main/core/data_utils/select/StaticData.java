@@ -17,8 +17,8 @@ public class StaticData {
     public static final ObjectMapper objectMapper = new ObjectMapper();
     public static final OkHttpClient okHttpClient = new OkHttpClient();
 
-    public static final int[] MASK_OUTPUT = new int[]{3, 1, 2}; // CHL
-    public static final int POSITION_OF_PRICES_NORMALIZER_IND = MASK_OUTPUT[0];
+    public static final int[] MASK_OUTPUT = new int[]{1, 2,  3}; // HLC
+    public static final int POSITION_OF_PRICES_NORMALIZER_IND = 0;
     public static final int SKIP_NUMBER = 800;
 
     public static final int binanceCapacityMax = 490;
@@ -27,7 +27,7 @@ public class StaticData {
     public static final int MOVING_AVERAGES_COUNT_FOR_DIFF_WITH_PRICE_VALUES = 24;
 
     public static final int NUMBER_OF_DIFFERENTIATIONS = 1;
-    public static final int COUNT_VALUES_FOR_DIFFERENTIATION = 5;
+    public static final int COUNT_VALUES_FOR_DIFFERENTIATION = 4;
     public static final int COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA = 13;
 
     public static final String ALL_SENTIMENT_DATA = "https://api.senticrypt.com/v2/all.json"; // SentiCrypt, class SentimentUtil
@@ -42,14 +42,14 @@ public class StaticData {
     public static final Path pathToOneHourBTCDataSet = Path.of("C:/static/datasets/btc/bitcoin_1h.csv");
     public static final Path pathToFourHourBTCDataSet = Path.of("C:/static/datasets/btc/bitcoin_4h.csv");
 
-    public static final Path pathToBTCDOM= Path.of("C:/static/data/btcdom-15m.csv");
+    public static final Path pathToBTCDOM = Path.of("C:/static/data/btcdom-15m.csv");
 
-    public static final Path pathToDJI= Path.of("C:/static/data/dji-15m.csv");
-    public static final Path pathToDXY= Path.of("C:/static/data/dxy-15m.csv");
-    public static final Path pathToNDX= Path.of("C:/static/data/ndx-15m.csv");
-    public static final Path pathToSPX= Path.of("C:/static/data/spx-15m.csv");
-    public static final Path pathToVIX= Path.of("C:/static/data/vix-15m.csv");
-    public static final Path pathToGOLD= Path.of("C:/static/data/xau-15m.csv");
+    public static final Path pathToDJI = Path.of("C:/static/data/dji-15m.csv");
+    public static final Path pathToDXY = Path.of("C:/static/data/dxy-15m.csv");
+    public static final Path pathToNDX = Path.of("C:/static/data/ndx-15m.csv");
+    public static final Path pathToSPX = Path.of("C:/static/data/spx-15m.csv");
+    public static final Path pathToVIX = Path.of("C:/static/data/vix-15m.csv");
+    public static final Path pathToGOLD = Path.of("C:/static/data/xau-15m.csv");
 
     public static final Path pathToBTCFund15m = Path.of("C:/static/data/btc/fund/fund_BTCUSDT_15m.csv");
     public static final Path pathToBTCFund1h = Path.of("C:/static/data/btc/fund/fund_BTCUSDT_1h.csv");
@@ -66,6 +66,7 @@ public class StaticData {
 
     public static final int COUNT_EPOCHS_TO_SAVE_MODEL = 20;
     public static final String PATH_TO_MODEL = "";
+
     static {
         sdfFullISO.setTimeZone(TimeZone.getTimeZone("UTC+0"));
         sdfShortISO.setTimeZone(TimeZone.getTimeZone("UTC+0"));
@@ -87,7 +88,9 @@ public class StaticData {
     }
 
     public static void main(String[] args) {
-        System.out.println(new Date(1713097800000l));
-        System.out.println(new Date(1713123900000l));
+        System.out.println(Math.log(250));
+        System.out.println(Math.log(60));
+        System.out.println(Math.log(10));
+        System.out.println(new Date(1715248800000l));
     }
 }

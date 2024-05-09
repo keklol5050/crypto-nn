@@ -1,10 +1,10 @@
 package com.crypto.analysis.main.core.updater;
 
-import com.crypto.analysis.main.core.data_utils.utils.BinanceDataUtil;
-import com.crypto.analysis.main.core.vo.indication.BTCDOMObject;
 import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
 import com.crypto.analysis.main.core.data_utils.select.fundamental.FundamentalStock;
+import com.crypto.analysis.main.core.data_utils.utils.BinanceDataUtil;
 import com.crypto.analysis.main.core.fundamental.stock.FundamentalDataUtil;
+import com.crypto.analysis.main.core.vo.indication.BTCDOMObject;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,33 +18,32 @@ import static com.crypto.analysis.main.core.data_utils.select.StaticData.*;
 
 public class FundamentalUpdater {
     private final FundamentalDataUtil fdUtil;
-
-    private PrintWriter writer;
     private List<String> lines;
-    private LinkedList<Date> dates;
+    private ArrayList<Date> dates;
+
     public FundamentalUpdater(FundamentalDataUtil fdUtil) {
         this.fdUtil = fdUtil;
     }
 
     public void update(FundamentalStock stock) {
-       switch (stock) {
-           case SPX -> update(pathToSPX, fdUtil.getSPX());
-           case DXY -> update(pathToDXY, fdUtil.getDXY());
-           case DJI -> update(pathToDJI, fdUtil.getDJI());
-           case VIX -> update(pathToVIX, fdUtil.getVIX());
-           case NDX -> update(pathToNDX, fdUtil.getNDX());
-           case GOLD -> update(pathToGOLD, fdUtil.getGOLD());
-       };
+        switch (stock) {
+            case SPX -> update(pathToSPX, fdUtil.getSPX());
+            case DXY -> update(pathToDXY, fdUtil.getDXY());
+            case DJI -> update(pathToDJI, fdUtil.getDJI());
+            case VIX -> update(pathToVIX, fdUtil.getVIX());
+            case NDX -> update(pathToNDX, fdUtil.getNDX());
+            case GOLD -> update(pathToGOLD, fdUtil.getGOLD());
+        }
+        ;
     }
 
     private void update(Path path, TreeMap<Date, Double> data) {
-        try {
-            writer = new PrintWriter(new FileWriter(String.valueOf(path), true));
+            try (PrintWriter writer = new PrintWriter(new FileWriter(String.valueOf(path), true))) {
 
             lines = Files.readAllLines(path);
-            lines.remove(0);
+            lines.removeFirst();
 
-            dates = new LinkedList<Date>();
+            dates = new ArrayList<Date>();
 
             for (String line : lines) {
                 dates.add(sdfFullISO.parse(line.split(";")[0]));
@@ -68,9 +67,9 @@ public class FundamentalUpdater {
         try (PrintWriter writer = new PrintWriter(new FileWriter(String.valueOf(pathToBTCDOM), true))) {
 
             lines = Files.readAllLines(pathToBTCDOM);
-            lines.remove(0);
+            lines.removeFirst();
 
-            dates = new LinkedList<Date>();
+            dates = new ArrayList<Date>();
 
             for (String line : lines) {
                 dates.add(new Date(Long.parseLong(line.split(",")[0])));

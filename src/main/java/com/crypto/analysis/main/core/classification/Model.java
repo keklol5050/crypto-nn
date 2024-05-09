@@ -2,9 +2,8 @@ package com.crypto.analysis.main.core.classification;
 
 import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
-import com.crypto.analysis.main.core.model.ModelLoader;
+import com.crypto.analysis.main.core.data_utils.utils.mutils.ModelLoader;
 import com.crypto.analysis.main.core.ndata.CSVCoinDataSet;
-import org.deeplearning4j.core.storage.StatsStorage;
 import org.deeplearning4j.datasets.iterator.utilty.ListDataSetIterator;
 import org.deeplearning4j.nn.api.OptimizationAlgorithm;
 import org.deeplearning4j.nn.conf.*;
@@ -15,17 +14,12 @@ import org.deeplearning4j.nn.weights.WeightInit;
 import org.deeplearning4j.optimize.api.InvocationType;
 import org.deeplearning4j.optimize.listeners.EvaluativeListener;
 import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
-import org.deeplearning4j.ui.api.UIServer;
-import org.deeplearning4j.ui.model.stats.StatsListener;
-import org.deeplearning4j.ui.model.storage.FileStatsStorage;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.api.preprocessor.NormalizerStandardize;
 import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
-
-import java.io.File;
 
 public class Model {
     public static void main(String[] args) {
@@ -77,16 +71,11 @@ public class Model {
 
         System.out.println(model.summary());
 
-        UIServer uiServer = UIServer.getInstance();
-        StatsStorage statsStorage = new FileStatsStorage(new File(System.getProperty("java.io.tmpdir"), "ui-stats.dl4j"));
-
         model.setListeners(
-                new StatsListener(statsStorage, 10),
                 new ScoreIterationListener(10),
                 new EvaluativeListener(testIterator, 10, InvocationType.EPOCH_START)
         );
 
-        uiServer.attach(statsStorage);
         System.gc();
         for (int i = 0; i < numEpochs; i++) {
             if (i % 50 == 0 && i > 0) {
@@ -108,18 +97,18 @@ public class Model {
             int pClass = 0;
             for (int i = 0; i < outputMatrix.length; i++) {
                 double[] d = outputMatrix[i];
-                maxValue = Math.max(maxValue, d[d.length-1]);
-                if (maxValue == d[d.length-1]) pClass = i;
+                maxValue = Math.max(maxValue, d[d.length - 1]);
+                if (maxValue == d[d.length - 1]) pClass = i;
             }
             int rClass = 0;
             double[][] real = set.getLabels().slice(0).toDoubleMatrix();
             for (int i = 0; i < real.length; i++) {
-                if (real[i][real[i].length-1] == 1) rClass = i;
+                if (real[i][real[i].length - 1] == 1) rClass = i;
             }
             System.out.println("Real class: " + rClass);
             System.out.println("Predicted class: " + pClass);
             System.out.println();
-            if (pClass==rClass) countRight++;
+            if (pClass == rClass) countRight++;
         }
         System.out.println("Count right: " + countRight);
     }

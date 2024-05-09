@@ -1,4 +1,4 @@
-package com.crypto.analysis.main.core.model;
+package com.crypto.analysis.main.core.data_utils.utils.mutils;
 
 import org.deeplearning4j.nn.api.Model;
 import org.deeplearning4j.nn.graph.ComputationGraph;

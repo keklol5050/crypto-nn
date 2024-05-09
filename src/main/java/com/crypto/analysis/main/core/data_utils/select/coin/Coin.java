@@ -6,6 +6,7 @@ import lombok.Getter;
 public enum Coin {
     BTCUSDT("BTCUSDT"),
     ETHUSDT("ETHUSDT"),
+    SOLUSDT("SOLUSDT"),
     BTCDOMUSDT("BTCDOMUSDT");
 
     private final String name;

@@ -10,6 +10,7 @@ public enum PriceMovingTypes {
     HIGH_DECREASE;
 
     public static final int countClasses = 5;
+
     public static double getTimeFrameChangePercentage(TimeFrame interval) {
         return switch (interval) {
             case FIFTEEN_MINUTES -> 0.6;

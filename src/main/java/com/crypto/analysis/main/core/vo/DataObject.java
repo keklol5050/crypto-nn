@@ -57,12 +57,10 @@ public class DataObject {
         double[] movingAverages = currentIndicators.getMovingAverageValues(); // 24
 
         double[] indicators = currentIndicators.getIndicatorValues(); // 17
-        double[] coinFundValues = {currentFundingRate, currentOpenInterest, longShortRatio}; // 3
-        double[] volatileFundData = fundamentalData.getValuesArr(); // 6
-        double[] volatileValues = {BTCDomination, sentimentMean, sentimentSum}; // 3
+        double[] coinFundValues = {BTCDomination, currentOpenInterest, longShortRatio}; // 3
 
-        double[] result = new double[candleValues.length + movingAverages.length + + cryptoFundData.length + indicators
-                .length + coinFundValues.length + volatileFundData.length + volatileValues.length]; // 5 + 8 + 24  + 17 + 3 + 6 + 3 = 66
+        double[] result = new double[candleValues.length + movingAverages.length + +cryptoFundData.length + indicators
+                .length + coinFundValues.length]; // 5 + 8 + 24  + 17 + 3 = 57
 
         System.arraycopy(candleValues, 0, result,
                 0, candleValues.length);
@@ -74,11 +72,6 @@ public class DataObject {
                 candleValues.length + cryptoFundData.length + movingAverages.length, indicators.length);
         System.arraycopy(coinFundValues, 0, result,
                 candleValues.length + cryptoFundData.length + movingAverages.length + indicators.length, coinFundValues.length);
-        System.arraycopy(volatileFundData, 0, result,
-                candleValues.length + cryptoFundData.length + movingAverages.length + indicators.length + coinFundValues.length, volatileFundData.length);
-        System.arraycopy(volatileValues, 0, result,
-                candleValues.length + cryptoFundData.length + movingAverages.length + indicators.length + coinFundValues.length + volatileFundData.length, volatileValues.length);
-
 
         return result;
     }

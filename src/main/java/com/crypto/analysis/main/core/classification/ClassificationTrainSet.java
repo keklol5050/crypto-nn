@@ -38,7 +38,7 @@ public class ClassificationTrainSet {
 
         TrainDataCSV trainData = new TrainDataCSV(coin, set.getInterval(), DataLength.CLASSIFICATION, set);
 
-        LinkedList<DataObject[]> data = new LinkedList<>(trainData.getData());
+        ArrayList<DataObject[]> data = new ArrayList<>(trainData.getData());
 
         return getTrainDataSet(trainDataSet, data, set.getInterval());
     }
@@ -49,12 +49,12 @@ public class ClassificationTrainSet {
 
         TrainDataBinance trainDataBinance = new TrainDataBinance(coin, interval, DataLength.CLASSIFICATION, fdUtil);
 
-        LinkedList<DataObject[]> data = new LinkedList<>(trainDataBinance.getData());
+        ArrayList<DataObject[]> data = new ArrayList<>(trainDataBinance.getData());
 
         return getTrainDataSet(trainDataSet, data, interval);
     }
 
-    private static ClassificationTrainSet getTrainDataSet(ClassificationTrainSet trainDataSet, LinkedList<DataObject[]> data, TimeFrame interval) {
+    private static ClassificationTrainSet getTrainDataSet(ClassificationTrainSet trainDataSet, ArrayList<DataObject[]> data, TimeFrame interval) {
         LinkedHashMap<double[][], double[]> indicatorsData = new LinkedHashMap<>();
         double changeIndex = PriceMovingTypes.getTimeFrameChangePercentage(interval);
 
@@ -62,7 +62,7 @@ public class ClassificationTrainSet {
         int countOutput = DataLength.CLASSIFICATION.getCountOutput();
 
         INDArray labelsMask = Nd4j.zeros(1, countInput);
-        labelsMask.putScalar(new int[]{0, countInput-1}, 1.0);
+        labelsMask.putScalar(new int[]{0, countInput - 1}, 1.0);
 
         for (DataObject[] datum : data) {
             if (datum.length != countOutput + countInput)
@@ -82,7 +82,7 @@ public class ClassificationTrainSet {
             indicatorsData.put(doArray, closePriceArray);
         }
 
-        LinkedList<DataSet> trainSets = new LinkedList<DataSet>();
+        ArrayList<DataSet> trainSets = new ArrayList<DataSet>();
 
         for (Map.Entry<double[][], double[]> entry : indicatorsData.entrySet()) {
             double[][] inputTransposed = Transposer.transpose(entry.getKey());
@@ -97,7 +97,7 @@ public class ClassificationTrainSet {
             double[][] labels = new double[PriceMovingTypes.countClasses][countInput];
 
             if (diffPercentage >= changeIndex)
-                labels[PriceMovingTypes.HIGH_INCREASE.ordinal()][countInput- 1] = 1;
+                labels[PriceMovingTypes.HIGH_INCREASE.ordinal()][countInput - 1] = 1;
 
             else if (diffPercentage >= changeIndex / 2)
                 labels[PriceMovingTypes.INCREASE.ordinal()][countInput - 1] = 1;
@@ -117,12 +117,12 @@ public class ClassificationTrainSet {
             trainSets.add(set);
         }
 
-        LinkedList<DataSet> testSets = new LinkedList<DataSet>();
+        ArrayList<DataSet> testSets = new ArrayList<DataSet>();
 
         int max = data.size() > 5000 ? 550 : 100;
 
         for (int i = 0; i < max; i++) {
-            testSets.add(0, trainSets.removeLast());
+            testSets.addFirst(trainSets.removeLast());
         }
 
         Collections.shuffle(trainSets);
@@ -134,8 +134,8 @@ public class ClassificationTrainSet {
         trainDataSet.trainIterator = trainIterator;
         trainDataSet.testIterator = testIterator;
         trainDataSet.labelsMask = labelsMask;
-        trainDataSet.countInput = trainSets.get(0).numInputs();
-        trainDataSet.countOutput = trainSets.get(0).numOutcomes();
+        trainDataSet.countInput = trainSets.getFirst().numInputs();
+        trainDataSet.countOutput = trainSets.getFirst().numOutcomes();
 
         System.out.println("Train set size: " + trainSets.size());
         System.out.println("Test set size: " + testSets.size());

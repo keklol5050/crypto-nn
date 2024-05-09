@@ -1,10 +1,10 @@
 package com.crypto.analysis.main.core.updater;
 
-import com.crypto.analysis.main.core.vo.indication.FundingHistoryObject;
 import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
 import com.crypto.analysis.main.core.data_utils.utils.BinanceDataUtil;
 import com.crypto.analysis.main.core.fundamental.crypto.BitQueryUtil;
+import com.crypto.analysis.main.core.vo.indication.FundingHistoryObject;
 import com.crypto.analysis.main.core.vo.indication.LongShortRatioHistoryObject;
 import com.crypto.analysis.main.core.vo.indication.OpenInterestHistoryObject;
 
@@ -21,7 +21,7 @@ public class CoinUpdater {
 
     private BitQueryUtil bqUtil;
     private List<String> lines;
-    private LinkedList<Date> dates;
+    private ArrayList<Date> dates;
 
     public CoinUpdater(Coin coin) {
         this.coin = coin;
@@ -43,9 +43,9 @@ public class CoinUpdater {
         try (PrintWriter writer = new PrintWriter(new FileWriter(String.valueOf(path), true))) {
 
             lines = Files.readAllLines(path);
-            lines.remove(0);
+            lines.removeFirst();
 
-            dates = new LinkedList<>();
+            dates = new ArrayList<>();
 
             for (String line : lines) {
                 dates.add(sdfFullISO.parse(line.split(",")[0]));
@@ -58,11 +58,12 @@ public class CoinUpdater {
             bqUtil.getData().remove(bqUtil.getData().lastKey());
 
             for (Map.Entry<Date, double[]> entry : bqUtil.getData().entrySet()) {
-               if (entry.getKey().after(dates.getLast()) && !dates.contains(entry.getKey())) writer.print(String.format("\n%s,%s,%s,%s,%s,%s,%s,%s,%s",
-                       sdfFullISO.format(entry.getKey()), entry.getValue()[0],
-                       entry.getValue()[1], entry.getValue()[2], entry.getValue()[3],
-                       entry.getValue()[4], entry.getValue()[5], entry.getValue()[6],
-                       entry.getValue()[7]));
+                if (entry.getKey().after(dates.getLast()) && !dates.contains(entry.getKey()))
+                    writer.print(String.format("\n%s,%s,%s,%s,%s,%s,%s,%s,%s",
+                            sdfFullISO.format(entry.getKey()), entry.getValue()[0],
+                            entry.getValue()[1], entry.getValue()[2], entry.getValue()[3],
+                            entry.getValue()[4], entry.getValue()[5], entry.getValue()[6],
+                            entry.getValue()[7]));
             }
 
             System.out.printf("Fundamental data of " + coin + " updated at path %s%n", path);
@@ -81,9 +82,9 @@ public class CoinUpdater {
         try (PrintWriter writer = new PrintWriter(new FileWriter(String.valueOf(path), true))) {
 
             lines = Files.readAllLines(path);
-            lines.remove(0);
+            lines.removeFirst();
 
-            dates = new LinkedList<>();
+            dates = new ArrayList<>();
 
             for (String line : lines) {
                 dates.add(new Date(Long.parseLong(line.split(",")[0])));
@@ -92,10 +93,10 @@ public class CoinUpdater {
             FundingHistoryObject fundingObject = BinanceDataUtil.getFundingHistory(coin);
 
             StringBuilder builderKey = new StringBuilder(String.valueOf(fundingObject.getMap().firstKey().getTime()));
-            builderKey.setCharAt(builderKey.length() -1, '0');
-            builderKey.setCharAt(builderKey.length() -2, '0');
-            builderKey.setCharAt(builderKey.length() -3, '0');
-            builderKey.setCharAt(builderKey.length() -4, '0');
+            builderKey.setCharAt(builderKey.length() - 1, '0');
+            builderKey.setCharAt(builderKey.length() - 2, '0');
+            builderKey.setCharAt(builderKey.length() - 3, '0');
+            builderKey.setCharAt(builderKey.length() - 4, '0');
             Date key = new Date(Long.parseLong(builderKey.toString()));
 
             if (!dates.contains(key))
@@ -103,13 +104,13 @@ public class CoinUpdater {
 
             for (Map.Entry<Date, Double> entry : fundingObject.getMap().entrySet()) {
                 StringBuilder builder = new StringBuilder(String.valueOf(entry.getKey().getTime()));
-                builder.setCharAt(builder.length() -1, '0');
-                builder.setCharAt(builder.length() -2, '0');
-                builder.setCharAt(builder.length() -3, '0');
-                builder.setCharAt(builder.length() -4, '0');
+                builder.setCharAt(builder.length() - 1, '0');
+                builder.setCharAt(builder.length() - 2, '0');
+                builder.setCharAt(builder.length() - 3, '0');
+                builder.setCharAt(builder.length() - 4, '0');
                 Date date = new Date(Long.parseLong(builder.toString()));
 
-                if (date.after(dates.getLast()) && !dates.contains(date)){
+                if (date.after(dates.getLast()) && !dates.contains(date)) {
                     writer.print(String.format("\n%s,8,%.8f", date.getTime(), entry.getValue()));
                 }
             }
@@ -128,9 +129,9 @@ public class CoinUpdater {
         try (PrintWriter writer = new PrintWriter(new FileWriter(String.valueOf(path), true))) {
 
             lines = Files.readAllLines(path);
-            lines.remove(0);
+            lines.removeFirst();
 
-            dates = new LinkedList<>();
+            dates = new ArrayList<>();
 
             for (String line : lines) {
                 dates.add(sdfFullISO.parse(line.split(",")[0]));
@@ -141,19 +142,19 @@ public class CoinUpdater {
             TreeMap<Date, double[]> dataMap = new TreeMap<>();
 
             StringBuilder builderKey = new StringBuilder(String.valueOf(openInterestHistoryObject.getMap().firstKey().getTime()));
-            builderKey.setCharAt(builderKey.length() -1, '0');
-            builderKey.setCharAt(builderKey.length() -2, '0');
-            builderKey.setCharAt(builderKey.length() -3, '0');
-            builderKey.setCharAt(builderKey.length() -4, '0');
+            builderKey.setCharAt(builderKey.length() - 1, '0');
+            builderKey.setCharAt(builderKey.length() - 2, '0');
+            builderKey.setCharAt(builderKey.length() - 3, '0');
+            builderKey.setCharAt(builderKey.length() - 4, '0');
             Date key = new Date(Long.parseLong(builderKey.toString()));
             if (!dates.contains(key))
                 throw new IllegalStateException("Data list is not full");
 
             builderKey = new StringBuilder(String.valueOf(longShortObject.getMap().firstKey().getTime()));
-            builderKey.setCharAt(builderKey.length() -1, '0');
-            builderKey.setCharAt(builderKey.length() -2, '0');
-            builderKey.setCharAt(builderKey.length() -3, '0');
-            builderKey.setCharAt(builderKey.length() -4, '0');
+            builderKey.setCharAt(builderKey.length() - 1, '0');
+            builderKey.setCharAt(builderKey.length() - 2, '0');
+            builderKey.setCharAt(builderKey.length() - 3, '0');
+            builderKey.setCharAt(builderKey.length() - 4, '0');
             key = new Date(Long.parseLong(builderKey.toString()));
             if (!dates.contains(key))
                 throw new IllegalStateException("Data list is not full");
@@ -171,13 +172,13 @@ public class CoinUpdater {
 
             for (Map.Entry<Date, double[]> entry : dataMap.entrySet()) {
                 StringBuilder builder = new StringBuilder(String.valueOf(entry.getKey().getTime()));
-                builder.setCharAt(builder.length() -1, '0');
-                builder.setCharAt(builder.length() -2, '0');
-                builder.setCharAt(builder.length() -3, '0');
-                builder.setCharAt(builder.length() -4, '0');
+                builder.setCharAt(builder.length() - 1, '0');
+                builder.setCharAt(builder.length() - 2, '0');
+                builder.setCharAt(builder.length() - 3, '0');
+                builder.setCharAt(builder.length() - 4, '0');
                 Date date = new Date(Long.parseLong(builder.toString()));
 
-                if (date.after(dates.getLast()) && !dates.contains(date)){
+                if (date.after(dates.getLast()) && !dates.contains(date)) {
                     writer.print(String.format("\n%s,%s,%s,0,0,0,%s,0",
                             sdfFullISO.format(date), coin.getName(),
                             entry.getValue()[0], entry.getValue()[1]));

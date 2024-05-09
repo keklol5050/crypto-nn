@@ -10,10 +10,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.ParseException;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 
 import static com.crypto.analysis.main.core.data_utils.select.StaticData.*;
 
@@ -69,19 +66,19 @@ public class DataSetUpdater {
         List<String> ndx = Files.readAllLines(pathToNDX);
         List<String> xau = Files.readAllLines(pathToGOLD);
 
-        candleLines.remove(0);
-        fundList.remove(0);
-        metrics.remove(0);
-        dom.remove(0);
-        spx.remove(0);
-        dxy.remove(0);
-        dji.remove(0);
-        vix.remove(0);
-        ndx.remove(0);
-        xau.remove(0);
-        fundCr.remove(0);
+        candleLines.removeFirst();
+        fundList.removeFirst();
+        metrics.removeFirst();
+        dom.removeFirst();
+        spx.removeFirst();
+        dxy.removeFirst();
+        dji.removeFirst();
+        vix.removeFirst();
+        ndx.removeFirst();
+        xau.removeFirst();
+        fundCr.removeFirst();
 
-        LinkedList<CandleObject> candles = new LinkedList<CandleObject>();
+        ArrayList<CandleObject> candles = new ArrayList<CandleObject>();
         for (String str : candleLines) {
             String[] tokens = str.split(",");
             Date openTime = new Date(Long.parseLong(tokens[0]));
@@ -211,6 +208,6 @@ public class DataSetUpdater {
             }
         }
 
-        System.out.println("Updated "+ coin + " data set at path " + pathToDataSet);
+        System.out.println("Updated " + coin + " data set at path " + pathToDataSet);
     }
 }

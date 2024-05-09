@@ -9,8 +9,9 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.crypto.analysis.main.core.data_utils.select.StaticData.*;
@@ -20,7 +21,7 @@ public class CandlesUpdater {
     private Coin coin;
 
     private List<String> lines;
-    private LinkedList<Date> dates;
+    private ArrayList<Date> dates;
 
     public CandlesUpdater(Coin coin) {
         this.coin = coin;
@@ -28,7 +29,7 @@ public class CandlesUpdater {
 
     public void update(TimeFrame tf) {
         Path path = switch (coin) {
-            case BTCUSDT ->  switch (tf) {
+            case BTCUSDT -> switch (tf) {
                 case FIFTEEN_MINUTES -> pathToBTCCandles15m;
                 case ONE_HOUR -> pathToBTCCandles1h;
                 case FOUR_HOUR -> pathToBTCCandles4h;
@@ -40,26 +41,28 @@ public class CandlesUpdater {
         try (PrintWriter writer = new PrintWriter(new FileWriter(String.valueOf(path), true))) {
 
             lines = Files.readAllLines(path);
-            lines.remove(0);
+            lines.removeFirst();
 
-            dates = new LinkedList<>();
+            dates = new ArrayList<>();
 
             for (String line : lines) {
                 dates.add(new Date(Long.parseLong(line.split(",")[0])));
             }
 
-            LinkedList<CandleObject> candles = BinanceDataUtil.getCandles(coin, tf,  1500);
+            ArrayList<CandleObject> candles = BinanceDataUtil.getCandles(coin, tf, 1500);
             candles.removeLast();
             candles.removeLast();
 
-            if (!dates.contains(candles.getFirst().getOpenTime())) throw new IllegalStateException("Data list is not full");
+            if (!dates.contains(candles.getFirst().getOpenTime()))
+                throw new IllegalStateException("Data list is not full");
 
             for (CandleObject candle : candles) {
-                if (candle.getOpenTime().after(dates.getLast()) && !dates.contains(candle.getOpenTime())) writer.print(String.format("\n%s,%s,%s,%s,%s,%s,%s",
-                        candle.getOpenTime().getTime(), candle.getOpen(), candle.getHigh(), candle.getLow(),
-                        candle.getClose(), candle.getVolume(), candle.getCloseTime().getTime()));
+                if (candle.getOpenTime().after(dates.getLast()) && !dates.contains(candle.getOpenTime()))
+                    writer.print(String.format("\n%s,%s,%s,%s,%s,%s,%s",
+                            candle.getOpenTime().getTime(), candle.getOpen(), candle.getHigh(), candle.getLow(),
+                            candle.getClose(), candle.getVolume(), candle.getCloseTime().getTime()));
             }
-            System.out.printf("Candles data "+coin+" updated at path %s%n", path);
+            System.out.printf("Candles data " + coin + " updated at path %s%n", path);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
