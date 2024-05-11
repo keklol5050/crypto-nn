@@ -98,7 +98,7 @@ public class RegressionDataSet {
             if (countOutput < 1 || countInput < 1)
                 throw new IllegalArgumentException("Parameters cannot be zero or negative");
 
-            double[][] diff = refactor(in, differentiator, false, normalizer);
+            double[][] diff = refactor(in, differentiator, false, normalizer, countInput);
 
             double[][] input = new double[countInput][];
             System.arraycopy(diff, 0, input, 0, input.length);
@@ -157,7 +157,7 @@ public class RegressionDataSet {
         return column;
     }
 
-    public static double[][] refactor(double[][] in, Differentiator differentiator, boolean save, StandardizeNormalizer normalizer) {
+    public static double[][] refactor(double[][] in, Differentiator differentiator, boolean save, StandardizeNormalizer normalizer, int countInput) {
         double[][] diff = differentiator.differentiate(in, NUMBER_OF_DIFFERENTIATIONS, save);
 
         for (int i = 0; i < diff.length; i++) {
@@ -182,10 +182,16 @@ public class RegressionDataSet {
             }
         }
 
-        normalizer.fit(diff);
+        if (countInput==0)
+            countInput = diff.length;
+
+        normalizer.fit(diff, countInput);
         normalizer.transform(diff);
 
         return diff;
+    }
+    public static double[][] refactor(double[][] in, Differentiator differentiator, boolean save, StandardizeNormalizer normalizer) {
+         return refactor(in, differentiator, save, normalizer, 0);
     }
 
     public static void main(String[] args) {

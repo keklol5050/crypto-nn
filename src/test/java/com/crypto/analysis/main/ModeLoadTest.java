@@ -20,8 +20,8 @@ import java.util.*;
 public class ModeLoadTest {
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
-        DataLength length = DataLength.X150_9;
-        TimeFrame tf = TimeFrame.FIFTEEN_MINUTES;
+        DataLength length = DataLength.L100_6;
+        TimeFrame tf = TimeFrame.ONE_HOUR;
 
         CSVCoinDataSet setD = new CSVCoinDataSet(Coin.BTCUSDT, tf);
         setD.load();
@@ -37,7 +37,7 @@ public class ModeLoadTest {
         System.out.println();
         System.out.println(testIterator.next(1));
 
-        MultiLayerNetwork model = ModelLoader.loadNetwork("D:\\model14_ftm.zip");
+        MultiLayerNetwork model = ModelLoader.loadNetwork("D:\\model15.zip");
         model.init();
 
         System.out.println(model.summary());
@@ -76,11 +76,11 @@ public class ModeLoadTest {
             for (int j = 0; j < regressionDataSet.getCountOutput(); j++) {
                 System.arraycopy(real[j], 0, realFin[j], 0, length.getCountOutput());
             }
-            DataVisualisation.visualizeData("Prediction", "candle length", "price", newFeaturesArr[3], realFin[0], predicted[0]);
-            for (double d : realFin[0]) {
+            DataVisualisation.visualizeData("Prediction", "candle length", "price", newFeaturesArr[3], realFin[2], predicted[2]);
+            for (double d : realFin[2]) {
                 realT.add(index1++, d);
             }
-            for (double d : predicted[0]) {
+            for (double d : predicted[2]) {
                 predT.add(index2++, d);
             }
 

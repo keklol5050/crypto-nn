@@ -29,6 +29,7 @@ public class StaticData {
     public static final int NUMBER_OF_DIFFERENTIATIONS = 1;
     public static final int COUNT_VALUES_FOR_DIFFERENTIATION = 4;
     public static final int COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA = 13;
+    public static final int MODEL_NUM_INPUTS = 57;
 
     public static final String ALL_SENTIMENT_DATA = "https://api.senticrypt.com/v2/all.json"; // SentiCrypt, class SentimentUtil
     public static final String bitQueryApiKey = "BQYM7GOqY0AGd3Sss16XsDtijqogxOM6"; // BitQuery crypto fundamental api key, class BitQueryUtil
@@ -72,21 +73,6 @@ public class StaticData {
         sdfShortISO.setTimeZone(TimeZone.getTimeZone("UTC+0"));
         Locale.setDefault(Locale.US);
     }
-
-    public static final LocalDate START_DATE = LocalDate.of(2022, 6, 1);
-
-    public static int getDelimiterForSet(TimeFrame tf) {
-        return switch (tf) {
-            case FIFTEEN_MINUTES -> 6;
-            case ONE_HOUR -> 5;
-            case FOUR_HOUR -> 3;
-        };
-    }
-
-    public static int getDelimiterForBinance(TimeFrame tf) {
-        return 3;
-    }
-
     public static void main(String[] args) {
         System.out.println(Math.log(250));
         System.out.println(Math.log(60));

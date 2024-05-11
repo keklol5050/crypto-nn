@@ -19,17 +19,17 @@ public class StandardizeNormalizer {
         this.sequenceLength = sequenceLength;
     }
 
-    public void fit(ArrayList<double[][]> data) {
+    public void fit(ArrayList<double[][]> data, int countInput) {
         if (data == null || data.isEmpty()) throw new IllegalArgumentException("Input list cannot be empty");
         if (data.getFirst().length == 0 || data.getFirst()[0].length == 0)
             throw new IllegalArgumentException("Input array cannot be empty");
 
         for (double[][] dataArr : data) {
-            fit(dataArr);
+            fit(dataArr, countInput);
         }
     }
 
-    public void fit(double[][] input) {
+    public void fit(double[][] input, int countInput) {
         if (input.length == 0 || input[0].length == 0)
             throw new IllegalArgumentException("Input array cannot be empty");
         if (sequenceLength != input[0].length)
@@ -40,7 +40,7 @@ public class StandardizeNormalizer {
 
         for (int i = 0; i < sequenceLength; i++) {
             DescriptiveStatistics stats = new DescriptiveStatistics();
-            for (int j = 0; j < input.length; j++) {
+            for (int j = 0; j < countInput; j++) {
                 stats.addValue(input[j][i]);
             }
 
@@ -85,12 +85,11 @@ public class StandardizeNormalizer {
         for (int i = 0; i < sequenceLength; i++) {
             for (int j = 0; j < input.length; j++) {
                 double value = (input[j][i] - mean[i]) / standardDeviation[i];
-                if (Math.abs(value) > 10) {
-                    System.out.println("Value " + value);
-                }
+
                 if (Double.isNaN(value) || Double.isInfinite(value)){
                     System.out.println("Value NaN " + value);
                 }
+
                 input[j][i] = value;
             }
         }
