@@ -99,6 +99,8 @@ public class RegressionDataSet {
                 throw new IllegalArgumentException("Parameters cannot be zero or negative");
 
             double[][] diff = refactor(in, differentiator, false, normalizer, countInput);
+            if (diff == null)
+                continue;
 
             double[][] input = new double[countInput][];
             System.arraycopy(diff, 0, input, 0, input.length);
@@ -158,35 +160,39 @@ public class RegressionDataSet {
     }
 
     public static double[][] refactor(double[][] in, Differentiator differentiator, boolean save, StandardizeNormalizer normalizer, int countInput) {
-        double[][] diff = differentiator.differentiate(in, NUMBER_OF_DIFFERENTIATIONS, save);
-
-        for (int i = 0; i < diff.length; i++) {
-            for (int j = COUNT_VALUES_FOR_DIFFERENTIATION; j < COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA; j++) {
-                double value = Math.log(diff[i][j]);
+        for (int i = 0; i < in.length; i++) {
+            for (int j = COUNT_PRICES_VALUES; j < COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA; j++) {
+                double value = Math.log(in[i][j]);
                 if (Double.isInfinite(value) || Double.isNaN(value)) {
                     if (i == 0) {
-                        diff[i][j] = new Random().nextDouble(0, 2);
+                        in[i][j] = new Random().nextDouble(0, 2);
                     } else {
-                        diff[i][j] = diff[i-1][j] + new Random().nextDouble(-1, 1);
+                        in[i][j] = in[i-1][j] + new Random().nextDouble(-1, 1);
                     }
                 } else {
-                    diff[i][j] = value;
+                    in[i][j] = value;
                 }
             }
         }
 
         double[] orient = getColumn(in, POSITION_OF_PRICES_NORMALIZER_IND, in.length);
         for (int i = COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA; i < COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA + MOVING_AVERAGES_COUNT_FOR_DIFF_WITH_PRICE_VALUES; i++) {
-            for (int j = 0; j < diff.length; j++) {
-                diff[j][i] = orient[j + 1] - diff[j][i];
+            for (int j = 0; j < in.length; j++) {
+                in[j][i] = orient[j] - in[j][i];
             }
         }
+
+        double[][] diff = differentiator.differentiate(in, NUMBER_OF_DIFFERENTIATIONS, save);
 
         if (countInput==0)
             countInput = diff.length;
 
-        normalizer.fit(diff, countInput);
-        normalizer.transform(diff);
+       try {
+           normalizer.fit(diff, countInput);
+           normalizer.transform(diff);
+       } catch (RuntimeException e) {
+           return null;
+       }
 
         return diff;
     }
@@ -198,7 +204,7 @@ public class RegressionDataSet {
         CSVCoinDataSet cs = new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.ONE_HOUR);
         cs.load();
         RegressionDataSet regressionDataSet = RegressionDataSet.prepareTrainSet(Coin.BTCUSDT, DataLength.L100_6, cs);
-        DataSet set = regressionDataSet.getTrainIterator().next(1);
+        DataSet set = regressionDataSet.getTestIterator().next(1);
         INDArray input = set.getFeatures();
         double[][] matrix = input.slice(0).toDoubleMatrix();
         int index = 0;

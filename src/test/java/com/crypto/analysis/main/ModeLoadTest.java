@@ -37,7 +37,7 @@ public class ModeLoadTest {
         System.out.println();
         System.out.println(testIterator.next(1));
 
-        MultiLayerNetwork model = ModelLoader.loadNetwork("D:\\model15.zip");
+        MultiLayerNetwork model = ModelLoader.loadNetwork("D:\\model16.zip");
         model.init();
 
         System.out.println(model.summary());

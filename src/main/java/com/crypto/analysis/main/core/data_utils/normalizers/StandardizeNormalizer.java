@@ -5,6 +5,8 @@ import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.crypto.analysis.main.core.data_utils.select.StaticData.COUNT_PRICES_VALUES;
+
 public class StandardizeNormalizer {
     private final HashMap<double[][], double[]> standardDeviation = new HashMap<>();
     private final HashMap<double[][], double[]> mean = new HashMap<>();
@@ -48,10 +50,10 @@ public class StandardizeNormalizer {
             double meanValue = stats.getMean();
 
             if (Double.isNaN(stdDevValue) || Double.isInfinite(stdDevValue)){
-                System.out.println("stdDevValue is NaN " + stdDevValue);
+                throw new IllegalStateException();
             }
             if (Double.isNaN(meanValue) || Double.isInfinite(meanValue)){
-                System.out.println("meanValue is NaN " + meanValue);
+                throw new IllegalStateException();
             }
 
             standardDeviation[i] = stdDevValue;
@@ -86,8 +88,12 @@ public class StandardizeNormalizer {
             for (int j = 0; j < input.length; j++) {
                 double value = (input[j][i] - mean[i]) / standardDeviation[i];
 
+                if (Math.abs(value) > 10 && i<COUNT_PRICES_VALUES) {
+                    throw new IllegalStateException();
+                }
+
                 if (Double.isNaN(value) || Double.isInfinite(value)){
-                    System.out.println("Value NaN " + value);
+                    throw new ArithmeticException("Value is NaN");
                 }
 
                 input[j][i] = value;

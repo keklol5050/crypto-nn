@@ -17,25 +17,15 @@ public class Test {
             close[i] = objs[i].getCandle().getVolume();
         }
 
-
         XYSeries closeSeries = new XYSeries("close");
         for (int i = 0; i < close.length; i++) {
             closeSeries.add(i, close[i]);
         }
         DataVisualisation.visualize("Simple price", "candle", "price", closeSeries);
 
-
         double[] diff = new double[objs.length-1];
         for (int i = 0; i < diff.length; i++) {
             diff[i] = close[i+1] - close[i];
-        }
-        DescriptiveStatistics stats = new DescriptiveStatistics();
-        for (int i = 0; i < diff.length; i++) {
-            stats.addValue(diff[i]);
-        }
-        double mean = stats.getMean();
-        for (int i = 0; i < diff.length; i++) {
-            diff[i] = diff[i] - mean;
         }
         XYSeries diffSeries = new XYSeries("diff");
         for (int i = 0; i < diff.length; i++) {
@@ -43,6 +33,18 @@ public class Test {
         }
         DataVisualisation.visualize("Simple diff", "candle", "diff", diffSeries);
 
+        for (int i = 0; i < close.length; i++) {
+            close[i] = Math.log(close[i]);
+        }
+        double[] logDiff = new double[objs.length-1];
+        for (int i = 0; i < logDiff.length; i++) {
+            logDiff[i] = close[i+1] - close[i];
+        }
+        XYSeries logDiffSeries = new XYSeries("diff");
+        for (int i = 0; i < logDiff.length; i++) {
+            logDiffSeries.add(i, logDiff[i]);
+        }
+        DataVisualisation.visualize("Log diff", "candle", "diff", logDiffSeries);
     }
 
     public static double[] detrend(double[] prices) {
