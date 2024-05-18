@@ -177,4 +177,12 @@ public class BinanceDataUtil {
         return instances;
     }
 
+    public static void main(String[] args) {
+        DataObject[] data = getLatestInstances(Coin.BTCUSDT, TimeFrame.ONE_HOUR, 20, new FundamentalDataUtil());
+        for (DataObject candle : data) {
+            System.out.println(candle);
+            System.out.println();
+        }
+    }
+
 }

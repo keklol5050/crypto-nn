@@ -10,10 +10,15 @@ import org.deeplearning4j.datasets.iterator.utilty.ListDataSetIterator;
 import org.deeplearning4j.nn.api.OptimizationAlgorithm;
 import org.deeplearning4j.nn.conf.*;
 import org.deeplearning4j.nn.conf.inputs.InputType;
-import org.deeplearning4j.nn.conf.layers.*;
+import org.deeplearning4j.nn.conf.layers.DenseLayer;
+import org.deeplearning4j.nn.conf.layers.DropoutLayer;
+import org.deeplearning4j.nn.conf.layers.LSTM;
+import org.deeplearning4j.nn.conf.layers.RnnOutputLayer;
+import org.deeplearning4j.nn.conf.layers.recurrent.Bidirectional;
 import org.deeplearning4j.nn.conf.layers.recurrent.TimeDistributed;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.nn.weights.WeightInit;
+import org.deeplearning4j.optimize.listeners.PerformanceListener;
 import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
 import org.deeplearning4j.ui.api.UIServer;
 import org.deeplearning4j.ui.model.stats.StatsListener;
@@ -24,6 +29,7 @@ import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.factory.Nd4j;
+import org.nd4j.linalg.factory.Nd4jBackend;
 import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
@@ -34,7 +40,7 @@ public class Predictor {
     public static void main(String[] args) {
         CudaEnvironment.getInstance().getConfiguration().setMaximumDeviceCacheableLength(1024 * 1024 * 2048L).setMaximumDeviceCache((long) (0.5 * 6096 * 1024 * 1024 * 2048L)).setMaximumHostCacheableLength(1024 * 1024 * 2048L).setMaximumHostCache((long) (0.5 * 6096 * 1024 * 1024 * 2048L));
         Nd4j.getMemoryManager().setAutoGcWindow(100000);
-        Nd4j.getEnvironment().allowHelpers(false);
+        Nd4j.getMemoryManager().togglePeriodicGc(false);
 
         Scanner sc = new Scanner(System.in);
 
@@ -80,64 +86,34 @@ public class Predictor {
                 .inferenceWorkspaceMode(WorkspaceMode.ENABLED)
                 .optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
                 .gradientNormalization(GradientNormalization.RenormalizeL2PerLayer)
-                .weightInit(WeightInit.NORMAL)
+                .weightInit(WeightInit.LECUN_NORMAL)
                 .activation(Activation.TANH)
                 .cacheMode(CacheMode.DEVICE)
-                .convolutionMode(ConvolutionMode.Same)
-                .cudnnAlgoMode(ConvolutionLayer.AlgoMode.PREFER_FASTEST)
-                .l2(2.56e-4)
+                .l2(1.6e-4)
                 .updater(new Adam())
                 .list()
                 .setInputType(InputType.recurrent(regressionDataSet.getCountInput(), regressionDataSet.getSequenceLength(), RNNFormat.NCW))
-                .layer(0, new LSTM.Builder()
-                        .nIn(regressionDataSet.getCountInput())
-                        .nOut(150)
-                        .build())
-                .layer(1, new Convolution1DLayer.Builder()
-                        .nIn(150)
-                        .nOut(256)
-                        .kernelSize(4)
-                        .stride(1)
-                        .dropOut(0.9)
-                        .build())
-                .layer(2, new Convolution1DLayer.Builder()
-                        .nIn(256)
-                        .nOut(256)
-                        .kernelSize(6)
-                        .stride(1)
-                        .dropOut(0.9)
-                        .build())
-                .layer(3, new Subsampling1DLayer.Builder()
-                        .poolingType(PoolingType.MAX)
-                        .kernelSize(3)
-                        .stride(1)
-                        .build())
-                .layer(4, new TimeDistributed(
+                .layer(0, new Bidirectional(
+                        Bidirectional.Mode.CONCAT,
+                        new LSTM.Builder()
+                                .nIn(regressionDataSet.getCountInput())
+                                .nOut(200)
+                                .build()))
+                .layer(1, new Bidirectional(
+                        Bidirectional.Mode.CONCAT,
+                        new LSTM.Builder()
+                                .nOut(200)
+                                .build()))
+                .layer(2, new DropoutLayer(0.8))
+                .layer(3, new TimeDistributed(
                         new DenseLayer.Builder()
-                                .nIn(256)
-                                .nOut(256)
+                                .nIn(400)
+                                .nOut(400)
                                 .activation(Activation.TANH)
                                 .build()))
-                .layer(5, new DropoutLayer(0.8))
-                .layer(6, new LSTM.Builder()
-                        .nIn(256)
-                        .nOut(384)
-                        .build())
-                .layer(7, new DropoutLayer(0.8))
-                .layer(8, new LSTM.Builder()
-                        .nIn(384)
-                        .nOut(256)
-                        .build())
-                .layer(9, new DropoutLayer(0.9))
-                .layer(10, new TimeDistributed(
-                        new DenseLayer.Builder()
-                                .nIn(256)
-                                .nOut(256)
-                                .activation(Activation.TANH)
-                                .build()))
-                .layer(11, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
+                .layer(4, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
                         .activation(Activation.IDENTITY)
-                        .nIn(256)
+                        .nIn(600)
                         .nOut(regressionDataSet.getCountOutput())
                         .build())
                 .backpropType(BackpropType.Standard)
@@ -160,13 +136,20 @@ public class Predictor {
         System.out.println("Time frame: " + tf);
         System.out.println("Number of epochs: " + numEpochs);
         System.out.println("Model path: " + path);
+        System.out.println("Training workspace config: " + model.getLayerWiseConfigurations().getTrainingWorkspaceMode());
+        System.out.println("Inference workspace config: " + model.getLayerWiseConfigurations().getInferenceWorkspaceMode());
+        System.out.println("Nd4jBackend.BACKEND_PRIORITY_GPU: " +  Nd4jBackend.BACKEND_PRIORITY_GPU);
+        System.out.println("Nd4jBackend.BACKEND_PRIORITY_CPU: " +  Nd4jBackend.BACKEND_PRIORITY_CPU);
 
         System.out.println();
 
         UIServer uiServer = UIServer.getInstance();
         StatsStorage statsStorage = new FileStatsStorage(new File(System.getProperty("java.io.tmpdir"), "ui-stats.dl4j"));
 
-        model.setListeners(new StatsListener(statsStorage, 10), new ScoreIterationListener(10));
+        model.setListeners(
+                new StatsListener(statsStorage, 10),
+                new PerformanceListener(10, true, true)
+        );
         uiServer.attach(statsStorage);
 
         for (int i = 0; i < numEpochs; i++) {

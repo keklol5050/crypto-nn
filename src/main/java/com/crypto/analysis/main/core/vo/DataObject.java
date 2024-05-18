@@ -54,13 +54,13 @@ public class DataObject {
         double[] candleValues = candle.getValuesArr(); // 5
         double[] cryptoFundData = cryptoFundamental.getParamArray(); // 8
 
-        double[] movingAverages = currentIndicators.getMovingAverageValues(); // 24
+        double[] movingAverages = currentIndicators.getMovingAverageValues(); // 28
 
         double[] indicators = currentIndicators.getIndicatorValues(); // 17
         double[] coinFundValues = {BTCDomination, currentOpenInterest, longShortRatio}; // 3
 
         double[] result = new double[candleValues.length + movingAverages.length + +cryptoFundData.length + indicators
-                .length + coinFundValues.length]; // 5 + 8 + 24  + 17 + 3 = 57
+                .length + coinFundValues.length]; // 5 + 8 + 28  + 17 + 3 = 61
 
         System.arraycopy(candleValues, 0, result,
                 0, candleValues.length);

@@ -89,6 +89,25 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.nd4j</groupId>
+			<artifactId>nd4j-native-platform</artifactId>
+			<version>${dl4j-master.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.nd4j</groupId>
+			<artifactId>nd4j-native-api</artifactId>
+			<version>${dl4j-master.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.nd4j</groupId>
+			<artifactId>nd4j-backend-impls</artifactId>
+			<version>${dl4j-master.version}</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
 			<groupId>org.deeplearning4j</groupId>
 			<artifactId>deeplearning4j-core</artifactId>
 			<version>${dl4j-master.version}</version>

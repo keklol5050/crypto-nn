@@ -11,6 +11,10 @@ import org.ta4j.core.indicators.adx.ADXIndicator;
 import org.ta4j.core.indicators.aroon.AroonDownIndicator;
 import org.ta4j.core.indicators.aroon.AroonUpIndicator;
 import org.ta4j.core.indicators.helpers.ClosePriceIndicator;
+import org.ta4j.core.indicators.ichimoku.IchimokuKijunSenIndicator;
+import org.ta4j.core.indicators.ichimoku.IchimokuSenkouSpanAIndicator;
+import org.ta4j.core.indicators.ichimoku.IchimokuSenkouSpanBIndicator;
+import org.ta4j.core.indicators.ichimoku.IchimokuTenkanSenIndicator;
 import org.ta4j.core.indicators.volume.VWAPIndicator;
 
 import java.time.ZoneId;
@@ -71,6 +75,11 @@ public class IndicatorsDataUtil {
     private CMOIndicator cmo;
     private ROCIndicator roc;
     private RAVIIndicator ravi;
+
+    private IchimokuSenkouSpanAIndicator spanA;
+    private IchimokuSenkouSpanBIndicator spanB;
+    private IchimokuKijunSenIndicator kijun;
+    private IchimokuTenkanSenIndicator tenkan;
 
 
     public IndicatorsDataUtil(Coin coin, TimeFrame interval) {
@@ -148,6 +157,11 @@ public class IndicatorsDataUtil {
         cmo = new CMOIndicator(ind, 9);
         roc = new ROCIndicator(ind, 9);
         ravi = new RAVIIndicator(ind, 7, 65);
+
+        spanA = new IchimokuSenkouSpanAIndicator(series);
+        spanB = new IchimokuSenkouSpanBIndicator(series);
+        kijun = new IchimokuKijunSenIndicator(series);
+        tenkan = new IchimokuTenkanSenIndicator(series);
     }
 
     public IndicatorsTransferObject getIndicators(int countBar) {
@@ -206,6 +220,11 @@ public class IndicatorsDataUtil {
         result.setCMO(cmo.getValue(countBar).doubleValue());
         result.setROC(roc.getValue(countBar).doubleValue());
         result.setRAVI(ravi.getValue(countBar).doubleValue());
+
+        result.setSPANA(spanA.getValue(countBar).doubleValue());
+        result.setSPANB(spanB.getValue(countBar).doubleValue());
+        result.setKIJUN(kijun.getValue(countBar).doubleValue());
+        result.setTENKAN(tenkan.getValue(countBar).doubleValue());
 
         return result;
     }

@@ -1,7 +1,7 @@
 package com.crypto.analysis.main.core.regression;
 
 import com.crypto.analysis.main.core.data_utils.normalizers.Differentiator;
-import com.crypto.analysis.main.core.data_utils.normalizers.StandardizeNormalizer;
+import com.crypto.analysis.main.core.data_utils.normalizers.MaxAbsScaler;
 import com.crypto.analysis.main.core.data_utils.normalizers.Transposer;
 import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.core.data_utils.select.coin.DataLength;
@@ -14,6 +14,7 @@ import com.crypto.analysis.main.core.ndata.CSVCoinDataSet;
 import com.crypto.analysis.main.core.vo.DataObject;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.deeplearning4j.datasets.iterator.utilty.ListDataSetIterator;
 import org.jetbrains.annotations.NotNull;
 import org.jfree.data.xy.XYSeries;
@@ -89,8 +90,8 @@ public class RegressionDataSet {
 
         ArrayList<DataSet> trainSets = new ArrayList<DataSet>();
 
+        MaxAbsScaler normalizer = new MaxAbsScaler(MASK_OUTPUT, countOutput, sequenceLength);
         Differentiator differentiator = new Differentiator();
-        StandardizeNormalizer normalizer = new StandardizeNormalizer(MASK_OUTPUT, countOutput, sequenceLength);
 
         for (double[][] in : dataArr) {
             if (countInput + countOutput != (in.length - NUMBER_OF_DIFFERENTIATIONS))
@@ -159,7 +160,7 @@ public class RegressionDataSet {
         return column;
     }
 
-    public static double[][] refactor(double[][] in, Differentiator differentiator, boolean save, StandardizeNormalizer normalizer, int countInput) {
+    public static double[][] refactor(double[][] in, Differentiator differentiator, boolean save, MaxAbsScaler normalizer, int countInput) {
         for (int i = 0; i < in.length; i++) {
             for (int j = COUNT_PRICES_VALUES; j < COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA; j++) {
                 double value = Math.log(in[i][j]);
@@ -182,28 +183,36 @@ public class RegressionDataSet {
             }
         }
 
+        for (int i = 58; i < in[0].length; i++) {
+            DescriptiveStatistics stats = new DescriptiveStatistics();
+            for (double[] doubles : in) {
+                stats.addValue(doubles[i]);
+            }
+
+            double mean = stats.getMean();
+            for (int j = 0; j < in.length; j++) {
+                in[j][i] = in[j][i] - mean;
+            }
+        }
+
         double[][] diff = differentiator.differentiate(in, NUMBER_OF_DIFFERENTIATIONS, save);
 
         if (countInput==0)
-            countInput = diff.length;
+            countInput = in.length;
 
-       try {
-           normalizer.fit(diff, countInput);
-           normalizer.transform(diff);
-       } catch (RuntimeException e) {
-           return null;
-       }
+        normalizer.fit(diff, countInput);
+        normalizer.transform(diff);
 
         return diff;
     }
-    public static double[][] refactor(double[][] in, Differentiator differentiator, boolean save, StandardizeNormalizer normalizer) {
-         return refactor(in, differentiator, save, normalizer, 0);
+    public static double[][] refactor(double[][] in, Differentiator differentiator, boolean save, MaxAbsScaler normalizer) {
+       return refactor(in, differentiator, save, normalizer, 0);
     }
 
     public static void main(String[] args) {
         CSVCoinDataSet cs = new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.ONE_HOUR);
         cs.load();
-        RegressionDataSet regressionDataSet = RegressionDataSet.prepareTrainSet(Coin.BTCUSDT, DataLength.L100_6, cs);
+        RegressionDataSet regressionDataSet = RegressionDataSet.prepareTrainSet(Coin.BTCUSDT, DataLength.L120_6, cs);
         DataSet set = regressionDataSet.getTestIterator().next(1);
         INDArray input = set.getFeatures();
         double[][] matrix = input.slice(0).toDoubleMatrix();

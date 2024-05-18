@@ -37,7 +37,7 @@ public class TrainDataBinance {
     }
 
     public static void main(String[] args) {
-        TrainDataBinance trainDataBinance = new TrainDataBinance(Coin.BTCUSDT, TimeFrame.ONE_HOUR, DataLength.S50_3, new FundamentalDataUtil());
+        TrainDataBinance trainDataBinance = new TrainDataBinance(Coin.BTCUSDT, TimeFrame.ONE_HOUR, DataLength.S60_3, new FundamentalDataUtil());
         for (DataObject[] objArr : trainDataBinance.getData()) {
             System.out.println(Arrays.toString(objArr));
         }

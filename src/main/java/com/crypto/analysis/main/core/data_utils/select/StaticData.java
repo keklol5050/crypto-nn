@@ -1,13 +1,11 @@
 package com.crypto.analysis.main.core.data_utils.select;
 
 import com.binance.connector.futures.client.impl.UMFuturesClientImpl;
-import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -23,13 +21,15 @@ public class StaticData {
 
     public static final int binanceCapacityMax = 490;
 
-    public static final int MODEL_NUM_INPUTS = 57;
+    public static final int MODEL_NUM_INPUTS = 61;
     public static final int BATCH_SIZE = 64;
-    public static final int MOVING_AVERAGES_COUNT_FOR_DIFF_WITH_PRICE_VALUES = 24;
+    public static final int MOVING_AVERAGES_COUNT_FOR_DIFF_WITH_PRICE_VALUES = 28;
 
     public static final int NUMBER_OF_DIFFERENTIATIONS = 1;
     public static final int COUNT_PRICES_VALUES = 4;
     public static final int COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA = 13;
+    public static final int COUNT_VALUES_FOR_DIFFERENTIATION = COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA;
+
 
     public static final String ALL_SENTIMENT_DATA = "https://api.senticrypt.com/v2/all.json"; // SentiCrypt, class SentimentUtil
     public static final String bitQueryApiKey = "BQYM7GOqY0AGd3Sss16XsDtijqogxOM6"; // BitQuery crypto fundamental api key, class BitQueryUtil

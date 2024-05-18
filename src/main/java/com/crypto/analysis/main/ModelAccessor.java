@@ -1,7 +1,7 @@
 package com.crypto.analysis.main;
 
 import com.crypto.analysis.main.core.data_utils.normalizers.Differentiator;
-import com.crypto.analysis.main.core.data_utils.normalizers.StandardizeNormalizer;
+import com.crypto.analysis.main.core.data_utils.normalizers.MaxAbsScaler;
 import com.crypto.analysis.main.core.data_utils.normalizers.Transposer;
 import com.crypto.analysis.main.core.data_utils.select.StaticData;
 import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
@@ -20,16 +20,13 @@ import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.factory.Nd4j;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import static com.crypto.analysis.main.core.data_utils.select.StaticData.*;
 
 public class ModelAccessor {
     private final Coin coin;
     private final MultiLayerNetwork model;
     private final DataLength dl;
-    private final StandardizeNormalizer normalizer;
+    private final MaxAbsScaler normalizer;
     private final FundamentalDataUtil fdUtil;
     private final Differentiator differentiator;
 
@@ -39,7 +36,7 @@ public class ModelAccessor {
         this.dl = dl;
         this.fdUtil = fdUtil;
 
-        this.normalizer = new StandardizeNormalizer(MASK_OUTPUT,  dl.getCountOutput(), MODEL_NUM_INPUTS);
+        this.normalizer = new MaxAbsScaler(MASK_OUTPUT,  dl.getCountOutput(), MODEL_NUM_INPUTS);
         this.differentiator = new Differentiator();
     }
 
@@ -49,7 +46,6 @@ public class ModelAccessor {
 
         int countInput = dl.getCountInput();
         int countOutput = dl.getCountOutput();
-
 
        if (data == null) {
             data = BinanceDataUtil.getLatestInstances(coin, tf, countOutput, fdUtil);
@@ -139,8 +135,8 @@ public class ModelAccessor {
 
     public static void main(String[] args) {
         Coin coin = Coin.BTCUSDT;
-        MultiLayerNetwork model = ModelLoader.loadNetwork("D:/model14.zip");
-        DataLength dl = DataLength.L100_6;
+        MultiLayerNetwork model = ModelLoader.loadNetwork("D:/model19.zip");
+        DataLength dl = DataLength.L120_6;
 
         ModelAccessor accessor = new ModelAccessor(coin, model, dl, null);
 

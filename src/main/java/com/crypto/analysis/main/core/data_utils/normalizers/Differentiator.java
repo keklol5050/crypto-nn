@@ -9,6 +9,7 @@ import com.crypto.analysis.main.core.vo.DataObject;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import static com.crypto.analysis.main.core.data_utils.select.StaticData.COUNT_VALUES_FOR_DIFFERENTIATION;
 import static com.crypto.analysis.main.core.data_utils.select.StaticData.MASK_OUTPUT;
 
 public class Differentiator {
@@ -21,9 +22,10 @@ public class Differentiator {
     private double[][] differentiate(double[][] data) {
         double[][] diff = new double[data.length - 1][data[0].length];
         for (int i = 0; i < data.length - 1; i++) {
-            for (int j = 0; j < data[0].length; j++) {
+            for (int j = 0; j < COUNT_VALUES_FOR_DIFFERENTIATION; j++) {
                 diff[i][j] = data[i + 1][j] - data[i][j];
             }
+            System.arraycopy(data[i + 1], COUNT_VALUES_FOR_DIFFERENTIATION, diff[i], COUNT_VALUES_FOR_DIFFERENTIATION, data[i + 1].length - COUNT_VALUES_FOR_DIFFERENTIATION);
         }
         return diff;
     }
@@ -42,7 +44,6 @@ public class Differentiator {
     }
 
     public double[][] differentiate(double[][] data, int numberOfDifferentiations, boolean save) {
-
         if (numberOfDifferentiations < 0)
             throw new IllegalArgumentException("Count of differentiations must be greater than 0!");
         if (data == null || data.length == 0)
@@ -94,7 +95,7 @@ public class Differentiator {
             m[i] = val;
         }
         System.out.println();
-        double[][] diff = differentiator.differentiate(m, 10, true);
+        double[][] diff = differentiator.differentiate(m, 1, true);
         double[][] labels = new double[diff.length][MASK_OUTPUT.length];
         for (int i = 0; i < diff.length; i++) {
             for (int j = 0; j < labels[0].length; j++) {

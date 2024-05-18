@@ -35,7 +35,7 @@ public class TrainDataCSV {
     public static void main(String[] args) {
         CSVCoinDataSet csv = new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES);
         csv.load();
-        TrainDataCSV trainDataCSV = new TrainDataCSV(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES, DataLength.S50_3, csv);
+        TrainDataCSV trainDataCSV = new TrainDataCSV(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES, DataLength.S60_3, csv);
         for (DataObject[] objects : trainDataCSV.getData()) {
             System.out.println(Arrays.toString(objects));
         }

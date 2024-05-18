@@ -6,16 +6,16 @@ import static com.crypto.analysis.main.core.data_utils.select.StaticData.NUMBER_
 
 @Getter
 public enum DataLength {
-    S50_3(50+NUMBER_OF_DIFFERENTIATIONS, 3),
-    L100_6(100+NUMBER_OF_DIFFERENTIATIONS, 6),
-    X150_9(150+NUMBER_OF_DIFFERENTIATIONS, 9),
+    S60_3(60+NUMBER_OF_DIFFERENTIATIONS, 3),
+    L120_6(120+NUMBER_OF_DIFFERENTIATIONS, 6),
+    X180_9(180+NUMBER_OF_DIFFERENTIATIONS, 9),
     CLASSIFICATION(30, 3),
     VOLATILITY_REGRESSION(60, 6);
 
-    public static final int MIN_REG_INPUT_LENGTH = 50+NUMBER_OF_DIFFERENTIATIONS;
+    public static final int MIN_REG_INPUT_LENGTH = 60+NUMBER_OF_DIFFERENTIATIONS;
     public static final int MIN_REG_OUTPUT_LENGTH = 3;
 
-    public static final int MAX_REG_INPUT_LENGTH = 150+NUMBER_OF_DIFFERENTIATIONS;
+    public static final int MAX_REG_INPUT_LENGTH = 180+NUMBER_OF_DIFFERENTIATIONS;
     public static final int MAX_REG_OUTPUT_LENGTH = 9;
 
     private final int countInput;

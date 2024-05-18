@@ -59,6 +59,11 @@ public class IndicatorsTransferObject {
     private double ROC;
     private double RAVI;
 
+    private double SPANA;
+    private double SPANB;
+    private double KIJUN;
+    private double TENKAN;
+
     @Override
     public String toString() {
         return "IndicatorsTransferObject{" +
@@ -103,6 +108,10 @@ public class IndicatorsTransferObject {
                 ", CMO=" + CMO +
                 ", ROC=" + ROC +
                 ", RAVI=" + RAVI +
+                ", SPANA=" + SPANA +
+                ", SPANB=" + SPANB +
+                ", KIJUN=" + KIJUN +
+                ", TENKAN=" + TENKAN +
                 '}';
     }
 
@@ -161,7 +170,12 @@ public class IndicatorsTransferObject {
 
                 MMA,
                 PSAR,
-                VWAP
+                VWAP,
+
+                SPANA,
+                SPANB,
+                KIJUN,
+                TENKAN
         };
     }
 
@@ -169,11 +183,11 @@ public class IndicatorsTransferObject {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof IndicatorsTransferObject that)) return false;
-        return Double.compare(getRSI(), that.getRSI()) == 0 && Double.compare(getMACD12(), that.getMACD12()) == 0 && Double.compare(getMACD24(), that.getMACD24()) == 0 && Double.compare(getSTOCHK(), that.getSTOCHK()) == 0 && Double.compare(getSTOCHD(), that.getSTOCHD()) == 0 && Double.compare(getSMA200(), that.getSMA200()) == 0 && Double.compare(getSMA99(), that.getSMA99()) == 0 && Double.compare(getSMA60(), that.getSMA60()) == 0 && Double.compare(getSMA50(), that.getSMA50()) == 0 && Double.compare(getSMA30(), that.getSMA30()) == 0 && Double.compare(getSMA15(), that.getSMA15()) == 0 && Double.compare(getSMA10(), that.getSMA10()) == 0 && Double.compare(getWMA200(), that.getWMA200()) == 0 && Double.compare(getWMA99(), that.getWMA99()) == 0 && Double.compare(getWMA60(), that.getWMA60()) == 0 && Double.compare(getWMA50(), that.getWMA50()) == 0 && Double.compare(getWMA30(), that.getWMA30()) == 0 && Double.compare(getWMA15(), that.getWMA15()) == 0 && Double.compare(getWMA10(), that.getWMA10()) == 0 && Double.compare(getEMA200(), that.getEMA200()) == 0 && Double.compare(getEMA99(), that.getEMA99()) == 0 && Double.compare(getEMA60(), that.getEMA60()) == 0 && Double.compare(getEMA50(), that.getEMA50()) == 0 && Double.compare(getEMA30(), that.getEMA30()) == 0 && Double.compare(getEMA15(), that.getEMA15()) == 0 && Double.compare(getEMA10(), that.getEMA10()) == 0 && Double.compare(getMMA(), that.getMMA()) == 0 && Double.compare(getCCI(), that.getCCI()) == 0 && Double.compare(getADX(), that.getADX()) == 0 && Double.compare(getAROONUP(), that.getAROONUP()) == 0 && Double.compare(getAROONDOWN(), that.getAROONDOWN()) == 0 && Double.compare(getPSAR(), that.getPSAR()) == 0 && Double.compare(getSTOCHRSI(), that.getSTOCHRSI()) == 0 && Double.compare(getVWAP(), that.getVWAP()) == 0 && Double.compare(getATR(), that.getATR()) == 0 && Double.compare(getDPO(), that.getDPO()) == 0 && Double.compare(getWILLR(), that.getWILLR()) == 0 && Double.compare(getMI(), that.getMI()) == 0 && Double.compare(getCMO(), that.getCMO()) == 0 && Double.compare(getROC(), that.getROC()) == 0 && Double.compare(getRAVI(), that.getRAVI()) == 0;
+        return Double.compare(getRSI(), that.getRSI()) == 0 && Double.compare(getMACD12(), that.getMACD12()) == 0 && Double.compare(getMACD24(), that.getMACD24()) == 0 && Double.compare(getSTOCHK(), that.getSTOCHK()) == 0 && Double.compare(getSTOCHD(), that.getSTOCHD()) == 0 && Double.compare(getSMA200(), that.getSMA200()) == 0 && Double.compare(getSMA99(), that.getSMA99()) == 0 && Double.compare(getSMA60(), that.getSMA60()) == 0 && Double.compare(getSMA50(), that.getSMA50()) == 0 && Double.compare(getSMA30(), that.getSMA30()) == 0 && Double.compare(getSMA15(), that.getSMA15()) == 0 && Double.compare(getSMA10(), that.getSMA10()) == 0 && Double.compare(getWMA200(), that.getWMA200()) == 0 && Double.compare(getWMA99(), that.getWMA99()) == 0 && Double.compare(getWMA60(), that.getWMA60()) == 0 && Double.compare(getWMA50(), that.getWMA50()) == 0 && Double.compare(getWMA30(), that.getWMA30()) == 0 && Double.compare(getWMA15(), that.getWMA15()) == 0 && Double.compare(getWMA10(), that.getWMA10()) == 0 && Double.compare(getEMA200(), that.getEMA200()) == 0 && Double.compare(getEMA99(), that.getEMA99()) == 0 && Double.compare(getEMA60(), that.getEMA60()) == 0 && Double.compare(getEMA50(), that.getEMA50()) == 0 && Double.compare(getEMA30(), that.getEMA30()) == 0 && Double.compare(getEMA15(), that.getEMA15()) == 0 && Double.compare(getEMA10(), that.getEMA10()) == 0 && Double.compare(getMMA(), that.getMMA()) == 0 && Double.compare(getCCI(), that.getCCI()) == 0 && Double.compare(getADX(), that.getADX()) == 0 && Double.compare(getAROONUP(), that.getAROONUP()) == 0 && Double.compare(getAROONDOWN(), that.getAROONDOWN()) == 0 && Double.compare(getPSAR(), that.getPSAR()) == 0 && Double.compare(getSTOCHRSI(), that.getSTOCHRSI()) == 0 && Double.compare(getVWAP(), that.getVWAP()) == 0 && Double.compare(getATR(), that.getATR()) == 0 && Double.compare(getDPO(), that.getDPO()) == 0 && Double.compare(getWILLR(), that.getWILLR()) == 0 && Double.compare(getMI(), that.getMI()) == 0 && Double.compare(getCMO(), that.getCMO()) == 0 && Double.compare(getROC(), that.getROC()) == 0 && Double.compare(getRAVI(), that.getRAVI()) == 0 && Double.compare(getSPANA(), that.getSPANA()) == 0 && Double.compare(getSPANB(), that.getSPANB()) == 0 && Double.compare(getKIJUN(), that.getKIJUN()) == 0 && Double.compare(getTENKAN(), that.getTENKAN()) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getRSI(), getMACD12(), getMACD24(), getSTOCHK(), getSTOCHD(), getSMA200(), getSMA99(), getSMA60(), getSMA50(), getSMA30(), getSMA15(), getSMA10(), getWMA200(), getWMA99(), getWMA60(), getWMA50(), getWMA30(), getWMA15(), getWMA10(), getEMA200(), getEMA99(), getEMA60(), getEMA50(), getEMA30(), getEMA15(), getEMA10(), getMMA(), getCCI(), getADX(), getAROONUP(), getAROONDOWN(), getPSAR(), getSTOCHRSI(), getVWAP(), getATR(), getDPO(), getWILLR(), getMI(), getCMO(), getROC(), getRAVI());
+        return Objects.hash(getRSI(), getMACD12(), getMACD24(), getSTOCHK(), getSTOCHD(), getSMA200(), getSMA99(), getSMA60(), getSMA50(), getSMA30(), getSMA15(), getSMA10(), getWMA200(), getWMA99(), getWMA60(), getWMA50(), getWMA30(), getWMA15(), getWMA10(), getEMA200(), getEMA99(), getEMA60(), getEMA50(), getEMA30(), getEMA15(), getEMA10(), getMMA(), getCCI(), getADX(), getAROONUP(), getAROONDOWN(), getPSAR(), getSTOCHRSI(), getVWAP(), getATR(), getDPO(), getWILLR(), getMI(), getCMO(), getROC(), getRAVI(), getSPANA(), getSPANB(), getKIJUN(), getTENKAN());
     }
 }
