@@ -8,10 +8,10 @@ import java.util.*;
 
 public class CSVAnalysis {
     public static void main(String[] args) throws Exception {
-        Reader in = new FileReader("C:\\static\\data\\btc\\fund\\fund_BTCUSDT_1h.csv");
+        Reader in = new FileReader("C:\\static\\data\\btc\\metrics-BTCUSDT.csv");
         Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(in);
         LinkedHashMap<String, List<Double>> columnValues = new LinkedHashMap<>();
-        Set<Integer> skipColumns = new HashSet<>(Arrays.asList(0, 6)); // Колонки для пропуска
+        Set<Integer> skipColumns = new HashSet<>(Arrays.asList(0, 1,3,4,5)); // Колонки для пропуска
 
         for (CSVRecord record : records) {
             Map<String, String> recordMap = record.toMap();

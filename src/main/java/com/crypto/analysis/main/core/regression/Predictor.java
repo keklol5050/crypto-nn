@@ -38,10 +38,6 @@ import java.util.Scanner;
 
 public class Predictor {
     public static void main(String[] args) {
-        CudaEnvironment.getInstance().getConfiguration().setMaximumDeviceCacheableLength(1024 * 1024 * 2048L).setMaximumDeviceCache((long) (0.5 * 6096 * 1024 * 1024 * 2048L)).setMaximumHostCacheableLength(1024 * 1024 * 2048L).setMaximumHostCache((long) (0.5 * 6096 * 1024 * 1024 * 2048L));
-        Nd4j.getMemoryManager().setAutoGcWindow(100000);
-        Nd4j.getMemoryManager().togglePeriodicGc(false);
-
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter count of epochs: ");

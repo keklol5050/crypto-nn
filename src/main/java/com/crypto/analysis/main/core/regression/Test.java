@@ -1,7 +1,6 @@
-package com.crypto.analysis.main;
+package com.crypto.analysis.main.core.regression;
 
 import com.crypto.analysis.main.core.data_utils.normalizers.Transposer;
-import com.crypto.analysis.main.core.regression.RegressionDataSet;
 import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.core.data_utils.select.coin.DataLength;
 import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
@@ -17,11 +16,22 @@ import org.nd4j.linalg.dataset.DataSet;
 
 import java.util.*;
 
-public class ModeLoadTest {
+public class Test {
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
-        DataLength length = DataLength.L120_6;
-        TimeFrame tf = TimeFrame.ONE_HOUR;
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter data length: ");
+        DataLength length = DataLength.valueOf(sc.nextLine());
+
+        System.out.println("Enter time frame: ");
+        TimeFrame tf = TimeFrame.valueOf(sc.nextLine());
+
+        System.out.println("Enter path to the model: ");
+        String path = sc.nextLine();
+
+        sc.close();
 
         CSVCoinDataSet setD = new CSVCoinDataSet(Coin.BTCUSDT, tf);
         setD.load();
@@ -37,7 +47,7 @@ public class ModeLoadTest {
         System.out.println();
         System.out.println(testIterator.next(1));
 
-        MultiLayerNetwork model = ModelLoader.loadNetwork("D:\\model18.zip");
+        MultiLayerNetwork model = ModelLoader.loadNetwork(path);
         model.init();
 
         System.out.println(model.summary());
@@ -50,7 +60,7 @@ public class ModeLoadTest {
 
         RegressionEvaluation eval = new RegressionEvaluation();
         System.out.println("Evaluating validation set...");
-        for (int i = 0; i < 100; i++){
+       while (testIterator.hasNext()){
             DataSet set = testIterator.next(1);
             INDArray futures = set.getFeatures();
             INDArray labels = set.getLabels();

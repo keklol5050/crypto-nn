@@ -13,7 +13,7 @@ import java.util.List;
 
 public class MetricsTest {
     public static void main(String[] args) throws IOException, ParseException {
-        List<String> lines = Files.readAllLines(Path.of("C:\\Users\\keklo\\OneDrive\\Рабочий стол\\merge_from_ofoct.csv"));
+        List<String> lines = Files.readAllLines(Path.of("C:\\static\\data\\btc\\metrics-BTCUSDT.csv"));
         lines.remove(0);
         List<String[]> linesArr = new ArrayList<>();
         for (String str : lines) {
