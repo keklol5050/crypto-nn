@@ -1,6 +1,10 @@
 package com.crypto.analysis.main.core.regression;
 
-import com.crypto.analysis.main.core.data_utils.normalizers.Differentiator;
+import ai.djl.ndarray.NDArray;
+import ai.djl.ndarray.NDList;
+import ai.djl.ndarray.types.Shape;
+import ai.djl.training.dataset.ArrayDataset;
+import ai.djl.training.dataset.Record;
 import com.crypto.analysis.main.core.data_utils.normalizers.MaxAbsScaler;
 import com.crypto.analysis.main.core.data_utils.normalizers.Transposer;
 import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
@@ -15,16 +19,14 @@ import com.crypto.analysis.main.core.vo.DataObject;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
-import org.deeplearning4j.datasets.iterator.utilty.ListDataSetIterator;
 import org.jetbrains.annotations.NotNull;
 import org.jfree.data.xy.XYSeries;
-import org.nd4j.linalg.api.ndarray.INDArray;
-import org.nd4j.linalg.dataset.DataSet;
-import org.nd4j.linalg.factory.Nd4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Random;
 
 import static com.crypto.analysis.main.core.data_utils.select.StaticData.*;
@@ -34,12 +36,14 @@ import static com.crypto.analysis.main.core.data_utils.select.StaticData.*;
 public class RegressionDataSet {
     private final Coin coin;
     private final DataLength dl;
-    private ListDataSetIterator<DataSet> trainIterator;
-    private ListDataSetIterator<DataSet> testIterator;
-    private INDArray labelsMask;
-    private int countInput;
-    private int countOutput;
-    private int sequenceLength;
+    private ArrayDataset trainSet;
+    private ArrayDataset testSet;
+    private int numFeatures;
+    private int outputSteps;
+    private int inputSteps;
+    private int batchSize;
+
+    private static final Logger logger = LoggerFactory.getLogger(RegressionDataSet.class);
 
     private RegressionDataSet(Coin coin, DataLength dl) {
         this.coin = coin;
@@ -47,7 +51,7 @@ public class RegressionDataSet {
     }
 
     public static RegressionDataSet prepareTrainSet(Coin coin, DataLength dl, CSVCoinDataSet set) {
-        System.out.println("Preparing train set..");
+        logger.info("Preparing train set..");
         RegressionDataSet regressionDataSet = new RegressionDataSet(coin, dl);
 
         TrainDataCSV trainData = new TrainDataCSV(coin, set.getInterval(), dl, set);
@@ -58,7 +62,7 @@ public class RegressionDataSet {
     }
 
     public static RegressionDataSet prepareTrainSet(Coin coin, DataLength dl, TimeFrame interval, FundamentalDataUtil fdUtil) {
-        System.out.println("Preparing train set..");
+        logger.info("Preparing train set..");
         RegressionDataSet regressionDataSet = new RegressionDataSet(coin, dl);
 
         TrainDataBinance trainDataBinance = new TrainDataBinance(coin, interval, dl, fdUtil);
@@ -70,113 +74,130 @@ public class RegressionDataSet {
 
     @NotNull
     public static RegressionDataSet getTrainDataSet(DataLength dl, RegressionDataSet regressionDataSet, ArrayList<DataObject[]> data) {
-        int countInput = dl.getCountInput() - NUMBER_OF_DIFFERENTIATIONS;
-        int countOutput = dl.getCountOutput();
-        int sequenceLength = data.getFirst()[0].getParamArray().length;
+        int numInputSteps = dl.getCountInput() - NUMBER_OF_DIFFERENTIATIONS;
+        int numOutputSteps = dl.getCountOutput();
+        int numFeatures = data.getFirst()[0].getParamArray().length;
+        int batchSize = BATCH_SIZE;
 
-        ArrayList<double[][]> dataArr = new ArrayList<double[][]>();
+        ArrayList<float[][]> dataArr = new ArrayList<float[][]>();
         for (int i = 0; i < data.size(); i++) {
             DataObject[] datum = data.get(i);
-            double[][] doArray = new double[datum.length][];
+            float[][] doArray = new float[datum.length][];
             for (int j = 0; j < datum.length; j++) {
                 doArray[j] = datum[j].getParamArray();
             }
             dataArr.add(doArray);
         }
-        INDArray labelsMask = Nd4j.zeros(1, countInput);
-        for (int i = 0; i < countOutput; i++) {
-            labelsMask.putScalar(new int[]{0, i}, 1.0);
-        }
 
-        ArrayList<DataSet> trainSets = new ArrayList<DataSet>();
+        ArrayList<float[][]> allInputs = new ArrayList<>();
+        ArrayList<float[]> allOutputs = new ArrayList<>(); //TODO
 
-        MaxAbsScaler normalizer = new MaxAbsScaler(MASK_OUTPUT, countOutput, sequenceLength);
-        Differentiator differentiator = new Differentiator();
+        MaxAbsScaler normalizer = new MaxAbsScaler(MASK_OUTPUT, numOutputSteps, numFeatures);
 
-        for (double[][] in : dataArr) {
-            if (countInput + countOutput != (in.length - NUMBER_OF_DIFFERENTIATIONS))
+        for (float[][] in : dataArr) {
+            if (numInputSteps + numOutputSteps != (in.length - NUMBER_OF_DIFFERENTIATIONS))
                 throw new ArithmeticException("Parameters count are not equals");
-            if (countOutput < 1 || countInput < 1)
+            if (numOutputSteps < 1 || numInputSteps < 1)
                 throw new IllegalArgumentException("Parameters cannot be zero or negative");
 
-            double[][] diff = refactor(in, differentiator, false, normalizer, countInput);
-            if (diff == null)
-                continue;
+            refactor(in, false, normalizer, numInputSteps);
 
-            double[][] input = new double[countInput][];
-            System.arraycopy(diff, 0, input, 0, input.length);
+            float[][] input = new float[numInputSteps][];
+            System.arraycopy(in, 0, input, 0, input.length);
 
-            double[][] output = new double[countOutput][];
-            System.arraycopy(diff, input.length, output, 0, output.length);
+            float[][] output = new float[numOutputSteps][];
+            System.arraycopy(in, input.length, output, 0, output.length);
 
-            double[][] finalOutput = new double[countOutput][];
+            float[][] finalOutput = new float[numOutputSteps][];
             for (int i = 0; i < finalOutput.length; i++) {
-                finalOutput[i] = new double[MASK_OUTPUT.length];
+                finalOutput[i] = new float[MASK_OUTPUT.length];
                 for (int j = 0; j < finalOutput[i].length; j++) {
                     finalOutput[i][j] = output[i][MASK_OUTPUT[j]];
                 }
             }
             input = Transposer.transpose(input);
-            finalOutput = Transposer.transpose(finalOutput, input[0].length);
+            finalOutput = Transposer.transpose(finalOutput);
 
-            INDArray inputArr = Nd4j.createFromArray(new double[][][]{input});
-            INDArray outputArr = Nd4j.createFromArray(new double[][][]{finalOutput});
-
-            normalizer.changeBinding(diff, input);
-            trainSets.add(new DataSet(inputArr, outputArr, null, labelsMask));
-        }
-        ArrayList<DataSet> testSets = new ArrayList<DataSet>();
-
-        int max = data.size() > 5000 ? 550 : 100;
-
-        for (int i = 0; i < max; i++) {
-            testSets.addFirst(trainSets.removeLast());
+            normalizer.changeBinding(in, input);
+            allInputs.add(input);
+            allOutputs.add(finalOutput[0]); //TODO
         }
 
-        Collections.shuffle(trainSets);
-        Collections.shuffle(trainSets);
+        int numSamples = allInputs.size();
+        int max = numSamples - 1000;
 
-        ListDataSetIterator<DataSet> trainIterator = new ListDataSetIterator<>(trainSets, BATCH_SIZE);
-        ListDataSetIterator<DataSet> testIterator = new ListDataSetIterator<>(testSets, BATCH_SIZE);
+        float[] dataFlat = new float[numSamples * numFeatures * numInputSteps];
+        for (int i = 0; i < numSamples; i++) {
+            for (int j = 0; j < numFeatures; j++) {
+                for (int k = 0; k < numInputSteps; k++) {
+                    dataFlat[i * numFeatures * numInputSteps + j * numInputSteps + k] = allInputs.get(i)[j][k];
+                }
+            }
+        }
 
-        regressionDataSet.trainIterator = trainIterator;
-        regressionDataSet.testIterator = testIterator;
-        regressionDataSet.labelsMask = labelsMask;
-        regressionDataSet.countInput = trainSets.getFirst().numInputs();
-        regressionDataSet.countOutput = trainSets.getFirst().numOutcomes();
-        regressionDataSet.sequenceLength = countInput;
+        float[] flatLabels = new float[numSamples * numOutputSteps];
+        for (int i = 0; i < numSamples; i++) {
+            System.arraycopy(allOutputs.get(i), 0, flatLabels, i * numOutputSteps, numOutputSteps);
+        }
 
-        System.out.println("Train set size: " + trainSets.size());
-        System.out.println("Test set size: " + testSets.size());
+        NDArray in = manager.create(dataFlat).reshape(new Shape(numSamples, numFeatures, numInputSteps));
+        NDArray out = manager.create(flatLabels).reshape(new Shape(numSamples, numOutputSteps));
+
+        NDList input = in.split(new long[]{max});
+        NDList output = out.split(new long[]{max});
+
+        ArrayDataset trainSet = new ArrayDataset.Builder()
+                .setData(input.getFirst())
+                .optLabels(output.getFirst())
+                .setSampling(batchSize, true)
+                .optDevice(DEVICE)
+                .build();
+
+        ArrayDataset testSet = new ArrayDataset.Builder()
+                .setData(input.getLast())
+                .optLabels(output.getLast())
+                .setSampling(batchSize, false)
+                .optDevice(DEVICE)
+                .build();
+
+        regressionDataSet.trainSet = trainSet;
+        regressionDataSet.testSet = testSet;
+        regressionDataSet.numFeatures = numFeatures;
+        regressionDataSet.outputSteps = numOutputSteps;
+        regressionDataSet.inputSteps = numInputSteps;
+        regressionDataSet.batchSize = batchSize;
+
+        logger.info("Train set size: " + trainSet.size());
+        logger.info("Test set size: " + testSet.size());
         return regressionDataSet;
     }
 
-    public static double[] getColumn(double[][] input, int columnIndex, int lastIndex) {
+    public static float[] getColumn(float[][] input, int columnIndex, int lastIndex) {
         if (lastIndex > input.length) throw new IllegalArgumentException("Last index must be less than array length");
-        double[] column = new double[lastIndex];
+        float[] column = new float[lastIndex];
         for (int i = 0; i < lastIndex; i++) {
             column[i] = input[i][columnIndex];
         }
         return column;
     }
 
-    public static double[][] refactor(double[][] in, Differentiator differentiator, boolean save, MaxAbsScaler normalizer, int countInput) {
+    public static void refactor(float[][] in, boolean save, MaxAbsScaler normalizer, int countInput) {
         for (int i = 0; i < in.length; i++) {
             for (int j = COUNT_PRICES_VALUES; j < COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA; j++) {
                 double value = Math.log(in[i][j]);
                 if (Double.isInfinite(value) || Double.isNaN(value)) {
                     if (i == 0) {
-                        in[i][j] = new Random().nextDouble(0, 2);
+                        in[i][j] = new Random().nextFloat(0, 2);
                     } else {
-                        in[i][j] = in[i-1][j] + new Random().nextDouble(-1, 1);
+                        in[i][j] = in[i-1][j] + new Random().nextFloat(-1, 1);
                     }
                 } else {
-                    in[i][j] = value;
+                    in[i][j] = (float) value;
                 }
             }
         }
 
-        double[] orient = getColumn(in, POSITION_OF_PRICES_NORMALIZER_IND, in.length);
+        float[] orient = getColumn(in, POSITION_OF_PRICES_NORMALIZER_IND, in.length);
         for (int i = COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA; i < COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA + MOVING_AVERAGES_COUNT_FOR_DIFF_WITH_PRICE_VALUES; i++) {
             for (int j = 0; j < in.length; j++) {
                 in[j][i] = orient[j] - in[j][i];
@@ -185,46 +206,59 @@ public class RegressionDataSet {
 
         for (int i = 58; i < in[0].length; i++) {
             DescriptiveStatistics stats = new DescriptiveStatistics();
-            for (double[] doubles : in) {
+            for (float[] doubles : in) {
                 stats.addValue(doubles[i]);
             }
 
-            double mean = stats.getMean();
+            float mean = (float) stats.getMean();
+            for (int j = 0; j < in.length; j++) {
+                in[j][i] = in[j][i] - mean;
+            }
+        }
+        for (int i = 0; i < COUNT_VALUES_FOR_DIFFERENTIATION; i++) {
+            DescriptiveStatistics stats = new DescriptiveStatistics();
+            for (float[] doubles : in) {
+                stats.addValue(doubles[i]);
+            }
+
+            float mean = (float) stats.getMean();
             for (int j = 0; j < in.length; j++) {
                 in[j][i] = in[j][i] - mean;
             }
         }
 
-        double[][] diff = differentiator.differentiate(in, NUMBER_OF_DIFFERENTIATIONS, save);
-
         if (countInput==0)
             countInput = in.length;
 
-        normalizer.fit(diff, countInput);
-        normalizer.transform(diff);
-
-        return diff;
+        normalizer.fit(in, countInput);
+        normalizer.transform(in);
     }
-    public static double[][] refactor(double[][] in, Differentiator differentiator, boolean save, MaxAbsScaler normalizer) {
-       return refactor(in, differentiator, save, normalizer, 0);
+    public static void refactor(float[][] in, boolean save, MaxAbsScaler normalizer) {
+        refactor(in, save, normalizer, 0);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         CSVCoinDataSet cs = new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.ONE_HOUR);
         cs.load();
         RegressionDataSet regressionDataSet = RegressionDataSet.prepareTrainSet(Coin.BTCUSDT, DataLength.L120_6, cs);
-        DataSet set = regressionDataSet.getTestIterator().next(1);
-        INDArray input = set.getFeatures();
-        double[][] matrix = input.slice(0).toDoubleMatrix();
+        Record set = regressionDataSet.getTestSet().get(manager, 1);
+        NDArray input = set.getData().singletonOrThrow();
+        long[] shape = input.getShape().getShape();
         int index = 0;
-        for (double[] d : matrix) {
+        for (int i = 0; i < shape[0]; i++) {
+            float[] d = input.get(i).toFloatArray();
+            System.out.println(d.length);
             XYSeries series = new XYSeries("param n." + index++);
-            for (int i = 0; i < d.length; i++) {
-                series.add(i, d[i]);
+            for (int j = 0; j < d.length; j++) {
+                series.add(j, d[j]);
             }
             DataVisualisation.visualize("param n." + index, "count", "value", series);
             System.out.println(Arrays.toString(d));
         }
+
+        NDArray label = set.getLabels().singletonOrThrow();
+        float[] d = label.toFloatArray();
+        System.out.println(Arrays.toString(d));
     }
 
 }

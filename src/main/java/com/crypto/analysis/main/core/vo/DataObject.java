@@ -17,12 +17,12 @@ public class DataObject {
     private IndicatorsTransferObject currentIndicators; // індикатори
     private FundamentalStockObject fundamentalData;
     private FundamentalCryptoDataObject cryptoFundamental;
-    private double currentFundingRate;
-    private double currentOpenInterest;
-    private double longShortRatio;
-    private double BTCDomination;
-    private double sentimentMean;
-    private double sentimentSum;
+    private float currentFundingRate;
+    private float currentOpenInterest;
+    private float longShortRatio;
+    private float BTCDomination;
+    private float sentimentMean;
+    private float sentimentSum;
     private Date createTime;
 
     public DataObject(Coin coin, TimeFrame interval) {
@@ -50,16 +50,16 @@ public class DataObject {
                 '}';
     }
 
-    public double[] getParamArray() {
-        double[] candleValues = candle.getValuesArr(); // 5
-        double[] cryptoFundData = cryptoFundamental.getParamArray(); // 8
+    public float[] getParamArray() {
+        float[] candleValues = candle.getValuesArr(); // 5
+        float[] cryptoFundData = cryptoFundamental.getParamArray(); // 8
 
-        double[] movingAverages = currentIndicators.getMovingAverageValues(); // 28
+        float[] movingAverages = currentIndicators.getMovingAverageValues(); // 28
 
-        double[] indicators = currentIndicators.getIndicatorValues(); // 17
-        double[] coinFundValues = {BTCDomination, currentOpenInterest, longShortRatio}; // 3
+        float[] indicators = currentIndicators.getIndicatorValues(); // 17
+        float[] coinFundValues = {BTCDomination, currentOpenInterest, longShortRatio}; // 3
 
-        double[] result = new double[candleValues.length + movingAverages.length + +cryptoFundData.length + indicators
+        float[] result = new float[candleValues.length + movingAverages.length + +cryptoFundData.length + indicators
                 .length + coinFundValues.length]; // 5 + 8 + 28  + 17 + 3 = 61
 
         System.arraycopy(candleValues, 0, result,

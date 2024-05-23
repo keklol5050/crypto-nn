@@ -8,15 +8,15 @@ import java.util.Objects;
 @Getter
 public class CandleObject { // формат свічки графіку
     private final Date openTime;
-    private final double open;
-    private final double high;
-    private final double low;
-    private final double close;
-    private final double volume;
+    private final float open;
+    private final float high;
+    private final float low;
+    private final float close;
+    private final float volume;
     private final Date closeTime;
 
 
-    public CandleObject(Date openTime, double open, double high, double low, double close, double volume, Date closeTime) {
+    public CandleObject(Date openTime, float open, float high, float low, float close, float volume, Date closeTime) {
         this.openTime = openTime;
         this.open = open;
         this.high = high;
@@ -39,8 +39,8 @@ public class CandleObject { // формат свічки графіку
                 "\n}";
     }
 
-    public double[] getValuesArr() {
-        return new double[]{
+    public float[] getValuesArr() {
+        return new float[]{
                 open,
                 high,
                 low,

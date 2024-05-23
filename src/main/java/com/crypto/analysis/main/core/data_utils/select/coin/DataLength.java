@@ -9,14 +9,16 @@ public enum DataLength {
     S60_3(60+NUMBER_OF_DIFFERENTIATIONS, 3),
     L120_6(120+NUMBER_OF_DIFFERENTIATIONS, 6),
     X180_9(180+NUMBER_OF_DIFFERENTIATIONS, 9),
-    CLASSIFICATION(30, 3),
-    VOLATILITY_REGRESSION(60, 6);
+    XL240_12(240+NUMBER_OF_DIFFERENTIATIONS, 12),
+    XXL300_15(300+NUMBER_OF_DIFFERENTIATIONS, 15);
 
     public static final int MIN_REG_INPUT_LENGTH = 60+NUMBER_OF_DIFFERENTIATIONS;
     public static final int MIN_REG_OUTPUT_LENGTH = 3;
 
-    public static final int MAX_REG_INPUT_LENGTH = 180+NUMBER_OF_DIFFERENTIATIONS;
-    public static final int MAX_REG_OUTPUT_LENGTH = 9;
+    public static final int MAX_REG_INPUT_LENGTH = 300+NUMBER_OF_DIFFERENTIATIONS;
+    public static final int MAX_REG_OUTPUT_LENGTH = 15;
+
+    public static final DataLength MAX_LENGTH = XXL300_15;
 
     private final int countInput;
     private final int countOutput;

@@ -11,9 +11,9 @@ public class FundamentalCryptoDataObject {
     private final Coin coin;
     private final Date createTime;
 
-    private final double[] data; // count, fee_value, fee_average, input_count, input_value, mined_value, output_count, output_value
+    private final float[] data; // count, fee_value, fee_average, input_count, input_value, mined_value, output_count, output_value
 
-    public FundamentalCryptoDataObject(Coin coin, double[] data) {
+    public FundamentalCryptoDataObject(Coin coin, float[] data) {
         this.coin = coin;
         this.createTime = new Date();
 
@@ -29,7 +29,7 @@ public class FundamentalCryptoDataObject {
                 '}';
     }
 
-    public double[] getParamArray() {
+    public float[] getParamArray() {
         return data;
     }
 

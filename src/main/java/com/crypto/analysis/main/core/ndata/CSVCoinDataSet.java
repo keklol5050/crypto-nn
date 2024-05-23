@@ -57,18 +57,18 @@ public class CSVCoinDataSet {
                 String[] tokens = line.split(",");
 
                 Date openTime = sdfFullISO.parse(tokens[0]);
-                double open = Double.parseDouble(tokens[1]);
-                double high = Double.parseDouble(tokens[2]);
-                double low = Double.parseDouble(tokens[3]);
-                double close = Double.parseDouble(tokens[4]);
-                double volume = Double.parseDouble(tokens[5]);
+                float open = Float.parseFloat(tokens[1]);
+                float high = Float.parseFloat(tokens[2]);
+                float low = Float.parseFloat(tokens[3]);
+                float close = Float.parseFloat(tokens[4]);
+                float volume = Float.parseFloat(tokens[5]);
                 Date closeTime = sdfFullISO.parse(tokens[6]);
                 CandleObject candle = new CandleObject(openTime, open, high, low, close, volume, closeTime);
 
-                double fundingRate = Double.parseDouble(tokens[7]);
-                double openInterest = Double.parseDouble(tokens[8]);
-                double longShortRatio = Double.parseDouble(tokens[9]);
-                double btcDOM = Double.parseDouble(tokens[10]);
+                float fundingRate = Float.parseFloat(tokens[7]);
+                float openInterest = Float.parseFloat(tokens[8]);
+                float longShortRatio = Float.parseFloat(tokens[9]);
+                float btcDOM = Float.parseFloat(tokens[10]);
 
                 DataObject object = new DataObject(coin, interval);
                 object.setCandle(candle);
@@ -77,12 +77,12 @@ public class CSVCoinDataSet {
                 object.setLongShortRatio(longShortRatio);
                 object.setBTCDomination(btcDOM);
 
-                double spx = Double.parseDouble(tokens[11]);
-                double dxy = Double.parseDouble(tokens[12]);
-                double dji = Double.parseDouble(tokens[13]);
-                double vix = Double.parseDouble(tokens[14]);
-                double ndx = Double.parseDouble(tokens[15]);
-                double gold = Double.parseDouble(tokens[16]);
+                float spx = Float.parseFloat(tokens[11]);
+                float dxy = Float.parseFloat(tokens[12]);
+                float dji = Float.parseFloat(tokens[13]);
+                float vix = Float.parseFloat(tokens[14]);
+                float ndx = Float.parseFloat(tokens[15]);
+                float gold = Float.parseFloat(tokens[16]);
 
                 FundamentalStockObject fundamentalStock = new FundamentalStockObject();
                 fundamentalStock.setSPX(spx);
@@ -93,21 +93,21 @@ public class CSVCoinDataSet {
                 fundamentalStock.setGOLD(gold);
                 object.setFundamentalData(fundamentalStock);
 
-                double transactions_count = Double.parseDouble(tokens[17]);
-                double fee_value = Double.parseDouble(tokens[18]);
-                double fee_average = Double.parseDouble(tokens[19]);
-                double input_count = Double.parseDouble(tokens[20]);
-                double input_value = Double.parseDouble(tokens[21]);
-                double mined_value = Double.parseDouble(tokens[22]);
-                double output_count = Double.parseDouble(tokens[23]);
-                double output_value = Double.parseDouble(tokens[24]);
+                float transactions_count = Float.parseFloat(tokens[17]);
+                float fee_value = Float.parseFloat(tokens[18]);
+                float fee_average = Float.parseFloat(tokens[19]);
+                float input_count = Float.parseFloat(tokens[20]);
+                float input_value = Float.parseFloat(tokens[21]);
+                float mined_value = Float.parseFloat(tokens[22]);
+                float output_count = Float.parseFloat(tokens[23]);
+                float output_value = Float.parseFloat(tokens[24]);
 
-                FundamentalCryptoDataObject fCrypto = new FundamentalCryptoDataObject(coin, new double[]{transactions_count, fee_value, fee_average,
+                FundamentalCryptoDataObject fCrypto = new FundamentalCryptoDataObject(coin, new float[]{transactions_count, fee_value, fee_average,
                         input_count, input_value, mined_value, output_count, output_value});
 
                 object.setCryptoFundamental(fCrypto);
 
-                double[] sentValues = sentiment.getValueForNearestDate(candle.getOpenTime());
+                float[] sentValues = sentiment.getValueForNearestDate(candle.getOpenTime());
                 object.setSentimentMean(sentValues[0]);
                 object.setSentimentSum(sentValues[1]);
                 localData.add(object);

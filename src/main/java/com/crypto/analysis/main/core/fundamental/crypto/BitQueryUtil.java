@@ -22,7 +22,7 @@ public class BitQueryUtil {
     private final TimeFrame interval;
 
     @Getter
-    private TreeMap<Date, double[]> data;
+    private TreeMap<Date, float[]> data;
 
     public BitQueryUtil(Coin coin, TimeFrame interval) {
         this.coin = coin;
@@ -34,7 +34,7 @@ public class BitQueryUtil {
     }
 
     public FundamentalCryptoDataObject getData(CandleObject candle) {
-        double[] in = data.floorEntry(candle.getOpenTime()).getValue();
+        float[] in = data.floorEntry(candle.getOpenTime()).getValue();
         return new FundamentalCryptoDataObject(coin, in);
     }
 
@@ -58,9 +58,9 @@ public class BitQueryUtil {
                 .addHeader("Content-Type", "application/json")
                 .addHeader("X-API-KEY", bitQueryApiKey)
                 .build();
-        TreeMap<Date, double[]> result = null;
+        TreeMap<Date, float[]> result = null;
         try {
-            TreeMap<Date, double[]> temp = new TreeMap<>();
+            TreeMap<Date, float[]> temp = new TreeMap<>();
             Response response = okHttpClient.newCall(request).execute();
             if (response.isSuccessful()) {
 
@@ -73,18 +73,18 @@ public class BitQueryUtil {
                         .get("transactions");
 
                 for (JsonNode node : valuesNode) {
-                    double count = node.get("count").asDouble();
+                    float count = (float) node.get("count").asDouble();
 
-                    double feeValue = node.get("feeValue").asDouble();
-                    double feeAvg = node.get("fee_avg").asDouble();
+                    float feeValue = (float) node.get("feeValue").asDouble();
+                    float feeAvg = (float) node.get("fee_avg").asDouble();
 
-                    double inputCount = node.get("inputCount").asDouble();
-                    double inputValue = node.get("inputValue").asDouble();
+                    float inputCount = (float) node.get("inputCount").asDouble();
+                    float inputValue = (float) node.get("inputValue").asDouble();
 
-                    double minedValue = node.get("minedValue").asDouble();
+                    float minedValue = (float) node.get("minedValue").asDouble();
 
-                    double outputCount = node.get("outputCount").asDouble();
-                    double outputValue = node.get("outputValue").asDouble();
+                    float outputCount = (float) node.get("outputCount").asDouble();
+                    float outputValue = (float) node.get("outputValue").asDouble();
 
                     Date timestamp;
                     if (interval == TimeFrame.ONE_HOUR || interval == TimeFrame.FOUR_HOUR) {
@@ -97,7 +97,7 @@ public class BitQueryUtil {
                         timestamp = sdfFullISO.parse(node.get("block").get("timestamp").get("time").asText());
                     }
 
-                    temp.put(timestamp, new double[]{count, feeValue, feeAvg, inputCount, inputValue, minedValue, outputCount, outputValue});
+                    temp.put(timestamp, new float[]{count, feeValue, feeAvg, inputCount, inputValue, minedValue, outputCount, outputValue});
                 }
 
                 result = mergeData(temp, interval.getMinuteCount());
@@ -122,16 +122,16 @@ public class BitQueryUtil {
         return calendar.getTime();
     }
 
-    private TreeMap<Date, double[]> mergeData(TreeMap<Date, double[]> rawData, int interval) {
-        TreeMap<Date, double[]> mergedData = new TreeMap<>();
+    private TreeMap<Date, float[]> mergeData(TreeMap<Date, float[]> rawData, int interval) {
+        TreeMap<Date, float[]> mergedData = new TreeMap<>();
 
         Date currentIntervalStart = null;
-        double[] sumValues = new double[rawData.firstEntry().getValue().length];
+        float[] sumValues = new float[rawData.firstEntry().getValue().length];
         int count = 0;
 
-        for (Map.Entry<Date, double[]> entry : rawData.entrySet()) {
+        for (Map.Entry<Date, float[]> entry : rawData.entrySet()) {
             Date timestamp = entry.getKey();
-            double[] values = entry.getValue();
+            float[] values = entry.getValue();
 
             Date roundedDate = roundDown(timestamp, interval);
 
@@ -139,7 +139,7 @@ public class BitQueryUtil {
                 sumValues[2] = sumValues[1] / sumValues[0];
                 mergedData.put(currentIntervalStart, sumValues);
 
-                sumValues = new double[values.length];
+                sumValues = new float[values.length];
                 count = 0;
             }
 

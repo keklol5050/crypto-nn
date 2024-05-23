@@ -20,7 +20,7 @@ public class SentimentUtil {
                 .url(ALL_SENTIMENT_DATA)
                 .build();
 
-        TreeMap<Date, double[]> resultMap = new TreeMap<>();
+        TreeMap<Date, float[]> resultMap = new TreeMap<>();
 
         try {
             Response response = okHttpClient.newCall(request).execute();
@@ -33,9 +33,9 @@ public class SentimentUtil {
 
                 for (JsonNode node : valuesNode) {
                     Date openTime = sdfShortISO.parse(node.get("date").asText());
-                    double mean = node.get("mean").asDouble();
-                    double sum = node.get("sum").asDouble();
-                    resultMap.put(openTime, new double[]{mean, sum});
+                    float mean = (float) node.get("mean").asDouble();
+                    float sum = (float) node.get("sum").asDouble();
+                    resultMap.put(openTime, new float[]{mean, sum});
                 }
             } else {
                 System.out.println("Error: " + response.code() + " " + response.message());

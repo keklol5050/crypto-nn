@@ -37,16 +37,16 @@ public class BinanceDataUtil {
         for (List<Object> candlestick : candlestickList) {
             CandleObject candleObject = new CandleObject(
                     new Date((Long) candlestick.get(0)),
-                    Double.parseDouble(candlestick.get(1).toString()), Double.parseDouble(candlestick.get(2).toString()),
-                    Double.parseDouble(candlestick.get(3).toString()), Double.parseDouble(candlestick.get(4).toString()),
-                    Double.parseDouble(candlestick.get(5).toString()), new Date((long) candlestick.get(6)));
+                    Float.parseFloat(candlestick.get(1).toString()), Float.parseFloat(candlestick.get(2).toString()),
+                    Float.parseFloat(candlestick.get(3).toString()), Float.parseFloat(candlestick.get(4).toString()),
+                    Float.parseFloat(candlestick.get(5).toString()), new Date((long) candlestick.get(6)));
             result.add(candleObject);
         }
         return result;
     }
 
     public static FundingHistoryObject getFundingHistory(Coin coin) {
-        TreeMap<Date, Double> resultMap = new TreeMap<>();
+        TreeMap<Date, Float> resultMap = new TreeMap<>();
         LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
         parameters.put("symbol", coin.getName());
         parameters.put("limit", 1000);
@@ -60,7 +60,7 @@ public class BinanceDataUtil {
 
         for (JsonNode node : jsonNode) {
             long fundingTime = node.get("fundingTime").asLong();
-            double fundingRate = node.get("fundingRate").asDouble();
+            float fundingRate = (float) node.get("fundingRate").asDouble();
             Date date = new Date(fundingTime);
             resultMap.put(date, fundingRate);
         }
@@ -68,7 +68,7 @@ public class BinanceDataUtil {
     }
 
     public static OpenInterestHistoryObject getOpenInterest(Coin coin, TimeFrame period) {
-        TreeMap<Date, Double> resultMap = new TreeMap<>();
+        TreeMap<Date, Float> resultMap = new TreeMap<>();
 
         LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
         parameters.put("symbol", coin.getName());
@@ -85,7 +85,7 @@ public class BinanceDataUtil {
 
         for (JsonNode node : jsonNode) {
             long timestamp = node.get("timestamp").asLong();
-            double sumOpenInterest = node.get("sumOpenInterest").asDouble();
+            float sumOpenInterest = (float) node.get("sumOpenInterest").asDouble();
             Date date = new Date(timestamp);
             resultMap.put(date, sumOpenInterest);
         }
@@ -94,7 +94,7 @@ public class BinanceDataUtil {
     }
 
     public static LongShortRatioHistoryObject getLongShortRatio(Coin coin, TimeFrame period) {
-        TreeMap<Date, Double> resultMap = new TreeMap<>();
+        TreeMap<Date, Float> resultMap = new TreeMap<>();
 
         LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
         parameters.put("symbol", coin.getName());
@@ -111,7 +111,7 @@ public class BinanceDataUtil {
 
         for (JsonNode node : jsonNode) {
             long timestamp = node.get("timestamp").asLong();
-            double longShortRatio = node.get("longShortRatio").asDouble();
+            float longShortRatio = (float) node.get("longShortRatio").asDouble();
             Date date = new Date(timestamp);
             resultMap.put(date, longShortRatio);
         }
@@ -121,7 +121,7 @@ public class BinanceDataUtil {
 
     public static BTCDOMObject getBTCDomination(TimeFrame interval) {
         ArrayList<CandleObject> candlesDOM = getCandles(Coin.BTCDOMUSDT, interval, 1500);
-        TreeMap<Date, Double> resultMap = new TreeMap<Date, Double>();
+        TreeMap<Date, Float> resultMap = new TreeMap<Date, Float>();
         for (CandleObject candle : candlesDOM) {
             resultMap.put(candle.getOpenTime(), candle.getOpen());
         }
@@ -131,7 +131,7 @@ public class BinanceDataUtil {
     public static double getCurrentPrice(Coin coin) {
         LinkedHashMap<String, Object> parameters = new LinkedHashMap<>();
         parameters.put("symbol", coin.getName());
-        return Double.parseDouble(new UMFuturesClientImpl().market().markPrice(parameters));
+        return Float.parseFloat(new UMFuturesClientImpl().market().markPrice(parameters));
     }
 
     public static DataObject[] getLatestInstances(Coin coin, TimeFrame interval, int count, FundamentalDataUtil fundUtil) {
@@ -165,7 +165,7 @@ public class BinanceDataUtil {
             if (fundUtil != null)
                 obj.setFundamentalData(fundUtil.getFundamentalData(candle));
 
-            double[] sentValues = sentiment.getValueForNearestDate(candle.getOpenTime());
+            float[] sentValues = sentiment.getValueForNearestDate(candle.getOpenTime());
             obj.setSentimentMean(sentValues[0]);
             obj.setSentimentSum(sentValues[1]);
 

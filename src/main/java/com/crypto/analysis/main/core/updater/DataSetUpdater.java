@@ -82,105 +82,105 @@ public class DataSetUpdater {
         for (String str : candleLines) {
             String[] tokens = str.split(",");
             Date openTime = new Date(Long.parseLong(tokens[0]));
-            double open = Double.parseDouble(tokens[1]);
-            double high = Double.parseDouble(tokens[2]);
-            double low = Double.parseDouble(tokens[3]);
-            double close = Double.parseDouble(tokens[4]);
-            double volume = Double.parseDouble(tokens[5]);
+            float open = Float.parseFloat(tokens[1]);
+            float high = Float.parseFloat(tokens[2]);
+            float low = Float.parseFloat(tokens[3]);
+            float close = Float.parseFloat(tokens[4]);
+            float volume = Float.parseFloat(tokens[5]);
             Date closeTime = new Date(Long.parseLong(tokens[6]));
             candles.add(new CandleObject(openTime, open, high, low, close, volume, closeTime));
         }
 
-        TreeMap<Date, Double> fundingMap = new TreeMap<>();
+        TreeMap<Date, Float> fundingMap = new TreeMap<>();
         for (String str : fundList) {
             String[] tokens = str.split(",");
-            fundingMap.put(new Date(Long.parseLong(tokens[0])), Double.parseDouble(tokens[2]));
+            fundingMap.put(new Date(Long.parseLong(tokens[0])), Float.parseFloat(tokens[2]));
         }
         FundingHistoryObject funding = new FundingHistoryObject(fundingMap);
 
-        TreeMap<Date, Double> longShortMap = new TreeMap<Date, Double>();
-        TreeMap<Date, Double> oiMap = new TreeMap<Date, Double>();
+        TreeMap<Date, Float> longShortMap = new TreeMap<Date, Float>();
+        TreeMap<Date, Float> oiMap = new TreeMap<Date, Float>();
 
         for (String str : metrics) {
             String[] tokens = (str.split(","));
             Date date = sdfFullISO.parse(tokens[0]);
-            double longShort = Double.parseDouble(tokens[6]);
-            double oi = Double.parseDouble(tokens[2]);
+            float longShort = Float.parseFloat(tokens[6]);
+            float oi = Float.parseFloat(tokens[2]);
             if (longShort == 0 || oi == 0) throw new RuntimeException();
             longShortMap.put(date, longShort);
             oiMap.put(date, oi);
         }
 
-        TreeMap<Date, Double> domMap = new TreeMap<Date, Double>();
+        TreeMap<Date, Float> domMap = new TreeMap<Date, Float>();
         for (String str : dom) {
             String[] tokens = str.split(",");
             Date openTime = new Date(Long.parseLong(tokens[0]));
-            double open = Double.parseDouble(tokens[1]);
+            float open = Float.parseFloat(tokens[1]);
             domMap.put(openTime, open);
         }
 
-        TreeMap<Date, Double> spxMap = new TreeMap<Date, Double>();
+        TreeMap<Date, Float> spxMap = new TreeMap<Date, Float>();
         for (String str : spx) {
             String[] tokens = str.split(";");
             Date openTime = sdfFullISO.parse(tokens[0]);
-            double open = Double.parseDouble(tokens[1]);
+            float open = Float.parseFloat(tokens[1]);
             spxMap.put(openTime, open);
         }
 
-        TreeMap<Date, Double> dxyMap = new TreeMap<Date, Double>();
+        TreeMap<Date, Float> dxyMap = new TreeMap<Date, Float>();
         for (String str : dxy) {
             String[] tokens = str.split(";");
             Date openTime = sdfFullISO.parse(tokens[0]);
-            double open = Double.parseDouble(tokens[1]);
+            float open = Float.parseFloat(tokens[1]);
             dxyMap.put(openTime, open);
         }
 
-        TreeMap<Date, Double> djiMap = new TreeMap<Date, Double>();
+        TreeMap<Date, Float> djiMap = new TreeMap<Date, Float>();
         for (String str : dji) {
             String[] tokens = str.split(";");
             Date openTime = sdfFullISO.parse(tokens[0]);
-            double open = Double.parseDouble(tokens[1]);
+            float open = Float.parseFloat(tokens[1]);
             djiMap.put(openTime, open);
         }
 
 
-        TreeMap<Date, Double> vixMap = new TreeMap<Date, Double>();
+        TreeMap<Date, Float> vixMap = new TreeMap<Date, Float>();
         for (String str : vix) {
             String[] tokens = str.split(";");
             Date openTime = sdfFullISO.parse(tokens[0]);
-            double open = Double.parseDouble(tokens[1]);
+            float open = Float.parseFloat(tokens[1]);
             vixMap.put(openTime, open);
         }
 
-        TreeMap<Date, Double> ndxMap = new TreeMap<Date, Double>();
+        TreeMap<Date, Float> ndxMap = new TreeMap<Date, Float>();
         for (String str : ndx) {
             String[] tokens = str.split(";");
             Date openTime = sdfFullISO.parse(tokens[0]);
-            double open = Double.parseDouble(tokens[1]);
+            float open = Float.parseFloat(tokens[1]);
             ndxMap.put(openTime, open);
         }
 
-        TreeMap<Date, Double> xauMap = new TreeMap<Date, Double>();
+        TreeMap<Date, Float> xauMap = new TreeMap<Date, Float>();
         for (String str : xau) {
             String[] tokens = str.split(";");
             Date openTime = sdfFullISO.parse(tokens[0]);
-            double open = Double.parseDouble(tokens[1]);
+            float open = Float.parseFloat(tokens[1]);
             xauMap.put(openTime, open);
         }
 
-        TreeMap<Date, double[]> fundCrMap = new TreeMap<Date, double[]>();
+        TreeMap<Date, float[]> fundCrMap = new TreeMap<Date, float[]>();
         for (String str : fundCr) {
             String[] tokens = str.split(",");
             Date openTime = sdfFullISO.parse(tokens[0]);
-            fundCrMap.put(openTime, new double[]{
-                    Double.parseDouble(tokens[1]),
-                    Double.parseDouble(tokens[2]),
-                    Double.parseDouble(tokens[3]),
-                    Double.parseDouble(tokens[4]),
-                    Double.parseDouble(tokens[5]),
-                    Double.parseDouble(tokens[6]),
-                    Double.parseDouble(tokens[7]),
-                    Double.parseDouble(tokens[8])
+            fundCrMap.put(openTime, new float[]{
+                    Float.parseFloat(tokens[1]),
+                    Float.parseFloat(tokens[2]),
+                    Float.parseFloat(tokens[3]),
+                    Float.parseFloat(tokens[4]),
+                    Float.parseFloat(tokens[5]),
+                    Float.parseFloat(tokens[6]),
+                    Float.parseFloat(tokens[7]),
+                    Float.parseFloat(tokens[8])
             });
         }
 
@@ -189,17 +189,17 @@ public class DataSetUpdater {
 
             for (CandleObject candle : candles) {
                 Date current = candle.getOpenTime();
-                double fund = funding.getValueForNearestDate(current);
-                double oi = oiMap.get(current);
-                double ls = longShortMap.get(current);
-                double btcDOM = domMap.get(current);
-                double spxV = spxMap.floorEntry(current).getValue();
-                double dxyV = dxyMap.floorEntry(current).getValue();
-                double djiV = djiMap.floorEntry(current).getValue();
-                double vixV = vixMap.floorEntry(current).getValue();
-                double ndxV = ndxMap.floorEntry(current).getValue();
-                double xauV = xauMap.floorEntry(current).getValue();
-                double[] trans = fundCrMap.floorEntry(current).getValue();
+                float fund = funding.getValueForNearestDate(current);
+                float oi = oiMap.get(current);
+                float ls = longShortMap.get(current);
+                float btcDOM = domMap.get(current);
+                float spxV = spxMap.floorEntry(current).getValue();
+                float dxyV = dxyMap.floorEntry(current).getValue();
+                float djiV = djiMap.floorEntry(current).getValue();
+                float vixV = vixMap.floorEntry(current).getValue();
+                float ndxV = ndxMap.floorEntry(current).getValue();
+                float xauV = xauMap.floorEntry(current).getValue();
+                float[] trans = fundCrMap.floorEntry(current).getValue();
                 String result = String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s", sdfFullISO.format(current), candle.getOpen(), candle.getHigh(),
                         candle.getLow(), candle.getClose(), candle.getVolume(), sdfFullISO.format(candle.getCloseTime()), fund, oi, ls, btcDOM,
                         spxV, dxyV, djiV, vixV, ndxV, xauV, trans[0], trans[1], trans[2], trans[3], trans[4], trans[5], trans[6], trans[7]);

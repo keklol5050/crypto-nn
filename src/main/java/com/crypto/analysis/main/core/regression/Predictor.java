@@ -1,51 +1,53 @@
 package com.crypto.analysis.main.core.regression;
 
+import ai.djl.Device;
+import ai.djl.MalformedModelException;
+import ai.djl.Model;
+import ai.djl.metric.Metrics;
+import ai.djl.ndarray.NDArray;
+import ai.djl.ndarray.NDList;
+import ai.djl.ndarray.types.DataType;
+import ai.djl.ndarray.types.Shape;
+import ai.djl.nn.*;
+import ai.djl.nn.convolutional.Conv1d;
+import ai.djl.nn.core.Linear;
+import ai.djl.nn.norm.BatchNorm;
+import ai.djl.nn.norm.Dropout;
+import ai.djl.nn.pooling.Pool;
+import ai.djl.nn.recurrent.GRU;
+import ai.djl.nn.recurrent.LSTM;
+import ai.djl.training.DefaultTrainingConfig;
+import ai.djl.training.EasyTrain;
+import ai.djl.training.Trainer;
+import ai.djl.training.dataset.RandomAccessDataset;
+import ai.djl.training.dataset.Record;
+import ai.djl.training.evaluator.Accuracy;
+import ai.djl.training.initializer.NormalInitializer;
+import ai.djl.training.listener.TrainingListener;
+import ai.djl.training.loss.Loss;
+import ai.djl.training.optimizer.Optimizer;
+import ai.djl.training.tracker.Tracker;
+import ai.djl.translate.NoopTranslator;
+import ai.djl.translate.TranslateException;
 import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.core.data_utils.select.coin.DataLength;
 import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
-import com.crypto.analysis.main.core.data_utils.utils.mutils.ModelLoader;
+import com.crypto.analysis.main.core.data_utils.utils.mutils.DataVisualisation;
 import com.crypto.analysis.main.core.ndata.CSVCoinDataSet;
-import org.deeplearning4j.core.storage.StatsStorage;
-import org.deeplearning4j.datasets.iterator.utilty.ListDataSetIterator;
-import org.deeplearning4j.nn.api.OptimizationAlgorithm;
-import org.deeplearning4j.nn.conf.*;
-import org.deeplearning4j.nn.conf.inputs.InputType;
-import org.deeplearning4j.nn.conf.layers.DenseLayer;
-import org.deeplearning4j.nn.conf.layers.DropoutLayer;
-import org.deeplearning4j.nn.conf.layers.LSTM;
-import org.deeplearning4j.nn.conf.layers.RnnOutputLayer;
-import org.deeplearning4j.nn.conf.layers.recurrent.Bidirectional;
-import org.deeplearning4j.nn.conf.layers.recurrent.TimeDistributed;
-import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
-import org.deeplearning4j.nn.weights.WeightInit;
-import org.deeplearning4j.optimize.listeners.PerformanceListener;
-import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
-import org.deeplearning4j.ui.api.UIServer;
-import org.deeplearning4j.ui.model.stats.StatsListener;
-import org.deeplearning4j.ui.model.storage.FileStatsStorage;
-import org.nd4j.evaluation.regression.RegressionEvaluation;
-import org.nd4j.jita.conf.CudaEnvironment;
-import org.nd4j.linalg.activations.Activation;
-import org.nd4j.linalg.api.ndarray.INDArray;
-import org.nd4j.linalg.dataset.DataSet;
-import org.nd4j.linalg.factory.Nd4j;
-import org.nd4j.linalg.factory.Nd4jBackend;
-import org.nd4j.linalg.learning.config.Adam;
-import org.nd4j.linalg.lossfunctions.LossFunctions;
 
-import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Scanner;
 
+import static com.crypto.analysis.main.core.data_utils.select.StaticData.MASK_OUTPUT;
+import static com.crypto.analysis.main.core.data_utils.select.StaticData.manager;
+
 public class Predictor {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws TranslateException, IOException, MalformedModelException {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter count of epochs: ");
         int numEpochs = sc.nextInt();
-        sc.nextLine();
-
-        System.out.println("Enter count of epochs to save: ");
-        int countToSave = sc.nextInt();
         sc.nextLine();
 
         System.out.println("Enter data length: ");
@@ -54,8 +56,7 @@ public class Predictor {
         System.out.println("Enter time frame: ");
         TimeFrame tf = TimeFrame.valueOf(sc.nextLine());
 
-        System.out.println("Enter path to the model: ");
-        String path = sc.nextLine();
+        Path path = Path.of("D:/Conv1d");
 
         System.out.println("Enter true/false to load the model: ");
         boolean loadModel = Boolean.parseBoolean(sc.nextLine());
@@ -66,107 +67,104 @@ public class Predictor {
         setD.load();
 
         RegressionDataSet regressionDataSet = RegressionDataSet.prepareTrainSet(Coin.BTCUSDT, length, setD);
-        ListDataSetIterator<DataSet> trainIterator = regressionDataSet.getTrainIterator();
-        ListDataSetIterator<DataSet> testIterator = regressionDataSet.getTestIterator();
+        RandomAccessDataset trainSet = regressionDataSet.getTrainSet();
+        RandomAccessDataset testSet = regressionDataSet.getTestSet();
 
-        INDArray labelsMask = regressionDataSet.getLabelsMask();
+        int batchSize = regressionDataSet.getBatchSize();
+        int numFeatures = regressionDataSet.getNumFeatures();
+        int numInputSteps = regressionDataSet.getInputSteps();
+        int numOutputSteps = regressionDataSet.getOutputSteps();
 
-        System.out.println(trainIterator.next(1));
-        System.out.println();
-        System.out.println();
-        System.out.println(testIterator.next(1));
+        float dropoutProbability = 0.5f;
 
-        MultiLayerConfiguration config = new NeuralNetConfiguration.Builder()
-                .seed(123)
-                .trainingWorkspaceMode(WorkspaceMode.ENABLED)
-                .inferenceWorkspaceMode(WorkspaceMode.ENABLED)
-                .optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
-                .gradientNormalization(GradientNormalization.RenormalizeL2PerLayer)
-                .weightInit(WeightInit.LECUN_NORMAL)
-                .activation(Activation.TANH)
-                .cacheMode(CacheMode.DEVICE)
-                .l2(1.6e-4)
-                .updater(new Adam())
-                .list()
-                .setInputType(InputType.recurrent(regressionDataSet.getCountInput(), regressionDataSet.getSequenceLength(), RNNFormat.NCW))
-                .layer(0, new Bidirectional(
-                        Bidirectional.Mode.CONCAT,
-                        new LSTM.Builder()
-                                .nIn(regressionDataSet.getCountInput())
-                                .nOut(200)
-                                .build()))
-                .layer(1, new Bidirectional(
-                        Bidirectional.Mode.CONCAT,
-                        new LSTM.Builder()
-                                .nOut(200)
-                                .build()))
-                .layer(2, new DropoutLayer(0.8))
-                .layer(3, new TimeDistributed(
-                        new DenseLayer.Builder()
-                                .nIn(400)
-                                .nOut(400)
-                                .activation(Activation.TANH)
-                                .build()))
-                .layer(4, new RnnOutputLayer.Builder(LossFunctions.LossFunction.MSE)
-                        .activation(Activation.IDENTITY)
-                        .nIn(600)
-                        .nOut(regressionDataSet.getCountOutput())
+        SequentialBlock block = new SequentialBlock()
+                .add(Conv1d.builder()
+                        .setKernelShape(new Shape(3))
+                        .optStride(new Shape(1))
+                        .setFilters(200)
                         .build())
-                .backpropType(BackpropType.Standard)
-                .build();
+                .add(Activation.tanhBlock())
+                .add(Pool.maxPool1dBlock(new Shape(2), new Shape(1)))
+                .add(new LambdaBlock(ndArrays -> {
+                    NDList newList = new NDList();
+                    for (int i = 0; i < ndArrays.size(); i++) {
+                        NDArray array = ndArrays.get(i);
+                        array = array.transpose(0, 2, 1);
+                        newList.add(array);
+                    }
+                    return newList;
+                }))
+                .add(GRU.builder()
+                        .setNumLayers(2)
+                        .setStateSize(100)
+                        .optBidirectional(false)
+                        .optReturnState(false)
+                        .optBatchFirst(true)
+                        .optDropRate(0.05f)
+                        .build())
+                .add(BatchNorm.builder().build())
+                .add(Blocks.batchFlattenBlock())
+                .add(Linear.builder().setUnits(numOutputSteps).build());
 
-        MultiLayerNetwork model;
+        Model model = Model.newInstance("Conv1d", Device.gpu());
+        model.setDataType(DataType.FLOAT32);
+        model.setBlock(block);
+
         if (loadModel) {
-            model = ModelLoader.loadNetwork(path);
-        } else {
-            model = new MultiLayerNetwork(config);
+            model.load(path);
         }
 
-        model.init();
-        System.out.println(model.summary());
+        Trainer trainer = model.newTrainer(new DefaultTrainingConfig(Loss.l2Loss())
+                .addEvaluator(new Accuracy())
+                .optOptimizer(Optimizer.adam()
+                        .optLearningRateTracker(Tracker.fixed(0.001f))
+                        .optWeightDecays(0.0001f)
+                        .build())
+                .optInitializer(new NormalInitializer(), Parameter.Type.WEIGHT)
+                .optDevices(new Device[]{Device.gpu()})
+                .addTrainingListeners(TrainingListener.Defaults.logging()));
 
-        System.out.println("Count input params: " + regressionDataSet.getCountInput());
-        System.out.println("Count output params: " + regressionDataSet.getCountOutput());
-        System.out.println("Count input objects: " + regressionDataSet.getSequenceLength());
+        trainer.initialize(new Shape(batchSize, numFeatures, numInputSteps));
+
+        Metrics metrics = new Metrics();
+        trainer.setMetrics(metrics);
+
+        System.out.println("Count input params: " + regressionDataSet.getNumFeatures());
+        System.out.println("Count output params: " + regressionDataSet.getOutputSteps());
+        System.out.println("Count input objects: " + regressionDataSet.getInputSteps());
         System.out.println("Data length: " + length);
         System.out.println("Time frame: " + tf);
         System.out.println("Number of epochs: " + numEpochs);
         System.out.println("Model path: " + path);
-        System.out.println("Training workspace config: " + model.getLayerWiseConfigurations().getTrainingWorkspaceMode());
-        System.out.println("Inference workspace config: " + model.getLayerWiseConfigurations().getInferenceWorkspaceMode());
-        System.out.println("Nd4jBackend.BACKEND_PRIORITY_GPU: " +  Nd4jBackend.BACKEND_PRIORITY_GPU);
-        System.out.println("Nd4jBackend.BACKEND_PRIORITY_CPU: " +  Nd4jBackend.BACKEND_PRIORITY_CPU);
 
-        System.out.println();
+        EasyTrain.fit(trainer, numEpochs, trainSet, testSet);
 
-        UIServer uiServer = UIServer.getInstance();
-        StatsStorage statsStorage = new FileStatsStorage(new File(System.getProperty("java.io.tmpdir"), "ui-stats.dl4j"));
+        model = trainer.getModel();
+        model.setProperty("Epoch", String.valueOf(numEpochs));
 
-        model.setListeners(
-                new StatsListener(statsStorage, 10),
-                new PerformanceListener(10, true, true)
-        );
-        uiServer.attach(statsStorage);
+        System.out.println(trainer.getTrainingResult());
+        System.out.println(model.getDataType());
+        model.save(path, "Conv1d");
 
-        for (int i = 0; i < numEpochs; i++) {
-            if (i % countToSave == 0 && i > 0) {
-                RegressionEvaluation eval = new RegressionEvaluation();
-                System.out.println("Evaluating validation set...");
-                while (testIterator.hasNext()) {
-                    DataSet set = testIterator.next();
-                    INDArray output = model.output(set.getFeatures(), false, null, set.getLabelsMaskArray());
-                    eval.eval(set.getLabels(), output, labelsMask);
-                }
-                testIterator.reset();
-                System.out.println(eval.stats());
+        ai.djl.inference.Predictor<NDList, NDList> predictor = model.newPredictor(new NoopTranslator());
+        for (int i = 0; i < 200; i++) {
+            Record pair = testSet.get(manager, i);
+            NDList input = pair.getData();
 
-                ModelLoader.saveModel(model, path);
-                System.out.println("Saved at epoch: " + model.getEpochCount());
-            }
-            model.fit(trainIterator);
+            NDArray in = input.singletonOrThrow();
+            float[] close = in.get(MASK_OUTPUT[0]).toFloatArray();
+            long[] orig = in.getShape().getShape();
+            in = in.reshape(1, orig[0], orig[1]);
+
+            float[] real = pair.getLabels().singletonOrThrow().toFloatArray();
+            float[] output = predictor.predict(new NDList(in)).singletonOrThrow().toFloatArray();
+
+            DataVisualisation.visualizeData("Prediction", "candle length", "price", close, real, output);
         }
 
-        ModelLoader.saveModel(model, path);
+        model.close();
+        trainer.close();
+        manager.close();
     }
 }
 

@@ -1,5 +1,8 @@
 package com.crypto.analysis.main.core.data_utils.select;
 
+import ai.djl.Device;
+import ai.djl.ndarray.NDManager;
+import ai.djl.ndarray.types.DataType;
 import com.binance.connector.futures.client.impl.UMFuturesClientImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
@@ -14,21 +17,25 @@ public class StaticData {
     public static final UMFuturesClientImpl client = new UMFuturesClientImpl();
     public static final ObjectMapper objectMapper = new ObjectMapper();
     public static final OkHttpClient okHttpClient = new OkHttpClient();
+    public static final NDManager manager = NDManager.newBaseManager(Device.gpu());
 
-    public static final int[] MASK_OUTPUT = new int[]{1, 2,  3}; // HLC
-    public static final int POSITION_OF_PRICES_NORMALIZER_IND = 0;
+    public static final int[] MASK_OUTPUT = new int[]{3}; // C
+    public static final int POSITION_OF_PRICES_NORMALIZER_IND = 3;
     public static final int SKIP_NUMBER = 800;
 
     public static final int binanceCapacityMax = 490;
 
     public static final int MODEL_NUM_INPUTS = 61;
-    public static final int BATCH_SIZE = 64;
+    public static final int BATCH_SIZE = 128;
     public static final int MOVING_AVERAGES_COUNT_FOR_DIFF_WITH_PRICE_VALUES = 28;
 
-    public static final int NUMBER_OF_DIFFERENTIATIONS = 1;
+    public static final int NUMBER_OF_DIFFERENTIATIONS = 0;
     public static final int COUNT_PRICES_VALUES = 4;
     public static final int COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA = 13;
     public static final int COUNT_VALUES_FOR_DIFFERENTIATION = COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA;
+
+    public static final Device DEVICE = Device.gpu();
+    public static final DataType DATA_TYPE = DataType.FLOAT32;
 
 
     public static final String ALL_SENTIMENT_DATA = "https://api.senticrypt.com/v2/all.json"; // SentiCrypt, class SentimentUtil

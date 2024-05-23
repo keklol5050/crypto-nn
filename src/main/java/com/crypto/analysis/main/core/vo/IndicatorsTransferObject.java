@@ -8,61 +8,61 @@ import java.util.Objects;
 @Setter
 @Getter
 public class IndicatorsTransferObject {
-    private double RSI;
+    private float RSI;
 
-    private double MACD12;
-    private double MACD24;
+    private float MACD12;
+    private float MACD24;
 
-    private double STOCHK;
-    private double STOCHD;
+    private float STOCHK;
+    private float STOCHD;
 
-    private double SMA200;
-    private double SMA99;
-    private double SMA60;
-    private double SMA50;
-    private double SMA30;
-    private double SMA15;
-    private double SMA10;
+    private float SMA200;
+    private float SMA99;
+    private float SMA60;
+    private float SMA50;
+    private float SMA30;
+    private float SMA15;
+    private float SMA10;
 
-    private double WMA200;
-    private double WMA99;
-    private double WMA60;
-    private double WMA50;
-    private double WMA30;
-    private double WMA15;
-    private double WMA10;
+    private float WMA200;
+    private float WMA99;
+    private float WMA60;
+    private float WMA50;
+    private float WMA30;
+    private float WMA15;
+    private float WMA10;
 
-    private double EMA200;
-    private double EMA99;
-    private double EMA60;
-    private double EMA50;
-    private double EMA30;
-    private double EMA15;
-    private double EMA10;
+    private float EMA200;
+    private float EMA99;
+    private float EMA60;
+    private float EMA50;
+    private float EMA30;
+    private float EMA15;
+    private float EMA10;
 
-    private double MMA;
-    private double CCI;
-    private double ADX;
-    private double AROONUP;
-    private double AROONDOWN;
+    private float MMA;
+    private float CCI;
+    private float ADX;
+    private float AROONUP;
+    private float AROONDOWN;
 
-    private double PSAR;
-    private double STOCHRSI;
-    private double VWAP;
+    private float PSAR;
+    private float STOCHRSI;
+    private float VWAP;
 
-    private double ATR;
-    private double DPO;
-    private double WILLR;
-    private double MI;
+    private float ATR;
+    private float DPO;
+    private float WILLR;
+    private float MI;
 
-    private double CMO;
-    private double ROC;
-    private double RAVI;
+    private float CMO;
+    private float ROC;
+    private float RAVI;
 
-    private double SPANA;
-    private double SPANB;
-    private double KIJUN;
-    private double TENKAN;
+    private float SPANA;
+    private float SPANB;
+    private float KIJUN;
+    private float TENKAN;
 
     @Override
     public String toString() {
@@ -115,8 +115,8 @@ public class IndicatorsTransferObject {
                 '}';
     }
 
-    public double[] getIndicatorValues() {
-        return new double[]{
+    public float[] getIndicatorValues() {
+        return new float[]{
                 RSI,
 
                 MACD12,
@@ -142,8 +142,8 @@ public class IndicatorsTransferObject {
         };
     }
 
-    public double[] getMovingAverageValues() {
-        return new double[]{
+    public float[] getMovingAverageValues() {
+        return new float[]{
                 SMA200,
                 SMA99,
                 SMA60,

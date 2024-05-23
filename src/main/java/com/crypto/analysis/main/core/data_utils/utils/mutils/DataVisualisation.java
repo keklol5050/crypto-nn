@@ -52,7 +52,7 @@ public class DataVisualisation {
         f.setVisible(true);
     }
 
-    public static void visualizeData(String title, String xAxisLabel, String yAxisLabel, double[] input, double[] real, double[] predicted) {
+    public static void visualizeData(String title, String xAxisLabel, String yAxisLabel, float[] input, float[] real, float[] predicted) {
         XYSeriesCollection c = new XYSeriesCollection();
 
         int index = 0;

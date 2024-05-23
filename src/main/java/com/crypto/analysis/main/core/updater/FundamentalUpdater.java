@@ -77,7 +77,7 @@ public class FundamentalUpdater {
 
             if (!dates.contains(BTCDom.getMap().firstKey())) throw new IllegalStateException("Data list is not full");
 
-            for (Map.Entry<Date, Double> entry : BTCDom.getMap().entrySet()) {
+            for (Map.Entry<Date, Float> entry : BTCDom.getMap().entrySet()) {
                 if (entry.getKey().after(dates.getLast()) && !dates.contains(entry.getKey()))
                     writer.print(String.format("\n%s,%s", entry.getKey().getTime(), entry.getValue()));
             }

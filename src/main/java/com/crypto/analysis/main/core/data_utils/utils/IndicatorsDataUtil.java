@@ -170,61 +170,61 @@ public class IndicatorsDataUtil {
         }
         IndicatorsTransferObject result = new IndicatorsTransferObject();
 
-        result.setRSI(rsi.getValue(countBar).doubleValue());
+        result.setRSI(rsi.getValue(countBar).floatValue());
 
-        result.setMACD12(macd12.getValue(countBar).doubleValue());
-        result.setMACD24(macd24.getValue(countBar).doubleValue());
+        result.setMACD12(macd12.getValue(countBar).floatValue());
+        result.setMACD24(macd24.getValue(countBar).floatValue());
 
-        result.setSTOCHK(stochasticK.getValue(countBar).doubleValue());
-        result.setSTOCHD(stochasticD.getValue(countBar).doubleValue());
+        result.setSTOCHK(stochasticK.getValue(countBar).floatValue());
+        result.setSTOCHD(stochasticD.getValue(countBar).floatValue());
 
-        result.setSMA200(smaIndicator200.getValue(countBar).doubleValue());
-        result.setSMA99(smaIndicator99.getValue(countBar).doubleValue());
-        result.setSMA60(smaIndicator60.getValue(countBar).doubleValue());
-        result.setSMA50(smaIndicator50.getValue(countBar).doubleValue());
-        result.setSMA30(smaIndicator30.getValue(countBar).doubleValue());
-        result.setSMA15(smaIndicator15.getValue(countBar).doubleValue());
-        result.setSMA10(smaIndicator10.getValue(countBar).doubleValue());
+        result.setSMA200(smaIndicator200.getValue(countBar).floatValue());
+        result.setSMA99(smaIndicator99.getValue(countBar).floatValue());
+        result.setSMA60(smaIndicator60.getValue(countBar).floatValue());
+        result.setSMA50(smaIndicator50.getValue(countBar).floatValue());
+        result.setSMA30(smaIndicator30.getValue(countBar).floatValue());
+        result.setSMA15(smaIndicator15.getValue(countBar).floatValue());
+        result.setSMA10(smaIndicator10.getValue(countBar).floatValue());
 
-        result.setWMA200(wmaIndicator200.getValue(countBar).doubleValue());
-        result.setWMA99(wmaIndicator99.getValue(countBar).doubleValue());
-        result.setWMA60(wmaIndicator60.getValue(countBar).doubleValue());
-        result.setWMA50(wmaIndicator50.getValue(countBar).doubleValue());
-        result.setWMA30(wmaIndicator30.getValue(countBar).doubleValue());
-        result.setWMA15(wmaIndicator15.getValue(countBar).doubleValue());
-        result.setWMA10(wmaIndicator10.getValue(countBar).doubleValue());
+        result.setWMA200(wmaIndicator200.getValue(countBar).floatValue());
+        result.setWMA99(wmaIndicator99.getValue(countBar).floatValue());
+        result.setWMA60(wmaIndicator60.getValue(countBar).floatValue());
+        result.setWMA50(wmaIndicator50.getValue(countBar).floatValue());
+        result.setWMA30(wmaIndicator30.getValue(countBar).floatValue());
+        result.setWMA15(wmaIndicator15.getValue(countBar).floatValue());
+        result.setWMA10(wmaIndicator10.getValue(countBar).floatValue());
 
-        result.setEMA200(emaIndicator200.getValue(countBar).doubleValue());
-        result.setEMA99(emaIndicator99.getValue(countBar).doubleValue());
-        result.setEMA60(emaIndicator60.getValue(countBar).doubleValue());
-        result.setEMA50(emaIndicator50.getValue(countBar).doubleValue());
-        result.setEMA30(emaIndicator30.getValue(countBar).doubleValue());
-        result.setEMA15(emaIndicator15.getValue(countBar).doubleValue());
-        result.setEMA10(emaIndicator10.getValue(countBar).doubleValue());
+        result.setEMA200(emaIndicator200.getValue(countBar).floatValue());
+        result.setEMA99(emaIndicator99.getValue(countBar).floatValue());
+        result.setEMA60(emaIndicator60.getValue(countBar).floatValue());
+        result.setEMA50(emaIndicator50.getValue(countBar).floatValue());
+        result.setEMA30(emaIndicator30.getValue(countBar).floatValue());
+        result.setEMA15(emaIndicator15.getValue(countBar).floatValue());
+        result.setEMA10(emaIndicator10.getValue(countBar).floatValue());
 
-        result.setMMA(mma.getValue(countBar).doubleValue());
-        result.setCCI(cci.getValue(countBar).doubleValue());
-        result.setADX(adxIndicator.getValue(countBar).doubleValue());
-        result.setAROONUP(up.getValue(countBar).doubleValue());
-        result.setAROONDOWN(down.getValue(countBar).doubleValue());
+        result.setMMA(mma.getValue(countBar).floatValue());
+        result.setCCI(cci.getValue(countBar).floatValue());
+        result.setADX(adxIndicator.getValue(countBar).floatValue());
+        result.setAROONUP(up.getValue(countBar).floatValue());
+        result.setAROONDOWN(down.getValue(countBar).floatValue());
 
-        result.setPSAR(psar.getValue(countBar).doubleValue());
-        result.setSTOCHRSI(stochRSI.getValue(countBar).doubleValue());
-        result.setVWAP(vwap.getValue(countBar).doubleValue());
+        result.setPSAR(psar.getValue(countBar).floatValue());
+        result.setSTOCHRSI(stochRSI.getValue(countBar).floatValue());
+        result.setVWAP(vwap.getValue(countBar).floatValue());
 
-        result.setATR(atr.getValue(countBar).doubleValue());
-        result.setDPO(dpo.getValue(countBar).doubleValue());
-        result.setWILLR(willr.getValue(countBar).doubleValue());
-        result.setMI(mi.getValue(countBar).doubleValue());
+        result.setATR(atr.getValue(countBar).floatValue());
+        result.setDPO(dpo.getValue(countBar).floatValue());
+        result.setWILLR(willr.getValue(countBar).floatValue());
+        result.setMI(mi.getValue(countBar).floatValue());
 
-        result.setCMO(cmo.getValue(countBar).doubleValue());
-        result.setROC(roc.getValue(countBar).doubleValue());
-        result.setRAVI(ravi.getValue(countBar).doubleValue());
+        result.setCMO(cmo.getValue(countBar).floatValue());
+        result.setROC(roc.getValue(countBar).floatValue());
+        result.setRAVI(ravi.getValue(countBar).floatValue());
 
-        result.setSPANA(spanA.getValue(countBar).doubleValue());
-        result.setSPANB(spanB.getValue(countBar).doubleValue());
-        result.setKIJUN(kijun.getValue(countBar).doubleValue());
-        result.setTENKAN(tenkan.getValue(countBar).doubleValue());
+        result.setSPANA(spanA.getValue(countBar).floatValue());
+        result.setSPANB(spanB.getValue(countBar).floatValue());
+        result.setKIJUN(kijun.getValue(countBar).floatValue());
+        result.setTENKAN(tenkan.getValue(countBar).floatValue());
 
         return result;
     }

@@ -8,18 +8,18 @@ import java.util.TreeMap;
 
 public class FundingHistoryObject {
     @Getter
-    private final TreeMap<Date, Double> map;
+    private final TreeMap<Date, Float> map;
 
-    public FundingHistoryObject(TreeMap<Date, Double> map) {
+    public FundingHistoryObject(TreeMap<Date, Float> map) {
         this.map = map;
     }
 
-    public double getValueForNearestDate(Date targetDate) {
-        Map.Entry<Date, Double> entry = map.floorEntry(targetDate);
+    public float getValueForNearestDate(Date targetDate) {
+        Map.Entry<Date, Float> entry = map.floorEntry(targetDate);
         return entry.getValue();
     }
 
-    public double getFirst() {
+    public float getFirst() {
         return map.firstEntry().getValue();
     }
 }

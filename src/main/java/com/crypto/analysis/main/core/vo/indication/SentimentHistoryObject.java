@@ -8,18 +8,18 @@ import java.util.TreeMap;
 
 public class SentimentHistoryObject {
     @Getter
-    private final TreeMap<Date, double[]> map;
+    private final TreeMap<Date, float[]> map;
 
-    public SentimentHistoryObject(TreeMap<Date, double[]> map) {
+    public SentimentHistoryObject(TreeMap<Date, float[]> map) {
         this.map = map;
     }
 
-    public double[] getValueForNearestDate(Date targetDate) {
-        Map.Entry<Date, double[]> entry = map.floorEntry(targetDate);
+    public float[] getValueForNearestDate(Date targetDate) {
+        Map.Entry<Date, float[]> entry = map.floorEntry(targetDate);
         return entry.getValue();
     }
 
-    public double[] getFirst() {
+    public float[] getFirst() {
         return map.firstEntry().getValue();
     }
 

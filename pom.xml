@@ -15,7 +15,8 @@
 	<name>main</name>
 	<description>Crypto neural network</description>
 	<properties>
-		<dl4j-master.version>1.0.0-M2.1</dl4j-master.version>
+		<djl.version>0.27.0</djl.version>
+		<pytorch.version>2.1.1</pytorch.version>
 		<jfreechart.version>1.0.13</jfreechart.version>
 		<jcommon.version>1.0.23</jcommon.version>
 		<java.version>21</java.version>
@@ -81,108 +82,39 @@
 		<!-- Spring dependencies end -->
 
 
-		<!-- DL4j and Nd4j dependencies start -->
+		<!-- DJL dependencies start -->
 		<dependency>
-			<groupId>org.nd4j</groupId>
-			<artifactId>nd4j-native</artifactId>
-			<version>${dl4j-master.version}</version>
+			<groupId>ai.djl</groupId>
+			<artifactId>api</artifactId>
+			<version>${djl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ai.djl.pytorch</groupId>
+			<artifactId>pytorch-engine</artifactId>
+			<version>${djl.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>ai.djl.pytorch</groupId>
+			<artifactId>pytorch-native-cu121</artifactId>
+			<classifier>win-x86_64</classifier>
+			<version>${pytorch.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>ai.djl.pytorch</groupId>
+			<artifactId>pytorch-native-cu121-precxx11</artifactId>
+			<version>${pytorch.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>ai.djl.pytorch</groupId>
+			<artifactId>pytorch-jni</artifactId>
+			<version>${pytorch.version}-${djl.version}</version>
+			<scope>runtime</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.nd4j</groupId>
-			<artifactId>nd4j-native-platform</artifactId>
-			<version>${dl4j-master.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.nd4j</groupId>
-			<artifactId>nd4j-native-api</artifactId>
-			<version>${dl4j-master.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.nd4j</groupId>
-			<artifactId>nd4j-backend-impls</artifactId>
-			<version>${dl4j-master.version}</version>
-			<type>pom</type>
-		</dependency>
-
-		<dependency>
-			<groupId>org.deeplearning4j</groupId>
-			<artifactId>deeplearning4j-core</artifactId>
-			<version>${dl4j-master.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.nd4j</groupId>
-			<artifactId>nd4j-api</artifactId>
-			<version>${dl4j-master.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.deeplearning4j</groupId>
-			<artifactId>deeplearning4j-ui</artifactId>
-			<version>${dl4j-master.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>jquery-ui</artifactId>
-			<version>1.13.2</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>jquery</artifactId>
-			<version>3.7.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>bootstrap</artifactId>
-			<version>5.3.3</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.webjars.bower</groupId>
-			<artifactId>lodash</artifactId>
-			<version>4.17.21</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.beust</groupId>
-			<artifactId>jcommander</artifactId>
-			<version>1.82</version>
-		</dependency>
-
-		<dependency>
-			<groupId>io.vertx</groupId>
-			<artifactId>vertx-core</artifactId>
-			<version>3.9.13</version>
-		</dependency>
-
-		<dependency>
-			<groupId>io.vertx</groupId>
-			<artifactId>vertx-web</artifactId>
-			<version>3.9.13</version>
-		</dependency>
-		<!-- DL4j and Nd4j dependencies end -->
-
-
-		<!-- CUDA dependencies start -->
-		<dependency>
-			<groupId>org.nd4j</groupId>
-			<artifactId>nd4j-cuda-11.6</artifactId>
-			<version>${dl4j-master.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.nd4j</groupId>
-			<artifactId>nd4j-cuda-11.6</artifactId>
-			<version>${dl4j-master.version}</version>
-			<classifier>windows-x86_64-cudnn</classifier>
-		</dependency>
-		<!-- CUDA dependencies end -->
+		<!-- DJL dependencies end -->
 
 
 		<!-- Commons and net dependencies start -->
@@ -191,6 +123,13 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.15.1</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-math3</artifactId>
+			<version>3.6.1</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>commons-net</groupId>

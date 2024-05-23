@@ -57,7 +57,7 @@ public class CoinUpdater {
             if (!dates.contains(bqUtil.getData().firstKey())) throw new IllegalStateException("Data list is not full");
             bqUtil.getData().remove(bqUtil.getData().lastKey());
 
-            for (Map.Entry<Date, double[]> entry : bqUtil.getData().entrySet()) {
+            for (Map.Entry<Date, float[]> entry : bqUtil.getData().entrySet()) {
                 if (entry.getKey().after(dates.getLast()) && !dates.contains(entry.getKey()))
                     writer.print(String.format("\n%s,%s,%s,%s,%s,%s,%s,%s,%s",
                             sdfFullISO.format(entry.getKey()), entry.getValue()[0],
@@ -102,7 +102,7 @@ public class CoinUpdater {
             if (!dates.contains(key))
                 throw new IllegalStateException("Data list is not full");
 
-            for (Map.Entry<Date, Double> entry : fundingObject.getMap().entrySet()) {
+            for (Map.Entry<Date, Float> entry : fundingObject.getMap().entrySet()) {
                 StringBuilder builder = new StringBuilder(String.valueOf(entry.getKey().getTime()));
                 builder.setCharAt(builder.length() - 1, '0');
                 builder.setCharAt(builder.length() - 2, '0');
@@ -160,10 +160,10 @@ public class CoinUpdater {
                 throw new IllegalStateException("Data list is not full");
 
 
-            for (Map.Entry<Date, Double> entry : openInterestHistoryObject.getMap().entrySet()) {
+            for (Map.Entry<Date, Float> entry : openInterestHistoryObject.getMap().entrySet()) {
                 dataMap.put(entry.getKey(), new double[]{entry.getValue(), 0});
             }
-            for (Map.Entry<Date, Double> entry : longShortObject.getMap().entrySet()) {
+            for (Map.Entry<Date, Float> entry : longShortObject.getMap().entrySet()) {
                 if (!dataMap.containsKey(entry.getKey())) continue;
                 dataMap.get(entry.getKey())[1] = entry.getValue();
             }

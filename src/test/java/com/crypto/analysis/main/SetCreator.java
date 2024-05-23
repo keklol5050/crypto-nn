@@ -36,8 +36,8 @@ public class SetCreator {
 
        for (Map.Entry<String,String> entryD : datas.entrySet()) {
            util.initData(StaticData.sdfShortISO.parse(entryD.getKey()), StaticData.sdfShortISO.parse(entryD.getValue()));
-           TreeMap<Date, double[]> data =util.getData();
-           for (Map.Entry<Date, double[]> entry : data.entrySet()) {
+           TreeMap<Date, float[]> data =util.getData();
+           for (Map.Entry<Date, float[]> entry : data.entrySet()) {
                writer.println(String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s", StaticData.sdfFullISO.format(entry.getKey()), entry.getValue()[0], entry.getValue()[1], entry.getValue()[2], entry.getValue()[3], entry.getValue()[4], entry.getValue()[5], entry.getValue()[6], entry.getValue()[7]));
                writer.flush();
            }

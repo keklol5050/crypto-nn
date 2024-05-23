@@ -7,17 +7,17 @@ import java.util.TreeMap;
 
 public class OpenInterestHistoryObject {
     @Getter
-    private final TreeMap<Date, Double> map;
+    private final TreeMap<Date, Float> map;
 
-    public OpenInterestHistoryObject(TreeMap<Date, Double> map) {
+    public OpenInterestHistoryObject(TreeMap<Date, Float> map) {
         this.map = map;
     }
 
-    public double getValueForNearestDate(Date targetDate) {
+    public float getValueForNearestDate(Date targetDate) {
         return map.floorEntry(targetDate).getValue();
     }
 
-    public double getFirst() {
+    public float getFirst() {
         return map.firstEntry().getValue();
     }
 
