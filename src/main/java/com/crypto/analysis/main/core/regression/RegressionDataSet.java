@@ -6,7 +6,6 @@ import ai.djl.ndarray.NDArrays;
 import ai.djl.ndarray.NDList;
 import ai.djl.ndarray.types.Shape;
 import ai.djl.training.dataset.ArrayDataset;
-import ai.djl.training.dataset.Record;
 import com.crypto.analysis.main.core.data_utils.normalizers.MaxAbsScaler;
 import com.crypto.analysis.main.core.data_utils.normalizers.Transposer;
 import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
@@ -14,23 +13,21 @@ import com.crypto.analysis.main.core.data_utils.select.coin.DataLength;
 import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
 import com.crypto.analysis.main.core.data_utils.train.TrainDataBinance;
 import com.crypto.analysis.main.core.data_utils.train.TrainDataCSV;
-import com.crypto.analysis.main.core.data_utils.utils.mutils.DataVisualisation;
 import com.crypto.analysis.main.core.ndata.CSVCoinDataSet;
 import com.crypto.analysis.main.core.vo.DataObject;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.jetbrains.annotations.NotNull;
-import org.jfree.data.xy.XYSeries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import static com.crypto.analysis.main.core.vo.DataObject.*;
-import static com.crypto.analysis.main.core.vo.ModelParams.*;
+import static com.crypto.analysis.main.core.vo.ModelParams.DEFAULT_NUM_FEATURES;
+import static com.crypto.analysis.main.core.vo.ModelParams.manager;
 
 @Getter
 @Setter

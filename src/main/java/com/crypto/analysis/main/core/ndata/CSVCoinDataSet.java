@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.crypto.analysis.main.core.data_utils.select.StaticUtils.*;
+import static com.crypto.analysis.main.core.data_utils.select.StaticUtils.sdfFullISO;
 import static com.crypto.analysis.main.core.vo.DataObject.SKIP_NUMBER;
 
 public class CSVCoinDataSet {

@@ -4,7 +4,6 @@ import com.binance.connector.futures.client.impl.UMFuturesClientImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 
-import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.TimeZone;

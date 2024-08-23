@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <property name="BASE_DIR" value="/logs/" />
+    <property name="FILE_NAME" value="app.log" />
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %level %logger{36} - %msg%n" />
+
+    <define name="JAR_LOCATION" class="com.crypto.analysis.main.view.PropertyDefiner" />
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="TEXT_AREA" class="com.crypto.analysis.main.view.TextLogAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="DAILY_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${JAR_LOCATION}${BASE_DIR}${FILE_NAME}</file>
+        <append>true</append>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${JAR_LOCATION}${BASE_DIR}${FILE_NAME}.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="DAILY_FILE_ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>1000000</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <appender-ref ref="DAILY_FILE" />
+    </appender>
+
+
+    <root level="info">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="TEXT_AREA" />
+        <appender-ref ref="DAILY_FILE_ASYNC" />
+    </root>
+</configuration>
