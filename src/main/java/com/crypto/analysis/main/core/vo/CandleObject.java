@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Getter
-public class CandleObject { // формат свічки графіку
+public class CandleObject {
     private final Date openTime;
     private final float open;
     private final float high;
@@ -46,6 +46,16 @@ public class CandleObject { // формат свічки графіку
                 low,
                 close,
                 volume
+        };
+    }
+
+    public double[] getValuesArrAsDoubleWithoutVolume() {
+        return new double[]{
+                open,
+                high,
+                low,
+                close,
+                0
         };
     }
 

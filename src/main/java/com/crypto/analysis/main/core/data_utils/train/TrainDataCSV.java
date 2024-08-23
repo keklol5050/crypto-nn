@@ -6,9 +6,10 @@ import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
 import com.crypto.analysis.main.core.ndata.CSVCoinDataSet;
 import com.crypto.analysis.main.core.vo.DataObject;
 import lombok.Getter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 @Getter
 public class TrainDataCSV {
@@ -22,6 +23,7 @@ public class TrainDataCSV {
 
     private final int delimiter;
 
+    private static final Logger logger = LoggerFactory.getLogger(TrainDataCSV.class);
     public TrainDataCSV(Coin coin, TimeFrame interval, DataLength dl, CSVCoinDataSet set) {
         this.coin = coin;
         this.interval = interval;
@@ -29,23 +31,19 @@ public class TrainDataCSV {
         this.countInput = dl.getCountInput();
         this.countOutput = dl.getCountOutput();
         this.delimiter = 1;
-        init();
-    }
 
-    public static void main(String[] args) {
-        CSVCoinDataSet csv = new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES);
-        csv.load();
-        TrainDataCSV trainDataCSV = new TrainDataCSV(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES, DataLength.S60_3, csv);
-        for (DataObject[] objects : trainDataCSV.getData()) {
-            System.out.println(Arrays.toString(objects));
-        }
+        logger.info(String.format("Creating transformer for CSV data with coin %s, time frame %s, count input/output %d, %d",
+                coin, interval, countInput, countOutput));
+        init();
     }
 
     private void init() {
         try {
             if (!set.isInitialized()) throw new UnsupportedOperationException("CSV Data set is not initialized");
-            if (set.getInterval() != interval)
+            if (set.getTf() != interval)
                 throw new IllegalArgumentException("Data set timeframe is not equals to current timeframe");
+
+            logger.info("Initializing CSV data transformer");
 
             ArrayList<DataObject> objects = set.getData();
 
@@ -61,6 +59,7 @@ public class TrainDataCSV {
                 data.add(values);
             }
 
+            logger.info("Transforming finished");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

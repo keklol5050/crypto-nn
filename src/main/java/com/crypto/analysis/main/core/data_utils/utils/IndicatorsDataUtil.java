@@ -21,6 +21,8 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
+import static com.crypto.analysis.main.core.data_utils.select.StaticUtils.defaultZone;
+
 public class IndicatorsDataUtil {
     private final ArrayList<CandleObject> candles;
     private final boolean revert;
@@ -97,7 +99,7 @@ public class IndicatorsDataUtil {
     public static BarSeries getTimeSeries(ArrayList<CandleObject> candleObjects) {
         BarSeries series = new BaseBarSeries();
         for (CandleObject candle : candleObjects) {
-            ZonedDateTime timestamp = candle.getCloseTime().toInstant().atZone(ZoneId.systemDefault());
+            ZonedDateTime timestamp = candle.getCloseTime().toInstant().atZone(ZoneId.of(defaultZone));
             series.addBar(timestamp, candle.getOpen(), candle.getHigh(), candle.getLow(), candle.getClose(), candle.getVolume());
         }
         return series;

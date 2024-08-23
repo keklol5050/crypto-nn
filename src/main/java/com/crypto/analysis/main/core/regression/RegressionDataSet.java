@@ -1,6 +1,8 @@
 package com.crypto.analysis.main.core.regression;
 
+import ai.djl.Device;
 import ai.djl.ndarray.NDArray;
+import ai.djl.ndarray.NDArrays;
 import ai.djl.ndarray.NDList;
 import ai.djl.ndarray.types.Shape;
 import ai.djl.training.dataset.ArrayDataset;
@@ -12,7 +14,6 @@ import com.crypto.analysis.main.core.data_utils.select.coin.DataLength;
 import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
 import com.crypto.analysis.main.core.data_utils.train.TrainDataBinance;
 import com.crypto.analysis.main.core.data_utils.train.TrainDataCSV;
-import com.crypto.analysis.main.core.fundamental.stock.FundamentalDataUtil;
 import com.crypto.analysis.main.core.data_utils.utils.mutils.DataVisualisation;
 import com.crypto.analysis.main.core.ndata.CSVCoinDataSet;
 import com.crypto.analysis.main.core.vo.DataObject;
@@ -27,9 +28,9 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 
-import static com.crypto.analysis.main.core.data_utils.select.StaticData.*;
+import static com.crypto.analysis.main.core.vo.DataObject.*;
+import static com.crypto.analysis.main.core.vo.ModelParams.*;
 
 @Getter
 @Setter
@@ -41,46 +42,56 @@ public class RegressionDataSet {
     private int numFeatures;
     private int outputSteps;
     private int inputSteps;
-    private int batchSize;
 
     private static final Logger logger = LoggerFactory.getLogger(RegressionDataSet.class);
+    private static DescriptiveStatistics stats;
 
     private RegressionDataSet(Coin coin, DataLength dl) {
         this.coin = coin;
         this.dl = dl;
     }
 
-    public static RegressionDataSet prepareTrainSet(Coin coin, DataLength dl, CSVCoinDataSet set) {
+    public static RegressionDataSet prepareTrainSet(Coin coin, DataLength dl, CSVCoinDataSet set, Device device, int batchSize, boolean split) {
         logger.info("Preparing train set..");
         RegressionDataSet regressionDataSet = new RegressionDataSet(coin, dl);
 
-        TrainDataCSV trainData = new TrainDataCSV(coin, set.getInterval(), dl, set);
+        TrainDataCSV trainData = new TrainDataCSV(coin, set.getTf(), dl, set);
 
-        ArrayList<DataObject[]> data = new ArrayList<>(trainData.getData());
-
-        return getTrainDataSet(dl, regressionDataSet, data);
+        return getTrainDataSet(dl, regressionDataSet, trainData.getData(), device, batchSize, split);
     }
 
-    public static RegressionDataSet prepareTrainSet(Coin coin, DataLength dl, TimeFrame interval, FundamentalDataUtil fdUtil) {
-        logger.info("Preparing train set..");
+    public static RegressionDataSet prepareTrainSet(Coin coin, DataLength dl, TimeFrame tf, Device device, int batchSize, boolean split) {
+        logger.info("Preparing train set (Binance)..");
         RegressionDataSet regressionDataSet = new RegressionDataSet(coin, dl);
 
-        TrainDataBinance trainDataBinance = new TrainDataBinance(coin, interval, dl, fdUtil);
+        TrainDataBinance trainDataBinance = new TrainDataBinance(coin, tf, dl);
 
-        ArrayList<DataObject[]> data = new ArrayList<>(trainDataBinance.getData());
-
-        return getTrainDataSet(dl, regressionDataSet, data);
+        return getTrainDataSet(dl, regressionDataSet, trainDataBinance.getData(), device, batchSize, split);
     }
 
     @NotNull
-    public static RegressionDataSet getTrainDataSet(DataLength dl, RegressionDataSet regressionDataSet, ArrayList<DataObject[]> data) {
-        int numInputSteps = dl.getCountInput() - NUMBER_OF_DIFFERENTIATIONS;
+    public static RegressionDataSet getTrainDataSet(DataLength dl,
+                                                    RegressionDataSet regressionDataSet,
+                                                    ArrayList<DataObject[]> data,
+                                                    Device device,
+                                                    int batchSize,
+                                                    boolean split) {
+        int numInputSteps = dl.getCountInput();
         int numOutputSteps = dl.getCountOutput();
         int numFeatures = data.getFirst()[0].getParamArray().length;
-        int batchSize = BATCH_SIZE;
 
-        ArrayList<float[][]> dataArr = new ArrayList<float[][]>();
-        for (int i = 0; i < data.size(); i++) {
+        ArrayList<float[][]> dataArr = new ArrayList<>();
+        int start = 0;
+        if (data.getFirst()[0].getInterval() == TimeFrame.FIFTEEN_MINUTES){
+            start = switch (dl) {
+                case S100_5 -> 0;
+                case L120_6 -> 0;
+                case X180_9 -> 10000;
+                case XL240_12 -> 15000;
+                default -> throw new IllegalStateException("Unexpected value: " + dl);
+            };
+        }
+        for (int i = start; i < data.size(); i++) {
             DataObject[] datum = data.get(i);
             float[][] doArray = new float[datum.length][];
             for (int j = 0; j < datum.length; j++) {
@@ -95,18 +106,18 @@ public class RegressionDataSet {
         MaxAbsScaler normalizer = new MaxAbsScaler(MASK_OUTPUT, numOutputSteps, numFeatures);
 
         for (float[][] in : dataArr) {
-            if (numInputSteps + numOutputSteps != (in.length - NUMBER_OF_DIFFERENTIATIONS))
+            if (numInputSteps + numOutputSteps != in.length)
                 throw new ArithmeticException("Parameters count are not equals");
             if (numOutputSteps < 1 || numInputSteps < 1)
                 throw new IllegalArgumentException("Parameters cannot be zero or negative");
 
-            refactor(in, false, normalizer, numInputSteps);
+            float[][] ref = refactor(in, normalizer, numInputSteps, true);
 
             float[][] input = new float[numInputSteps][];
-            System.arraycopy(in, 0, input, 0, input.length);
+            System.arraycopy(ref, 0, input, 0, input.length);
 
             float[][] output = new float[numOutputSteps][];
-            System.arraycopy(in, input.length, output, 0, output.length);
+            System.arraycopy(ref, input.length, output, 0, output.length);
 
             float[][] finalOutput = new float[numOutputSteps][];
             for (int i = 0; i < finalOutput.length; i++) {
@@ -118,57 +129,87 @@ public class RegressionDataSet {
             input = Transposer.transpose(input);
             finalOutput = Transposer.transpose(finalOutput);
 
-            normalizer.changeBinding(in, input);
             allInputs.add(input);
             allOutputs.add(finalOutput[0]); //TODO
         }
 
         int numSamples = allInputs.size();
-        int max = numSamples - 1000;
+        int firstPart = numSamples/2;
+        int secondPart = numSamples - firstPart;
+        int max = split ? numSamples - COUNT_TEST_VALUES : numSamples;
 
-        float[] dataFlat = new float[numSamples * numFeatures * numInputSteps];
-        for (int i = 0; i < numSamples; i++) {
+        float[] dataFlatFirst = new float[firstPart * numFeatures * numInputSteps];
+        for (int i = 0; i < firstPart; i++) {
             for (int j = 0; j < numFeatures; j++) {
                 for (int k = 0; k < numInputSteps; k++) {
-                    dataFlat[i * numFeatures * numInputSteps + j * numInputSteps + k] = allInputs.get(i)[j][k];
+                    dataFlatFirst[i * numFeatures * numInputSteps + j * numInputSteps + k] = allInputs.get(i)[j][k];
                 }
             }
         }
 
-        float[] flatLabels = new float[numSamples * numOutputSteps];
-        for (int i = 0; i < numSamples; i++) {
-            System.arraycopy(allOutputs.get(i), 0, flatLabels, i * numOutputSteps, numOutputSteps);
+        float[] flatLabelsFirst = new float[firstPart * numOutputSteps];
+        for (int i = 0; i < firstPart; i++) {
+            System.arraycopy(allOutputs.get(i), 0, flatLabelsFirst, i * numOutputSteps, numOutputSteps);
         }
 
-        NDArray in = manager.create(dataFlat).reshape(new Shape(numSamples, numFeatures, numInputSteps));
-        NDArray out = manager.create(flatLabels).reshape(new Shape(numSamples, numOutputSteps));
+        NDArray inFirst = manager.create(dataFlatFirst).reshape(new Shape(firstPart, numFeatures, numInputSteps));
+        NDArray outFirst = manager.create(flatLabelsFirst).reshape(new Shape(firstPart, numOutputSteps));
 
-        NDList input = in.split(new long[]{max});
-        NDList output = out.split(new long[]{max});
+        System.gc();
+
+        float[] dataFlatSecond = new float[secondPart * numFeatures * numInputSteps];
+        for (int i = 0; i < secondPart; i++) {
+            for (int j = 0; j < numFeatures; j++) {
+                for (int k = 0; k < numInputSteps; k++) {
+                    dataFlatSecond[i * numFeatures * numInputSteps + j * numInputSteps + k] = allInputs.get(i+firstPart)[j][k];
+                }
+            }
+        }
+
+        float[] flatLabelsSecond = new float[secondPart * numOutputSteps];
+        for (int i = 0; i < secondPart; i++) {
+            System.arraycopy(allOutputs.get(i+firstPart), 0, flatLabelsSecond, i * numOutputSteps, numOutputSteps);
+        }
+
+        NDArray inSecond = manager.create(dataFlatSecond).reshape(new Shape(secondPart, numFeatures, numInputSteps));
+        NDArray outSecond = manager.create(flatLabelsSecond).reshape(new Shape(secondPart, numOutputSteps));
+
+        System.gc();
+
+        NDArray in = NDArrays.concat(new NDList(inFirst, inSecond));
+        NDArray out = NDArrays.concat(new NDList(outFirst, outSecond));
+
+        NDList input = split ? in.split(new long[]{max}) : new NDList(in);
+        NDList output = split ? out.split(new long[]{max}) : new NDList(out);
 
         ArrayDataset trainSet = new ArrayDataset.Builder()
                 .setData(input.getFirst())
                 .optLabels(output.getFirst())
                 .setSampling(batchSize, true)
-                .optDevice(DEVICE)
+                .optDevice(device)
                 .build();
 
-        ArrayDataset testSet = new ArrayDataset.Builder()
+        ArrayDataset testSet = split ? new ArrayDataset.Builder()
                 .setData(input.getLast())
                 .optLabels(output.getLast())
                 .setSampling(batchSize, false)
-                .optDevice(DEVICE)
-                .build();
+                .optDevice(device)
+                .build() : null;
 
         regressionDataSet.trainSet = trainSet;
         regressionDataSet.testSet = testSet;
         regressionDataSet.numFeatures = numFeatures;
-        regressionDataSet.outputSteps = numOutputSteps;
         regressionDataSet.inputSteps = numInputSteps;
-        regressionDataSet.batchSize = batchSize;
+        regressionDataSet.outputSteps = numOutputSteps;
 
-        logger.info("Train set size: " + trainSet.size());
-        logger.info("Test set size: " + testSet.size());
+        logger.info("Train set size: {}", trainSet.size());
+        logger.info("Test set size: {}", testSet != null ? testSet.size() : 0);
+        for (String s : Arrays.asList(String.format("Regression set created with params: numFeatures - %d, numInputSteps - %d, numOutputSteps - %d, batchSize - %d",
+                numFeatures, numInputSteps, numOutputSteps, batchSize), "Regression set data length: " + dl)) {
+            logger.info(s);
+        }
+
+        System.gc();
         return regressionDataSet;
     }
 
@@ -181,84 +222,54 @@ public class RegressionDataSet {
         return column;
     }
 
-    public static void refactor(float[][] in, boolean save, MaxAbsScaler normalizer, int countInput) {
+    public static float[][] refactor(float[][] in, MaxAbsScaler normalizer, int countInput, boolean clear) {
+        float[][] ref = new float[in.length][in[0].length];
         for (int i = 0; i < in.length; i++) {
-            for (int j = COUNT_PRICES_VALUES; j < COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA; j++) {
-                double value = Math.log(in[i][j]);
-                if (Double.isInfinite(value) || Double.isNaN(value)) {
-                    if (i == 0) {
-                        in[i][j] = new Random().nextFloat(0, 2);
-                    } else {
-                        in[i][j] = in[i-1][j] + new Random().nextFloat(-1, 1);
-                    }
-                } else {
-                    in[i][j] = (float) value;
-                }
+            System.arraycopy(in[i], 0, ref[i], 0, in[i].length);
+        }
+
+
+        float[] orient = getColumn(ref, POSITION_OF_PRICES_NORMALIZER_IND, ref.length);
+        for (int i = COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA; i < COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA + MOVING_AVERAGES_COUNT; i++) {
+            for (int j = 0; j < ref.length; j++) {
+                ref[j][i] = orient[j] - ref[j][i];
             }
         }
 
-        float[] orient = getColumn(in, POSITION_OF_PRICES_NORMALIZER_IND, in.length);
-        for (int i = COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA; i < COUNT_VALUES_NOT_VOLATILE_WITHOUT_MA + MOVING_AVERAGES_COUNT_FOR_DIFF_WITH_PRICE_VALUES; i++) {
-            for (int j = 0; j < in.length; j++) {
-                in[j][i] = orient[j] - in[j][i];
-            }
-        }
-
-        for (int i = 58; i < in[0].length; i++) {
-            DescriptiveStatistics stats = new DescriptiveStatistics();
-            for (float[] doubles : in) {
+        for (int i = 0; i < COUNT_PRICES_VALUES; i++) {
+            stats = new DescriptiveStatistics();
+            for (float[] doubles : ref) {
                 stats.addValue(doubles[i]);
             }
 
             float mean = (float) stats.getMean();
-            for (int j = 0; j < in.length; j++) {
-                in[j][i] = in[j][i] - mean;
+            for (int j = 0; j < ref.length; j++) {
+                ref[j][i] = ref[j][i] - mean;
             }
         }
-        for (int i = 0; i < COUNT_VALUES_FOR_DIFFERENTIATION; i++) {
-            DescriptiveStatistics stats = new DescriptiveStatistics();
-            for (float[] doubles : in) {
-                stats.addValue(doubles[i]);
+
+        for (int i = BTCDOM_POSITION; i < DEFAULT_NUM_FEATURES; i++) {
+            stats = new DescriptiveStatistics();
+            for (int j = 0; j < countInput; j++) {
+                stats.addValue(ref[j][i]);
             }
 
             float mean = (float) stats.getMean();
-            for (int j = 0; j < in.length; j++) {
-                in[j][i] = in[j][i] - mean;
+            for (int j = 0; j < ref.length; j++) {
+                ref[j][i] = ref[j][i] - mean;
             }
         }
 
         if (countInput==0)
-            countInput = in.length;
+            countInput = ref.length;
 
-        normalizer.fit(in, countInput);
-        normalizer.transform(in);
-    }
-    public static void refactor(float[][] in, boolean save, MaxAbsScaler normalizer) {
-        refactor(in, save, normalizer, 0);
-    }
+        normalizer.fit(ref, countInput);
+        normalizer.transform(ref, clear);
 
-    public static void main(String[] args) throws IOException {
-        CSVCoinDataSet cs = new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.ONE_HOUR);
-        cs.load();
-        RegressionDataSet regressionDataSet = RegressionDataSet.prepareTrainSet(Coin.BTCUSDT, DataLength.L120_6, cs);
-        Record set = regressionDataSet.getTestSet().get(manager, 1);
-        NDArray input = set.getData().singletonOrThrow();
-        long[] shape = input.getShape().getShape();
-        int index = 0;
-        for (int i = 0; i < shape[0]; i++) {
-            float[] d = input.get(i).toFloatArray();
-            System.out.println(d.length);
-            XYSeries series = new XYSeries("param n." + index++);
-            for (int j = 0; j < d.length; j++) {
-                series.add(j, d[j]);
-            }
-            DataVisualisation.visualize("param n." + index, "count", "value", series);
-            System.out.println(Arrays.toString(d));
-        }
-
-        NDArray label = set.getLabels().singletonOrThrow();
-        float[] d = label.toFloatArray();
-        System.out.println(Arrays.toString(d));
+        return ref;
     }
 
+    public static float[][] refactor(float[][] in, MaxAbsScaler normalizer) {
+        return refactor(in, normalizer, 0, false);
+    }
 }

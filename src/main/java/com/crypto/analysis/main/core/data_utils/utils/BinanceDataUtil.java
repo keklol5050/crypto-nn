@@ -4,18 +4,20 @@ import com.binance.connector.futures.client.impl.UMFuturesClientImpl;
 import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
 import com.crypto.analysis.main.core.fundamental.crypto.BitQueryUtil;
-import com.crypto.analysis.main.core.fundamental.stock.FundamentalDataUtil;
+import com.crypto.analysis.main.core.updater.CoinUpdater;
 import com.crypto.analysis.main.core.vo.CandleObject;
 import com.crypto.analysis.main.core.vo.DataObject;
 import com.crypto.analysis.main.core.vo.indication.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
+import kotlin.Pair;
 
+import java.io.IOException;
 import java.util.*;
 
-import static com.crypto.analysis.main.core.data_utils.select.StaticData.client;
-import static com.crypto.analysis.main.core.data_utils.select.StaticData.objectMapper;
+import static com.crypto.analysis.main.core.data_utils.select.StaticUtils.client;
+import static com.crypto.analysis.main.core.data_utils.select.StaticUtils.objectMapper;
 
 public class BinanceDataUtil {
 
@@ -121,9 +123,9 @@ public class BinanceDataUtil {
 
     public static BTCDOMObject getBTCDomination(TimeFrame interval) {
         ArrayList<CandleObject> candlesDOM = getCandles(Coin.BTCDOMUSDT, interval, 1500);
-        TreeMap<Date, Float> resultMap = new TreeMap<Date, Float>();
+        TreeMap<Date, float[]> resultMap = new TreeMap<Date, float[]>();
         for (CandleObject candle : candlesDOM) {
-            resultMap.put(candle.getOpenTime(), candle.getOpen());
+            resultMap.put(candle.getOpenTime(), candle.getValuesArr());
         }
         return new BTCDOMObject(resultMap);
     }
@@ -134,7 +136,7 @@ public class BinanceDataUtil {
         return Float.parseFloat(new UMFuturesClientImpl().market().markPrice(parameters));
     }
 
-    public static DataObject[] getLatestInstances(Coin coin, TimeFrame interval, int count, FundamentalDataUtil fundUtil) {
+    public static DataObject[] getLatestInstances(Coin coin, TimeFrame interval, int count) {
         DataObject[] instances = new DataObject[count];
         ArrayList<CandleObject> candles = BinanceDataUtil.getCandles(coin, interval, count);
 
@@ -150,6 +152,8 @@ public class BinanceDataUtil {
         BitQueryUtil bitQueryUtil = new BitQueryUtil(coin, interval);
         bitQueryUtil.initData(candles.getFirst().getOpenTime(), candles.getLast().getCloseTime());
 
+        TreeMap<Date, Pair<Float, Float>> metricsMap = null;
+
         for (int i = 0; i < count; i++) {
             DataObject obj = new DataObject(coin, interval);
             obj.setCurrentIndicators(util.getIndicators(candles.size() - 1));
@@ -158,13 +162,28 @@ public class BinanceDataUtil {
             obj.setCandle(candle);
 
             obj.setCurrentFundingRate(funding.getValueForNearestDate(candle.getOpenTime()));
-            obj.setCurrentOpenInterest(openInterest.getValueForNearestDate(candle.getOpenTime()));
-            obj.setLongShortRatio(longShortRatioHistoryObject.getValueForNearestDate(candle.getOpenTime()));
+
+            float oiValue;
+            float lsrRatio;
+
+            try {
+                oiValue = openInterest.getValueForNearestDate(candle.getOpenTime());
+                lsrRatio = longShortRatioHistoryObject.getValueForNearestDate(candle.getOpenTime());
+            } catch (Exception e) {
+                    try {
+                        if (metricsMap == null)
+                             metricsMap = CoinUpdater.getMetricsMap(coin);
+                        oiValue = metricsMap.get(candle.getOpenTime()).getFirst();
+                        lsrRatio = metricsMap.get(candle.getOpenTime()).getSecond();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+            }
+
+            obj.setCurrentOpenInterest(oiValue);
+            obj.setLongShortRatio(lsrRatio);
 
             obj.setBTCDomination(BTCDom.getValueForNearestDate(candle.getOpenTime()));
-            if (fundUtil != null)
-                obj.setFundamentalData(fundUtil.getFundamentalData(candle));
-
             float[] sentValues = sentiment.getValueForNearestDate(candle.getOpenTime());
             obj.setSentimentMean(sentValues[0]);
             obj.setSentimentSum(sentValues[1]);
@@ -178,10 +197,9 @@ public class BinanceDataUtil {
     }
 
     public static void main(String[] args) {
-        DataObject[] data = getLatestInstances(Coin.BTCUSDT, TimeFrame.ONE_HOUR, 20, new FundamentalDataUtil());
-        for (DataObject candle : data) {
-            System.out.println(candle);
-            System.out.println();
+        OpenInterestHistoryObject oi = getOpenInterest(Coin.BTCUSDT, TimeFrame.FIFTEEN_MINUTES);
+        for (Map.Entry<Date, Float> entry : oi.getMap().entrySet()){
+            System.out.printf("%s,%s\n", entry.getKey(), entry.getValue());
         }
     }
 

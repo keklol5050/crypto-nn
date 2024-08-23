@@ -2,29 +2,41 @@ package com.crypto.analysis.main.core.data_utils.select.coin;
 
 import lombok.Getter;
 
-import static com.crypto.analysis.main.core.data_utils.select.StaticData.NUMBER_OF_DIFFERENTIATIONS;
-
 @Getter
 public enum DataLength {
-    S60_3(60+NUMBER_OF_DIFFERENTIATIONS, 3),
-    L120_6(120+NUMBER_OF_DIFFERENTIATIONS, 6),
-    X180_9(180+NUMBER_OF_DIFFERENTIATIONS, 9),
-    XL240_12(240+NUMBER_OF_DIFFERENTIATIONS, 12),
-    XXL300_15(300+NUMBER_OF_DIFFERENTIATIONS, 15);
+    S100_5(100, 5),
+    L120_6(120, 6),
+    X180_9(180, 9),
+    XL240_12(240, 12),
+    CUSTOM(-1,-1);
 
-    public static final int MIN_REG_INPUT_LENGTH = 60+NUMBER_OF_DIFFERENTIATIONS;
-    public static final int MIN_REG_OUTPUT_LENGTH = 3;
+    public static final int MIN_REG_INPUT_LENGTH = 100;
+    public static final int MIN_REG_OUTPUT_LENGTH = 5;
 
-    public static final int MAX_REG_INPUT_LENGTH = 300+NUMBER_OF_DIFFERENTIATIONS;
-    public static final int MAX_REG_OUTPUT_LENGTH = 15;
+    public static final int MAX_REG_INPUT_LENGTH = 240;
+    public static final int MAX_REG_OUTPUT_LENGTH = 12;
 
-    public static final DataLength MAX_LENGTH = XXL300_15;
+    public static final DataLength MAX_LENGTH = XL240_12;
 
-    private final int countInput;
-    private final int countOutput;
+    private int countInput;
+    private int countOutput;
 
     DataLength(int countInput, int countOutput) {
         this.countInput = countInput;
+        this.countOutput = countOutput;
+    }
+
+    public void setCountInput(int countInput) {
+        if (this != CUSTOM)
+            throw new IllegalArgumentException("Cannot set countInput for non-custom DataLength");
+
+        this.countInput = countInput;
+    }
+
+    public void setCountOutput(int countOutput) {
+        if (this!= CUSTOM)
+            throw new IllegalArgumentException("Cannot set countOutput for non-custom DataLength");
+
         this.countOutput = countOutput;
     }
 }

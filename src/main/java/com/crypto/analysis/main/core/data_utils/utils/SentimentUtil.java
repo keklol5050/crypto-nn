@@ -10,9 +10,10 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.TreeMap;
 
-import static com.crypto.analysis.main.core.data_utils.select.StaticData.*;
+import static com.crypto.analysis.main.core.data_utils.select.StaticUtils.*;
 
 public class SentimentUtil {
+    public static final String ALL_SENTIMENT_DATA = PropertiesUtil.getProperty("senticrypt.api_str"); // SentiCrypt, class SentimentUtil
 
     public static SentimentHistoryObject getData() {
 

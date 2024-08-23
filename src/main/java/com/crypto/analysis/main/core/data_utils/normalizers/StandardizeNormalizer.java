@@ -5,7 +5,7 @@ import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.crypto.analysis.main.core.data_utils.select.StaticData.COUNT_VALUES_FOR_DIFFERENTIATION;
+import static com.crypto.analysis.main.core.vo.DataObject.COUNT_PRICES_VALUES;
 
 public class StandardizeNormalizer {
     private final HashMap<double[][], double[]> standardDeviation = new HashMap<>();
@@ -88,7 +88,7 @@ public class StandardizeNormalizer {
             for (int j = 0; j < input.length; j++) {
                 double value = (input[j][i] - mean[i]) / standardDeviation[i];
 
-                if (Math.abs(value) > 10 && i< COUNT_VALUES_FOR_DIFFERENTIATION) {
+                if (Math.abs(value) > 10 && i< COUNT_PRICES_VALUES) {
                     throw new IllegalStateException();
                 }
 

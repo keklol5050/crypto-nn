@@ -3,6 +3,7 @@ package com.crypto.analysis.main.core.ndata;
 import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
 import com.crypto.analysis.main.core.data_utils.utils.IndicatorsDataUtil;
+import com.crypto.analysis.main.core.data_utils.utils.PropertiesUtil;
 import com.crypto.analysis.main.core.data_utils.utils.SentimentUtil;
 import com.crypto.analysis.main.core.vo.CandleObject;
 import com.crypto.analysis.main.core.vo.DataObject;
@@ -10,7 +11,10 @@ import com.crypto.analysis.main.core.vo.FundamentalCryptoDataObject;
 import com.crypto.analysis.main.core.vo.FundamentalStockObject;
 import com.crypto.analysis.main.core.vo.indication.SentimentHistoryObject;
 import lombok.Getter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -19,32 +23,35 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.crypto.analysis.main.core.data_utils.select.StaticData.*;
+import static com.crypto.analysis.main.core.data_utils.select.StaticUtils.*;
+import static com.crypto.analysis.main.core.vo.DataObject.SKIP_NUMBER;
 
 public class CSVCoinDataSet {
     private final Path path;
     private final Coin coin;
 
     @Getter
-    private final TimeFrame interval;
+    private final TimeFrame tf;
     @Getter
     private final ArrayList<DataObject> data;
     @Getter
     private boolean isInitialized = false;
 
-    public CSVCoinDataSet(Coin coin, TimeFrame interval) {
+    private static final Logger logger = LoggerFactory.getLogger(CSVCoinDataSet.class);
+
+    public CSVCoinDataSet(Coin coin, TimeFrame tf) {
         this.coin = coin;
-        this.interval = interval;
-        this.path = switch (interval) {
-            case FIFTEEN_MINUTES -> pathToFifteenMinutesBTCDataSet;
-            case ONE_HOUR -> pathToOneHourBTCDataSet;
-            case FOUR_HOUR -> pathToFourHourBTCDataSet;
-        };
+        this.tf = tf;
+        this.path = Path.of(new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().getFile()).getParent() + PropertiesUtil.getProperty("data.datasets_path") + coin + "/" + tf.getTimeFrame() + ".csv");
         data = new ArrayList<>();
     }
 
     public void load() {
         if (isInitialized) return;
+
+        logger.info(String.format("Coin %s, Time frame %s", coin, tf));
+        logger.info("Loading CSV data from {}", path);
+
         ArrayList<DataObject> localData = new ArrayList<DataObject>();
         ArrayList<CandleObject> candles = new ArrayList<CandleObject>();
 
@@ -70,13 +77,12 @@ public class CSVCoinDataSet {
                 float longShortRatio = Float.parseFloat(tokens[9]);
                 float btcDOM = Float.parseFloat(tokens[10]);
 
-                DataObject object = new DataObject(coin, interval);
+                DataObject object = new DataObject(coin, tf);
                 object.setCandle(candle);
                 object.setCurrentFundingRate(fundingRate);
                 object.setCurrentOpenInterest(openInterest);
                 object.setLongShortRatio(longShortRatio);
                 object.setBTCDomination(btcDOM);
-
                 float spx = Float.parseFloat(tokens[11]);
                 float dxy = Float.parseFloat(tokens[12]);
                 float dji = Float.parseFloat(tokens[13]);
@@ -85,25 +91,24 @@ public class CSVCoinDataSet {
                 float gold = Float.parseFloat(tokens[16]);
 
                 FundamentalStockObject fundamentalStock = new FundamentalStockObject();
-                fundamentalStock.setSPX(spx);
-                fundamentalStock.setDXY(dxy);
-                fundamentalStock.setDJI(dji);
-                fundamentalStock.setVIX(vix);
-                fundamentalStock.setNDX(ndx);
-                fundamentalStock.setGOLD(gold);
+                fundamentalStock.setSPX(new float[]{0,0,0,spx});
+                fundamentalStock.setDXY(new float[]{0,0,0,dxy});
+                fundamentalStock.setDJI(new float[]{0,0,0,dji});
+                fundamentalStock.setVIX(new float[]{0,0,0,vix});
+                fundamentalStock.setNDX(new float[]{0,0,0,ndx});
+                fundamentalStock.setGOLD(new float[]{0,0,0,gold});
                 object.setFundamentalData(fundamentalStock);
 
-                float transactions_count = Float.parseFloat(tokens[17]);
-                float fee_value = Float.parseFloat(tokens[18]);
-                float fee_average = Float.parseFloat(tokens[19]);
-                float input_count = Float.parseFloat(tokens[20]);
-                float input_value = Float.parseFloat(tokens[21]);
-                float mined_value = Float.parseFloat(tokens[22]);
-                float output_count = Float.parseFloat(tokens[23]);
-                float output_value = Float.parseFloat(tokens[24]);
+                float f1 = Float.parseFloat(tokens[17]);
+                float f2 = Float.parseFloat(tokens[18]);
+                float f3 = Float.parseFloat(tokens[19]);
+                float f4 = Float.parseFloat(tokens[20]);
+                float f5 = Float.parseFloat(tokens[21]);
+                float f6 = Float.parseFloat(tokens[22]);
+                float f7 = Float.parseFloat(tokens[23]);
+                float f8 = Float.parseFloat(tokens[24]);
 
-                FundamentalCryptoDataObject fCrypto = new FundamentalCryptoDataObject(coin, new float[]{transactions_count, fee_value, fee_average,
-                        input_count, input_value, mined_value, output_count, output_value});
+                FundamentalCryptoDataObject fCrypto = new FundamentalCryptoDataObject(coin, new float[]{f1, f2, f3, f4, f5, f6, f7, f8});
 
                 object.setCryptoFundamental(fCrypto);
 
@@ -123,6 +128,13 @@ public class CSVCoinDataSet {
             object.setCurrentIndicators(util.getIndicators(i));
             this.data.add(object);
         }
+
+        logger.info(String.format("Coin %s, Time frame %s loaded", coin, tf));
         isInitialized = true;
+    }
+
+    public static void main(String[] args) {
+        CSVCoinDataSet set = new CSVCoinDataSet(Coin.BTCUSDT, TimeFrame.FOUR_HOUR);
+        set.load();
     }
 }

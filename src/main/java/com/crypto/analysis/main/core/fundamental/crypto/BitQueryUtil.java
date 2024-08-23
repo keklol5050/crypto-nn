@@ -2,6 +2,7 @@ package com.crypto.analysis.main.core.fundamental.crypto;
 
 import com.crypto.analysis.main.core.data_utils.select.coin.Coin;
 import com.crypto.analysis.main.core.data_utils.select.coin.TimeFrame;
+import com.crypto.analysis.main.core.data_utils.utils.PropertiesUtil;
 import com.crypto.analysis.main.core.vo.CandleObject;
 import com.crypto.analysis.main.core.vo.FundamentalCryptoDataObject;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -15,9 +16,17 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
 
-import static com.crypto.analysis.main.core.data_utils.select.StaticData.*;
+import static com.crypto.analysis.main.core.data_utils.select.StaticUtils.*;
 
 public class BitQueryUtil {
+    public static final String BITQUERY_HOUR_REQ_BTC = "{\"query\":\"{bitcoin {\\ntransactions(date: {since: \\\"%s\\\", till: \\\"%s\\\"}) {\\ncount feeValue fee_avg: feeValue(calculate: average)\\ninputCount inputValue minedValue outputCount\\noutputValue\\nblock {timestamp {year month dayOfMonth hour}}\\n}}}\\n\",\"variables\":\"{}\"}";
+    public static final String BITQUERY_SIMPLE_REQ_BTC = "{\"query\":\"{bitcoin {\\ntransactions(date: {since: \\\"%s\\\", till: \\\"%s\\\"}) {\\ncount feeValue fee_avg: feeValue(calculate: average) \\ninputCount inputValue minedValue\\noutputCount outputValue\\nblock {timestamp {time}}\\n}}}\\n\",\"variables\":\"{}\"}";
+
+    public static final String BITQUERY_SIMPLE_REQ_ETH = "{\"query\":\" {ethereum {\\ntransactions(date: {since: \\\"%s\\\", till: \\\"%s\\\"}) {\\nblock {\\ntimestamp {\\nyear\\nmonth\\ndayOfMonth\\nhour\\nminute\\n}\\n}\\ngas\\ngasPrice\\ngasValue\\namount\\ncount\\n}\\n}\\n}\",\"variables\":\"{}\"}";
+    public static final String BITQUERY_HOUR_REQ_ETH = "{\"query\":\" {ethereum {\\ntransactions(date: {since: \\\"%s\\\", till: \\\"%s\\\"}) {\\nblock {\\ntimestamp {\\nyear\\nmonth\\ndayOfMonth\\nhour\\n}\\n}\\ngas\\ngasPrice\\ngasValue\\namount\\ncount\\n}\\n}\\n}\",\"variables\":\"{}\"}";
+
+    public static final String bitQueryApiKey = PropertiesUtil.getProperty("bitquery.key");
+
     private final Coin coin;
     private final TimeFrame interval;
 
@@ -30,7 +39,7 @@ public class BitQueryUtil {
     }
 
     public static void main(String[] args) {
-        new BitQueryUtil(Coin.BTCUSDT, TimeFrame.FOUR_HOUR).initData(new Date(124, 02, 20), new Date());
+        new BitQueryUtil(Coin.ETHUSDT, TimeFrame.FOUR_HOUR).initData(new Date(124, 06, 26), new Date());
     }
 
     public FundamentalCryptoDataObject getData(CandleObject candle) {
@@ -41,17 +50,25 @@ public class BitQueryUtil {
     public void initData(Date start, Date end) {
         MediaType mediaType = MediaType.parse("application/json");
 
-        String coin = switch (this.coin) {
-            case BTCUSDT -> "bitcoin";
-            default -> throw new IllegalArgumentException();
-        };
+        String[] coinFundCols = coin.getFundCols();
+
         String startDate = sdfShortISO.format(start);
         String endDate = sdfShortISO.format(end);
 
-        RequestBody body = RequestBody.create(mediaType, switch (interval) {
-            case ONE_HOUR, FOUR_HOUR -> String.format(BITQUERY_HOUR_REQ, coin, startDate, endDate);
-            default -> String.format(BITQUERY_SIMPLE_REQ, coin, startDate, endDate);
-        });
+        String requestBodyContent = switch (coin) {
+            case Coin.BTCUSDT -> switch (interval) {
+                case ONE_HOUR, FOUR_HOUR -> String.format(BITQUERY_HOUR_REQ_BTC, startDate, endDate);
+                default -> String.format(BITQUERY_SIMPLE_REQ_BTC, startDate, endDate);
+            };
+            case Coin.ETHUSDT -> switch (interval) {
+                case ONE_HOUR, FOUR_HOUR -> String.format(BITQUERY_HOUR_REQ_ETH, startDate, endDate);
+                default -> String.format(BITQUERY_SIMPLE_REQ_ETH, startDate, endDate);
+            };
+            default -> throw new IllegalStateException("Unexpected value: " + coin);
+        };
+
+        RequestBody body = RequestBody.create(mediaType, requestBodyContent);;
+
         Request request = new Request.Builder()
                 .url("https://graphql.bitquery.io")
                 .method("POST", body)
@@ -69,35 +86,44 @@ public class BitQueryUtil {
 
                 JsonNode valuesNode = objectMapper.readTree(jsonData)
                         .get("data")
-                        .get("bitcoin")
+                        .get(coin.getName())
                         .get("transactions");
 
                 for (JsonNode node : valuesNode) {
-                    float count = (float) node.get("count").asDouble();
-
-                    float feeValue = (float) node.get("feeValue").asDouble();
-                    float feeAvg = (float) node.get("fee_avg").asDouble();
-
-                    float inputCount = (float) node.get("inputCount").asDouble();
-                    float inputValue = (float) node.get("inputValue").asDouble();
-
-                    float minedValue = (float) node.get("minedValue").asDouble();
-
-                    float outputCount = (float) node.get("outputCount").asDouble();
-                    float outputValue = (float) node.get("outputValue").asDouble();
-
-                    Date timestamp;
-                    if (interval == TimeFrame.ONE_HOUR || interval == TimeFrame.FOUR_HOUR) {
-                        int year = node.get("block").get("timestamp").get("year").asInt();
-                        int month = node.get("block").get("timestamp").get("month").asInt();
-                        int day = node.get("block").get("timestamp").get("dayOfMonth").asInt();
-                        int hour = node.get("block").get("timestamp").get("hour").asInt();
-                        timestamp = sdfFullISO.parse(String.format("%d-%d-%d %d:00:00", year, month, day, hour));
-                    } else {
-                        timestamp = sdfFullISO.parse(node.get("block").get("timestamp").get("time").asText());
+                    float[] values = new float[coinFundCols.length];
+                    for (int i = 0; i < values.length; i++) {
+                        values[i] = (float) node.get(coinFundCols[i]).asDouble();
                     }
 
-                    temp.put(timestamp, new float[]{count, feeValue, feeAvg, inputCount, inputValue, minedValue, outputCount, outputValue});
+                    Date timestamp;
+                    switch (coin) {
+                        case BTCUSDT -> {
+                            if (interval == TimeFrame.ONE_HOUR || interval == TimeFrame.FOUR_HOUR) {
+                                int year = node.get("block").get("timestamp").get("year").asInt();
+                                int month = node.get("block").get("timestamp").get("month").asInt();
+                                int day = node.get("block").get("timestamp").get("dayOfMonth").asInt();
+                                int hour = node.get("block").get("timestamp").get("hour").asInt();
+                                timestamp = sdfFullISO.parse(String.format("%d-%d-%d %d:00:00", year, month, day, hour));
+                            } else {
+                                timestamp = sdfFullISO.parse(node.get("block").get("timestamp").get("time").asText());
+                            }
+                        }
+                        case ETHUSDT -> {
+                            int year = node.get("block").get("timestamp").get("year").asInt();
+                            int month = node.get("block").get("timestamp").get("month").asInt();
+                            int day = node.get("block").get("timestamp").get("dayOfMonth").asInt();
+                            int hour = node.get("block").get("timestamp").get("hour").asInt();
+                            if (interval == TimeFrame.ONE_HOUR || interval == TimeFrame.FOUR_HOUR) {
+                                timestamp = sdfFullISO.parse(String.format("%d-%d-%d %d:00:00", year, month, day, hour));
+                            } else {
+                                int minute = node.get("block").get("timestamp").get("minute").asInt();
+                                timestamp = sdfFullISO.parse(String.format("%d-%d-%d %d:%d:00", year, month, day, hour, minute));
+                            }
+                        }
+                        default -> throw new IllegalStateException("Unexpected value: " + coin);
+                    };
+
+                    temp.put(timestamp, values);
                 }
 
                 result = mergeData(temp, interval.getMinuteCount());
@@ -113,7 +139,7 @@ public class BitQueryUtil {
 
     private Date roundDown(Date date, int intervalInMinutes) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
+        calendar.setTimeZone(TimeZone.getTimeZone(defaultZone));
         calendar.setTime(date);
         int minuteOfDay = calendar.get(Calendar.HOUR_OF_DAY) * 60 + calendar.get(Calendar.MINUTE);
         calendar.add(Calendar.MINUTE, -(minuteOfDay % intervalInMinutes));
@@ -136,7 +162,7 @@ public class BitQueryUtil {
             Date roundedDate = roundDown(timestamp, interval);
 
             if (currentIntervalStart != null && !currentIntervalStart.equals(roundedDate)) {
-                sumValues[2] = sumValues[1] / sumValues[0];
+                sumValues[sumValues.length-1] /= count;
                 mergedData.put(currentIntervalStart, sumValues);
 
                 sumValues = new float[values.length];
@@ -152,7 +178,7 @@ public class BitQueryUtil {
         }
 
         if (currentIntervalStart != null) {
-            sumValues[2] = sumValues[1] / sumValues[0];
+            sumValues[sumValues.length-1] /= count;
             mergedData.put(currentIntervalStart, sumValues);
         }
 

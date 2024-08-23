@@ -1,242 +1,226 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.3</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
-	<groupId>com.crypto.analysis</groupId>
-	<artifactId>main</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
-	<name>main</name>
-	<description>Crypto neural network</description>
-	<properties>
-		<djl.version>0.27.0</djl.version>
-		<pytorch.version>2.1.1</pytorch.version>
-		<jfreechart.version>1.0.13</jfreechart.version>
-		<jcommon.version>1.0.23</jcommon.version>
-		<java.version>21</java.version>
-	</properties>
-	<dependencies>
-		<!-- Spring dependencies start -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-mail</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-validation</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web-services</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.session</groupId>
-			<artifactId>spring-session-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.thymeleaf.extras</groupId>
-			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<!-- Spring dependencies end -->
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.crypto.analysis</groupId>
+    <artifactId>main</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>main</name>
+    <description>trading with nn</description>
+    <properties>
+        <djl.version>0.28.0</djl.version>
+        <pytorch.version>2.2.2</pytorch.version>
+        <jfreechart.version>1.0.13</jfreechart.version>
+        <jcommon.version>1.0.23</jcommon.version>
+        <jackson.version>2.17.1</jackson.version>
+        <java.version>22</java.version>
+        <maven.compiler.source>22</maven.compiler.source>
+        <maven.compiler.target>22</maven.compiler.target>
+    </properties>
+    <dependencies>
+        <!-- DJL dependencies start -->
+        <dependency>
+            <groupId>ai.djl</groupId>
+            <artifactId>api</artifactId>
+            <version>${djl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ai.djl.timeseries</groupId>
+            <artifactId>timeseries</artifactId>
+            <version>${djl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ai.djl</groupId>
+            <artifactId>model-zoo</artifactId>
+            <version>${djl.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ai.djl.mxnet</groupId>
+            <artifactId>mxnet-engine</artifactId>
+            <version>${djl.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>ai.djl.mxnet</groupId>
+            <artifactId>mxnet-model-zoo</artifactId>
+            <version>${djl.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>ai.djl.pytorch</groupId>
+            <artifactId>pytorch-engine</artifactId>
+            <version>${djl.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>ai.djl.pytorch</groupId>
+            <artifactId>pytorch-native-cu121</artifactId>
+            <classifier>win-x86_64</classifier>
+            <version>${pytorch.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>ai.djl.pytorch</groupId>
+            <artifactId>pytorch-native-cu121-precxx11</artifactId>
+            <version>${pytorch.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>ai.djl.pytorch</groupId>
+            <artifactId>pytorch-jni</artifactId>
+            <version>${pytorch.version}-${djl.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>ai.djl.pytorch</groupId>
+            <artifactId>pytorch-model-zoo</artifactId>
+            <version>${djl.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- DJL dependencies end -->
+
+        <!-- Commons and net dependencies start -->
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.30.2-GA</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.15.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.6.1</version>
+        </dependency>
 
 
-		<!-- DJL dependencies start -->
-		<dependency>
-			<groupId>ai.djl</groupId>
-			<artifactId>api</artifactId>
-			<version>${djl.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>ai.djl.pytorch</groupId>
-			<artifactId>pytorch-engine</artifactId>
-			<version>${djl.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>ai.djl.pytorch</groupId>
-			<artifactId>pytorch-native-cu121</artifactId>
-			<classifier>win-x86_64</classifier>
-			<version>${pytorch.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>ai.djl.pytorch</groupId>
-			<artifactId>pytorch-native-cu121-precxx11</artifactId>
-			<version>${pytorch.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>ai.djl.pytorch</groupId>
-			<artifactId>pytorch-jni</artifactId>
-			<version>${pytorch.version}-${djl.version}</version>
-			<scope>runtime</scope>
-		</dependency>
+        <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+            <version>3.10.0</version>
+        </dependency>
 
-		<!-- DJL dependencies end -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.4</version>
+        </dependency>
 
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>1.26.0</version>
+        </dependency>
 
-		<!-- Commons and net dependencies start -->
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.15.1</version>
-		</dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>1.10.0</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-math3</artifactId>
-			<version>3.6.1</version>
-		</dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.12.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>33.0.0-jre</version>
+        </dependency>
+
+        <!-- Commons and net dependencies end -->
 
 
-		<dependency>
-			<groupId>commons-net</groupId>
-			<artifactId>commons-net</artifactId>
-			<version>3.10.0</version>
-		</dependency>
+        <!-- Trade dependencies start -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-collections4</artifactId>
-			<version>4.4</version>
-		</dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-compress</artifactId>
-			<version>1.26.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-csv</artifactId>
-			<version>1.10.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.squareup.okhttp3</groupId>
-			<artifactId>okhttp</artifactId>
-			<version>4.12.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>33.0.0-jre</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<!-- Commons and net dependencies end -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
 
 
-		<!-- Trade dependencies start -->
-		<dependency>
-			<groupId>io.github.binance</groupId>
-			<artifactId>binance-futures-connector-java</artifactId>
-			<version>3.0.4</version>
-		</dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.32</version>
+            <scope>provided</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>org.ta4j</groupId>
-			<artifactId>ta4j-core</artifactId>
-			<version>0.15</version>
-		</dependency>
+        <dependency>
+            <groupId>io.github.binance</groupId>
+            <artifactId>binance-futures-connector-java</artifactId>
+            <version>3.0.4</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.ta4j</groupId>
-			<artifactId>ta4j-parent</artifactId>
-			<version>0.15</version>
-			<type>pom</type>
-		</dependency>
+        <dependency>
+            <groupId>org.ta4j</groupId>
+            <artifactId>ta4j-core</artifactId>
+            <version>0.15</version>
+        </dependency>
 
-		<dependency>
-			<groupId>jfree</groupId>
-			<artifactId>jfreechart</artifactId>
-			<version>${jfreechart.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.ta4j</groupId>
+            <artifactId>ta4j-parent</artifactId>
+            <version>0.15</version>
+            <type>pom</type>
+        </dependency>
 
-		<dependency>
-			<groupId>org.jfree</groupId>
-			<artifactId>jcommon</artifactId>
-			<version>${jcommon.version}</version>
-		</dependency>
-		<!-- Trade dependencies end -->
+        <dependency>
+            <groupId>jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>${jfreechart.version}</version>
+        </dependency>
 
-	</dependencies>
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jcommon</artifactId>
+            <version>${jcommon.version}</version>
+        </dependency>
+        <!-- Trade dependencies end -->
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.5.3</version>
-				<executions>
-					<execution>
-						<id>shade-jar-with-dependencies</id>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-						<configuration>
-							<transformers>
-								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<manifestEntries>
-										<Main-Class>com.crypto.analysis.main.core.regression.Predictor</Main-Class>
-										<Build-Number>1</Build-Number>
-									</manifestEntries>
-								</transformer>
-							</transformers>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>libs/</classpathPrefix>
+                            <mainClass>
+                                com.crypto.analysis.main.view.GUI
+                            </mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
